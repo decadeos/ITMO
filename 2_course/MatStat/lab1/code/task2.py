@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-file = open("mobile_phones.csv")
+file = open("/home/eva/Документы/ITMO/2_course/MatStat/lab1/mobile_phones.csv")
 
 def calculateMean(data):
     return sum(data) / len(data)
@@ -27,37 +27,37 @@ def calculateQuantile(data, p):
         return sortedData[lowerIndex] + fraction * (sortedData[lowerIndex + 1] - sortedData[lowerIndex])
     return sortedData[lowerIndex]
 
-import matplotlib.pyplot as plt
+def plots(data, title="Графики распределения"):
 
-def plotEmpiricalDistribution(data):
-    sortedData = sorted(data)
-    n = len(sortedData)
-    
-    xValues = sortedData
-    yValues = [i / n for i in range(1, n + 1)]
-    
-    plt.figure(figsize=(8, 6))
-    plt.step(xValues, yValues, where='post', label='ЭФР', color='red', linewidth=2.5)
-    
-    plt.xlabel('Значения', fontsize=14)
-    plt.ylabel('F(x)', fontsize=14) 
-    plt.title('Эмпирическая функция распределения', fontsize=16)
-    plt.legend(fontsize=12)
-    plt.grid(True)
-    plt.xticks(fontsize=12)
-    plt.yticks(fontsize=12) 
-    plt.show()
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+    fig.suptitle(title, fontsize=16)
 
-def plotHistogram(data):
-    plt.figure(figsize=(8, 6))
-    plt.hist(data, bins=30, color='blue', edgecolor='black', linewidth=1.5)
-    plt.xlabel('Значения', fontsize=14)
-    plt.ylabel('Частота', fontsize=14)
-    plt.title('Гистограмма', fontsize=16)
-    plt.grid(True)
-    plt.xticks(fontsize=12)
-    plt.yticks(fontsize=12)
+    sorted_data = sorted(data)
+    n = len(sorted_data)
+    x_values = sorted_data
+    y_values = [i / n for i in range(1, n + 1)]
+    
+    axes[0].step(x_values, y_values, where='post', label='ЭФР', color='red', linewidth=2.5)
+    axes[0].set_xlabel('Значения', fontsize=12)
+    axes[0].set_ylabel('F(x)', fontsize=12)
+    axes[0].set_title('Эмпирическая функция распределения', fontsize=14)
+    axes[0].legend(fontsize=10)
+    axes[0].grid(True)
+
+    axes[1].hist(data, bins=30, color='blue', edgecolor='black', linewidth=1.5)
+    axes[1].set_xlabel('Значения', fontsize=12)
+    axes[1].set_ylabel('Частота', fontsize=12)
+    axes[1].set_title('Гистограмма', fontsize=14)
+    axes[1].grid(True)
+
+    axes[2].boxplot(data, vert=True, patch_artist=True, boxprops=dict(facecolor="lightblue"))
+    axes[2].set_ylabel('Значения', fontsize=12)
+    axes[2].set_title('Box-plot', fontsize=14)
+    axes[2].grid(True)
+    
+    plt.tight_layout()
     plt.show()
+    
 
 counter = 0
 data = list()
@@ -107,12 +107,9 @@ print(batteryPowerSampleMean, "- выборочное среднее")
 print(batteryPowerSampleVariance, "- выборочная дисперсия")
 print(sampleMedian, "- выборочная медиана")
 print(sampleQuantile, "- выборочная квантиль порядка 2/5")
-plotEmpiricalDistribution(batteryPowerList)
-plotHistogram(batteryPowerList)
-
+plots(batteryPowerList, "Графики для всей совокупности batteryPower")
 
 # Question 5 - расчет парамеров для batteryPower, поддерживащих Wi-Fi
-
 wiFiBatteryMean = calculateMean(batteryPowerListWiFi)
 wiFiBatteryVariance = calculateVariance(batteryPowerListWiFi)
 wiFiBatteryMedian = calculateMedian(batteryPowerListWiFi)
@@ -123,11 +120,9 @@ print(wiFiBatteryMean, "- выборочное среднее")
 print(wiFiBatteryVariance, "- выборочная дисперсия")
 print(wiFiBatteryMedian, "- выборочная медиана")
 print(wiFiBatteryQuantile, "- выборочная квантиль порядка 2/5")
-plotEmpiricalDistribution(batteryPowerListWiFi)
-plotHistogram(batteryPowerListWiFi)
+plots(batteryPowerListWiFi, "Графики для batteryPower с Wi-Fi")
 
 # Question 6 - расчет парамеров для batteryPower, не поддерживащих Wi-Fi
-
 noWifiBatteryMean = calculateMean(batteryPowerListNoWifi)
 noWifiBatteryVariance = calculateVariance(batteryPowerListNoWifi)
 noWifiBatteryMedian = calculateMedian(batteryPowerListNoWifi)
@@ -138,5 +133,4 @@ print(noWifiBatteryMean, "- выборочное среднее")
 print(noWifiBatteryVariance, "- выборочная дисперсия")
 print(noWifiBatteryMedian, "- выборочная медиана")
 print(noWifiBatteryQuantile, "- выборочная квантиль порядка 2/5")
-plotEmpiricalDistribution(batteryPowerListNoWifi)
-plotHistogram(batteryPowerListNoWifi)
+plots(batteryPowerListNoWifi, "Графики для batteryPower без Wi-Fi")

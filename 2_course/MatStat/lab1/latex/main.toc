@@ -1,0 +1,17 @@
+\babel@toc {russian}{}\relax 
+\contentsline {chapter}{\numberline {1}Задание 1}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Выбор распределения и параметров}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Генерация выборок}{2}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Вычисление выборочных статистик}{3}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Построение гистограмм и наложение теоретической плотности}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Проверка сходимости $nF(X_{(2)})$ и $n(1 - F(X_{(n)}))$}{7}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Вывод статистик}{10}{section.1.6}%
+\contentsline {chapter}{\numberline {2}Задание 2}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Первые три вопроса}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Написание остальных функций}{13}{section.2.2}%
+\contentsline {subsubsection}{Функция выборочного среднего}{13}{section*.8}%
+\contentsline {subsubsection}{Выборочная дисперсия}{13}{section*.9}%
+\contentsline {subsubsection}{Выборочная медиана}{14}{section*.10}%
+\contentsline {subsubsection}{Выборочный квантиль порядка \(\frac {2}{5}\)}{14}{section*.11}%
+\contentsline {subsubsection}{Графики}{14}{section*.12}%
+\contentsline {section}{\numberline {2.3}Выводы по написанным функциям}{15}{section.2.3}%
