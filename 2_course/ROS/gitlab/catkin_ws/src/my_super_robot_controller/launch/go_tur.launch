@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="turtlesim" type="turtlesim_node" name="turtlesim"  output="screen">
+  </node>
+  <node pkg="my_super_robot_controller" type="super_node.py" name="super_node"  output="screen">
+  </node>
+
+</launch>
+

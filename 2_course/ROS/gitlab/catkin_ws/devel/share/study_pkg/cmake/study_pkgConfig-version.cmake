@@ -1,0 +1,1 @@
+/home/eva/Documents/itmo/catkin_ws/devel/.private/study_pkg/share/study_pkg/cmake/study_pkgConfig-version.cmake

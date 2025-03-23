@@ -1,0 +1,1 @@
+chrome.runtime.onInstalled.addListener(async e=>{e.reason==="install"&&(await chrome.storage.local.clear(),chrome.tabs.create({active:!0,url:chrome.runtime.getURL("./installed.html")}))});console.log("hello world from background");

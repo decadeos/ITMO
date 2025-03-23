@@ -1,0 +1,18 @@
+<launch>
+  <!-- Первое окно turtlesim -->
+  <group ns="NS1_409290">
+    <node pkg="turtlesim" type="turtlesim_node" name="sim1" output="screen"/>
+  </group>
+
+  <!-- Второе окно turtlesim -->
+  <group ns="NS2_409290">
+    <node pkg="turtlesim" type="turtlesim_node" name="sim2" output="screen"/>
+  </group>
+
+  <!-- Узел контроллера -->
+  <node pkg="my_best_controller" type="lab2_controller.py" name="lab2_controller" output="screen">
+    <param name="turtle1_namespace" value="/NS1_409290"/>
+    <param name="turtle2_namespace" value="/NS2_409290"/>
+  </node>
+
+</launch>

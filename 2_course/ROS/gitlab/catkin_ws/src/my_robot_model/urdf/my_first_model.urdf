@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+
+    <link name='base_link'>
+        <visual name='base_visual'>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.2 0.6 0.6"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- Левое колесо -->
+    <link name='wheel_left'>
+        <visual name='wheel_left_visual'>
+            <origin xyz="0.2 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.7" radius="0.1"/>
+            </geometry>
+            <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint type="continuous" name="wheel_left_joint">
+        <origin xyz="0.15 0.0 0" rpy="0 0 0"/>
+        <child link="wheel_left"/>
+        <parent link="base_link"/>
+    </joint>
+
+    <!-- Правое колесо -->
+    <link name='wheel_right'>
+        <visual name='wheel_right_visual'>
+            <origin xyz="-0.2 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.7" radius="0.1"/>
+            </geometry>
+            <material name="gray"/>
+        </visual>
+    </link>
+
+    <joint type="continuous" name="wheel_right_joint">
+        <origin xyz="-0.15 0.0 0" rpy="0 0 0"/>
+        <child link="wheel_right"/>
+        <parent link="base_link"/>
+    </joint>
+
+</robot>

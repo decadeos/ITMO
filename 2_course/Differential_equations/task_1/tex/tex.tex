@@ -1,0 +1,471 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=3cm, right=3cm}
+\documentclass[a4paper,12pt]{article}
+\usepackage{listings} % Подключаем пакет для кода
+\usepackage{xcolor}   % Для цветного форматирования
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[none]{hyphenat}
+\usepackage{hyperref} % Пакет для гиперссылок
+% Настройка отображения кода
+\lstset{
+    language=Python,           % Указываем язык
+    basicstyle=\ttfamily\small, % Шрифт кода
+    keywordstyle=\color{blue}, % Цвет ключевых слов
+    stringstyle=\color{red},   % Цвет строк (например, "текст")
+    commentstyle=\color{green},% Цвет комментариев
+    numbers=left,              % Нумерация строк
+    numberstyle=\tiny\color{gray}, % Формат номеров строк
+    stepnumber=1,              % Шаг нумерации строк
+    breaklines=true,           % Перенос строк
+    backgroundcolor=\color{lightgray!10}, % Цвет фона
+    frame=single,              % Рамка вокруг кода
+    tabsize=4,                 % Размер табуляции
+    showstringspaces=false     % Не отображать пробелы в строках
+}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\scshape\large Министерство науки и высшего образования Российской Федерации\par}
+    {\scshape\large федеральное государственное автономное образовательное учреждение высшего образования\par}
+    {\bfseries\large «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»\par}
+    \vspace{3cm}
+    {\bfseries\Large РГР 1 по Дифферинциальным уравнениям\par}
+    \vspace{1cm}
+    {\bfseries\large «ЧИСЛЕННОЕ
+ИНТЕГРИРОВАНИЕ
+ДИФФЕРЕНЦИАЛЬНЫХ
+УРАВНЕНИЙ ПЕРВОГО
+ПОРЯДКА»\par}
+    \vfill
+    \hspace{0.5\linewidth}%
+    \begin{minipage}{0.4\linewidth}
+        Выполнилa: \par Охрименко А. Д. \par
+        R3225, 409290 \par
+        Поток: ДУ 23 1.1 \par
+        Факультет: СУиР \par
+        Преподаватель: \par
+        Танченко Ю. В.
+    \end{minipage}
+    \vfill
+    {\bfseries Санкт-Петербург, 2024\par}
+\end{titlepage}
+
+
+
+
+
+
+\section{Вариант 20. Условие задачи}
+
+Численно решить дифференциальное уравнение:
+\[
+y' = 3x - \frac{y}{x}, \quad y(1) = 1
+\]
+на отрезке $[1; 2]$ с шагом $h = 0.2$ методом Эйлера, модифицированным методом Эйлера.
+
+Найти точное решение $y = y(x)$ и сравнить значения точного и приближенных решений в точке $x = 2$. Найти абсолютную и относительную погрешности в этой точке для каждого метода. Вычисления вести с четырьмя десятичными знаками.
+
+\textbf{Замечание.} Необходимые теоретические сведения и образец выполнения работы приведены в конце пункта.
+
+
+
+\section{Точное решение}
+
+\subsection*{Приведение уравнения к однородному виду}
+Дано дифференциальное уравнение:
+\[
+y' = 3x - \frac{y}{x}.
+\]
+
+Запишем его в форме:
+\[
+\frac{dy}{dx} = 3x - \frac{y}{x}.
+\]
+
+Предположим подстановку \( y = z^2 \), где \( z = \sqrt{y} \). Тогда:
+\[
+y = z^2, \quad \frac{dy}{dx} = 2z \frac{dz}{dx}.
+\]
+
+Подставляем в уравнение:
+\[
+2z \frac{dz}{dx} = 3x - \frac{z^2}{x}.
+\]
+
+Приводим к однородному виду:
+\[
+2z \frac{dz}{dx} = \frac{3x^2 - z^2}{x}.
+\]
+
+\subsection*{Разделение переменных}
+Перепишем уравнение в форме, удобной для разделения переменных:
+\[
+2z \, dz = \frac{3x^2 - z^2}{x} \, dx.
+\]
+
+Разделим переменные:
+\[
+\frac{2z}{z^2 - 3} \, dz = \frac{1}{x} \, dx.
+\]
+
+Интегрируем обе части:
+\[
+\int \frac{2z}{z^2 - 3} \, dz = \int \frac{1}{x} \, dx.
+\]
+
+\subsection*{Решение интегралов}
+Интегрируем левую часть:
+\[
+\int \frac{2z}{z^2 - 3} \, dz = \ln|z^2 - 3| + C_1.
+\]
+
+Интегрируем правую часть:
+\[
+\int \frac{1}{x} \, dx = \ln|x| + C_2.
+\]
+
+Собираем итоговое выражение:
+\[
+\ln|z^2 - 3| = \ln|x| + C,
+\]
+где \( C = C_2 - C_1 \).
+
+Возвращаемся к переменной \( y \) через \( z \):
+\[
+z^2 - 3 = Cx.
+\]
+
+Так как \( z = \sqrt{y} \), то:
+\[
+y = x^2 + Cx.
+\]
+
+\subsection*{Задача Коши}
+Учитываем начальное условие \( y(1) = 1 \):
+\[
+1 = 1^2 + C \cdot 1.
+\]
+
+Решаем относительно \( C \):
+\[
+C = 0.
+\]
+
+\subsection*{Итоговое решение}
+Подставляем значение \( C = 0 \) в общее решение:
+\[
+y = x^2.
+\]
+
+Таким образом, точное решение задачи Коши:
+\[
+y = x^2.
+\]
+
+
+\section{Метод Эйлера}
+
+
+
+Рассмотрим задачу Коши:
+\[
+y'(x) = 3x - \frac{y}{x}, \quad y(1) = 1.
+\]
+
+Шаг интегрирования: \( h = 0.2 \). Необходимо найти приближённые значения \( y \) на отрезке \([1; 2]\) методом Эйлера.
+
+\subsection*{Формула метода Эйлера}
+Приближённые значения вычисляются по формуле:
+\[
+y_{n+1} = y_n + h \cdot f(x_n, y_n),
+\]
+где \( f(x, y) = 3x - \frac{y}{x} \).
+
+\subsection*{Пошаговые вычисления}
+
+\textbf{Шаг 0:} 
+\[
+x_0 = 1, \quad y_0 = 1.
+\]
+
+\textbf{Шаг 1:}
+\[
+x_1 = x_0 + h = 1 + 0.2 = 1.2,
+\]
+\[
+f(x_0, y_0) = 3 \cdot 1 - \frac{1}{1} = 3 - 1 = 2,
+\]
+\[
+y_1 = y_0 + h \cdot f(x_0, y_0) = 1 + 0.2 \cdot 2 = 1.4.
+\]
+
+\textbf{Шаг 2:}
+\[
+x_2 = x_1 + h = 1.2 + 0.2 = 1.4,
+\]
+\[
+f(x_1, y_1) = 3 \cdot 1.2 - \frac{1.4}{1.2} = 3.6 - 1.1667 \approx 2.4333,
+\]
+\[
+y_2 = y_1 + h \cdot f(x_1, y_1) = 1.4 + 0.2 \cdot 2.4333 = 1.8867.
+\]
+
+\textbf{Шаг 3:}
+\[
+x_3 = x_2 + h = 1.4 + 0.2 = 1.6,
+\]
+\[
+f(x_2, y_2) = 3 \cdot 1.4 - \frac{1.8867}{1.4} = 4.2 - 1.3476 \approx 2.8524,
+\]
+\[
+y_3 = y_2 + h \cdot f(x_2, y_2) = 1.8867 + 0.2 \cdot 2.8524 = 2.4572.
+\]
+
+\textbf{Шаг 4:}
+\[
+x_4 = x_3 + h = 1.6 + 0.2 = 1.8,
+\]
+\[
+f(x_3, y_3) = 3 \cdot 1.6 - \frac{2.4572}{1.6} = 4.8 - 1.5358 \approx 3.2642,
+\]
+\[
+y_4 = y_3 + h \cdot f(x_3, y_3) = 2.4572 + 0.2 \cdot 3.2642 = 3.1100.
+\]
+
+\textbf{Шаг 5:}
+\[
+x_5 = x_4 + h = 1.8 + 0.2 = 2.0,
+\]
+\[
+f(x_4, y_4) = 3 \cdot 1.8 - \frac{3.1100}{1.8} = 5.4 - 1.7278 \approx 3.6722,
+\]
+\[
+y_5 = y_4 + h \cdot f(x_4, y_4) = 3.1100 + 0.2 \cdot 3.6722 = 3.8444.
+\]
+
+\subsection*{Итоговая таблица значений}
+
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+n & x_n & f(x_n, y_n) & y_n \\ \hline
+0 & 1.0 & 2.0 & 1.0000 \\ 
+1 & 1.2 & 2.4333 & 1.4000 \\ 
+2 & 1.4 & 2.8524 & 1.8867 \\ 
+3 & 1.6 & 3.2642 & 2.4572 \\ 
+4 & 1.8 & 3.6722 & 3.1100 \\ 
+5 & 2.0 & - & 3.8444 \\ \hline
+\end{array}
+\]
+
+\subsection*{Вывод}
+При использовании метода Эйлера для решения задачи Коши приближённое значение решения в точке \( x = 2 \) равно \( y = 3.8444 \).
+
+
+
+\subsection*{Код}
+\par
+Ниже представлен код метода Эйлера для решения задачи:
+
+\begin{lstlisting}
+import numpy as np
+import pandas as pd
+
+def f(x, y):
+    return 3 * x - y / x
+
+def euler_method(f, x0, y0, h, x_end):
+    x_values = [x0]
+    y_values = [y0]
+    
+    x = x0
+    y = y0
+    
+    while x < x_end:
+        y = y + h * f(x, y)
+        x = x + h
+        x_values.append(round(x, 4))  
+        y_values.append(round(y, 4)) 
+    
+    return np.array(x_values), np.array(y_values)
+
+x0 = 1   
+y0 = 1    
+h = 0.2   
+x_end = 2 
+
+x_vals, y_vals = euler_method(f, x0, y0, h, x_end)
+
+results = pd.DataFrame({'x': x_vals, 'y (Eiler)': y_vals})
+print(results)
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Модифицированный метод Эйлера}
+
+
+Рассмотрим задачу Коши:
+\[
+y'(x) = 3x - \frac{y}{x}, \quad y(1) = 1.
+\]
+
+Шаг интегрирования: \( h = 0.2 \). Необходимо найти приближённые значения \( y \) на отрезке \([1; 2]\) модифицированным методом Эйлера.
+
+\subsection*{Формула метода}
+1. Промежуточное значение (предиктор):
+\[
+y^* = y_n + h \cdot f(x_n, y_n).
+\]
+2. Коррекция (корректор):
+\[
+y_{n+1} = y_n + \frac{h}{2} \cdot \left[f(x_n, y_n) + f(x_{n+1}, y^*)\right].
+\]
+
+\subsection*{Пошаговые вычисления}
+
+\textbf{Шаг 0:}
+\[
+x_0 = 1, \quad y_0 = 1.
+\]
+
+\textbf{Шаг 1:}
+\[
+x_1 = x_0 + h = 1.2, \quad f(x_0, y_0) = 2.0,
+\]
+\[
+y^* = y_0 + h \cdot f(x_0, y_0) = 1 + 0.2 \cdot 2.0 = 1.4,
+\]
+\[
+f(x_1, y^*) = 3 \cdot 1.2 - \frac{1.4}{1.2} = 2.4333,
+\]
+\[
+y_1 = y_0 + \frac{h}{2} \cdot \left[f(x_0, y_0) + f(x_1, y^*)\right] = 1 + 0.1 \cdot (2.0 + 2.4333) = 1.4433.
+\]
+
+\textbf{Шаг 2:}
+\[
+x_2 = x_1 + h = 1.4, \quad f(x_1, y_1) = 2.3461,
+\]
+\[
+y^* = y_1 + h \cdot f(x_1, y_1) = 1.4433 + 0.2 \cdot 2.3461 = 1.9125,
+\]
+\[
+f(x_2, y^*) = 3 \cdot 1.4 - \frac{1.9125}{1.4} = 2.8524,
+\]
+\[
+y_2 = y_1 + \frac{h}{2} \cdot \left[f(x_1, y_1) + f(x_2, y^*)\right] = 1.4433 + 0.1 \cdot (2.3461 + 2.8524) = 1.9632.
+\]
+
+\subsection*{Итоговая таблица значений}
+
+\[
+\begin{array}{|c|c|c|c|c|}
+\hline
+n & x_n & y^* & f(x_n, y_n) & y_n \\ \hline
+0 & 1.0 & - & 2.0000 & 1.0000 \\ 
+1 & 1.2 & 1.4000 & 2.4333 & 1.4433 \\ 
+2 & 1.4 & 1.9125 & 2.8524 & 1.9657 \\ 
+3 & 1.6 & 2.5031 & 3.2642 & 2.5675 \\ 
+4 & 1.8 & 3.1615 & 3.6722 & 3.2488 \\ 
+5 & 2.0 & - & - & 4.0100 \\ \hline
+\end{array}
+\]
+
+
+\subsection*{Код}
+
+\begin{lstlisting}
+import numpy as np
+import pandas as pd
+
+def f(x, y):
+    return 3 * x - y / x
+
+def modified_euler_method(f, x0, y0, h, x_end):
+    x_values = [x0]
+    y_values = [y0]
+    
+    x = x0
+    y = y0
+    
+    while x < x_end:
+        y_pred = y + h * f(x, y)   
+        x_next = x + h           
+        y = y + (h / 2) * (f(x, y) + f(x_next, y_pred))  
+        x = x_next
+        
+        x_values.append(round(x, 4))  
+        y_values.append(round(y, 4)) 
+    
+    return np.array(x_values), np.array(y_values)
+
+x0 = 1    
+y0 = 1    
+h = 0.2   
+x_end = 2
+
+x_vals, y_vals = modified_euler_method(f, x0, y0, h, x_end)
+
+results = pd.DataFrame({'x': x_vals, 'y (Mod. Eiler)': y_vals})
+print("Results:")
+print(results)
+
+\end{lstlisting}
+\subsection*{Вывод}
+При использовании модифицированного метода Эйлера приближённое значение решения в точке \( x = 2 \) равно \( y = 3.9547 \).
+
+
+
+
+
+
+
+
+\section{Сравнение точного решения и приближённых решений}
+
+\begin{table}[h!]
+\centering
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+Решение & \( x = 1.2 \) & \( x = 1.4 \) & \( x = 1.6 \) & \( x = 1.8 \) & \( x = 2.0 \) & Абс. погрешн. & Относ. погрешн. \\ \hline
+Точное & 1.4400 & 1.9600 & 2.5600 & 3.2400 & 4.0000 & - & - \\ \hline
+Эйлер & 1.4000 & 1.8867 & 2.4572 & 3.1100 & 3.8444 & 0.1556 & 3.89\% \\ \hline
+Мод. Эйлер & 1.4433 & 1.9657 & 2.5675 & 3.2488 & 4.0100 & 0.0453 & 0.25\% \\ \hline 
+\end{tabular}
+\end{table}
+
+\end{document}
+

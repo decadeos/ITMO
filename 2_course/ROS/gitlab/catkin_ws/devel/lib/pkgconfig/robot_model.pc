@@ -1,0 +1,1 @@
+/home/eva/Documents/itmo/catkin_ws/devel/.private/robot_model/lib/pkgconfig/robot_model.pc

@@ -1,0 +1,932 @@
+Script started on 2023-11-29 16:03:56+03:00 [TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="111" LINES="22"]
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ su eva3
+[?2004lПароль: 
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ groupadd Students
+[?2004lbash: groupadd: команда не найдена
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ groupadd Students[1@s[1@u[1@d[1@o[1@ 
+[?2004l[sudo] пароль для eva3: 
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ usermod -aG Students eva1
+[?2004lbash: usermod: команда не найдена
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ usermod -aG Students eva1[1@s[C[1@u[1@d[1@o[1@ 
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo usermod -aG Students eva1[K2
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ groups eva1
+[?2004leva1 : eva1 users Students
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ groups eva1[K2
+[?2004leva2 : eva2 users Students
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ nano important
+[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;46H(B[0;7m[ Новый файл ](B[m[H(B[0;7m  GNU nano 7.2                                    important                                             [1;103H(B[m[42d(B[0;7m^G(B[m Справка    (B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск[43G(B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[43d(B[0;7m^X(B[m Выход[15G(B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[2d[?12l[?25h[?25l[1;61H(B[0;7m*[41d(B[m[K[1;103H[2dAll students need to be in recreation area at 18:00! Sign below[3dif you got this message.[?12l[?25h[?25l[42;15H            (B[0;7mM-D(B[m Формат DOS            (B[0;7mM-A(B[m Доп. в начало         (B[0;7mM-B(B[m Резерв. копия[43;2H(B[0;7mC(B[m Отмена[17X[43;27H(B[0;7mM-M(B[m Формат Mac            (B[0;7mM-P(B[m Доп. в конец          (B[0;7m^T(B[m Обзор[K[41d(B[0;7mИмя файла для записи: important                                                                         [41;32H(B[m[?12l[?25h[?25l[41;46H[1K (B[0;7m[ Запись… ](B[m[K[1;61H(B[0;7m [103G(B[m[41;42H(B[0;7m[ Записано 2 строки ](B[m[42;15H(B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск      (B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[K[43;2H(B[0;7mX(B[m Выход      (B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[?12l[?25h[3;25H[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo chnod 666 important 
+[?2004lsudo: chnod: command not found
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo chnod 666 important [1P[1@m
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ls -ls[Kf
+[?2004leva1  lab4_eva	schedule  eva2	.  eva3  important  ..
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ls -la
+[?2004lитого 36
+drwxrwxrwx  2 root root     4096 ноя 29 16:15 [0m[34;42m.[0m
+drwxr-xr-x 12 root root     4096 ноя 29 14:28 [01;34m..[0m
+-rw-r--r--  1 eva  eva      4096 ноя 29 16:15 eva1
+-rw-r--r--  1 eva  eva      4096 ноя 29 16:14 eva2
+-rw-r--r--  1 eva  eva      4096 ноя 29 16:14 eva3
+-rw-rw-rw-  1 eva3 eva3      150 ноя 29 16:15 important
+-rw-r--r--  1 eva  eva      8192 ноя 29 16:12 lab4_eva
+-rw-r--r--  1 eva1 Students   76 ноя 29 16:13 schedule
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ls -la[Kls -la important 
+[?2004l-rw-rw-rw- 1 eva3 eva3 150 ноя 29 16:15 important
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ nano very_important!
+[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;46H(B[0;7m[ Новый файл ](B[m[H(B[0;7m  GNU nano 7.2                                 very_important!                                          [1;103H(B[m[42d(B[0;7m^G(B[m Справка    (B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск[43G(B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[43d(B[0;7m^X(B[m Выход[15G(B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[2d[?12l[?25h[?25l[1;64H(B[0;7m*[41d(B[m[K[1;103H[2dAll personal! University will be closed tomorrow![?12l[?25h[?25l[42;15H            (B[0;7mM-D(B[m Формат DOS            (B[0;7mM-A(B[m Доп. в начало         (B[0;7mM-B(B[m Резерв. копия[43;2H(B[0;7mC(B[m Отмена[17X[43;27H(B[0;7mM-M(B[m Формат Mac            (B[0;7mM-P(B[m Доп. в конец          (B[0;7m^T(B[m Обзор[K[41d(B[0;7mИмя файла для записи: very_important!                                                                   [41;38H(B[m[?12l[?25h[?25l[41;46H[1K (B[0;7m[ Запись… ](B[m[K[1;64H(B[0;7m [103G(B[m[41;42H(B[0;7m[ Записана 1 строка ](B[m[42;15H(B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск      (B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[K[43;2H(B[0;7mX(B[m Выход      (B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[?12l[?25h[2;50H[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ nano very_important![3Pls -la important [C[C[1@v[1@e[1@r[1@y[1@_[C[C[C[C[C[C[C[C[C[C[K!
+[?2004l-rw-r--r-- 1 eva3 eva3 50 ноя 29 16:16 'very_important!'
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ls -la very_important![2Pnano[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[3Pls -la important 
+[?2004l-rw-rw-rw- 1 eva3 eva3 150 ноя 29 16:15 important
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ls -la important very_important!
+[?2004l-rw-r--r-- 1 eva3 eva3 50 ноя 29 16:16 'very_important!'
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ ^C[?2004l[?2004h[?2004l
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mps -ef | grep '^root' > proc_list[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps -ef | grep '^root' > proc_list
+[A
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ сфе[K[K[Kcat proc_list 
+[?2004lroot           1       0  0 11:30 ?        00:00:01 /sbin/init
+root           2       0  0 11:30 ?        00:00:00 [kthreadd]
+root           3       2  0 11:30 ?        00:00:00 [rcu_gp]
+root           4       2  0 11:30 ?        00:00:00 [rcu_par_gp]
+root           5       2  0 11:30 ?        00:00:00 [slub_flushwq]
+root           6       2  0 11:30 ?        00:00:00 [netns]
+root           8       2  0 11:30 ?        00:00:00 [kworker/0:0H-events_highpri]
+root          10       2  0 11:30 ?        00:00:00 [mm_percpu_wq]
+root          11       2  0 11:30 ?        00:00:00 [rcu_tasks_kthread]
+root          12       2  0 11:30 ?        00:00:00 [rcu_tasks_rude_kthread]
+root          13       2  0 11:30 ?        00:00:00 [rcu_tasks_trace_kthread]
+root          14       2  0 11:30 ?        00:00:02 [ksoftirqd/0]
+root          15       2  0 11:30 ?        00:00:13 [rcu_preempt]
+root          16       2  0 11:30 ?        00:00:00 [migration/0]
+root          18       2  0 11:30 ?        00:00:00 [cpuhp/0]
+root          19       2  0 11:30 ?        00:00:00 [cpuhp/1]
+root          20       2  0 11:30 ?        00:00:00 [migration/1]
+root          21       2  0 11:30 ?        00:00:00 [ksoftirqd/1]
+root          23       2  0 11:30 ?        00:00:00 [kworker/1:0H-events_highpri]
+root          24       2  0 11:30 ?        00:00:00 [cpuhp/2]
+root          25       2  0 11:30 ?        00:00:00 [migration/2]
+root          26       2  0 11:30 ?        00:00:00 [ksoftirqd/2]
+root          28       2  0 11:30 ?        00:00:00 [kworker/2:0H-events_highpri]
+root          29       2  0 11:30 ?        00:00:00 [cpuhp/3]
+root          30       2  0 11:30 ?        00:00:00 [migration/3]
+root          31       2  0 11:30 ?        00:00:00 [ksoftirqd/3]
+root          33       2  0 11:30 ?        00:00:00 [kworker/3:0H-events_highpri]
+root          34       2  0 11:30 ?        00:00:00 [cpuhp/4]
+root          35       2  0 11:30 ?        00:00:00 [migration/4]
+root          36       2  0 11:30 ?        00:00:00 [ksoftirqd/4]
+root          38       2  0 11:30 ?        00:00:00 [kworker/4:0H-events_highpri]
+root          39       2  0 11:30 ?        00:00:00 [cpuhp/5]
+root          40       2  0 11:30 ?        00:00:00 [migration/5]
+root          41       2  0 11:30 ?        00:00:00 [ksoftirqd/5]
+root          43       2  0 11:30 ?        00:00:00 [kworker/5:0H-events_highpri]
+root          44       2  0 11:30 ?        00:00:00 [cpuhp/6]
+root          45       2  0 11:30 ?        00:00:00 [migration/6]
+root          46       2  0 11:30 ?        00:00:00 [ksoftirqd/6]
+root          48       2  0 11:30 ?        00:00:00 [kworker/6:0H-events_highpri]
+root          49       2  0 11:30 ?        00:00:00 [cpuhp/7]
+root          50       2  0 11:30 ?        00:00:00 [migration/7]
+root          51       2  0 11:30 ?        00:00:00 [ksoftirqd/7]
+root          53       2  0 11:30 ?        00:00:00 [kworker/7:0H-events_highpri]
+root          54       2  0 11:30 ?        00:00:00 [cpuhp/8]
+root          55       2  0 11:30 ?        00:00:00 [migration/8]
+root          56       2  0 11:30 ?        00:00:00 [ksoftirqd/8]
+root          58       2  0 11:30 ?        00:00:00 [kworker/8:0H-events_highpri]
+root          59       2  0 11:30 ?        00:00:00 [cpuhp/9]
+root          60       2  0 11:30 ?        00:00:00 [migration/9]
+root          61       2  0 11:30 ?        00:00:00 [ksoftirqd/9]
+root          63       2  0 11:30 ?        00:00:00 [kworker/9:0H-events_highpri]
+root          64       2  0 11:30 ?        00:00:00 [cpuhp/10]
+root          65       2  0 11:30 ?        00:00:00 [migration/10]
+root          66       2  0 11:30 ?        00:00:00 [ksoftirqd/10]
+root          67       2  0 11:30 ?        00:00:00 [kworker/10:0-mm_percpu_wq]
+root          68       2  0 11:30 ?        00:00:00 [kworker/10:0H-events_highpri]
+root          69       2  0 11:30 ?        00:00:00 [cpuhp/11]
+root          70       2  0 11:30 ?        00:00:00 [migration/11]
+root          71       2  0 11:30 ?        00:00:00 [ksoftirqd/11]
+root          73       2  0 11:30 ?        00:00:00 [kworker/11:0H-events_highpri]
+root          74       2  0 11:30 ?        00:00:00 [cpuhp/12]
+root          75       2  0 11:30 ?        00:00:00 [migration/12]
+root          76       2  0 11:30 ?        00:00:00 [ksoftirqd/12]
+root          78       2  0 11:30 ?        00:00:00 [kworker/12:0H-events_highpri]
+root          79       2  0 11:30 ?        00:00:00 [cpuhp/13]
+root          80       2  0 11:30 ?        00:00:00 [migration/13]
+root          81       2  0 11:30 ?        00:00:00 [ksoftirqd/13]
+root          83       2  0 11:30 ?        00:00:00 [kworker/13:0H-events_highpri]
+root          84       2  0 11:30 ?        00:00:00 [cpuhp/14]
+root          85       2  0 11:30 ?        00:00:00 [migration/14]
+root          86       2  0 11:30 ?        00:00:00 [ksoftirqd/14]
+root          88       2  0 11:30 ?        00:00:00 [kworker/14:0H-events_highpri]
+root          89       2  0 11:30 ?        00:00:00 [cpuhp/15]
+root          90       2  0 11:30 ?        00:00:00 [migration/15]
+root          91       2  0 11:30 ?        00:00:00 [ksoftirqd/15]
+root          93       2  0 11:30 ?        00:00:00 [kworker/15:0H-events_highpri]
+root         107       2  0 11:30 ?        00:00:00 [kdevtmpfs]
+root         108       2  0 11:30 ?        00:00:00 [inet_frag_wq]
+root         109       2  0 11:30 ?        00:00:00 [kauditd]
+root         110       2  0 11:30 ?        00:00:00 [khungtaskd]
+root         111       2  0 11:30 ?        00:00:00 [oom_reaper]
+root         112       2  0 11:30 ?        00:00:00 [writeback]
+root         113       2  0 11:30 ?        00:00:05 [kcompactd0]
+root         114       2  0 11:30 ?        00:00:00 [ksmd]
+root         115       2  0 11:30 ?        00:00:00 [khugepaged]
+root         116       2  0 11:30 ?        00:00:00 [kintegrityd]
+root         117       2  0 11:30 ?        00:00:00 [kblockd]
+root         118       2  0 11:30 ?        00:00:00 [blkcg_punt_bio]
+root         119       2  0 11:30 ?        00:00:00 [tpm_dev_wq]
+root         120       2  0 11:30 ?        00:00:00 [edac-poller]
+root         121       2  0 11:30 ?        00:00:00 [devfreq_wq]
+root         122       2  0 11:30 ?        00:00:00 [kworker/0:1H-kblockd]
+root         123       2  0 11:30 ?        00:00:00 [irq/25-AMD-Vi]
+root         125       2  0 11:30 ?        00:00:02 [kswapd0]
+root         128       2  0 11:30 ?        00:00:00 [kworker/14:1-mm_percpu_wq]
+root         134       2  0 11:30 ?        00:00:00 [kthrotld]
+root         145       2  0 11:30 ?        00:00:00 [kworker/12:1-events]
+root         147       2  0 11:30 ?        00:00:00 [acpi_thermal_pm]
+root         148       2  0 11:30 ?        00:00:00 [amd_iommu_v2]
+root         150       2  0 11:30 ?        00:00:00 [mld]
+root         151       2  0 11:30 ?        00:00:00 [ipv6_addrconf]
+root         156       2  0 11:30 ?        00:00:00 [kstrp]
+root         161       2  0 11:30 ?        00:00:00 [zswap-shrink]
+root         162       2  0 11:30 ?        00:00:00 [kworker/u33:0-hci0]
+root         206       2  0 11:30 ?        00:00:00 [kworker/5:1H-kblockd]
+root         223       2  0 11:30 ?        00:00:00 [kworker/8:1H-kblockd]
+root         224       2  0 11:30 ?        00:00:00 [kworker/2:1H-kblockd]
+root         226       2  0 11:30 ?        00:00:00 [kworker/11:1H-kblockd]
+root         228       2  0 11:30 ?        00:00:00 [kworker/4:1H-kblockd]
+root         232       2  0 11:30 ?        00:00:00 [kworker/13:1H-kblockd]
+root         233       2  0 11:30 ?        00:00:00 [kworker/6:1H-kblockd]
+root         238       2  0 11:30 ?        00:00:00 [kworker/15:1H-kblockd]
+root         239       2  0 11:30 ?        00:00:00 [kworker/10:1H-kblockd]
+root         240       2  0 11:30 ?        00:00:00 [kworker/7:1H-kblockd]
+root         241       2  0 11:30 ?        00:00:00 [kworker/12:1H-kblockd]
+root         242       2  0 11:30 ?        00:00:00 [kworker/14:1H-kblockd]
+root         243       2  0 11:30 ?        00:00:00 [kworker/9:1H-kblockd]
+root         260       2  0 11:30 ?        00:00:00 [kworker/1:1H-kblockd]
+root         262       2  0 11:30 ?        00:00:00 [kworker/3:1H-kblockd]
+root         268       2  0 11:30 ?        00:00:03 [irq/32-ELAN0515:00]
+root         274       2  0 11:30 ?        00:00:00 [ata_sff]
+root         275       2  0 11:30 ?        00:00:00 [scsi_eh_0]
+root         276       2  0 11:30 ?        00:00:00 [scsi_tmf_0]
+root         277       2  0 11:30 ?        00:00:00 [scsi_eh_1]
+root         278       2  0 11:30 ?        00:00:00 [scsi_tmf_1]
+root         279       2  0 11:30 ?        00:00:00 [nvme-wq]
+root         280       2  0 11:30 ?        00:00:00 [nvme-reset-wq]
+root         281       2  0 11:30 ?        00:00:00 [nvme-delete-wq]
+root         287       2  0 11:30 ?        00:00:00 [nvkm-disp]
+root         288       2  0 11:30 ?        00:00:00 [amdgpu-reset-de]
+root         290       2  0 11:30 ?        00:00:00 [amdgpu_dm_hpd_r]
+root         291       2  0 11:30 ?        00:00:00 [amdgpu_dm_hpd_r]
+root         292       2  0 11:30 ?        00:00:00 [dm_vblank_contr]
+root         293       2  0 11:30 ?        00:00:00 [card1-crtc0]
+root         294       2  0 11:30 ?        00:00:00 [card1-crtc1]
+root         295       2  0 11:30 ?        00:00:00 [card1-crtc2]
+root         296       2  0 11:30 ?        00:00:00 [card1-crtc3]
+root         297       2  0 11:30 ?        00:00:26 [gfx]
+root         298       2  0 11:30 ?        00:00:00 [comp_1.0.0]
+root         299       2  0 11:30 ?        00:00:00 [comp_1.1.0]
+root         300       2  0 11:30 ?        00:00:00 [comp_1.2.0]
+root         301       2  0 11:30 ?        00:00:00 [comp_1.3.0]
+root         302       2  0 11:30 ?        00:00:00 [comp_1.0.1]
+root         303       2  0 11:30 ?        00:00:00 [comp_1.1.1]
+root         304       2  0 11:30 ?        00:00:00 [comp_1.2.1]
+root         305       2  0 11:30 ?        00:00:00 [comp_1.3.1]
+root         306       2  0 11:30 ?        00:00:02 [sdma0]
+root         307       2  0 11:30 ?        00:00:00 [vcn_dec]
+root         308       2  0 11:30 ?        00:00:00 [vcn_enc0]
+root         309       2  0 11:30 ?        00:00:00 [vcn_enc1]
+root         310       2  0 11:30 ?        00:00:00 [jpeg_dec]
+root         347       2  0 11:30 ?        00:00:02 [jbd2/nvme0n1p4-8]
+root         348       2  0 11:30 ?        00:00:00 [ext4-rsv-conver]
+root         400       1  0 11:30 ?        00:00:01 /lib/systemd/systemd-journald
+root         417       1  0 11:30 ?        00:00:00 /lib/systemd/systemd-udevd
+root         506       2  0 11:30 ?        00:00:00 [watchdogd]
+root         535       2  0 11:30 ?        00:00:00 [cryptd]
+root         700       2  0 11:30 ?        00:00:00 [cfg80211]
+root         829       2  0 11:30 ?        00:00:26 [napi/phy0-8194]
+root         830       2  0 11:30 ?        00:00:00 [napi/phy0-8195]
+root         831       2  0 11:30 ?        00:00:15 [napi/phy0-8196]
+root         965       1  0 11:30 ?        00:00:00 /usr/libexec/accounts-daemon
+root         970       1  0 11:30 ?        00:00:00 /usr/sbin/cron -f
+root         976       1  0 11:30 ?        00:00:00 /usr/libexec/low-memory-monitor
+root         981       1  0 11:30 ?        00:00:00 /usr/libexec/switcheroo-control
+root         985       1  0 11:30 ?        00:00:00 /lib/systemd/systemd-logind
+root         986       1  0 11:30 ?        00:00:00 /usr/libexec/udisks2/udisksd
+root        1013       2  0 11:30 ?        00:00:00 [psimon]
+root        1015       1  0 11:30 ?        00:00:04 /usr/sbin/NetworkManager --no-daemon
+root        1021       1  0 11:30 ?        00:00:01 /sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev
+root        1039       1  0 11:30 ?        00:00:14 /usr/sbin/preload -s /var/lib/preload/preload.state
+root        1051       1  0 11:30 ?        00:00:00 /usr/sbin/ModemManager
+root        1081       1  0 11:30 ?        00:00:00 /usr/sbin/cupsd -l
+root        1145       1  0 11:30 ?        00:00:00 /usr/sbin/gdm3
+root        1526       2  0 11:30 ?        00:00:00 [kworker/u33:2-hci0]
+root        1588       1  0 11:30 ?        00:00:00 /usr/libexec/bluetooth/bluetoothd
+root        2108       2  0 11:30 ?        00:00:00 [kworker/3:3-events]
+root        2989       2  0 11:30 ?        00:00:08 [mt76-tx phy0]
+root        3269       2  0 11:30 ?        00:00:00 [krfcommd]
+root        3282       1  0 11:30 ?        00:00:00 /usr/libexec/upowerd
+root        3829       1  0 11:30 ?        00:00:01 /usr/libexec/fwupd/fwupd
+root        6621       1  0 11:31 ?        00:00:00 /usr/sbin/cups-browsed
+root        6644       1  0 11:31 ?        00:00:00 /usr/lib/ipsec/starter --daemon charon --nofork
+root        6669    6644  0 11:31 ?        00:00:00 /usr/lib/ipsec/charon
+root        6714       1  0 11:31 ?        00:00:00 /usr/sbin/xl2tpd
+root       32063       2  0 12:10 ?        00:00:00 [kworker/1:3-mm_percpu_wq]
+root       32778       2  0 12:10 ?        00:00:00 [kworker/2:0-events]
+root       87650       1  0 14:21 ?        00:00:00 /usr/lib/NetworkManager/nm-l2tp-service
+root       87658   87650  0 14:21 ?        00:00:00 /sbin/xl2tpd -D -c /run/nm-l2tp-81744956-a9b7-4c1a-adf1-4b55bc8f65da/xl2tpd.conf -C /run/nm-l2tp-81744956-a9b7-4c1a-adf1-4b55bc8f65da/xl2tpd-control -p /run/nm-l2tp-81744956-a9b7-4c1a-adf1-4b55bc8f65da/xl2tpd.pid
+root       87659   87658  0 14:21 ?        00:00:00 /usr/sbin/pppd plugin pppol2tp.so pppol2tp 7 passive nodetach : file /run/nm-l2tp-81744956-a9b7-4c1a-adf1-4b55bc8f65da/ppp-options
+root       90337       2  0 14:23 ?        00:00:00 [kworker/11:2-mm_percpu_wq]
+root       92273       2  0 14:26 ?        00:00:00 [kworker/7:0-mm_percpu_wq]
+root       92774       2  0 14:28 ?        00:00:00 [kworker/4:2-events]
+root       93286       2  0 14:29 ?        00:00:00 [kworker/9:1-mm_percpu_wq]
+root      104577       2  0 15:13 ?        00:00:00 [kworker/12:0-events]
+root      104714       2  0 15:16 ?        00:00:00 [kworker/5:2-mm_percpu_wq]
+root      105887       2  0 15:40 ?        00:00:04 [kworker/u32:5-events_unbound]
+root      106444       2  0 15:47 ?        00:00:00 [kworker/8:0-mm_percpu_wq]
+root      106445       2  0 15:47 ?        00:00:00 [kworker/4:1-events]
+root      106499       2  0 15:48 ?        00:00:00 [kworker/11:0-events]
+root      106513       2  0 15:48 ?        00:00:00 [kworker/13:2-mm_percpu_wq]
+root      106521       2  0 15:48 ?        00:00:00 [kworker/15:2-mm_percpu_wq]
+root      107172    1145  0 15:48 ?        00:00:00 gdm-session-worker [pam/gdm-password]
+root      108809  108804  0 15:48 ?        00:00:00 fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc
+root      109085       2  0 15:48 ?        00:00:05 [kworker/u32:6-flush-259:0]
+root      109280       2  0 15:48 ?        00:00:00 [kworker/6:7-mm_percpu_wq]
+root      111824       2  0 15:53 ?        00:00:05 [kworker/u32:0-phy0]
+root      111825       2  0 15:53 ?        00:00:00 [kworker/8:1]
+root      112580  112558  0 16:04 pts/5    00:00:00 su eva1
+root      112583  112562  0 16:04 pts/6    00:00:00 su eva2
+root      112586  112566  0 16:04 pts/7    00:00:00 su eva3
+root      112751       2  0 16:06 ?        00:00:00 [kworker/0:2-events]
+root      112894       2  0 16:08 ?        00:00:00 [kworker/2:1-events]
+root      113213       2  0 16:11 ?        00:00:00 [kworker/13:1-cgroup_destroy]
+root      113267       2  0 16:12 ?        00:00:00 [kworker/15:1]
+root      113457       2  0 16:18 ?        00:00:00 [kworker/6:0-events]
+root      113696       2  0 16:18 ?        00:00:01 [kworker/u32:4-flush-259:0]
+root      113881       2  0 16:19 ?        00:00:00 [kworker/9:2]
+root      113917       2  0 16:19 ?        00:00:00 [kworker/14:2-events]
+root      113920       2  0 16:19 ?        00:00:00 [kworker/3:0-events]
+root      114028       2  0 16:20 ?        00:00:00 [kworker/7:1-events]
+root      114050       2  0 16:20 ?        00:00:00 [kworker/5:0-events]
+root      114053       2  0 16:21 ?        00:00:00 [kworker/10:1-cgroup_destroy]
+root      114073       2  0 16:21 ?        00:00:00 [kworker/1:1-events]
+root      114150       2  0 16:23 ?        00:00:00 [kworker/2:3-events]
+root      114301       2  0 16:29 ?        00:00:00 [kworker/0:0]
+root      114324       2  0 16:29 ?        00:00:00 [kworker/6:1-events]
+root      114325       2  0 16:30 ?        00:00:00 [kworker/6:2-events]
+root      114355       2  0 16:32 ?        00:00:00 [kworker/2:2-events]
+root      114357       2  0 16:32 ?        00:00:00 [kworker/4:0]
+root      114371       2  0 16:33 ?        00:00:00 [kworker/u32:1-events_unbound]
+root      114377       2  0 16:33 ?        00:00:00 [kworker/10:2]
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mkill -9 1[27mkill -9 1
+[?2004lbash: kill: (1) - Операция не позволена
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo [7mkill -9 1[27mkill -9 1
+[?2004l[sudo] пароль для eva3: 
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mfirefox &[27mfirefox &
+[?2004l[1] 114457
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ Authorization required, but no authorization protocol specified
+
+Error: cannot open display: :0
+[7mpstree -p[27mpstree -p
+[?2004lsystemd(1)─┬─ModemManager(1051)─┬─{ModemManager}(1080)
+           │                    └─{ModemManager}(1085)
+           ├─NetworkManager(1015)─┬─{NetworkManager}(1070)
+           │                      └─{NetworkManager}(1075)
+           ├─accounts-daemon(965)─┬─{accounts-daemon}(1004)
+           │                      └─{accounts-daemon}(1017)
+           ├─avahi-daemon(968)───avahi-daemon(988)
+           ├─bluetoothd(1588)
+           ├─colord(3370)─┬─{colord}(3388)
+           │              └─{colord}(3390)
+           ├─cron(970)
+           ├─cups-browsed(6621)─┬─{cups-browsed}(6704)
+           │                    └─{cups-browsed}(6705)
+           ├─cupsd(1081)
+           ├─dbus-daemon(973)
+           ├─fwupd(3829)─┬─{fwupd}(3836)
+           │             ├─{fwupd}(3843)
+           │             ├─{fwupd}(3844)
+           │             └─{fwupd}(3846)
+           ├─gdm3(1145)─┬─gdm-session-wor(107172)─┬─gdm-wayland-ses(108008)─┬─gnome-session-b(108012)─┬+++
+           │            │                         │                         │                         ├+++
+           │            │                         │                         │                         └+++
+           │            │                         │                         ├─{gdm-wayland-ses}(108009)
+           │            │                         │                         └─{gdm-wayland-ses}(108011)
+           │            │                         ├─{gdm-session-wor}(107173)
+           │            │                         └─{gdm-session-wor}(107174)
+           │            ├─{gdm3}(1152)
+           │            └─{gdm3}(1154)
+           ├─geoclue(3295)─┬─{geoclue}(3300)
+           │               ├─{geoclue}(3302)
+           │               └─{geoclue}(6949)
+           ├─low-memory-moni(976)─┬─{low-memory-moni}(997)
+           │                      └─{low-memory-moni}(1010)
+           ├─nm-l2tp-service(87650)─┬─xl2tpd(87658)───pppd(87659)─┬─{pppd}(87660)
+           │                        │                             └─{pppd}(87661)
+           │                        ├─{nm-l2tp-service}(87652)
+           │                        └─{nm-l2tp-service}(87653)
+           ├─polkitd(978)─┬─{polkitd}(999)
+           │              └─{polkitd}(1016)
+           ├─preload(1039)
+           ├─rtkit-daemon(3010)─┬─{rtkit-daemon}(3109)
+           │                    └─{rtkit-daemon}(3110)
+           ├─starter(6644)───charon(6669)─┬─{charon}(6688)
+           │                              ├─{charon}(6689)
+           │                              ├─{charon}(6690)
+           │                              ├─{charon}(6691)
+           │                              ├─{charon}(6692)
+           │                              ├─{charon}(6693)
+           │                              ├─{charon}(6694)
+           │                              ├─{charon}(6695)
+           │                              ├─{charon}(6696)
+           │                              ├─{charon}(6697)
+           │                              ├─{charon}(6698)
+           │                              ├─{charon}(6699)
+           │                              ├─{charon}(6700)
+           │                              ├─{charon}(6701)
+           │                              ├─{charon}(6702)
+           │                              └─{charon}(6703)
+           ├─switcheroo-cont(981)─┬─{switcheroo-cont}(1011)
+           │                      └─{switcheroo-cont}(1014)
+           ├─systemd(107915)─┬─(sd-pam)(107919)
+           │                 ├─at-spi2-registr(108496)─┬─{at-spi2-registr}(108498)
+           │                 │                         └─{at-spi2-registr}(108499)
+           │                 ├─chrome_crashpad(110026)─┬─{chrome_crashpad}(110030)
+           │                 │                         └─{chrome_crashpad}(110031)
+           │                 ├─chrome_crashpad(110028)───{chrome_crashpad}(110029)
+           │                 ├─dbus-daemon(107942)
+           │                 ├─dconf-service(109008)─┬─{dconf-service}(109015)
+           │                 │                       └─{dconf-service}(109016)
+           │                 ├─evolution-addre(108580)─┬─{evolution-addre}(108659)
+           │                 │                         ├─{evolution-addre}(108683)
+           │                 │                         ├─{evolution-addre}(108697)
+           │                 │                         ├─{evolution-addre}(108698)
+           │                 │                         └─{evolution-addre}(108721)
+           │                 ├─evolution-calen(108488)─┬─{evolution-calen}(108511)
+           │                 │                         ├─{evolution-calen}(108512)
+           │                 │                         ├─{evolution-calen}(108514)
+           │                 │                         ├─{evolution-calen}(108515)
+           │                 │                         ├─{evolution-calen}(108521)
+           │                 │                         ├─{evolution-calen}(108522)
+           │                 │                         ├─{evolution-calen}(108526)
+           │                 │                         └─{evolution-calen}(108844)
+           │                 ├─evolution-sourc(108433)─┬─{evolution-sourc}(108437)
+           │                 │                         ├─{evolution-sourc}(108438)
+           │                 │                         └─{evolution-sourc}(108439)
+           │                 ├─gcr-ssh-agent(108098)───{gcr-ssh-agent}(108108)
+           │                 ├─gjs(108494)─┬─{gjs}(108500)
+           │                 │             ├─{gjs}(108501)
+           │                 │             ├─{gjs}(108502)
+           │                 │             ├─{gjs}(108503)
+           │                 │             ├─{gjs}(108504)
+           │                 │             ├─{gjs}(108505)
+           │                 │             ├─{gjs}(108506)
+           │                 │             ├─{gjs}(108507)
+           │                 │             ├─{gjs}(108508)
+           │                 │             └─{gjs}(108509)
+           │                 ├─gjs(108673)─┬─{gjs}(108695)
+           │                 │             ├─{gjs}(108699)
+           │                 │             ├─{gjs}(108700)
+           │                 │             ├─{gjs}(108701)
+           │                 │             ├─{gjs}(108702)
+           │                 │             ├─{gjs}(108703)
+           │                 │             ├─{gjs}(108704)
+           │                 │             ├─{gjs}(108705)
+           │                 │             ├─{gjs}(108706)
+           │                 │             └─{gjs}(108707)
+           │                 ├─gnome-calendar(113479)─┬─{gnome-calendar}(113539)
+           │                 │                        ├─{gnome-calendar}(113547)
+           │                 │                        ├─{gnome-calendar}(113548)
+           │                 │                        ├─{gnome-calendar}(113596)
+           │                 │                        └─{gnome-calendar}(113601)
+           │                 ├─gnome-keyring-d(107944)─┬─{gnome-keyring-d}(107949)
+           │                 │                         ├─{gnome-keyring-d}(107951)
+           │                 │                         └─{gnome-keyring-d}(107952)
+           │                 ├─gnome-session-b(108111)─┬─at-spi-bus-laun(108139)─┬─dbus-daemon(108149)
+           │                 │                         │                         ├─{at-spi-bus-laun}(10+
+           │                 │                         │                         ├─{at-spi-bus-laun}(10+
+           │                 │                         │                         └─{at-spi-bus-laun}(10+
+           │                 │                         ├─evolution-alarm(108542)─┬─{evolution-alarm}(10+
+           │                 │                         │                         ├─{evolution-alarm}(10+
+           │                 │                         │                         ├─{evolution-alarm}(10+
+           │                 │                         │                         ├─{evolution-alarm}(10+
+           │                 │                         │                         └─{evolution-alarm}(10+
+           │                 │                         ├─gnome-software(108537)─┬─{gnome-software}(1086+
+           │                 │                         │                        ├─{gnome-software}(1086+
+           │                 │                         │                        ├─{gnome-software}(1086+
+           │                 │                         │                        ├─{gnome-software}(1089+
+           │                 │                         │                        ├─{gnome-software}(1089+
+           │                 │                         │                        └─{gnome-software}(1089+
+           │                 │                         ├─gsd-disk-utilit(108550)─┬─{gsd-disk-utilit}(10+
+           │                 │                         │                         └─{gsd-disk-utilit}(10+
+           │                 │                         ├─jetbrains-toolb(108617)─┬─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(10+
+           │                 │                         │                         ├─{jetbrains-toolb}(11+
+           │                 │                         │                         ├─{jetbrains-toolb}(11+
+           │                 │                         │                         ├─{jetbrains-toolb}(11+
+           │                 │                         │                         ├─{jetbrains-toolb}(11+
+           │                 │                         │                         ├─{jetbrains-toolb}(11+
+           │                 │                         │                         └─{jetbrains-toolb}(11+
+           │                 │                         ├─{gnome-session-b}(108114)
+           │                 │                         ├─{gnome-session-b}(108115)
+           │                 │                         └─{gnome-session-b}(108124)
+           │                 ├─gnome-session-c(108099)───{gnome-session-c}(108107)
+           │                 ├─gnome-shell(108138)─┬─Xwayland(109108)─┬─{Xwayland}(109117)
+           │                 │                     │                  ├─{Xwayland}(109118)
+           │                 │                     │                  ├─{Xwayland}(109119)
+           │                 │                     │                  ├─{Xwayland}(109120)
+           │                 │                     │                  ├─{Xwayland}(109121)
+           │                 │                     │                  ├─{Xwayland}(109157)
+           │                 │                     │                  ├─{Xwayland}(110182)
+           │                 │                     │                  └─{Xwayland}(113851)
+           │                 │                     ├─gnome-control-c(111985)─┬─{gnome-control-c}(111987+
+           │                 │                     │                         ├─{gnome-control-c}(111988+
+           │                 │                     │                         ├─{gnome-control-c}(111990+
+           │                 │                     │                         ├─{gnome-control-c}(112056+
+           │                 │                     │                         ├─{gnome-control-c}(112057+
+           │                 │                     │                         ├─{gnome-control-c}(112058+
+           │                 │                     │                         ├─{gnome-control-c}(112059+
+           │                 │                     │                         ├─{gnome-control-c}(112060+
+           │                 │                     │                         ├─{gnome-control-c}(112061+
+           │                 │                     │                         ├─{gnome-control-c}(112062+
+           │                 │                     │                         ├─{gnome-control-c}(112063+
+           │                 │                     │                         ├─{gnome-control-c}(112064+
+           │                 │                     │                         ├─{gnome-control-c}(112065+
+           │                 │                     │                         ├─{gnome-control-c}(112066+
+           │                 │                     │                         ├─{gnome-control-c}(112067+
+           │                 │                     │                         ├─{gnome-control-c}(112068+
+           │                 │                     │                         ├─{gnome-control-c}(112069+
+           │                 │                     │                         ├─{gnome-control-c}(112070+
+           │                 │                     │                         ├─{gnome-control-c}(112085+
+           │                 │                     │                         ├─{gnome-control-c}(112086+
+           │                 │                     │                         ├─{gnome-control-c}(112087+
+           │                 │                     │                         └─{gnome-control-c}(112088+
+           │                 │                     ├─yandex_browser(110016)─┬─cat(110023)
+           │                 │                     │                        ├─cat(110024)
+           │                 │                     │                        ├─yandex_browser(110034)───+
+           │                 │                     │                        ├─yandex_browser(110035)───+
+           │                 │                     │                        ├─yandex_browser(110063)─┬─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        └─+
+           │                 │                     │                        ├─yandex_browser(110903)─┬─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        ├─+
+           │                 │                     │                        │                        └─+
+           │                 │                     │                        ├─{yandex_browser}(110032)
+           │                 │                     │                        ├─{yandex_browser}(110038)
+           │                 │                     │                        ├─{yandex_browser}(110039)
+           │                 │                     │                        ├─{yandex_browser}(110040)
+           │                 │                     │                        ├─{yandex_browser}(110041)
+           │                 │                     │                        ├─{yandex_browser}(110042)
+           │                 │                     │                        ├─{yandex_browser}(110043)
+           │                 │                     │                        ├─{yandex_browser}(110044)
+           │                 │                     │                        ├─{yandex_browser}(110045)
+           │                 │                     │                        ├─{yandex_browser}(110046)
+           │                 │                     │                        ├─{yandex_browser}(110047)
+           │                 │                     │                        ├─{yandex_browser}(110048)
+           │                 │                     │                        ├─{yandex_browser}(110049)
+           │                 │                     │                        ├─{yandex_browser}(110050)
+           │                 │                     │                        ├─{yandex_browser}(110052)
+           │                 │                     │                        ├─{yandex_browser}(110053)
+           │                 │                     │                        ├─{yandex_browser}(110054)
+           │                 │                     │                        ├─{yandex_browser}(110055)
+           │                 │                     │                        ├─{yandex_browser}(110056)
+           │                 │                     │                        ├─{yandex_browser}(110057)
+           │                 │                     │                        ├─{yandex_browser}(110058)
+           │                 │                     │                        ├─{yandex_browser}(110059)
+           │                 │                     │                        ├─{yandex_browser}(110060)
+           │                 │                     │                        ├─{yandex_browser}(110079)
+           │                 │                     │                        ├─{yandex_browser}(110084)
+           │                 │                     │                        ├─{yandex_browser}(110086)
+           │                 │                     │                        ├─{yandex_browser}(110089)
+           │                 │                     │                        ├─{yandex_browser}(110088)
+           │                 │                     │                        ├─{yandex_browser}(110090)
+           │                 │                     │                        ├─{yandex_browser}(110091)
+           │                 │                     │                        ├─{yandex_browser}(110092)
+           │                 │                     │                        ├─{yandex_browser}(110093)
+           │                 │                     │                        ├─{yandex_browser}(110094)
+           │                 │                     │                        ├─{yandex_browser}(110095)
+           │                 │                     │                        └─{yandex_browser}(110181)
+           │                 │                     ├─{gnome-shell}(108154)
+           │                 │                     ├─{gnome-shell}(108156)
+           │                 │                     ├─{gnome-shell}(108305)
+           │                 │                     ├─{gnome-shell}(108307)
+           │                 │                     ├─{gnome-shell}(108308)
+           │                 │                     ├─{gnome-shell}(108309)
+           │                 │                     ├─{gnome-shell}(108313)
+           │                 │                     ├─{gnome-shell}(108315)
+           │                 │                     ├─{gnome-shell}(108317)
+           │                 │                     ├─{gnome-shell}(108318)
+           │                 │                     ├─{gnome-shell}(108404)
+           │                 │                     ├─{gnome-shell}(108405)
+           │                 │                     ├─{gnome-shell}(108406)
+           │                 │                     ├─{gnome-shell}(108407)
+           │                 │                     ├─{gnome-shell}(108408)
+           │                 │                     ├─{gnome-shell}(108409)
+           │                 │                     ├─{gnome-shell}(108410)
+           │                 │                     ├─{gnome-shell}(108411)
+           │                 │                     ├─{gnome-shell}(108513)
+           │                 │                     ├─{gnome-shell}(108876)
+           │                 │                     ├─{gnome-shell}(109206)
+           │                 │                     ├─{gnome-shell}(111964)
+           │                 │                     └─{gnome-shell}(114456)
+           │                 ├─gnome-shell-cal(108426)─┬─{gnome-shell-cal}(108427)
+           │                 │                         ├─{gnome-shell-cal}(108429)
+           │                 │                         ├─{gnome-shell-cal}(108430)
+           │                 │                         ├─{gnome-shell-cal}(108431)
+           │                 │                         └─{gnome-shell-cal}(108485)
+           │                 ├─gnome-terminal-(111446)─┬─bash(111488)───script(112320)───bash(112321)
+           │                 │                         ├─bash(112538)───script(112557)───bash(112558)──+++
+           │                 │                         ├─bash(112541)───script(112561)───bash(112562)──+++
+           │                 │                         ├─bash(112543)───script(112565)───bash(112566)──+++
+           │                 │                         ├─{gnome-terminal-}(111447)
+           │                 │                         ├─{gnome-terminal-}(111449)
+           │                 │                         └─{gnome-terminal-}(111450)
+           │                 ├─goa-daemon(108061)─┬─{goa-daemon}(108079)
+           │                 │                    ├─{goa-daemon}(108081)
+           │                 │                    └─{goa-daemon}(108083)
+           │                 ├─goa-identity-se(108089)─┬─{goa-identity-se}(108092)
+           │                 │                         └─{goa-identity-se}(108094)
+           │                 ├─gsd-a11y-settin(108525)─┬─{gsd-a11y-settin}(108538)
+           │                 │                         ├─{gsd-a11y-settin}(108540)
+           │                 │                         └─{gsd-a11y-settin}(108650)
+           │                 ├─gsd-color(108530)─┬─{gsd-color}(108558)
+           │                 │                   ├─{gsd-color}(108561)
+           │                 │                   └─{gsd-color}(108568)
+           │                 ├─gsd-datetime(108532)─┬─{gsd-datetime}(108557)
+           │                 │                      ├─{gsd-datetime}(108562)
+           │                 │                      └─{gsd-datetime}(108638)
+           │                 ├─gsd-housekeepin(108535)─┬─{gsd-housekeepin}(108545)
+           │                 │                         ├─{gsd-housekeepin}(108552)
+           │                 │                         └─{gsd-housekeepin}(108640)
+           │                 ├─gsd-keyboard(108539)─┬─{gsd-keyboard}(108573)
+           │                 │                      ├─{gsd-keyboard}(108577)
+           │                 │                      └─{gsd-keyboard}(108585)
+           │                 ├─gsd-media-keys(108543)─┬─{gsd-media-keys}(108605)
+           │                 │                        ├─{gsd-media-keys}(108613)
+           │                 │                        └─{gsd-media-keys}(108624)
+           │                 ├─gsd-power(108544)─┬─{gsd-power}(108601)
+           │                 │                   ├─{gsd-power}(108609)
+           │                 │                   └─{gsd-power}(108622)
+           │                 ├─gsd-print-notif(108549)─┬─{gsd-print-notif}(108576)
+           │                 │                         └─{gsd-print-notif}(108583)
+           │                 ├─gsd-printer(108687)─┬─{gsd-printer}(108719)
+           │                 │                     └─{gsd-printer}(108720)
+           │                 ├─gsd-rfkill(108551)─┬─{gsd-rfkill}(108565)
+           │                 │                    └─{gsd-rfkill}(108569)
+           │                 ├─gsd-screensaver(108553)─┬─{gsd-screensaver}(108571)
+           │                 │                         └─{gsd-screensaver}(108582)
+           │                 ├─gsd-sharing(108554)─┬─{gsd-sharing}(108591)
+           │                 │                     ├─{gsd-sharing}(108593)
+           │                 │                     └─{gsd-sharing}(108618)
+           │                 ├─gsd-smartcard(108560)─┬─{gsd-smartcard}(108578)
+           │                 │                       ├─{gsd-smartcard}(108589)
+           │                 │                       ├─{gsd-smartcard}(108648)
+           │                 │                       └─{gsd-smartcard}(108655)
+           │                 ├─gsd-sound(108564)─┬─{gsd-sound}(108602)
+           │                 │                   ├─{gsd-sound}(108621)
+           │                 │                   └─{gsd-sound}(108660)
+           │                 ├─gsd-usb-protect(108567)─┬─{gsd-usb-protect}(108587)
+           │                 │                         ├─{gsd-usb-protect}(108594)
+           │                 │                         └─{gsd-usb-protect}(108642)
+           │                 ├─gsd-wacom(108570)─┬─{gsd-wacom}(108643)
+           │                 │                   ├─{gsd-wacom}(108649)
+           │                 │                   └─{gsd-wacom}(108675)
+           │                 ├─gsd-xsettings(109128)─┬─{gsd-xsettings}(109130)
+           │                 │                       ├─{gsd-xsettings}(109132)
+           │                 │                       ├─{gsd-xsettings}(109133)
+           │                 │                       ├─{gsd-xsettings}(109134)
+           │                 │                       ├─{gsd-xsettings}(109135)
+           │                 │                       ├─{gsd-xsettings}(109136)
+           │                 │                       └─{gsd-xsettings}(109137)
+           │                 ├─gvfs-afc-volume(108021)─┬─{gvfs-afc-volume}(108026)
+           │                 │                         ├─{gvfs-afc-volume}(108027)
+           │                 │                         └─{gvfs-afc-volume}(108029)
+           │                 ├─gvfs-goa-volume(108054)─┬─{gvfs-goa-volume}(108056)
+           │                 │                         └─{gvfs-goa-volume}(108058)
+           │                 ├─gvfs-gphoto2-vo(108030)─┬─{gvfs-gphoto2-vo}(108031)
+           │                 │                         └─{gvfs-gphoto2-vo}(108033)
+           │                 ├─gvfs-mtp-volume(108037)─┬─{gvfs-mtp-volume}(108044)
+           │                 │                         └─{gvfs-mtp-volume}(108048)
+           │                 ├─gvfs-udisks2-vo(108004)─┬─{gvfs-udisks2-vo}(108005)
+           │                 │                         ├─{gvfs-udisks2-vo}(108006)
+           │                 │                         └─{gvfs-udisks2-vo}(108010)
+           │                 ├─gvfsd(107950)─┬─gvfsd-dnssd(112877)─┬─{gvfsd-dnssd}(112878)
+           │                 │               │                     └─{gvfsd-dnssd}(112879)
+           │                 │               ├─gvfsd-network(112865)─┬─{gvfsd-network}(112866)
+           │                 │               │                       ├─{gvfsd-network}(112867)
+           │                 │               │                       └─{gvfsd-network}(112870)
+           │                 │               ├─gvfsd-recent(112821)─┬─{gvfsd-recent}(112823)
+           │                 │               │                      └─{gvfsd-recent}(112824)
+           │                 │               ├─gvfsd-trash(112785)─┬─{gvfsd-trash}(112786)
+           │                 │               │                     └─{gvfsd-trash}(112787)
+           │                 │               ├─{gvfsd}(107954)
+           │                 │               └─{gvfsd}(107956)
+           │                 ├─gvfsd-fuse(107960)─┬─{gvfsd-fuse}(107964)
+           │                 │                    ├─{gvfsd-fuse}(107965)
+           │                 │                    ├─{gvfsd-fuse}(107966)
+           │                 │                    ├─{gvfsd-fuse}(107967)
+           │                 │                    └─{gvfsd-fuse}(107971)
+           │                 ├─gvfsd-metadata(109193)─┬─{gvfsd-metadata}(109194)
+           │                 │                        └─{gvfsd-metadata}(109195)
+           │                 ├─ibus-portal(108607)─┬─{ibus-portal}(108627)
+           │                 │                     └─{ibus-portal}(108630)
+           │                 ├─ibus-x11(109153)─┬─{ibus-x11}(109155)
+           │                 │                  └─{ibus-x11}(109156)
+           │                 ├─jetbrains-toolb(108647)───{jetbrains-toolb}(108654)
+           │                 ├─kactivitymanage(113310)─┬─{kactivitymanage}(113311)
+           │                 │                         ├─{kactivitymanage}(113312)
+           │                 │                         ├─{kactivitymanage}(113313)
+           │                 │                         ├─{kactivitymanage}(113314)
+           │                 │                         ├─{kactivitymanage}(113315)
+           │                 │                         └─{kactivitymanage}(113316)
+           │                 ├─kglobalaccel5(113318)─┬─{kglobalaccel5}(113319)
+           │                 │                       ├─{kglobalaccel5}(113320)
+           │                 │                       └─{kglobalaccel5}(113321)
+           │                 ├─nautilus(112782)─┬─{nautilus}(112783)
+           │                 │                  ├─{nautilus}(112784)
+           │                 │                  ├─{nautilus}(112794)
+           │                 │                  ├─{nautilus}(112800)
+           │                 │                  ├─{nautilus}(112807)
+           │                 │                  ├─{nautilus}(112808)
+           │                 │                  ├─{nautilus}(112809)
+           │                 │                  ├─{nautilus}(112810)
+           │                 │                  ├─{nautilus}(112811)
+           │                 │                  ├─{nautilus}(112812)
+           │                 │                  ├─{nautilus}(112813)
+           │                 │                  ├─{nautilus}(112814)
+           │                 │                  ├─{nautilus}(112815)
+           │                 │                  ├─{nautilus}(112816)
+           │                 │                  ├─{nautilus}(112817)
+           │                 │                  ├─{nautilus}(112834)
+           │                 │                  ├─{nautilus}(112838)
+           │                 │                  ├─{nautilus}(112839)
+           │                 │                  ├─{nautilus}(113872)
+           │                 │                  ├─{nautilus}(113933)
+           │                 │                  ├─{nautilus}(114413)
+           │                 │                  └─{nautilus}(114422)
+           │                 ├─oosplash(113951)─┬─soffice.bin(113967)─┬─{soffice.bin}(113969)
+           │                 │                  │                     ├─{soffice.bin}(113970)
+           │                 │                  │                     ├─{soffice.bin}(113972)
+           │                 │                  │                     └─{soffice.bin}(113973)
+           │                 │                  └─{oosplash}(113966)
+           │                 ├─pipewire(107938)───{pipewire}(107984)
+           │                 ├─pipewire-pulse(107941)───{pipewire-pulse}(107985)
+           │                 ├─sh(108523)───ibus-daemon(108529)─┬─ibus-dconf(108590)─┬─{ibus-dconf}(108+
+           │                 │                                  │                    ├─{ibus-dconf}(108+
+           │                 │                                  │                    └─{ibus-dconf}(108+
+           │                 │                                  ├─ibus-engine-sim(108757)─┬─{ibus-engin+
+           │                 │                                  │                         └─{ibus-engin+
+           │                 │                                  ├─ibus-extension-(108592)─┬─{ibus-exten+
+           │                 │                                  │                         ├─{ibus-exten+
+           │                 │                                  │                         └─{ibus-exten+
+           │                 │                                  ├─{ibus-daemon}(108555)
+           │                 │                                  └─{ibus-daemon}(108563)
+           │                 ├─ssh-agent(108101)
+           │                 ├─tracker-miner-f(107999)─┬─{tracker-miner-f}(108000)
+           │                 │                         ├─{tracker-miner-f}(108001)
+           │                 │                         ├─{tracker-miner-f}(108002)
+           │                 │                         ├─{tracker-miner-f}(108003)
+           │                 │                         └─{tracker-miner-f}(108105)
+           │                 ├─wireplumber(107940)─┬─{wireplumber}(107983)
+           │                 │                     ├─{wireplumber}(107989)
+           │                 │                     └─{wireplumber}(107996)
+           │                 ├─xdg-desktop-por(108777)─┬─{xdg-desktop-por}(108801)
+           │                 │                         ├─{xdg-desktop-por}(108802)
+           │                 │                         ├─{xdg-desktop-por}(108904)
+           │                 │                         ├─{xdg-desktop-por}(108927)
+           │                 │                         └─{xdg-desktop-por}(108929)
+           │                 ├─xdg-desktop-por(108814)─┬─{xdg-desktop-por}(108824)
+           │                 │                         ├─{xdg-desktop-por}(108825)
+           │                 │                         └─{xdg-desktop-por}(108827)
+           │                 ├─xdg-desktop-por(108905)─┬─{xdg-desktop-por}(108909)
+           │                 │                         ├─{xdg-desktop-por}(108911)
+           │                 │                         └─{xdg-desktop-por}(108912)
+           │                 ├─xdg-document-po(108804)─┬─fusermount3(108809)
+           │                 │                         ├─{xdg-document-po}(108805)
+           │                 │                         ├─{xdg-document-po}(108806)
+           │                 │                         ├─{xdg-document-po}(108808)
+           │                 │                         ├─{xdg-document-po}(108810)
+           │                 │                         └─{xdg-document-po}(108811)
+           │                 └─xdg-permission-(108055)─┬─{xdg-permission-}(108062)
+           │                                           └─{xdg-permission-}(108064)
+           ├─systemd-journal(400)
+           ├─systemd-logind(985)
+           ├─systemd-timesyn(960)───{systemd-timesyn}(962)
+           ├─systemd-udevd(417)
+           ├─udisksd(986)─┬─{udisksd}(1026)
+           │              ├─{udisksd}(1032)
+           │              ├─{udisksd}(1079)
+           │              └─{udisksd}(1098)
+           ├─upowerd(3282)─┬─{upowerd}(3290)
+           │               └─{upowerd}(3291)
+           ├─wpa_supplicant(1021)
+           └─xl2tpd(6714)
+[1]+  Выход 1            firefox
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mpstree -p | grep firefox[27mpstree -p | grep firefox
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mpstree -p | grep firefox[27mpstree -p | grep firefox
+[?2004l           |                 |                     |-firefox-esr(115092)-+-Privileged Cont(115206)-+-{Privileged Cont}(115217)
+           |                 |                     |                     |-{firefox-esr}(115096)
+           |                 |                     |                     |-{firefox-esr}(115097)
+           |                 |                     |                     |-{firefox-esr}(115098)
+           |                 |                     |                     |-{firefox-esr}(115100)
+           |                 |                     |                     |-{firefox-esr}(115101)
+           |                 |                     |                     |-{firefox-esr}(115102)
+           |                 |                     |                     |-{firefox-esr}(115103)
+           |                 |                     |                     |-{firefox-esr}(115104)
+           |                 |                     |                     |-{firefox-esr}(115106)
+           |                 |                     |                     |-{firefox-esr}(115110)
+           |                 |                     |                     |-{firefox-esr}(115125)
+           |                 |                     |                     |-{firefox-esr}(115126)
+           |                 |                     |                     |-{firefox-esr}(115127)
+           |                 |                     |                     |-{firefox-esr}(115128)
+           |                 |                     |                     |-{firefox-esr}(115129)
+           |                 |                     |                     |-{firefox-esr}(115130)
+           |                 |                     |                     |-{firefox-esr}(115131)
+           |                 |                     |                     |-{firefox-esr}(115132)
+           |                 |                     |                     |-{firefox-esr}(115133)
+           |                 |                     |                     |-{firefox-esr}(115134)
+           |                 |                     |                     |-{firefox-esr}(115140)
+           |                 |                     |                     |-{firefox-esr}(115141)
+           |                 |                     |                     |-{firefox-esr}(115143)
+           |                 |                     |                     |-{firefox-esr}(115147)
+           |                 |                     |                     |-{firefox-esr}(115148)
+           |                 |                     |                     |-{firefox-esr}(115149)
+           |                 |                     |                     |-{firefox-esr}(115150)
+           |                 |                     |                     |-{firefox-esr}(115151)
+           |                 |                     |                     |-{firefox-esr}(115152)
+           |                 |                     |                     |-{firefox-esr}(115153)
+           |                 |                     |                     |-{firefox-esr}(115154)
+           |                 |                     |                     |-{firefox-esr}(115155)
+           |                 |                     |                     |-{firefox-esr}(115156)
+           |                 |                     |                     |-{firefox-esr}(115157)
+           |                 |                     |                     |-{firefox-esr}(115158)
+           |                 |                     |                     |-{firefox-esr}(115159)
+           |                 |                     |                     |-{firefox-esr}(115160)
+           |                 |                     |                     |-{firefox-esr}(115161)
+           |                 |                     |                     |-{firefox-esr}(115162)
+           |                 |                     |                     |-{firefox-esr}(115163)
+           |                 |                     |                     |-{firefox-esr}(115164)
+           |                 |                     |                     |-{firefox-esr}(115165)
+           |                 |                     |                     |-{firefox-esr}(115166)
+           |                 |                     |                     |-{firefox-esr}(115167)
+           |                 |                     |                     |-{firefox-esr}(115168)
+           |                 |                     |                     |-{firefox-esr}(115169)
+           |                 |                     |                     |-{firefox-esr}(115170)
+           |                 |                     |                     |-{firefox-esr}(115171)
+           |                 |                     |                     |-{firefox-esr}(115172)
+           |                 |                     |                     |-{firefox-esr}(115173)
+           |                 |                     |                     |-{firefox-esr}(115174)
+           |                 |                     |                     |-{firefox-esr}(115175)
+           |                 |                     |                     |-{firefox-esr}(115176)
+           |                 |                     |                     |-{firefox-esr}(115181)
+           |                 |                     |                     |-{firefox-esr}(115182)
+           |                 |                     |                     |-{firefox-esr}(115187)
+           |                 |                     |                     |-{firefox-esr}(115188)
+           |                 |                     |                     |-{firefox-esr}(115189)
+           |                 |                     |                     |-{firefox-esr}(115190)
+           |                 |                     |                     |-{firefox-esr}(115192)
+           |                 |                     |                     |-{firefox-esr}(115193)
+           |                 |                     |                     |-{firefox-esr}(115197)
+           |                 |                     |                     |-{firefox-esr}(115198)
+           |                 |                     |                     |-{firefox-esr}(115199)
+           |                 |                     |                     |-{firefox-esr}(115200)
+           |                 |                     |                     |-{firefox-esr}(115201)
+           |                 |                     |                     |-{firefox-esr}(115202)
+           |                 |                     |                     |-{firefox-esr}(115203)
+           |                 |                     |                     |-{firefox-esr}(115204)
+           |                 |                     |                     |-{firefox-esr}(115205)
+           |                 |                     |                     |-{firefox-esr}(115207)
+           |                 |                     |                     |-{firefox-esr}(115209)
+           |                 |                     |                     |-{firefox-esr}(115210)
+           |                 |                     |                     |-{firefox-esr}(115211)
+           |                 |                     |                     |-{firefox-esr}(115213)
+           |                 |                     |                     |-{firefox-esr}(115214)
+           |                 |                     |                     |-{firefox-esr}(115215)
+           |                 |                     |                     |-{firefox-esr}(115216)
+           |                 |                     |                     |-{firefox-esr}(115237)
+           |                 |                     |                     |-{firefox-esr}(115238)
+           |                 |                     |                     |-{firefox-esr}(115239)
+           |                 |                     |                     |-{firefox-esr}(115240)
+           |                 |                     |                     |-{firefox-esr}(115245)
+           |                 |                     |                     |-{firefox-esr}(115247)
+           |                 |                     |                     |-{firefox-esr}(115248)
+           |                 |                     |                     |-{firefox-esr}(115249)
+           |                 |                     |                     |-{firefox-esr}(115250)
+           |                 |                     |                     |-{firefox-esr}(115251)
+           |                 |                     |                     |-{firefox-esr}(115252)
+           |                 |                     |                     |-{firefox-esr}(115254)
+           |                 |                     |                     |-{firefox-esr}(115256)
+           |                 |                     |                     |-{firefox-esr}(115257)
+           |                 |                     |                     |-{firefox-esr}(115264)
+           |                 |                     |                     |-{firefox-esr}(115266)
+           |                 |                     |                     |-{firefox-esr}(115267)
+           |                 |                     |                     |-{firefox-esr}(115268)
+           |                 |                     |                     |-{firefox-esr}(115270)
+           |                 |                     |                     |-{firefox-esr}(115274)
+           |                 |                     |                     |-{firefox-esr}(115294)
+           |                 |                     |                     |-{firefox-esr}(115296)
+           |                 |                     |                     |-{firefox-esr}(115297)
+           |                 |                     |                     |-{firefox-esr}(115298)
+           |                 |                     |                     |-{firefox-esr}(115299)
+           |                 |                     |                     |-{firefox-esr}(115300)
+           |                 |                     |                     |-{firefox-esr}(115301)
+           |                 |                     |                     |-{firefox-esr}(115302)
+           |                 |                     |                     |-{firefox-esr}(115315)
+           |                 |                     |                     |-{firefox-esr}(115316)
+           |                 |                     |                     |-{firefox-esr}(115317)
+           |                 |                     |                     |-{firefox-esr}(115318)
+           |                 |                     |                     |-{firefox-esr}(115322)
+           |                 |                     |                     |-{firefox-esr}(115324)
+           |                 |                     |                     |-{firefox-esr}(115325)
+           |                 |                     |                     |-{firefox-esr}(115326)
+           |                 |                     |                     |-{firefox-esr}(115328)
+           |                 |                     |                     |-{firefox-esr}(115331)
+           |                 |                     |                     `-{firefox-esr}(115335)
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mpidof firefox[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpidof firefox
+[A
+[?2004l[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mps -ef | grep firefox[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cps -ef | grep firefox
+[A
+[?2004leva       115092  108138  0 16:37 ?        00:00:03 /usr/lib/firefox-esr/firefox-esr
+eva       115177  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -parentBuildID 20231016232700 -prefsLen 27872 -prefMapSize 235666 -appDir /usr/lib/firefox-esr/browser {e8ed83c5-55a9-4ca8-b39d-8a889e9d4834} 115092 true socket
+eva       115206  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 1 -isForBrowser -prefsLen 28013 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {402b26b9-d4ac-4a79-ba59-c17ac740173b} 115092 true tab
+eva       115269  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 2 -isForBrowser -prefsLen 33529 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {1fd03860-ba30-4aee-b2e8-ad047e2cce19} 115092 true tab
+eva       115327  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 3 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {2e6b30a3-7bb1-4720-a479-4d4c9c4301e6} 115092 true tab
+eva       115330  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 4 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {e7dec757-4341-4a76-b995-f3697604de27} 115092 true tab
+eva       115334  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 5 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {bd97ad86-9303-4cc1-ae82-e5d4ab326d3f} 115092 true tab
+eva3      115540  112587  0 16:45 pts/7    00:00:00 grep firefox
+[?2004h]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva3@AspireEVA: /usr/local/share/labs[01;32meva3@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ лшдд[K[K[K[Kkt[Kill [7m ps -ef | grep firefox[27m
+[7meva       115092  108138  0 16:37 ?        00:00:03 /usr/lib/firefox-esr/firefox-esr[27m
+[7meva       115177  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -parentBuildID 20231016232700 -prefsLen 27872 -prefMapSize 235666 -appDir /usr/l[27m[7mi[27m[7mb/firefox-esr/browser {e8ed83c5-55a9-4ca8-b39d-8a889e9d4834} 115092 true socket [27m
+[7meva       115206  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -childID 1 -isForBrowser -prefsLen 28013 -prefMapSize 235666 -jsInitLen 240916 -[27m[7mp[27m[7marentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {402b26b9-d4ac-4a79-ba5[27m[7m9[27m[7m-c17ac740173b} 115092 true tab [27m
+[7meva       115269  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -childID 2 -isForBrowser -prefsLen 33529 -prefMapSize 235666 -jsInitLen 240916 -[27m[7mp[27m[7marentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {1fd03860-ba30-4aee-b2e[27m[7m8[27m[7m-ad047e2cce19} 115092 true tab [27m
+[7meva       115327  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -childID 3 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -[27m[7mp[27m[7marentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {2e6b30a3-7bb1-4720-a47[27m[7m9[27m[7m-4d4c9c4301e6} 115092 true tab [27m
+[7meva       115330  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -childID 4 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -[27m[7mp[27m[7marentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {e7dec757-4341-4a76-b99[27m[7m5[27m[7m-f3697604de27} 115092 true tab [27m
+[7meva       115334  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -con[27m[7mt[27m[7mentproc -childID 5 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -[27m[7mp[27m[7marentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {bd97ad86-9303-4cc1-ae8[27m[7m2[27m[7m-e5d4ab326d3f} 115092 true tab [27m
+[7meva3      115540  112587  0 16:45 pts/7    00:00:00 grep firefox[27m
+[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C ps -ef | grep firefox
+eva       115092  108138  0 16:37 ?        00:00:03 /usr/lib/firefox-esr/firefox-esr
+eva       115177  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -parentBuildID 20231016232700 -prefsLen 27872 -prefMapSize 235666 -appDir /usr/lib/firefox-esr/browser {e8ed83c5-55a9-4ca8-b39d-8a889e9d4834} 115092 true socket
+eva       115206  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 1 -isForBrowser -prefsLen 28013 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {402b26b9-d4ac-4a79-ba59-c17ac740173b} 115092 true tab
+eva       115269  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 2 -isForBrowser -prefsLen 33529 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {1fd03860-ba30-4aee-b2e8-ad047e2cce19} 115092 true tab
+eva       115327  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 3 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {2e6b30a3-7bb1-4720-a479-4d4c9c4301e6} 115092 true tab
+eva       115330  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 4 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {e7dec757-4341-4a76-b995-f3697604de27} 115092 true tab
+eva       115334  115092  0 16:37 ?        00:00:00 /usr/lib/firefox-esr/firefox-esr -contentproc -childID 5 -isForBrowser -prefsLen 29112 -prefMapSize 235666 -jsInitLen 240916 -parentBuildID 20231016232700 -appDir /usr/lib/firefox-esr/browser {bd97ad86-9303-4cc1-ae82-e5d4ab326d3f} 115092 true tab
+eva3      115540  112587  0 16:45 pts/7    00:00:00 grep firefox
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[

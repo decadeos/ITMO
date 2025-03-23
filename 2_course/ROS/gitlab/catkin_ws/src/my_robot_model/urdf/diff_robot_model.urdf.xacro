@@ -1,0 +1,64 @@
+<?xml version='1.0'?>
+<robot name="robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Подключение материалов -->
+    <xacro:include filename="$(find my_robot_model)/urdf/materials.xacro"/>
+
+    <!-- Параметры -->
+    <xacro:property name="base_length" value="0.2"/>
+    <xacro:property name="base_width" value="0.6"/>
+    <xacro:property name="base_height" value="0.6"/>
+
+    <xacro:property name="wheel_radius" value="0.1"/>
+    <xacro:property name="wheel_length" value="0.7"/>
+    <xacro:property name="wheel_offset" value="0.15"/>
+    <xacro:property name="material_color" value="grey"/>
+    <xacro:include filename="$(find my_robot_model)/urdf/wheel.xacro"/>
+
+
+    <!-- Базовое звено -->
+    <link name='base_link'>
+        <visual name='base_visual'>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="${base_length} ${base_width} ${base_height}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <!-- Левое колесо -->
+    <link name='wheel_left'>
+        <visual name='wheel_left_visual'>
+            <origin xyz="${wheel_offset} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint type="continuous" name="wheel_left_joint">
+        <origin xyz="${wheel_offset} 0.0 0" rpy="0 0 0"/>
+        <child link="wheel_left"/>
+        <parent link="base_link"/>
+    </joint>
+
+    <!-- Правое колесо -->
+    <link name='wheel_right'>
+        <visual name='wheel_right_visual'>
+            <origin xyz="-${wheel_offset} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="${wheel_length}" radius="${wheel_radius}"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+    </link>
+
+    <joint type="continuous" name="wheel_right_joint">
+        <origin xyz="-${wheel_offset} 0.0 0" rpy="0 0 0"/>
+        <child link="wheel_right"/>
+        <parent link="base_link"/>
+    </joint>
+
+</robot>

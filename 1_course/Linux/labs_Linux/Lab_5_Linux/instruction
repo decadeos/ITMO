@@ -1,0 +1,89 @@
+************************************************************************************
+Создание bash скриптов
+
+вариантик:
+Relax time: 10 minutes
+Repetition period: 31 seconds
+Icon name: 11962_2005.jpg
+
+
+1 скрипт
+
+#!/bin/bash
+
+period_s=$1
+period_ms=$(($period_s*1000))
+icon=/home/eva/images/11962_2005.jpg
+
+notify-send -i $icon -t $period_ms "Time to relax, senpai!" "${period_s} seconds"
+
+
+
+второй скрипт
+
+#!/bin/bash
+relax_time=60*10
+sleep $relax_time
+icon=/home/eva/images/11962_2005.jpg
+notify-send -i $icon -t 5000 "Time to get back to work, senpai!"
+
+***************************************************************************************
+Создание юнит-файлов
+
+4 ПУНКТ
+/run/user/1000/.mutter-Xwaylandauth.GWH9E2
+xauth>
+
+5 ПУНКТ
+unix:path=/run/user/1000/bus
+
+----------------
+eyes-relax.service
+----------------
+xauth
+[Unit]
+Description=eye relax daemon
+After=eyes-stop.service
+Wants=eyes-stop.service
+[Service]
+Type=simple
+Environment="DISPLAY=:0"
+Environment=/run/user/1000/.mutter-Xwaylandauth.GWH9E2
+Environment=unix:path=/run/user/1000/bus
+User=eva
+Group=eva
+WorkingDirectory=/home/eva/Desktop/
+ExecStart=/home/eva/Desktop/eyes-start.sh 14
+
+
+
+----------------
+eyes-relax.timer
+----------------
+[Unit]
+Description=scheduler for eyes service
+[Timer]
+OnBootSec=60s
+OnUnitActiveSec=33s
+[Install]
+WantedBy=timers.target graphical.target
+
+
+
+----------------
+nano eyes-stop.service
+--------------
+[Unit]
+Description=eye stop relax daemon
+Requires=eyes-start.service
+[Service]
+Type=simple
+Environment="DISPLAY=:0"
+Environment=/run/user/1000/.mutter-Xwaylandauth.GWH9E2
+Environment=unix:path=/run/user/1000/bus
+User=eva
+Group=eva
+WorkingDirectory=/home/eva/Desktop/
+ExecStart=/home/eva/Desktop/eyes-stop.sh
+[Install]
+WantedBy=graphical.target

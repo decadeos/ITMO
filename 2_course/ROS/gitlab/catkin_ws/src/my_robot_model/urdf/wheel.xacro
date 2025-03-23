@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="wheel" params="side x y z">
+        <!-- Определение звена колеса -->
+        <link name="wheel_${side}">
+            <visual name="wheel_${side}_visual">
+                <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+                <geometry>
+                    <cylinder length="0.1" radius="0.1"/>
+                </geometry>
+                <material name="red"/>
+            </visual>
+        </link>
+
+        <!-- Определение шарнира для колеса -->
+        <joint name="wheel_${side}_joint" type="continuous">
+            <origin xyz="${x} ${y} ${z}" rpy="0 0 0"/>
+            <child link="wheel_${side}"/>
+            <parent link="base_link"/>
+        </joint>
+    </xacro:macro>
+</robot>

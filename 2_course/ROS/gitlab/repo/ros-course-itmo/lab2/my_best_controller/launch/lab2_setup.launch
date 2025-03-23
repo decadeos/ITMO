@@ -1,0 +1,22 @@
+<launch> <!--требуется тест-->
+
+  <group ns="NS1_409290">
+  <!-- Первое окно turtlesim -->
+    <node pkg="turtlesim" type="turtlesim_node" name="sim1" output="screen"/> <!--запускаю сим-->
+
+    <!-- Узел контроллера -->
+    <node pkg="my_best_controller" type="lab2_controller.py" name="lab2_controller" output="screen"> <!--запуск скрипта-->
+    </node>
+
+  </group>
+
+  
+  <group ns="NS2_409290">
+  <!-- Второе окно turtlesim -->
+    <node pkg="turtlesim" type="turtlesim_node" name="sim2" output="screen"/>
+    
+    <node pkg="my_best_controller" type="lab2_controller.py" name="lab2_controller" output="screen"> <!--запуск скрипта-->
+    </node>
+  </group>
+    
+</launch>

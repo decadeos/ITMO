@@ -1,0 +1,97 @@
+Script started on 2023-11-29 16:02:15+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="75" LINES="26"]
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo adduser eva1
+[?2004l[sudo] пароль для eva: 
+1 Попробуйте ещё раз.
+[sudo] пароль для eva: 
+Добавляется пользователь «eva1» ...
+Добавляется новая группа «eva1» (1002) ...
+Adding new user `eva1' (1002) with group `eva1 (1002)' ...
+Создаётся домашний каталог «/home/eva1» ...
+Копирование файлов из «/etc/skel» ...
+Новый пароль: 
+Повторите ввод нового пароля: 
+Пароль не указан.
+Новый пароль: 
+Повторите ввод нового пароля: 
+passwd: пароль успешно обновлён
+Изменение информации о пользователе eva1
+Введите новое значение или нажмите ENTER для выбора значения по умолчанию
+	Полное имя []: 
+	Номер комнаты []: 
+	Рабочий телефон []: 
+	Домашний телефон []: 
+	Другое []: 
+Данная информация корректна? [Y/n] 
+Adding new user `eva1' to supplemental / extra groups `users' ...
+Добавляется пользователь «eva1» в группу «users» ...
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo adduser eva1[K2
+[?2004lДобавляется пользователь «eva2» ...
+Добавляется новая группа «eva2» (1003) ...
+Adding new user `eva2' (1003) with group `eva2 (1003)' ...
+Создаётся домашний каталог «/home/eva2» ...
+Копирование файлов из «/etc/skel» ...
+Новый пароль: 
+Повторите ввод нового пароля: 
+passwd: пароль успешно обновлён
+Изменение информации о пользователе eva2
+Введите новое значение или нажмите ENTER для выбора значения по умолчанию
+	Полное имя []: 
+	Номер комнаты []: 
+	Рабочий телефон []: 
+	Домашний телефон []: 
+	Другое []: 
+Данная информация корректна? [Y/n] 
+Adding new user `eva2' to supplemental / extra groups `users' ...
+Добавляется пользователь «eva2» в группу «users» ...
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ sudo adduser eva2[K3
+[?2004lДобавляется пользователь «eva3» ...
+Добавляется новая группа «eva3» (1004) ...
+Adding new user `eva3' (1004) with group `eva3 (1004)' ...
+Создаётся домашний каталог «/home/eva3» ...
+Копирование файлов из «/etc/skel» ...
+Новый пароль: 
+Повторите ввод нового пароля: 
+passwd: пароль успешно обновлён
+Изменение информации о пользователе eva3
+Введите новое значение или нажмите ENTER для выбора значения по умолчанию
+	Полное имя []: 
+	Номер комнаты []: 
+	Рабочий телефон []: 
+	Домашний телефон []: 
+	Другое []: 
+Данная информация корректна? [Y/n] 
+Adding new user `eva3' to supplemental / extra groups `users' ...
+Добавляется пользователь «eva3» в группу «users» ...
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [K]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7msudo usermod -aG sudo eva3[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo usermod -aG sudo eva3
+[A
+[?2004l[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mchgrp Students schedule[27mchgrp Students schedule
+[?2004lchgrp: изменение группы для 'schedule': Операция не позволена
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7mvisudo[27mvisudo
+[?2004lbash: visudo: команда не найдена
+[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ visudoыvisudoгvisudo[1Pvisudo[1Pvisudosvisudouvisudodvisudoovisudo visudo
+[?2004l[?2004h[?1049h[22;0;0t[1;43r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[41;47H(B[0;7m[ Чтение… ](B[m[41;42H(B[0;7m[ Прочитано 56 строк ](B[m[H(B[0;7m  GNU nano 7.2                                /etc/sudoers.tmp                                          [1;103H(B[m[42d(B[0;7m^G(B[m Справка    (B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск[43G(B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[43d(B[0;7m^X(B[m Выход[15G(B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[2d[36m#[3d# This file MUST be edited with the 'visudo' command as root.[4d#[5d# Please consider adding local content in /etc/sudoers.d/ instead of[6d# directly modifying this file.[7d#[8d# See the man page for details on how to write a sudoers file.[9d#[10d[39m(B[mDefaults[38;5;208m        [39m(B[menv_reset[11dDefaults[38;5;208m        [39m(B[mmail_badpass[12dDefaults[38;5;208m        [39m(B[msecure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"[14d[36m# This fixes CVE-2005-4890 and possibly breaks some versions of kdesu[15d# (#1011624, https://bugs.kde.org/show_bug.cgi?id=452532)[16d[39m(B[mDefaults[38;5;208m        [39m(B[muse_pty[18d[36m# This preserves proxy settings from user environments of root[19d# equivalent users (group sudo)[20d#Defaults:%sudo env_keep += "http_proxy https_proxy ftp_proxy all_proxy no_proxy"[22d# This allows running arbitrary commands, but so does ALL, and it means[23d# different sudoers have their choice of editor respected.[24d#Defaults:%sudo env_keep += "EDITOR"[26d# Completely harmless preservation of a user preference.[27d#Defaults:%sudo env_keep += "GREP_COLOR"[29d# While you shouldn't normally run git as root, you need to with etckeeper[30d#Defaults:%sudo env_keep += "GIT_AUTHOR_* GIT_COMMITTER_*"[32d# Per-user preferences; root won't have sensible values for them.[33d#Defaults:%sudo env_keep += "EMAIL DEBEMAIL DEBFULLNAME"[35d# "sudo scp" or "sudo rsync" should be able to use your SSH agent.[36d#Defaults:%sudo env_keep += "SSH_AGENT_PID SSH_AUTH_SOCK"[38d# Ditto for GPG agent[39d#Defaults:%sudo env_keep += "GPG_AGENT_INFO"[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[7d[?25l[?12l[?25h[12d[?25l[?12l[?25h[17d[?25l[41d[K[?12l[?25h[22d[?25l[?12l[?25h[27d[?25l[?12l[?25h[32d[?25l[?12l[?25h[37d[?25l[?12l[?25h[2;41r[41;1H[2S[1;43r[39;1H[36m# Host alias specification[40d[39m(B[m[?25l[?12l[?25h7[2;41r8[41d[5S[1;43r[36;1H[36m# User alias specification[38d# Cmnd alias specification[40d# User privilege specification[39m(B[m[?25l[?12l[?25h7[2;41r8[41d[5S[1;43r[36;1Hroot[38;5;208m    [39m(B[mALL=(ALL:ALL) ALL[38d[36m# Allow members of group sudo to execute any command[39d[39m(B[m%sudo[38;5;208m   [39m(B[mALL=(ALL:ALL) ALL[40d[?25l[?12l[?25h7[2;41r8[41d[5S[1;43r[36;1H[36m# See sudoers(5) for more information on "@include" directives:[39d[39m(B[mivanov2 ALL=(ALL:ALL) ALL[40deva3 ALL=(ALL) ALL[?25l[?12l[?25h7[2;41r8[41d
+[1;43r[40;1H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[41;22H(B[0;7m[ line 57/57 (100%), col  1/ 1 (100%), char 1733/1733 (100%) ](B[m[?12l[?25h[A[?25l[1;64H(B[0;7m*[41d(B[m[K[1;103H[2;41r[41;1H
+[1;43r[39;1Heva3 ALL=(ALL) ALL[40d[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[40d[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[39;19H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[1P[?25l[?12l[?25h1 ALL=(ALL) ALL[5G[?25l [K[40d ALL=(ALL) ALL[?12l[?25h[?25l[39;6HALL=(ALL) ALL[40d[K[Aeva1[?12l[?25h[?25l[42;15H            (B[0;7mM-D(B[m Формат DOS            (B[0;7mM-A(B[m Доп. в начало         (B[0;7mM-B(B[m Резерв. копия[43;2H(B[0;7mC(B[m Отмена[17X[43;27H(B[0;7mM-M(B[m Формат Mac            (B[0;7mM-P(B[m Доп. в конец          (B[0;7m^T(B[m Обзор[K[41d(B[0;7mИмя файла для записи: /etc/sudoers.tmp                                                                  [41;39H(B[m[?12l[?25h[?25l[46G[1K (B[0;7m[ Запись… ](B[m[K[1;64H(B[0;7m [103G(B[m[41;42H(B[0;7m[ Записано 57 строк ](B[m[42;15H(B[0;7m^O(B[m Записать   (B[0;7m^W(B[m Поиск      (B[0;7m^K(B[m Вырезать   (B[0;7m^T(B[m Выполнить  (B[0;7m^C(B[m Позиция    (B[0;7mM-U(B[m Отмена[K[43;2H(B[0;7mX(B[m Выход      (B[0;7m^R(B[m ЧитФайл    (B[0;7m^\(B[m Замена     (B[0;7m^U(B[m Вставить   (B[0;7m^J(B[m Выровнять  (B[0;7m^/(B[m К строке   (B[0;7mM-E(B[m Повтор[?12l[?25h[39;5H[?25l[41;40H(B[0;1m[37m[41m[ To suspend, type ^T^Z ][39;49m(B[m[?12l[?25h[39;5H[?25l[41d[J[43d[?12l[?25h[43;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;eva@AspireEVA: /usr/local/share/labs[01;32meva@AspireEVA[00m:[01;34m/usr/local/share/labs[00m$ [7msudo cat /etc/passwd[27msudo cat /etc/passwd
+[?2004lroot:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+tss:x:100:107:TPM software stack,,,:/var/lib/tpm:/bin/false
+systemd-timesync:x:997:997:systemd Time Synchronization:/:/usr/sbin/nologin
+messagebus:x:101:108::/nonexistent:/usr/sb

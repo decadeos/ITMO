@@ -1,0 +1,101 @@
+<robot name="robot_model">
+  <!-- Base link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.18 0.02"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Revolute Joint 1 -->
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_1"/>
+    <origin xyz="0 0 0.02" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10.0" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="link_1">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Revolute Joint 2 -->
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10.0" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="link_2">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Revolute Joint 3 -->
+  <joint name="joint_3" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10.0" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="link_3">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Revolute Joint 4 -->
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="10.0" lower="-1.5" upper="1.5" velocity="1.0"/>
+  </joint>
+  <link name="link_4">
+    <visual>
+      <geometry>
+        <cylinder length="0.02" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Fixed Joint 1 -->
+  <joint name="joint_5" type="fixed">
+    <parent link="link_4"/>
+    <child link="link_5"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+  </joint>
+  <link name="link_5">
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.04"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Fixed Joint 2 -->
+  <joint name="joint_6" type="fixed">
+    <parent link="link_5"/>
+    <child link="link_6"/>
+    <origin xyz="0 0 0.04" rpy="0 0 0"/>
+  </joint>
+  <link name="link_6">
+    <visual>
+      <geometry>
+        <box size="0.04 0.04 0.04"/>
+      </geometry>
+    </visual>
+  </link>

@@ -1,0 +1,330 @@
+Script started on 2023-11-14 00:48:14+03:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="94" LINES="45"]
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3.py[27mpython lab3.py3 lab3.py
+[?2004l[crew/captain]:  Shit.
+[captain 2]:  How deep are they?
+Niobe:  Almost two thousand meters.
+[captain 2]:  What about the scans from the Osiris?
+[captain 3]:  They can’t be accurate.
+Niobe:  They may be.
+[crew/captain]:  What?
+[captain 3]:  It’s not possible.
+Binary:  That’d mean there are a quarter of a million sentinels out there.
+Niobe:  That’s right.
+[captain 3]:  That can’t be.
+Morpheus:  Why not? A sentinel for every man, woman, and child in Zion. That sounds exactly like the thinking of a machine to me.
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3.py > фамилия_out[27mpython lab3.py > фамилия_out
+[?2004lbash: python: команда не найдена
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ python lab3.py > фамилия_out[C[1@3
+[?2004lTwin 1:  We are getting aggravated.
+Link:  He’s okay, keep moving.
+Link:  Not a problem, one crash course in motorcycle…
+Cop from Speaker:  One Adam Twelve, please respond.
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3.py 2>фамилия_err[27mpython lab3.py 2>фамилия_err[1@3
+[?2004lMorpheus:  With all due respect, Commander, there is only one way to save our city.
+Lock:  How?
+Kid:  There’s a Gathering tonight. Everyone’s talking, a lot of people are scared. No one can remember the last time so many ships were docked. Something’s happening, isn’t it? Something big?
+Link:  Hey. We’re not allowed to say anything, so stop asking. Goddamn, it’s good to be home.
+Lock:  I’m going to recommend to the Council that you be removed from duty.
+Morpheus:  That is, of course, your prerogative, Commander.
+Morpheus:  Then I am grateful that it is not up to you.
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ nano  [Kфамилия_out
+[?2004l[?2004h[?1049h[22;0;0t[1;45r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[43;42H(B[0;7m[ Чтение… ](B[m[43;37H(B[0;7m[ Прочитано 10 строк ](B[m[H(B[0;7m  GNU nano 7.2                              фамилия_out                                       [1;93H(B[m[44d(B[0;7m^G(B[m Справка     (B[0;7m^O(B[m Записать    (B[0;7m^W(B[m Поиск[46G(B[0;7m^K(B[m Вырезать    (B[0;7m^T(B[m Выполнить   (B[0;7m^C(B[m Позиция[45d(B[0;7m^X(B[m Выход[16G(B[0;7m^R(B[m ЧитФайл     (B[0;7m^\(B[m Замена[46G(B[0;7m^U(B[m Вставить    (B[0;7m^J(B[m Выровнять   (B[0;7m^/(B[m К строке[2dTwin 2:  Yes we are[3dMorpheus:  Trinity! Get him out of here.[4dTrinity:  Come on![5dTrinity:  Morpheus.[6dTrinity:  Let’s go.[7dTrinity:  I need a download to hotwire a motorcycle.[8dTrinity:  Wait. Cancel that. [to Keymaker] You are handy. Jump on.[9dAgent Johnson:  She means nothing.[10dAgent Thompson:  Find the exile.[11dAgent Johnson:  We have them.[2d[?12l[?25h[?25l[43;35H(B[0;1m[37m[41m[ To suspend, type ^T^Z ][39;49m(B[m[?12l[?25h[2d[?25l[44;16H   (B[0;7mM-F(B[m Новый буфер   (B[0;7m^S(B[m Проверка правоп(B[0;7m^J(B[m Выровнять по ши(B[0;7m^V(B[m Вырезать до конца[45;2H(B[0;7mC(B[m Отмена[16G   (B[0;7mM-\(B[m Присоед. текст(B[0;7m^Y(B[m Проверка синтак(B[0;7m^O(B[m Форматирование (B[0;7m^Z(B[m Приостановка[43d(B[0;7mКоманда для выполнения:                                                                       [43;25H(B[m[?12l[?25h[?25l[?12l[?25h[45;1H[?1049l[23;0;0t[?1l>[?2004l
+
+Используйте «fg» для возврата в nano
+
+[1]+  Остановлен    nano фамилия_out
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ nano фамилия_out[K[K[Kerr
+[?2004l[?2004h[?1049h[22;0;0t[1;45r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[43;42H(B[0;7m[ Чтение… ](B[m[43;37H(B[0;7m[ Прочитано 4 строки ](B[m[H(B[0;7m  GNU nano 7.2                              фамилия_err                                       [1;93H(B[m[44d(B[0;7m^G(B[m Справка     (B[0;7m^O(B[m Записать    (B[0;7m^W(B[m Поиск[46G(B[0;7m^K(B[m Вырезать    (B[0;7m^T(B[m Выполнить   (B[0;7m^C(B[m Позиция[45d(B[0;7m^X(B[m Выход[16G(B[0;7m^R(B[m ЧитФайл     (B[0;7m^\(B[m Замена[46G(B[0;7m^U(B[m Вставить    (B[0;7m^J(B[m Выровнять   (B[0;7m^/(B[m К строке[2dMorpheus:  Neo.[3dLock:  Goddamnit, Morpheus! Not everyone believes what you believe![4dMorpheus:  My beliefs do not require them to.[5dLock:  If it were up to me, Captain, you wouldn’t set foot on a ship for the rest of your lif(B[0;7m>[2;1H(B[m[?12l[?25h[?25l[43d[J[45d[?12l[?25h[45;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ rm фамилия_out
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ rm фамилия_out[K[K[Kerr
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3.py>фамилия_out 2>фамилия_err[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython lab3.py>фамилия_out 2>фамилия_err[C[1@3
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3.py>фамилия_final 2>&1[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython lab3.py>фамилия_final 2>&1[C[1@3
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ wc -w фамилия_0[Kout
+[?2004l61 фамилия_out
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ wc -w фамилия_out[K[K[Kerr
+[?2004l78 фамилия_err
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ wc -w фамилия_err<фамилия_err фамилия_err
+[?2004l78
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ wc -w < фамилия_err[C[K[K[Kout
+[?2004l61
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ wc -w < фамилия_out[K[K[Kfinal
+[?2004l170
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mman grep[27mman grep
+[?2004l[?1049h[22;0;0t[?1h=GREP(1)                                User Commands                                GREP(1)[m
+[m
+[1mNAME[0m[m
+       grep, egrep, fgrep, rgrep - print lines that match patterns[m
+[m
+[1mSYNOPSIS[0m[m
+       [1mgrep[0m [[4mOPTION[24m...] [4mPATTERNS[24m [[4mFILE[24m...][m
+       [1mgrep[0m [[4mOPTION[24m...] [1m-e[0m [4mPATTERNS[24m ... [[4mFILE[24m...][m
+       [1mgrep[0m [[4mOPTION[24m...] [1m-f[0m [4mPATTERN_FILE[24m ... [[4mFILE[24m...][m
+[m
+[1mDESCRIPTION[0m[m
+       [1mgrep[0m searches for [4mPATTERNS[24m in each [4mFILE[24m.  [4mPATTERNS[24m is one or more patterns separated[m
+       by newline characters, and [1mgrep[0m prints each line that matches a pattern.   Typically[m
+       [4mPATTERNS[24m should be quoted when [1mgrep[0m is used in a shell command.[m
+[m
+       A  [4mFILE[24m  of  “[1m-[0m” stands for standard input.  If no [4mFILE[24m is given, recursive searches[m
+       examine the working directory, and nonrecursive searches read standard input.[m
+[m
+       Debian also includes the variant programs [1megrep[0m, [1mfgrep[0m and  [1mrgrep[0m.   These  programs[m
+       are  the  same  as  [1mgrep[0m [1m-E[0m, [1mgrep[0m [1m-F[0m, and [1mgrep[0m [1m-r[0m, respectively.  These variants are[m
+       deprecated upstream, but Debian provides for backward compatibility. For portability[m
+       reasons,  it  is  recommended  to  avoid the variant programs, and use [1mgrep[0m with the[m
+       related option instead.[m
+[m
+[1mOPTIONS[0m[m
+   [1mGeneric[0m [1mProgram[0m [1mInformation[0m[m
+       [1m--help[0m Output a usage message and exit.[m
+[m
+       [1m-V[0m, [1m--version[0m[m
+              Output the version number of [1mgrep[0m and exit.[m
+[m
+   [1mPattern[0m [1mSyntax[0m[m
+       [1m-E[0m, [1m--extended-regexp[0m[m
+              Interpret [4mPATTERNS[24m as extended regular expressions (EREs, see below).[m
+[m
+       [1m-F[0m, [1m--fixed-strings[0m[m
+              Interpret [4mPATTERNS[24m as fixed strings, not regular expressions.[m
+[m
+       [1m-G[0m, [1m--basic-regexp[0m[m
+              Interpret [4mPATTERNS[24m as basic regular expressions (BREs, see below).   This  is[m
+              the default.[m
+[m
+       [1m-P[0m, [1m--perl-regexp[0m[m
+              Interpret  [4mPATTERNS[24m  as  Perl-compatible  regular  expressions (PCREs).  This[m
+[7m Manual page grep(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t
+[2]+  Остановлен    man grep
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mpython lab3_2.py[27mpython lab3_2.py[C3 lab3_2.py
+[?2004la) The character that says a phrase is "Merovingian"
+	b) The character that is talked with/about is  "Persephone"
+		c) Should contain punctuation ""
+			d) The subject that is talked about "do"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mcat the-matrix-reloaded.csv | grep Neo[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat the-matrix-reloaded.csv | grep Neo[K[K[K[K ^[[200~Merovingian~[K[1PMerovingian[1PMerovingian[1PMerovingian[1PMerovingian[1PMerovingian[2PMerovingian[1PMerovingian Merovingian
+[?2004lThe Oracle," Yes, he disappeared some time ago. We did not know what happened to him until now. He’s being held prisoner by a very dangerous program, one of the oldest of us. He is called the Merovingian, and he will not let him go willingly."
+Morpheus," Yes, we are here to speak with the Merovingian."
+Merovingian," Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+Merovingian," Yes, of course, who has time? Who has time? But then if we do not ever take time, how can we ever have time? Château Haut-Brion 1959, magnificent wine, I love French wine, like I love the French language. I have sampled every language, French is my favourite – fantastic language, especially to curse with. Nom de Dieu de putain de bordel de merde de saloperies de connards d’enculés de ta mère. You see, it’s like wiping your arse with silk, I love it."
+Merovingian," Hmph… I am a trafficker of information, I know everything I can. The question is, do you know why you are here?"
+Merovingian," Oh yes, it is true. The Keymaker, of course. But this is not a reason, this is not a `why.’ The Keymaker himself, his very nature, is means, it is not an end, and so, to look for him is to be looking for a means to do… what?"
+Merovingian," But do you? You think you do but you do not. You are here because you were sent here, you were told to come here and you obeyed. [Laughs] It is, of course, the way of all things. You see, there is only one constant, one universal, it is the only real truth"
+Merovingian," No. Wrong. Choice is an illusion, created between those with power, and those without. Look there, at that woman. My God, just look at her. Affecting everyone around her, so obvious, so bourgeois, so boring. But wait… Watch – you see, I have sent her dessert, a very special dessert. I wrote it myself. It starts so simply, each line of the program creating a new effect, just like poetry. First, a rush… heat… her heart flutters. You can see it, Neo, yes? She does not understand why – is it the wine? No. What is it then, what is the reason? And soon it does not matter, soon the why and the reason are gone, and all that matters is the feeling itself. This is the nature of the universe. We struggle against it, we fight to deny it, but it is of course pretense, it is a lie. Beneath our poised appearance, the truth is we are completely out of control. Causality. There is no escape from it, we are forever slaves to it. Our only hope, our only peace is to understand it, to understand the `why.’ `Why’ is what separates us from them, you from me. `Why’ is the only real social power, without it you are powerless. And this is how you come to me, without `why,’ without power. Another link in the chain. But fear not, since I have seen how good you are at following orders, I will tell you what to do next. Run back, and give the fortune teller this message"
+Merovingian," Oh yes, it is. The Keymaker is mine and I see no reason why I should give him up. No reason at all."
+Merovingian," Please, ma chérie, I’ve told you, we are all victims of causality. I drink too much wine, I must take a piss. Cause and effect. Au revoir."
+Merovingian," Oh God, my God, Persephone how could you do this, you betrayed me [speaking French]!"
+Merovingian," Cause? There is no cause for this, what cause?"
+Merovingian," Lipstick? Lipstick? What craziness you are talking about woman, there is no lipstick."
+Merovingian," Ai-ai-ai-ai-ai-ai, woman, this is nothing, c’est rien, c’est rien du tout. It’s a game, it is only a game."
+Merovingian," All right. All right. Let us find out where this goes. You two, get the Keymaker."
+Merovingian," Handle us? You’ll handle us? You know, your predecessors had much more respect."
+Merovingian," Okay, you have some skill. Kill him."
+Merovingian," You see, he’s just a man."
+Merovingian," Damn it, woman, you will be the end of me. Mark my words, boy, and mark them well. I have survived your predecessors, and I will survive you!"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep [7mPersephone[27m [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CPersephone [A
+[?2004lMerovingian," Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+Merovingian," Oh God, my God, Persephone how could you do this, you betrayed me [speaking French]!"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone |[K | grep ""
+[?2004lMerovingian," Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+Merovingian," Oh God, my God, Persephone how could you do this, you betrayed me [speaking French]!"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" |  [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" |  [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | [K[A[K]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | grep do
+[?2004lMerovingian," Oh God, my God, Persephone how could you do this, you betrayed me [speaking French]!"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | grep do | wc -l
+[?2004l1
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | grep do | wc -l[K[K[K[K[Kgrep -c
+[?2004lИспользование: grep [ПАРАМЕТР]… ШАБЛОНЫ [ФАЙЛ]…
+Запустите «grep --help» для получения более подробного описания.
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | grep do | grep -c .
+[?2004l1
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ name = [K[K[K=""K"e"a"n"u" "R"e"e"v"e"s"
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ man sed
+[?2004l[?1049h[22;0;0t[?1h=SED(1)                                 User Commands                                 SED(1)[m
+[m
+[1mNAME[0m[m
+       sed - stream editor for filtering and transforming text[m
+[m
+[1mSYNOPSIS[0m[m
+       sed [-V] [--version] [--help] [-n] [--quiet] [--silent][m
+           [-l N] [--line-length=N] [-u] [--unbuffered][m
+           [-E] [-r] [--regexp-extended][m
+           [-e script] [--expression=script][m
+           [-f script-file] [--file=script-file][m
+           [script-if-no-other-script][m
+           [file...][m
+[m
+[1mDESCRIPTION[0m[m
+       [4mSed[24m  is  a stream editor.  A stream editor is used to perform basic text transforma‐[m
+       tions on an input stream (a file or input from a pipeline).  While in some ways sim‐[m
+       ilar  to  an  editor  which permits scripted edits (such as [4med[24m), [4msed[24m works by making[m
+       only one pass over the input(s), and is consequently  more  efficient.   But  it  is[m
+       [4msed[24m's  ability to filter text in a pipeline which particularly distinguishes it from[m
+       other types of editors.[m
+[m
+       [1m-n[0m, [1m--quiet[0m, [1m--silent[0m[m
+[m
+              suppress automatic printing of pattern space[m
+[m
+       [1m--debug[0m[m
+[m
+              annotate program execution[m
+[m
+       [1m-e[0m script, [1m--expression[0m=[4mscript[24m[m
+[m
+              add the script to the commands to be executed[m
+[m
+       [1m-f[0m script-file, [1m--file[0m=[4mscript-file[24m[m
+[m
+              add the contents of script-file to the commands to be executed[m
+[m
+       [1m--follow-symlinks[0m[m
+[m
+              follow symlinks when processing in place[m
+[m
+       [1m-i[SUFFIX][0m, [1m--in-place[0m[=[4mSUFFIX[24m][m
+[m
+[7m Manual page sed(1) line 1 (press h for help or q to quit)[27m[K[K[?1l>[?1049l[23;0;0t
+[3]+  Остановлен    man sed
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ man sedname="Keanu Reeves"cat the-matrix-reloaded.csv | grep Merovingian | grep Persephone | grep "" | grep do | grep -c .[K[2Pwc -l[K[K[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[29Ppython3 lab3_2.py[9Pman grepwc -w < фамилия_final[2Pouterr[2Pфамилия_erroutpython3 lab3.py>фамилия_final 2>&1out 2>фамилия_err[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[27Prm фамилия_erroutnano фамилия_erroutpython3 lab3.py 2>фамилия_err> фамилия_out[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[13P3 lab3.pyexit[Kwc -w < фамилия_final[2Perroutpython lab3.py>фамилия_final 2>&1out 2>фамилия_err[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls[Krm фамилия_erroutnano фамилия_erroutpython3 lab3.py 2>фамилия_err> фамилия_out[1P[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[13P3 lab3.py[10Pls -l[1Pexitls -lsudo apt install blender[9Pupdatels[Ksudo apt updateinstall blenderls -l[K[1Pexitls -lpython3 lab3.py lab3.py > фамилия_out[1@3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2>фамилия_err[13Pnano фамилия_outerr[2Prm фамилия_outerrls[Kpython lab3.py>фамилия_out 2>фамилия_err[7Pfinal 2>&1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[14Pwc -w < фамилия_outerrfinalexit[Kpython3 lab3.py lab3.py > фамилия_out[1@3[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2>фамилия_err[13Pnano фамилия_outerr[2Prm фамилия_outerrpython3 lab3.py>фамилия_out 2>фамилия_err[7Pfinal 2>&1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[17Pwc -w фамилия_outerr< фамилия_erroutfinal[13Pman greppython3 lab3_2.pycat the-matrix-reloaded.csv | grep Merovingian | grep Persephone  | grep "" | grep do | wc -lgrep -c .[Aname="Keanu Reeves"[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[12Pman sed[K[7mcat the-matrix-reloaded.csv | grep ^Neo | sed "1i\ --Text[27m
+[7mfor $name "[27m[A]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Neo | sed "1i\ --Text
+for $name "
+[?2004lsed: -e выражение #1, символ 12: неизвестная команда: `f'
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Neo | sed "1i\ --Text
+for $name "^C[?2004l[?2004h[?2004l
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Neo | sed "1i\ --Text
+for $name "[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[7mMerovingian[27m | sed "1i\ --Text          
+for $name "[A[A]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccat the-matrix-reloaded.csv | grep ^Merovingian | sed "1i\ --Text 
+for $name "[A[Cfor $name "
+[K[A[C[1@ 
+[?2004l --Text for Keanu Reeves 
+Merovingian," Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+Merovingian," Yes, of course, who has time? Who has time? But then if we do not ever take time, how can we ever have time? Château Haut-Brion 1959, magnificent wine, I love French wine, like I love the French language. I have sampled every language, French is my favourite – fantastic language, especially to curse with. Nom de Dieu de putain de bordel de merde de saloperies de connards d’enculés de ta mère. You see, it’s like wiping your arse with silk, I love it."
+Merovingian," Hmph… I am a trafficker of information, I know everything I can. The question is, do you know why you are here?"
+Merovingian," Oh yes, it is true. The Keymaker, of course. But this is not a reason, this is not a `why.’ The Keymaker himself, his very nature, is means, it is not an end, and so, to look for him is to be looking for a means to do… what?"
+Merovingian," But do you? You think you do but you do not. You are here because you were sent here, you were told to come here and you obeyed. [Laughs] It is, of course, the way of all things. You see, there is only one constant, one universal, it is the only real truth"
+Merovingian," No. Wrong. Choice is an illusion, created between those with power, and those without. Look there, at that woman. My God, just look at her. Affecting everyone around her, so obvious, so bourgeois, so boring. But wait… Watch – you see, I have sent her dessert, a very special dessert. I wrote it myself. It starts so simply, each line of the program creating a new effect, just like poetry. First, a rush… heat… her heart flutters. You can see it, Neo, yes? She does not understand why – is it the wine? No. What is it then, what is the reason? And soon it does not matter, soon the why and the reason are gone, and all that matters is the feeling itself. This is the nature of the universe. We struggle against it, we fight to deny it, but it is of course pretense, it is a lie. Beneath our poised appearance, the truth is we are completely out of control. Causality. There is no escape from it, we are forever slaves to it. Our only hope, our only peace is to understand it, to understand the `why.’ `Why’ is what separates us from them, you from me. `Why’ is the only real social power, without it you are powerless. And this is how you come to me, without `why,’ without power. Another link in the chain. But fear not, since I have seen how good you are at following orders, I will tell you what to do next. Run back, and give the fortune teller this message"
+Merovingian," Oh yes, it is. The Keymaker is mine and I see no reason why I should give him up. No reason at all."
+Merovingian," Please, ma chérie, I’ve told you, we are all victims of causality. I drink too much wine, I must take a piss. Cause and effect. Au revoir."
+Merovingian," Oh God, my God, Persephone how could you do this, you betrayed me [speaking French]!"
+Merovingian," Cause? There is no cause for this, what cause?"
+Merovingian," Lipstick? Lipstick? What craziness you are talking about woman, there is no lipstick."
+Merovingian," Ai-ai-ai-ai-ai-ai, woman, this is nothing, c’est rien, c’est rien du tout. It’s a game, it is only a game."
+Merovingian," All right. All right. Let us find out where this goes. You two, get the Keymaker."
+Merovingian," Handle us? You’ll handle us? You know, your predecessors had much more respect."
+Merovingian," Okay, you have some skill. Kill him."
+Merovingian," You see, he’s just a man."
+Merovingian," Damn it, woman, you will be the end of me. Mark my words, boy, and mark them well. I have survived your predecessors, and I will survive you!"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Merovingian | sed "1i\ --Text for $name " | head = [K[K[K -5
+[?2004l --Text for Keanu Reeves 
+Merovingian," Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+Merovingian," Yes, of course, who has time? Who has time? But then if we do not ever take time, how can we ever have time? Château Haut-Brion 1959, magnificent wine, I love French wine, like I love the French language. I have sampled every language, French is my favourite – fantastic language, especially to curse with. Nom de Dieu de putain de bordel de merde de saloperies de connards d’enculés de ta mère. You see, it’s like wiping your arse with silk, I love it."
+Merovingian," Hmph… I am a trafficker of information, I know everything I can. The question is, do you know why you are here?"
+Merovingian," Oh yes, it is true. The Keymaker, of course. But this is not a reason, this is not a `why.’ The Keymaker himself, his very nature, is means, it is not an end, and so, to look for him is to be looking for a means to do… what?"
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mcat the-matrix-reloaded.csv | grep ^Neo | sed[27m
+[7m"s/Neo,/$name:/" > keanu_text[27m[A]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Neo | sed
+"s/Neo,/$name:/" > keanu_text[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[11@[7mMerovingian[27mMerovingian
+
+[?2004lИспользование: sed [ПАРАМЕТР]… {только-сценарий-если-нет-другого-сценария}
+               [входной-файл]…
+
+  -n, --quiet, --silent
+                 выключить автоматическую печать образца
+      --debug
+                 комментировать выполнение программы
+  -e script, --expression=сценарий
+                 добавить сценарий в исполняемые команды
+  -f script-file, --file=файл-сценария
+                 добавить содержимое файла-сценария в исполняемые команды
+  --follow-symlinks
+                 переходить по символьным ссылкам при обработке на месте
+  -i[СУФФИКС], --in-place[=СУФФИКС]
+                 править файлы на месте (создаёт копию, если указан СУФФИКС)
+  -l N, --line-length=N
+                 задать желаемую длину до переноса строки для команды «l»
+  --posix
+                 отключить все расширения GNU
+  -E, -r, --regexp-extended
+                 использовать в сценарии расширенные регулярные выражения
+                 (для переносимости используйте -E (POSIX)
+  -s, --separate
+                 рассматривать файлы раздельно, а не в виде одного
+                 длинного непрерывного потока
+      --sandbox
+                 работать в режиме «песочницы»
+                 (отключает команды e/r/w)
+  -u, --unbuffered
+                 загружать минимальный объём данных из входных файлов
+                 и чаще сбрасывать выходные буферы на диск
+  -z, --null-data
+                 разделять строки символами NUL
+      --help     показать эту справку и выйти
+      --version  показать информацию о версии и выйти
+
+Если не указан параметр -e, --expression, -f или --file, то в качестве
+интерпретируемого сценария sed берётся первый необязательный аргумент.
+Все оставшиеся аргументы являются именами входных файлов; если входные
+файлы не указаны, тогда читается стандартный ввод.
+
+Домашняя страница GNU sed: <https://www.gnu.org/software/sed/>.
+Справка по работе с программами GNU: <https://www.gnu.org/gethelp/>.
+bash: s/Neo,/Keanu Reeves:/: Нет такого файла или каталога
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ "s/Neo,/$name:/" > keanu_text[Ccat the-matrix-reloaded.csv | grep ^Merovingian | sed[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[24P"s/Neo,/$name:/" > keanu_text[K"s/Neo,/$name:/" > keanu_textcat the-matrix-reloaded.csv | grep ^Merovingian | sed[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[24P"s/Neo,/$name:/" > keanu_text[K[7mcat the-matrix-reloaded.csv | grep ^Neo | sed[27m
+[7m"s/Neo,/$name:/" > keanu_text[27m[A]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ cat the-matrix-reloaded.csv | grep ^Neo | sed
+"s/Neo,/$name:/" > keanu_text[1P[1P[1P[11@[7mMerovingian[27m[C[C[CMerovingian[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1@\[1@\[1P[1P[1P[1P[11@[7mMerovingian[27mMerovingian
+
+[?2004lИспользование: sed [ПАРАМЕТР]… {только-сценарий-если-нет-другого-сценария}
+               [входной-файл]…
+
+  -n, --quiet, --silent
+                 выключить автоматическую печать образца
+      --debug
+                 комментировать выполнение программы
+  -e script, --expression=сценарий
+                 добавить сценарий в исполняемые команды
+  -f script-file, --file=файл-сценария
+                 добавить содержимое файла-сценария в исполняемые команды
+  --follow-symlinks
+                 переходить по символьным ссылкам при обработке на месте
+  -i[СУФФИКС], --in-place[=СУФФИКС]
+                 править файлы на месте (создаёт копию, если указан СУФФИКС)
+  -l N, --line-length=N
+                 задать желаемую длину до переноса строки для команды «l»
+  --posix
+                 отключить все расширения GNU
+  -E, -r, --regexp-extended
+                 использовать в сценарии расширенные регулярные выражения
+                 (для переносимости используйте -E (POSIX)
+  -s, --separate
+                 рассматривать файлы раздельно, а не в виде одного
+                 длинного непрерывного потока
+      --sandbox
+                 работать в режиме «песочницы»
+                 (отключает команды e/r/w)
+  -u, --unbuffered
+                 загружать минимальный объём данных из входных файлов
+                 и чаще сбрасывать выходные буферы на диск
+  -z, --null-data
+                 разделять строки символами NUL
+      --help     показать эту справку и выйти
+      --version  показать информацию о версии и выйти
+
+Если не указан параметр -e, --expression, -f или --file, то в качестве
+интерпретируемого сценария sed берётся первый необязательный аргумент.
+Все оставшиеся аргументы являются именами входных файлов; если входные
+файлы не указаны, тогда читается стандартный ввод.
+
+Домашняя страница GNU sed: <https://www.gnu.org/software/sed/>.
+Справка по работе с программами GNU: <https://www.gnu.org/gethelp/>.
+bash: s/Merovingian,/Keanu Reeves:/: Нет такого файла или каталога
+[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ "s/Merovingian,/$name:/" > keanu_text[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kcat the-matrix-reloaded.csv | greb [K[Kp [7mMerovingian[27mMerovingian^Merovingian[C[C[C[C[C[C[C[C[C[C[C | sed "s/[7mMerovin[27m[7mg[27m[7mian[27m[A]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CMerovingian.[K,/$name:/" > keanu_text
+[?2004l[?2004h]0;eva@AspireEVA: ~/Рабочий стол[01;32meva@AspireEVA[00m:[01;34m~/Рабочий стол[00m$ [7mcounter=1; while read line; do echo $counter $line;[27m
+[7m((counter++)); done < keanu_text[27m[Acounter=1; while read line; do echo $counter $line;
+((counter++)); done < keanu_text
+[?2004l1 Keanu Reeves:" Aha, here he is at last. Neo, the One himself, right? And the legendary Morpheus. And Trinity of course, si belle qu’elle me fait souffrir. I have heard so much, you honour me. Please, sit, join us. This is my wife, Persephone. Something to eat? Drink? Hmm… of course, such things are contrivances like so much here. For the sake of appearances."
+2 Keanu Reeves:" Yes, of course, who has time? Who has time? But then if we do not ever take time, how can we ever have time? Château Haut-Brion 1959, magnificent wine, I love French wine, like I love the French language. I have sampled every language, French is my favourite – fantastic language, especially to curse with. Nom de Dieu de putain de bordel de merde de saloperies de connards d’enculés de ta mère. You see, it’s like wiping your arse with silk, I love it."
+3 Keanu Reeves:" Hmph… I am a trafficker of information, I know everything I can. The question is, do you know why you are here?"
+4 Keanu Reeves:" Oh yes, it is true. The Keymaker, of course. But this is not a reason, this is not a `why.’ The Keymaker himself, his very nature, is means, it is not an end, and so, to look for him is to be looking for a means to do… what?"
+5 Keanu Reeves:" But do you? You think you do but you do not. You are here because you were sent here, you were told to come here and you obeyed. [Laughs] It is, of course, the way of all things. You see, there is only one constant, one universal, it is the only real truth"
+6 Keanu Reeves:" No. Wrong. Choice is an illusion, created between those with power, and those without. Look there, at that woman. My God, just look at her. Affecting everyone around her, so obvious, so bourgeois, so boring. But wait… Watch – you see, I have sent her dessert, a very special dessert. I wrote it myself. It starts so simply, each line of the program creating a new effect, just like poetry. First, a rush… heat… her heart flutters. You can see it, Neo, yes? She does not

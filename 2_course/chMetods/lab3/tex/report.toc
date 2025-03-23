@@ -1,0 +1,20 @@
+\babel@toc {russian}{}\relax 
+\contentsline {section}{\numberline {1}Task. Жесткие фильтры}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Краткое условие}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Убираем высокие частоты}{2}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Предподготовка}{2}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Фиксирую \(b\)}{3}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Вывод}{5}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Фиксирую \(\nu _0\)}{5}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.5}Вывод}{7}{subsubsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.3}Убираем специфические частоты}{8}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Предподготовка}{8}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Случай, когда \(b = 0\)}{8}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Остальные случаи}{10}{subsubsection.1.3.3}%
+\contentsline {subsubsection}{\numberline {1.3.4}Выводы по пунктам 1.3.2 и 1.3.3}{11}{subsubsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.4}Убираем низкие частоты?}{12}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}Предподготовка}{12}{subsubsection.1.4.1}%
+\contentsline {subsubsection}{\numberline {1.4.2}Графики}{12}{subsubsection.1.4.2}%
+\contentsline {subsubsection}{\numberline {1.4.3}Выводы}{15}{subsubsection.1.4.3}%
+\contentsline {section}{\numberline {2}Task. Фильтрация звука}{16}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Краткое условие}{16}{subsection.2.1}%

@@ -1,0 +1,8 @@
+prefix=/home/eva/Documents/itmo/catkin_ws/devel/.private/study_pkg
+
+Name: study_pkg
+Description: Description of study_pkg
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

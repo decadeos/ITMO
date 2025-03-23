@@ -1,0 +1,8 @@
+prefix=/home/eva/Documents/itmo/catkin_ws/devel/.private/my_best_controller
+
+Name: my_best_controller
+Description: Description of my_best_controller
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

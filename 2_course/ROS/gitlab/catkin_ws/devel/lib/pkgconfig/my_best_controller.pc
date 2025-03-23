@@ -1,0 +1,1 @@
+/home/eva/Documents/itmo/catkin_ws/devel/.private/my_best_controller/lib/pkgconfig/my_best_controller.pc

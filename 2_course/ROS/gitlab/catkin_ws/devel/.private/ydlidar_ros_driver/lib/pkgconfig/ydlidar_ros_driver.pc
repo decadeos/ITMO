@@ -1,0 +1,8 @@
+prefix=/home/eva/Documents/itmo/catkin_ws/devel/.private/ydlidar_ros_driver
+
+Name: ydlidar_ros_driver
+Description: Description of ydlidar_ros_driver
+Version: 1.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy sensor_msgs message_runtime

@@ -1,0 +1,4 @@
+dev/null терминатор
+dev/random генерит случайные символы
+> перенаправить
+sudo apt update(upgrate) > /dev/null 2>&1

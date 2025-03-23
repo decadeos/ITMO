@@ -1,0 +1,1 @@
+/home/eva/Documents/itmo/catkin_ws/devel/.private/robot_model/share/robot_model/cmake/robot_modelConfig-version.cmake

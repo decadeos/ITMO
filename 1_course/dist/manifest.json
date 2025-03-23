@@ -1,0 +1,23 @@
+{
+  "name": "Better Itmo Schedule Export",
+  "description": "Chrome extension for exporting schedule from My Itmo.",
+  "version": "1.0.2.0",
+  "version_name": "1.0.2",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "permissions": [
+    "cookies",
+    "activeTab",
+    "storage",
+    "downloads"
+  ]
+}

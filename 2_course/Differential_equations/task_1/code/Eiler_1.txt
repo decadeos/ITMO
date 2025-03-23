@@ -1,0 +1,35 @@
+f[x_, y_] := 3 x - y/x
+
+
+x0 = 1;
+y0 = 1;
+h = 0.2;
+xEnd = 2;
+
+eulerMethod[f_, x0_, y0_, h_, xEnd_] :=
+ Module[{n, x, y, result}, n = Ceiling[(xEnd - x0)/h]; x = x0;
+  y = y0;
+  result = {{x, y}};
+  For[i = 1, i <= n, i++, y = y + h f[x, y];
+   x = x + h;
+   AppendTo[result, {x, y}];];
+  result]
+
+
+eulerResults = eulerMethod[f, x0, y0, h, xEnd];
+
+
+TableForm[eulerResults, TableHeadings -> {None, {"x", "y"}}]
+
+
+exactSolution[x_] := x^2
+
+ListLinePlot[{eulerResults,
+  Table[{x, exactSolution[x]}, {x, x0, xEnd, 0.01}]},
+ PlotLegends -> {"Метод Эйлера", "Точное решение"},
+ PlotStyle -> {Red, Blue},
+ AxesLabel -> {"x", "y"},
+ PlotMarkers -> ("*"),
+ PlotRange -> All,
+ GridLines -> Automatic,
+ ImageSize -> Large]

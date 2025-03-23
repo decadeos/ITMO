@@ -1,0 +1,310 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=3cm, right=3cm}
+\documentclass[a4paper,12pt]{article}
+\usepackage{listings} % Подключаем пакет для кода
+\usepackage{xcolor}   % Для цветного форматирования
+\usepackage{geometry}
+\geometry{top=2cm, bottom=2cm, left=2cm, right=2cm}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+\usepackage[none]{hyphenat}
+\usepackage{hyperref} % Пакет для гиперссылок
+% Настройка отображения кода
+\lstset{
+    language=Python,           % Указываем язык
+    basicstyle=\ttfamily\small, % Шрифт кода
+    keywordstyle=\color{blue}, % Цвет ключевых слов
+    stringstyle=\color{red},   % Цвет строк (например, "текст")
+    commentstyle=\color{green},% Цвет комментариев
+    numbers=left,              % Нумерация строк
+    numberstyle=\tiny\color{gray}, % Формат номеров строк
+    stepnumber=1,              % Шаг нумерации строк
+    breaklines=true,           % Перенос строк
+    backgroundcolor=\color{lightgray!10}, % Цвет фона
+    frame=single,              % Рамка вокруг кода
+    tabsize=4,                 % Размер табуляции
+    showstringspaces=false     % Не отображать пробелы в строках
+}
+
+
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    {\scshape\large Министерство науки и высшего образования Российской Федерации\par}
+    {\scshape\large федеральное государственное автономное образовательное учреждение высшего образования\par}
+    {\bfseries\large «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»\par}
+    \vspace{3cm}
+    {\bfseries\Large РГР 2 по Дифферинциальным уравнениям\par}
+    \vspace{1cm}
+    {\bfseries\large «ЧИСЛЕННОЕ
+ИНТЕГРИРОВАНИЕ
+ДИФФЕРЕНЦИАЛЬНЫХ
+УРАВНЕНИЙ ВТОРОГО
+ПОРЯДКА»\par}
+    \vfill
+    \hspace{0.5\linewidth}%
+    \begin{minipage}{0.4\linewidth}
+        Выполнилa: \par Охрименко А. Д. \par
+        R3225, 409290 \par
+        Поток: ДУ 23 1.1 \par
+        Факультет: СУиР \par
+        Преподаватель: \par
+        Танченко Ю. В.
+    \end{minipage}
+    \vfill
+    {\bfseries Санкт-Петербург, 2024\par}
+\end{titlepage}
+
+
+
+
+
+
+\section{Вариант 20. Условие задачи}
+Методом Рунге-Кутта проинтегрировать дифференциальное уравнение:
+\[
+y'' = -16y + \sin x, \quad y(0) = 1, \quad y'(0) = -2,
+\]
+на отрезке \([0; 0.3]\) с шагом \(h = 0.1\).
+
+Найти аналитическое решение \(y = y(x)\) заданного уравнения и сравнить значения точного и приближённого решений в точках:
+\[
+x_1 = 0.1, \quad x_2 = 0.2, \quad x_3 = 0.3.
+\]
+
+Все вычисления вести с шестью десятичными знаками.
+
+
+
+\section{Точное решение}
+
+
+Рассмотрим дифференциальное уравнение:
+\[
+y'' = \sin x - 16y.
+\]
+
+Общее решение данного уравнения состоит из решения однородного уравнения и частного решения неоднородного уравнения.
+
+\subsection*{Решение однородного уравнения}
+Однородное уравнение:
+\[
+y'' + 16y = 0.
+\]
+
+Характеристическое уравнение:
+\[
+\lambda^2 + 16 = 0.
+\]
+
+Корни характеристического уравнения:
+\[
+\lambda = \pm 4i.
+\]
+
+Общее решение однородного уравнения:
+\[
+y_h = C_1 \sin(4x) + C_2 \cos(4x),
+\]
+где \( C_1 \) и \( C_2 \) — произвольные постоянные.
+
+\subsection*{Частное решение неоднородного уравнения}
+Используем метод неопределённых коэффициентов. Пусть частное решение имеет вид:
+\[
+y_p = A \sin x + B \cos x.
+\]
+
+Найдём производные:
+\[
+y_p' = A \cos x - B \sin x, \quad y_p'' = -A \sin x - B \cos x.
+\]
+
+Подставляем в уравнение:
+\[
+-A \sin x - B \cos x + 16(A \sin x + B \cos x) = \sin x.
+\]
+
+Сгруппируем и приравняем коэффициенты при \(\sin x\) и \(\cos x\):
+\[
+(-A + 16A) \sin x + (-B + 16B) \cos x = \sin x.
+\]
+
+Получаем систему:
+\[
+15A = 1, \quad 15B = 0.
+\]
+
+Решение:
+\[
+A = \frac{1}{15}, \quad B = 0.
+\]
+
+Частное решение:
+\[
+y_p = \frac{\sin x}{15}.
+\]
+
+\subsection*{Общее решение}
+Общее решение уравнения:
+\[
+y = y_h + y_p = C_1 \sin(4x) + C_2 \cos(4x) + \frac{\sin x}{15}.
+\]
+
+\subsection*{Решение задачи Коши}
+Условия:
+\[
+y(0) = 1, \quad y'(0) = -2.
+\]
+
+Подставим \(x = 0\) в общее решение и его производную:
+\[
+y = C_1 \sin(4 \cdot 0) + C_2 \cos(4 \cdot 0) + \frac{\sin(0)}{15} = C_2 = 1.
+\]
+
+Первая производная:
+\[
+y' = 4C_1 \cos(4x) - 4C_2 \sin(4x) + \frac{\cos x}{15}.
+\]
+
+Подставим \(x = 0\):
+\[
+y'(0) = 4C_1 + \frac{\cos(0)}{15} = -2.
+\]
+
+Решим относительно \(C_1\):
+\[
+4C_1 + \frac{1}{15} = -2 \quad \Rightarrow \quad C_1 = -\frac{31}{60}.
+\]
+
+\subsection*{Итоговое решение}
+\[
+y = -\frac{31}{60} \sin(4x) + \cos(4x) + \frac{\sin x}{15}.
+\]
+
+\section{Метод Рунге-Кутта}
+
+\subsection*{Код}
+\par
+Ниже представлен код метода Рунге-Кутта для решения задачи:
+
+\begin{lstlisting}
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def f1(x, y, z):
+    return z  # y' = z
+
+def f2(x, y, z):
+    return -16 * y + np.sin(x)  # z' = -16y + sin(x)
+
+def runge_kutta(x0, y0, z0, h, x_end):
+    x_values = [x0]
+    y_values = [y0]
+    z_values = [z0]
+
+    x = x0
+    y = y0
+    z = z0
+
+    while x < x_end:
+        # Coefficients
+        K1_y = h * f1(x, y, z)
+        K1_z = h * f2(x, y, z)
+
+        K2_y = h * f1(x + h / 2, y + K1_y / 2, z + K1_z / 2)
+        K2_z = h * f2(x + h / 2, y + K1_y / 2, z + K1_z / 2)
+
+        K3_y = h * f1(x + h / 2, y + K2_y / 2, z + K2_z / 2)
+        K3_z = h * f2(x + h / 2, y + K2_y / 2, z + K2_z / 2)
+
+        K4_y = h * f1(x + h, y + K3_y, z + K3_z)
+        K4_z = h * f2(x + h, y + K3_y, z + K3_z)
+
+
+        y += (K1_y + 2 * K2_y + 2 * K3_y + K4_y) / 6
+        z += (K1_z + 2 * K2_z + 2 * K3_z + K4_z) / 6
+        x += h
+
+        x_values.append(round(x, 4))
+        y_values.append(round(y, 6))
+        z_values.append(round(z, 6))
+
+    return np.array(x_values), np.array(y_values), np.array(z_values)
+
+
+x0 = 0
+y0 = 1
+z0 = -2
+h = 0.1
+x_end = 0.3
+
+
+# runge_kutta
+x_vals, y_vals, z_vals = runge_kutta(x0, y0, z0, h, x_end)
+
+# Результаты в таблице
+results = pd.DataFrame({'x': x_vals, 'y': y_vals, "z (y')": z_vals})
+print("\nResults")
+print(results)
+
+
+# plt.figure(figsize=(10, 6))
+# plt.plot(x_vals, y_vals, label="y(x)", marker='o', linestyle='-')
+# plt.title("Result")
+# plt.xlabel("x")
+# plt.ylabel("Values")
+# plt.grid(True)
+# plt.plot(x_vals, z_vals, label="z(x) (y')", marker='s', linestyle='--')
+# plt.legend()
+# plt.show()
+
+\end{lstlisting}
+
+\subsection*{Таблица результатов}
+Результаты численного метода Рунге-Кутта 4-го порядка представлены в таблице:
+
+\begin{table}[h!]
+\centering
+\caption{Результаты метода Рунге-Кутта 4-го порядка}
+\label{tab:runge_kutta}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{\(i\)} & \textbf{\(x\)} & \textbf{\(y\)} & \textbf{\(z = y'\)} \\
+\hline
+0 & 0.0 & 1.000000 & -2.000000 \\
+1 & 0.1 & 0.726567 & -3.394537 \\
+2 & 0.2 & 0.339472 & -4.243496 \\
+3 & 0.3 & -0.099214 & -4.413080 \\
+\hline
+\end{tabular}
+\end{table}
+\section{Сравнение значений точного и приближенного решений}
+
+На основе аналитического решения \(y = -\frac{31}{60} \sin(4x) + \cos(4x) + \frac{\sin x}{15}\) и результатов численного метода Рунге-Кутта, вычислим значения точного решения в точках \(x_1 = 0.1\), \(x_2 = 0.2\), \(x_3 = 0.3\):
+
+\begin{table}[h!]
+\centering
+\caption{Сравнение точного и приближенного решений}
+\label{tab:comparison}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{\(x\)} & \textbf{Точное \(y_{т}\)} & \textbf{Численное  \(y\)} & \textbf{Отн. погрешность} \\
+\hline
+0.1 & 0.686277 & 0.726567 & 0.040290 \\
+0.2 & 0.265191 & 0.339472 & 0.074281 \\
+0.3 & -0.195805 & -0.099214 & 0.096591 \\
+\hline
+\end{tabular}
+\end{table}
+
+Таким образом, видно, что численное решение методом Рунге-Кутта совпадает с точным решением с высокой степенью точности.
+
+\end{document}
