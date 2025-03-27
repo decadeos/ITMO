@@ -1,5 +1,5 @@
 import cv2
-from noises import *
+from lab3.code.lib.noises import * # импорт неверный
 
 image = cv2.imread("../images/flowers.jpg")
 
