@@ -7,7 +7,7 @@ def f(t):
     return np.sin(t) + np.cos(2*t) + 2*t
 
 def periodF(t):
-    tMod = (t + np.pi) % (2*np.pi) - np.pi  # Приводим t к [-π, π]
+    tMod = (t + np.pi) % (2*np.pi) - np.pi 
     return f(tMod)
 
 # Вещественные коэффициенты Фурье
@@ -37,9 +37,9 @@ def fourierIm(t, N):
     return series.real  # Берём вещественную часть, так как f(t) вещественная
 
 # Построение графиков
-t = np.linspace(-3*np.pi, 3*np.pi, 1000)
+t = np.linspace(-3*np.pi, 3*np.pi, 200)
 y = periodF(t)
-N = 10  # Число гармоник
+N = 15  # Число гармоник
 
 # Вычисляем ряды
 fuRe = fourierRe(t, N)
@@ -49,8 +49,11 @@ plt.figure(figsize=(12, 6))
 plt.plot(t, y, label='Исходная функция', color='green', linewidth=2)
 plt.plot(t, fuRe, label=f'Вещественный ряд (N={N})', color='blue')
 plt.plot(t, fuIm, label=f'Комплексный ряд (N={N})', color='red', linestyle=':')
-plt.title('Сравнение вещественного и комплексного рядов Фурье')
+plt.title('Сравнение функций')
 plt.xlabel('t')
+xticks = np.arange(-3*np.pi, 3.5*np.pi, np.pi/2)
+xtick_labels = [f'{x/np.pi:.1f}π' if x != 0 else '0' for x in xticks]
+plt.xticks(xticks, xtick_labels)
 plt.ylabel('f(t)')
 plt.grid(True)
 plt.legend()
