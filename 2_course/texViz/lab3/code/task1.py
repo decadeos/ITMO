@@ -1,9 +1,8 @@
 import cv2
-from lab3.code.lib.noises import * # импорт неверный
-
+from lib.noises import *
 image = cv2.imread("../images/flowers.jpg")
 
-imImage = imNoise(image, 0.1)
+imImage = imNoise(image, 0.5)
 plot(imImage, "impulsny", "../noise/impuls.png")
 
 addImage = addNoise(image, 100)
