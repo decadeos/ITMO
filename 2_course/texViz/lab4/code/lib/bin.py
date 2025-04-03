@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
 
 def binarizazia(image, t1, t2):
     imageGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -23,5 +22,32 @@ def binarizaziaOptimzeT(image):
     denominator = np.sum(G)
     t = numerator / denominator if denominator != 0 else 0.0
 
+    _, result = cv2.threshold(image, t, 255, cv2.THRESH_BINARY)
+    return result
+
+def binarizaziaStatisticNetodOzy(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    hist = hist.flatten() 
+    N = image.size 
+    p_i = hist / N
+    sigmaMax = t = 0
+
+    for k in range(1, 256):
+        w1 = np.sum(p_i[:k+1])
+        w2 = 1 - w1
+
+        if w1 < 1e-10 or w2 < 1e-10:
+            continue
+
+        mu1 = np.sum(np.arange(k+1) * p_i[:k+1]) / w1
+        mu2 = np.sum(np.arange(k+1, 256) * p_i[k+1:]) / w2
+
+        sigmaQuad = w1 * w2 * (mu1 - mu2)**2
+
+        if sigmaQuad > sigmaMax:
+            sigmaMax = sigmaQuad
+            t = k
+    
     _, result = cv2.threshold(image, t, 255, cv2.THRESH_BINARY)
     return result

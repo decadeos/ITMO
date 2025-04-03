@@ -6,3 +6,6 @@ def plot(image, title):
     plt.title(title)
     plt.axis('off')
     plt.show()
+
+def save(image, path):
+    cv2.imwrite(path, image)
