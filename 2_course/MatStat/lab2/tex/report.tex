@@ -1,0 +1,109 @@
+\documentclass[14pt]{extreport}
+
+% Основные пакеты
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, pdf_tex из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к фигурам
+\usepackage{float}                      % Для улучшенного позиционирования фигур
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath}                    % Для расширенной поддержки математики
+\usepackage{amsfonts}                   % Математические шрифты
+\usepackage{amssymb}                    % Математические символы
+\usepackage{tabu}                       % Улучшенные таблицы
+\usepackage{booktabs}                   % Профессиональные таблицы с вертикальными разделителями
+\usepackage[dvipsnames]{xcolor}         % Расширенная поддержка цветов
+\usepackage{longtable}                  % Для таблиц, занимающих несколько страниц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для современных таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{hyperref}                   % Для гиперссылок
+\usepackage{verbatim}                   % Для вставки кода
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{amsmath}
+% Настройка графики
+\graphicspath{ {./images/} }            % Путь к папке с изображениями
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+    linkcolor=blue,                     % Цвет ссылок
+    filecolor=magenta,                  % Цвет ссылок на файлы
+    urlcolor=cyan                       % Цвет URL-адресов
+}
+
+% Настройка листингов кода
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=codestyle}
+\lstset{extendedchars=\true}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\large Министерство науки и высшего образования Российской Федерации}\\
+    {\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+    {\large (УНИВЕРСИТЕТ ИТМО)}\\
+
+    \vspace{1cm}
+
+    \textbf{{\Huge ОТЧЕТ}\\
+    {\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №1}}\\
+
+    \vspace{1cm}
+
+    {\LARGE По дисциплине\\
+     \(\lll\) Математическая Статистика \(\ggg\) }\\
+
+    \vspace{2cm}
+
+    {\Large Студенты:}\\
+    Охрименко Eва\\
+    Даниил Буцкий
+
+
+    \vspace{2cm}
+
+    {\Large Проверил:}\\
+    Шкваренко Андрей Алексеевич\\
+
+    \vspace{2cm}
+
+    {\large г. Санкт-Петербург}\\
+    {\large 2025}
+
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+импорта
+ПИСЬКА!
+\end{document}  
