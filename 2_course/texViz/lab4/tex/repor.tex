@@ -1,0 +1,426 @@
+\documentclass[a4paper,12pt]{article}
+
+% Основные пакеты
+\usepackage[utf8]{inputenc}             % Поддержка кодировки UTF-8
+\usepackage[T1, T2A]{fontenc}           % Поддержка кириллицы
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к изображениям в сетке
+\usepackage{float}                      % Для улучшенного размещения изображений
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath, amssymb, amsfonts} % Для математических формул и символов
+\usepackage{booktabs}                   % Для красивых таблиц
+\usepackage[dvipsnames]{xcolor}         % Для расширенной поддержки цветов
+\usepackage[colorlinks]{hyperref}       % Для создания гиперссылок
+\usepackage{indentfirst}                % Для красной строки в первом абзаце
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{longtable}                  % Для длинных таблиц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для продвинутых таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{bm}                         % Для жирных математических символов
+\usepackage{pifont}                     % Для специальных символов (например, галочек)
+\usepackage{fontawesome}                % Для иконок
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan
+}
+
+% Настройка листингов
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{magenta},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=codestyle, extendedchars=\true}
+
+% Путь к изображениям
+\graphicspath{ {./images/} }
+
+\begin{document}
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\large Министерство науки и высшего образования Российской Федерации}\\
+    {\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+    {\large (УНИВЕРСИТЕТ ИТМО)}\\
+
+    \vspace{2cm}
+
+    {\large Факультет «Систем управления и робототехники»}\\
+
+    \vspace{3cm}
+
+    \textbf{{\Huge ОТЧЕТ}\\
+    {\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №4}}\\
+
+    \vspace{1cm}
+
+    {\LARGE По дисциплине «Техническое зрение»}\\
+    {\LARGE на тему: «Сегментация изображений»}\\
+
+    \vspace{2cm}
+
+    {\Large Студент:}\\
+    Охрименко Ева ИСУ 409290\\
+
+    \vspace{2cm}
+
+    {\Large Преподаватель:}\\
+    Шаветов Сергей Васильевич\\
+
+    \vspace{4cm}
+
+    {\large г. Санкт-Петербург}\\
+    {\large 2025}
+
+\end{titlepage}
+
+\tableofcontents  % Оглавление
+\newpage
+
+\section{Цель работы}
+
+Освоение основных способов сегментации изображений на семантические области.
+
+
+\section{Task. Бинаризация.}
+
+\subsection{Бинаризация по двойному диапазону}
+
+Итак, в этом задании нужно сделать бинаризацию, воспользовавшить формулой:
+\begin{align*}
+    I_{\text{new}}(x,y) = 
+    \begin{cases} 
+    0, & I(x,y) \leqslant t_1, \\
+    1, & t_1 < I(x,y) \leqslant t_2, \\
+    0, & I(x,y) > t_2 
+    \end{cases}
+\end{align*}
+где \(I\) - исходное изображение,  \(I_{\text{new}}\) - бинаризованное.
+За \(t_i\) берутся пороги бинаризации. Напишу функцию, которая делает бинаризацию
+изображения:
+
+
+\begin{lstlisting}[language=Python, caption=Бинаризация по двойному диапазону]
+def binarizazia(image, t1, t2):
+    imageGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    roi = np.uint8((imageGray >= t1) & (imageGray <= t2)) * 255
+    return roi
+\end{lstlisting}
+
+Применим эту функцию к этой картинке:
+
+\begin{figure}[H] % [H] - точное позиционирование
+    \centering % Выравнивание по центру
+    \includegraphics[width=0.5\linewidth]{im/im.jpg} % Путь к файлу
+    \caption{Исходный торт} % Подпись снизу
+    \label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\linewidth]{im/bin1.png}
+      \caption{\(t_1 = 0, t_2 = 100\)}
+    \end{subfigure}
+    \hfill % Горизонтальный отступ
+    \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\linewidth]{im/bin2.png}
+      \caption{\(t_1 = 100, t_2 = 200\)}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.3\textwidth}
+      \includegraphics[width=\linewidth]{im/bin3.png}
+      \caption{\(t_1 = 50, t_2 = 100\)}
+    \end{subfigure}
+    \caption{Бинаризация по двойному диапазону для разных \(t\)}
+\end{figure}
+
+
+Получается отчерно-белила картинку по разным пороговым значениям.
+
+
+\subsection{Автоматическая бинаризация}
+
+В этом задании нужно найти порог бинаризации как среднее арифметичческое
+между максимальной интенсивностью и минимальной:
+\[
+t = \frac{I_{\text{max}} - I_{\text{min}}}{2}
+\]
+Вот код:
+\begin{lstlisting}[language=Python, caption=Бинаризация \(t\) = среднее]
+def binarizazia(image, t1, t2):
+    imageGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    roi = np.uint8((imageGray >= t1) & (imageGray <= t2)) * 255
+    return roi
+\end{lstlisting}
+
+В расчетах получилось \(t = 127.5\). Применяем к моей картинке такую бинаризацию:
+
+\begin{figure}[H] % [H] - точное позиционирование
+    \centering % Выравнивание по центру
+    \includegraphics[width=0.8\linewidth]{im/bin4.png} % Путь к файлу
+    \caption{} % Подпись снизу
+    \label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+
+\subsection{Бинаризация. Вычисление оптимального \(t\)}
+
+Итак, в этом задании мне нужно найти оптимальное \(t\) по формулам
+на основе модуля градиента яркости каждого пикселя. 
+Для этого сначала вычисляем модуль градиента в каждой точке \( (x, y) \):
+
+\[
+G(x,y) = \max \left\{ \left| I(x+1, y) - I(x-1, y) \right|, \left| I(x, y+1) - I(x, y-1) \right| \right\}
+\]
+
+затем вычисляем оптимальный порог \( t \):
+
+\[
+t = \frac{\sum\limits_{x=0}^{X-1} \sum\limits_{y=0}^{Y-1} I(x,y) G(x,y)}{\sum\limits_{x=0}^{X-1} \sum\limits_{y=0}^{Y-1} G(x,y)}
+\]
+
+
+Вот такая функция у меня получилась:
+
+\begin{lstlisting}[language=Python, caption=оптимальное \(t\)]
+def binarizaziaOptimzeT(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gradX = np.abs(image[2:, 1:-1] - image[:-2, 1:-1])
+    gradY = np.abs(image[1:-1, 2:] - image[1:-1, :-2])
+    G = np.zeros_like(image, dtype=np.float32)
+    G[1:-1, 1:-1] = np.maximum(gradX, gradY)
+    numerator = np.sum(image * G)
+    denominator = np.sum(G)
+    t = numerator / denominator if denominator != 0 else 0.0
+
+    _, result = cv2.threshold(image, t, 255, cv2.THRESH_BINARY)
+    return result
+\end{lstlisting}
+
+Оптимальное \(t\) получилось 118.39. Посмотрим на бинаризованный рисунок:
+\begin{figure}[H] % [H] - точное позиционирование
+    \centering % Выравнивание по центру
+    \includegraphics[width=0.5\linewidth]{im/bin5.png} % Путь к файлу
+    \caption{} % Подпись снизу
+    \label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+
+\subsection{Бинаризация. Вычисление \(t\) методом Отсу}
+
+И наконец вычислим \(t\) методом Отсу. Для этого 
+
+\[
+\omega_1(k) = \sum_{s=0}^{k} p_s, \quad \omega_2(k) = \sum_{s=k+1}^{L} p_s
+\]
+\[
+\mu_1(k) = \frac{\sum_{s=0}^{k} s \cdot p_s}{\omega_1(k)}, \quad \mu_2(k) = \frac{\sum_{s=k+1}^{L} s \cdot p_s}{\omega_2(k)}
+\]
+\[
+\sigma_b^2(k) = \omega_1(k) \omega_2(k) (\mu_1(k) - \mu_2(k))^2
+\]
+\[
+t = \arg \max_k \sigma_b^2(k)
+\]
+
+Теперь напишем код, который все это делает:
+
+
+\begin{lstlisting}[language=Python, caption=Метод Отсу]
+def binarizaziaStatisticNetodOzy(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    hist = cv2.calcHist([image], [0], None, [256], [0, 256])
+    hist = hist.flatten() 
+    N = image.size 
+    p_i = hist / N
+    sigmaMax = t = 0
+    for k in range(1, 256):
+        w1 = np.sum(p_i[:k+1])
+        w2 = 1 - w1
+        if w1 < 1e-10 or w2 < 1e-10:
+            continue
+        mu1 = np.sum(np.arange(k+1) * p_i[:k+1]) / w1
+        mu2 = np.sum(np.arange(k+1, 256) * p_i[k+1:]) / w2
+        sigmaQuad = w1 * w2 * (mu1 - mu2)**2
+        if sigmaQuad > sigmaMax:
+            sigmaMax = sigmaQuad
+            t = k
+    _, result = cv2.threshold(image, t, 255, cv2.THRESH_BINARY)
+    return result
+\end{lstlisting}
+
+
+Этим методом \(t\) получилось 117. Посмотрим на бинаризованный рисунок:
+
+\begin{figure}[H] % [H] - точное позиционирование
+    \centering % Выравнивание по центру
+    \includegraphics[width=0.6\linewidth]{im/bin6.png} % Путь к файлу
+    \caption{} % Подпись снизу
+    \label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+\section{Task. Сегментация лица. (Не)питерская расчлененка}
+В этом задании я воспользуюсь сегментацией изображений по принципу Вебера
+\[
+W(I) =
+\begin{cases} 
+\frac{20 - 12I}{88}, & 0 \leq I \leq 88, \\
+0.002(I - 88)^2, & 88 < I \leq 138, \\
+\frac{7(I - 138)}{117} + 13, & 138 < I \leq 255.
+\end{cases}
+\]
+
+Алгоритм заключается в том, чтобы найти несколько похожих по интенсивности классов
+пикселей и наделть похожие пиксели из одного класса одним цветом.
+
+Было сложно, но я написала такие две функции:
+
+\begin{lstlisting}[language=Python, caption=Сегментация по Веберу]
+def weber(i):
+    if 0 <= i <= 88:
+        return 20 - (12 * i) / 88
+    elif 88 < i <= 138:
+        return 0.002 * (i - 88)**2
+    elif 138 < i <= 255:
+        return 7 * (i - 138) / 117 + 13
+    else:
+        return 0
+
+def segment(image):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    segmented = image.copy()
+    n = 0
+    iN = 0
+    while iN <= 255:
+        w = weber(iN)
+        upperBound = min(iN + w, 255)
+        mask = (image >= iN) & (image <= upperBound)
+        segmented[mask] = min(n * 30, 255)
+        iN = upperBound + 1
+        n += 1
+        if upperBound == 255:
+            break
+    return segmented
+\end{lstlisting}
+
+Заценим исходное и получившееся изображения:
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+      \includegraphics[width=\linewidth]{im/im2.jpg}
+      \caption{Исходное изображение}
+    \end{subfigure}
+    \hfill % Горизонтальный отступ
+    \begin{subfigure}[b]{0.45\textwidth}
+      \includegraphics[width=\linewidth]{im/seg.png}
+      \caption{Полученное изображение}
+    \end{subfigure}
+    \caption{Сегментация по Веберу}
+\end{figure}
+
+Можно наблюдать недовольного автора и недовольно-сегментированного. Сегментация прошла
+успешно, даже лицо в крапинку получилось, хотя на исходной фотографии веснушки слабозаметны.
+
+
+
+
+\section{Task. Сегментация методом \(k-means\)}
+
+Метод \(k\)-средних — это алгоритм кластеризации, который делит данные на \(k\) кластеров. Алгоритм работает следующим образом:
+\begin{enumerate}
+    \item Сначала случайным образом выбираются \(k\)(хотя не совсем случайным, в моем коде
+    это передаваемый в функцию параметр) центров кластеров.
+    \item Каждый объект (пиксель изображения) присваивается ближайшему центру.
+    \item Затем пересчитываются новые центры кластеров как среднее значение объектов в каждом кластере.
+    \item Шаги 2 и 3 повторяются до тех пор, пока центры кластеров не перестанут изменяться.
+\end{enumerate}
+
+Напишу функцию для этого метода:
+\begin{lstlisting}[language=Python, caption=Сегментация \(k-means\)]
+def kMeans(image, k):
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    imageLab = cv2.cvtColor(image, cv2.COLOR_RGB2Lab)
+    L, a, b = cv2.split(imageLab)
+    ab = np.stack((a.flatten(), b.flatten()), axis=1)
+    kmeans = KMeans(n_clusters=k, random_state=42, n_init=3)
+    labels = kmeans.fit_predict(ab)
+    labels_2D = labels.reshape(image.shape[:2]) 
+    segmentedImages = []
+    for i in range(k):
+        mask = (labels_2D == i)
+        segment = np.zeros_like(image)
+        segment[mask] = image[mask]
+        segmentedImages.append(segment)
+    return segmentedImages
+\end{lstlisting}
+
+Посмотрим, что получилось для этой картинки:
+
+\begin{figure}[H] % [H] - точное позиционирование
+    \centering % Выравнивание по центру
+    \includegraphics[width=0.8\linewidth]{im/im3.jpg} % Путь к файлу
+    \caption{Яблочки} % Подпись снизу
+    \label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+И для разных значений \(k\):
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{01\textwidth}
+      \includegraphics[width=\linewidth]{im/k2.png}
+      \caption{\(k = 2\)}
+    \end{subfigure}
+    \hfill % Горизонтальный отступ
+    \begin{subfigure}[b]{1\textwidth}
+      \includegraphics[width=\linewidth]{im/k3.png}
+      \caption{\(k = 3\)}
+    \end{subfigure}
+    \hfill % Горизонтальный отступ
+    \begin{subfigure}[b]{1\textwidth}
+      \includegraphics[width=\linewidth]{im/k4.png}
+      \caption{\(k = 4\)}
+    \end{subfigure}
+    \caption{Сегментация методом \(k-средних\)}
+\end{figure}
+
+
+Все успешно сегментируется на похожие цвета.
+
+
+
+\end{document}

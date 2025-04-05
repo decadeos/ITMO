@@ -48,6 +48,6 @@ def binarizaziaStatisticNetodOzy(image):
         if sigmaQuad > sigmaMax:
             sigmaMax = sigmaQuad
             t = k
-    
+    print(t)
     _, result = cv2.threshold(image, t, 255, cv2.THRESH_BINARY)
     return result

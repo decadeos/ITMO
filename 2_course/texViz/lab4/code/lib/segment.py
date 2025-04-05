@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 
 def weber(i):
     if 0 <= i <= 88:
