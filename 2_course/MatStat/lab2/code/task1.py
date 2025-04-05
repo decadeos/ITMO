@@ -5,7 +5,7 @@ theta = 0.5
 trueThetaKvadrat = theta**2
 m = 1000 
 
-sampleSizes = [i for i in range(10, 1000, 3)]
+sampleSizes = [i for i in range(10, 1000, 10)]
 
 biases = []
 variances = []
@@ -16,7 +16,7 @@ for i in sampleSizes:
     for extreptiza in range(m):
         sample = np.random.laplace(loc=0, scale=theta, size=i)
 
-        ozenkaTheta.append(np.sum(sample**2) / (2 * i))
+        ozenkaTheta.append(np.sum(sample**2) / (2*i))
 
     ozenkaTheta = np.array(ozenkaTheta)
 

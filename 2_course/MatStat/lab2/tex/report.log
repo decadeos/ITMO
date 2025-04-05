@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.5)  5 APR 2025 17:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.4.5)  5 APR 2025 18:41
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -756,27 +756,27 @@ File: t2acmr.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
 ))
 \openout1 = `report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 66.
-LaTeX Font Info:    ... okay on input line 66.
-LaTeX Info: Redefining \th on input line 66.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for T2A/cmr/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 73.
+LaTeX Font Info:    ... okay on input line 73.
+LaTeX Info: Redefining \th on input line 73.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count346
@@ -845,17 +845,17 @@ Package: ninecolors 2022-02-13 v2022D Select colors with proper color contrast
  (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2023-10-10 L3 Experimental document command parser
 ))
-Package hyperref Info: Link coloring OFF on input line 66.
+Package hyperref Info: Link coloring OFF on input line 73.
  (./report.out) (./report.out)
 \@outlinefile=\write3
 \openout3 = `report.out'.
 
 \c@lstlisting=\count352
-LaTeX Font Info:    Trying to load font information for U+msa on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 91.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 84.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
@@ -868,30 +868,46 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.106 \newpage
+l.113 \newpage
                [1
 
-] [2] (./report.aux)
+] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 122.
+LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 122.
+ (/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2acmtt.fd
+File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
+)
+LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 123.
+ [2]
+<image1.png, id=52, 1478.52374pt x 489.83pt>
+File: image1.png Graphic file (type png)
+<use image1.png>
+Package pdftex.def Info: image1.png  used on input line 203.
+(pdftex.def)             Requested size: 500.484pt x 165.80753pt.
+ [3 <./image1.png>] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 147A17F7A09C52113B8151969817D89A;65.
  ) 
 Here is how much of TeX's memory you used:
- 18965 strings out of 474222
- 314663 string characters out of 5748734
- 1927975 words of memory out of 5000000
- 40989 multiletter control sequences out of 15000+600000
- 568676 words of font info for 62 fonts, out of 8000000 for 9000
+ 19265 strings out of 474222
+ 318797 string characters out of 5748734
+ 2055975 words of memory out of 5000000
+ 41240 multiletter control sequences out of 15000+600000
+ 574825 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,5n,79p,448b,498s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx3583.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2488.pfb>
-Output written on report.pdf (3 pages, 75562 bytes).
+ 75i,6n,79p,521b,1301s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx3583.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2074.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm2488.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1440.pfb>
+Output written on report.pdf (4 pages, 309993 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 34 compressed objects within 1 object stream
- 4 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
+ 38 named destinations out of 1000 (max. 500000)
+ 14 words of extra memory for PDF output out of 10000 (max. 10000000)
 
