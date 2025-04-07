@@ -1,7 +1,5 @@
 from lib.tekstura import *
-
-
-image = cv2.imread('../images/im4.jpg')
-segmented = texture_segmentation(image)
-cv2.imshow('Result', segmented)
-cv2.waitKey(0)
+import numpy as np
+from skimage.filters.rank import entropy
+from skimage.morphology import disk, closing, remove_small_objects
+from skimage.feature import graycomatrix, graycoprops
