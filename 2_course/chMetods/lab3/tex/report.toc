@@ -18,3 +18,5 @@
 \contentsline {subsubsection}{\numberline {1.4.3}Выводы}{15}{subsubsection.1.4.3}%
 \contentsline {section}{\numberline {2}Task. Фильтрация звука}{16}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Краткое условие}{16}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}График исходного сигнала}{16}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Выводы}{18}{section.3}%

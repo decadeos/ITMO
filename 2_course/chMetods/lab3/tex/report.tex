@@ -63,6 +63,23 @@
     showtabs=false,
     tabsize=2
 }
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{orange},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=5pt,
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  language=Python
+}
 
 
 
@@ -510,5 +527,90 @@ u(t) = g(t) + 0.5\xi(t) + \sin(2t),
 
 \section{Task. Фильтрация звука}
 \subsection{Краткое условие}
+
+
+Дан аудиофайл \texttt{MUHA.wav}, содержащий речь и шум. Необходимо отфильтровать сигнал так, чтобы осталась только речевая часть.
+
+Ожидаемые результаты:
+\begin{itemize}
+    \item Построены графики исходного и фильтрованного сигналов во времени;
+    \item Построены графики модулей Фурье-образов этих сигналов;
+    \item Описан выбранный диапазон фильтрации и причины выбора.
+\end{itemize}
+
+\subsection{График исходного сигнала}
+
+Для начала построю график исходного сигнала. В питоне для этого к 
+записи нужно применить \texttt{sf.read("MUHA.wav")}. И построить
+график зависимости амплитуды от частоты дискретизации. Посмотрим на получившийся 
+график:
+
+\begin{figure}[H]  
+    \centering
+    \includegraphics[width=1\textwidth]{../images/siga.png}
+    \caption{График сигнала}  
+    \label{fig:my_image}  
+\end{figure}
+
+Послушав запись, я выяснила, что шум существует на низкой частоте. 
+Я отфильтровала низкие частоты и послушала получившуюся запись. Оказалось, что
+в записи есть еще немного высокого писка. Поэтому нужно отфильтровать и его.
+В качестве фильтра для этого задания я выбрала полосовой, который фильтрует
+сигнал в диапазоне. Размеры диапазона были подобраны самостоятельно.
+
+Приступлю к написанию фильтра:
+
+\begin{lstlisting}[caption={Полосовой фильтр}]
+def bandpass_filter(data, lowcut, highcut, fs, order=5):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return filtfilt(b, a, data)
+\end{lstlisting}
+    
+
+
+Применю этот фильтр к сигналу. Оставлю частоты $\in [500, 3000]$ Гц:
+\begin{figure}[H]  
+    \centering
+    \includegraphics[width=1\textwidth]{../images/sigaF.png}
+    \caption{График сигналов}  
+    \label{fig:my_image}  
+\end{figure}
+Отфильтрованный сигнал можно послушать вот тут :
+\href{https://github.com/decadeos/ITMO/tree/master/2_course/chMetods/lab3/src}{filtreted}.
+
+
+Можно заметить, что фильтр отлично сработал, много шума было удалено.
+Теперь посмотрим на графики модулей Фурье-образов исходного и фильтрованного
+сигналов:
+
+\begin{figure}[H]  
+    \centering
+    \includegraphics[width=1\textwidth]{../images/spektr.png}
+    \caption{График спектра}  
+    \label{fig:my_image}  
+\end{figure}
+
+На графике спектра видно, что после фильтрации осталась 
+только часть сигнала в диапазоне от 500 до 3000 Гц. 
+Низкие и высокие частоты были удалены — именно там находился основной шум.
+
+Благодаря этому фильтр хорошо выделил голос. 
+Основная энергия осталась в нужной полосе, а лишние шумы — исчезли. 
+Это позволило сделать звук намного чище, при этом речь сохранилась.
+
+
+\section{Выводы}
+
+В этой работе я научилась фильтровать сигналы в частотной области. 
+Сначала я работала с простыми функциями и шумами, потом — 
+с реальной аудиозаписью. Я подобрала подходящий полосовой фильтр, 
+который хорошо убрал лишние частоты и оставил только голос. 
+Благодаря этому сигнал стал чище, а результат — лучше слышен. 
+Всё это помогло мне лучше понять, как работает частотная фильтрация 
+на практике. 
+\href{https://github.com/decadeos/ITMO/tree/master/2_course/chMetods/lab3}{GitHub}.
 
 \end{document}
