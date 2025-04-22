@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-img = cv2.imread('pic4.png')
+img = cv2.imread('../images/pic3.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(gray, 50, 200, apertureSize=3)
 img_lines = img.copy()
@@ -21,7 +21,7 @@ if lines is not None:
 
 hough = cv2.HoughLines(edges, 1, np.pi / 180, 100)
 acc = np.zeros((180, 180), dtype=np.uint8)
-if hough is not None:
+if hough is not None:   
     for rho, theta in hough[:, 0]:
         acc[int(rho) % 180, int(np.degrees(theta)) % 180] += 1
 

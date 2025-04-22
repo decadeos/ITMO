@@ -2,15 +2,21 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Чтение и преобразование изображения
-img = cv2.imread('../images/pic11.png')
+# Чтение изображения
+img = cv2.imread('../images/pic10.png')
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-gray = cv2.GaussianBlur(gray, (9, 9), 2)
 
-# Поиск кругов
+# Применение оператора Собеля
+sobel_x = cv2.Sobel(gray, cv2.CV_16S, 1, 0, ksize=3)
+sobel_y = cv2.Sobel(gray, cv2.CV_16S, 0, 1, ksize=3)
+abs_x = cv2.convertScaleAbs(sobel_x)
+abs_y = cv2.convertScaleAbs(sobel_y)
+edges = cv2.addWeighted(abs_x, 0.5, abs_y, 0.5, 0)
+# 1489 11, \\\ 1200, 7 \\\ 1350, 20, 10
+# Поиск кругов методом Хафа по градиенту
 circles = cv2.HoughCircles(
-    gray, cv2.HOUGH_GRADIENT, dp=1.2, minDist=40,
-    param1=400, param2=30, minRadius=15, maxRadius=100
+    edges, cv2.HOUGH_GRADIENT, dp=1.2, minDist=40,
+    param1=1350, param2=50, minRadius=15, maxRadius=100
 )
 
 # Отрисовка
@@ -22,7 +28,7 @@ if circles is not None:
 
 # Визуализация
 imgs = [cv2.cvtColor(img, cv2.COLOR_BGR2RGB), cv2.cvtColor(out, cv2.COLOR_BGR2RGB)]
-titles = ['Оригинал', 'Найденные круги']
+titles = ['Оригинал', 'Круги после Собеля']
 
 plt.figure(figsize=(10, 5))
 for i, (im, title) in enumerate(zip(imgs, titles)):

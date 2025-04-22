@@ -1,8 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1743867675.62016 "/home/eva/Documents/ITMO/2_course/MatStat/lab2/tex/report.tex" "report.pdf" "report" 1743867677.72325 0
+["pdflatex"] 1745221912.32224 "/home/eva/Documents/ITMO/2_course/MatStat/lab2/tex/report.tex" "report.pdf" "report" 1745221913.36695 0
   "/etc/texmf/web2c/texmf.cnf" 1743862150.30417 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/labx1440.tfm" 1743862484.92117 3304 6a543c07045572737981351171e0505e ""
-  "/home/eva/.texlive2б023/texmf-var/fonts/tfm/lh/lh-t2a/labx2074.tfm" 1743862507.25999 3316 0992aa03d0c75498a0b6fb905d9eaab6 ""
+  "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/labx2074.tfm" 1743862507.25999 3316 0992aa03d0c75498a0b6fb905d9eaab6 ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/labx3583.tfm" 1743862488.12429 3312 57735bf4ab518de5d2a8cf9cdbe7ba91 ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/larm0600.tfm" 1743862869.93924 3248 7c0b9d76a2cd84ed06764a4c6eea5de4 ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/larm0700.tfm" 1743862862.96141 3256 b15a2ce2310c0038b96c5235b038f0eb ""
@@ -14,7 +14,7 @@
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/larm3583.tfm" 1743862497.81764 3256 c1b4fba1e46f9f3ce1ccfcf5bb2266e7 ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/latt1000.tfm" 1743862866.37433 1272 55f67101730a20777decd892fb4b4e3e ""
   "/home/eva/.texlive2023/texmf-var/fonts/tfm/lh/lh-t2a/latt1440.tfm" 1743862510.3511 1272 e3abe42d6bdbd8626fffa22fcb43f669 ""
-  "/home/eva/Documents/ITMO/2_course/MatStat/lab2/tex/report.tex" 1743867675.2475 9379 8a9de0ffab60fe64be50577c4b1986c3 ""
+  "/home/eva/Documents/ITMO/2_course/MatStat/lab2/tex/report.tex" 1745221912.04198 9467 172941f8ca338ed1a4ded2f59eb96576 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -138,10 +138,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1743862178.73918 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1743862263 8214818 fb99d81c2901487775a5b08261cb87c4 ""
   "image1.png" 1743867445.1191 98748 a3e9c196cff637cc148204705fc88d54 ""
-  "report.aux" 1743867677.51056 1050 9af7b1087b730401c1e0eb32b1375dc7 "pdflatex"
-  "report.out" 1743867677.51256 65 147a17f7a09c52113b8151969817d89a "pdflatex"
-  "report.tex" 1743867675.2475 9379 8a9de0ffab60fe64be50577c4b1986c3 ""
-  "report.toc" 1743867677.51256 94 59a0f8cd82e2fbe8872657816e160f0a "pdflatex"
+  "report.aux" 1745221913.24 1050 9af7b1087b730401c1e0eb32b1375dc7 "pdflatex"
+  "report.out" 1745221913.242 65 147a17f7a09c52113b8151969817d89a "pdflatex"
+  "report.tex" 1745221912.04198 9467 172941f8ca338ed1a4ded2f59eb96576 ""
+  "report.toc" 1745221913.242 94 59a0f8cd82e2fbe8872657816e160f0a "pdflatex"
   (generated)
   "report.aux"
   "report.log"
