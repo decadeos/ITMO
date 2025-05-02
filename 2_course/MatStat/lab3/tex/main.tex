@@ -1,0 +1,344 @@
+\documentclass[14pt]{extreport}
+
+% Основные пакеты
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, pdf_tex из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к фигурам
+\usepackage{float}                      % Для улучшенного позиционирования фигур
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath}                    % Для расширенной поддержки математики
+\usepackage{amsfonts}                   % Математические шрифты
+\usepackage{amssymb}                    % Математические символы
+\usepackage{tabu}                       % Улучшенные таблицы
+\usepackage{booktabs}                   % Профессиональные таблицы с вертикальными разделителями
+\usepackage[dvipsnames]{xcolor}         % Расширенная поддержка цветов
+\usepackage{longtable}                  % Для таблиц, занимающих несколько страниц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для современных таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{hyperref}                   % Для гиперссылок
+\usepackage{verbatim}                   % Для вставки кода
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{amsmath}
+% Настройка графики
+\graphicspath{ {./images/} }            % Путь к папке с изображениями
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+    linkcolor=blue,                     % Цвет ссылок
+    filecolor=magenta,                  % Цвет ссылок на файлы
+    urlcolor=cyan                       % Цвет URL-адресов
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}  % Цвет для комментариев
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}  % Цвет для номеров строк
+\definecolor{codepurple}{rgb}{0.58,0,0.82}  % Цвет для строк
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}  % Цвет фона
+
+% Определим стиль для выделения переменных
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},  % Цвет фона
+    commentstyle=\color{codegreen}\itshape,  % Стиль для комментариев
+    keywordstyle=\color{magenta}\bfseries,  % Стиль для ключевых слов
+    numberstyle=\tiny\color{codegray},  % Стиль для номеров строк
+    stringstyle=\color{codepurple},  % Стиль для строк
+    identifierstyle=\color{blue},  % Стиль для переменных (выделим их синим)
+    basicstyle=\ttfamily\footnotesize,  % Размер шрифта для кода
+    breakatwhitespace=false,  % Не разрывать строки в пробелах
+    breaklines=true,  % Разбивать длинные строки
+    captionpos=b,  % Позиция заголовка (внизу)
+    keepspaces=true,  % Сохранять пробелы
+    numbers=left,  % Позиция номеров строк
+    numbersep=10pt,  % Расстояние между кодом и номерами строк
+    showspaces=false,  % Не показывать пробелы
+    showstringspaces=false,  % Не показывать пробелы в строках
+    showtabs=false,  % Не показывать табуляции
+    tabsize=4,  % Размер табуляции
+    frame=single,  % Добавить рамку вокруг кода
+    rulecolor=\color{black},  % Цвет рамки
+    backgroundcolor=\color{backcolour},  % Цвет фона рамки
+    xleftmargin=15pt,  % Отступ слева
+    xrightmargin=15pt,  % Отступ справа
+}
+
+
+\lstset{style=codestyle}
+\lstset{extendedchars=\true}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{1cm}
+
+    {\large Министерство науки и высшего образования Российской Федерации}\\
+    {\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+    {\large (УНИВЕРСИТЕТ ИТМО)}\\
+
+    \vspace{1cm}
+
+    \textbf{{\Huge ОТЧЕТ}\\
+    {\Huge ПО ЛАБОРАТОРНОЙ РАБОТЕ №3}}\\
+
+    \vspace{1cm}
+
+    {\LARGE По дисциплине\\
+     \(\lll\) Математическая Статистика \(\ggg\) }\\
+
+    \vspace{2cm}
+
+    {\Large Студенты:}\\
+    Охрименко Eва\\
+    Даниил Буцкий
+
+
+    \vspace{2cm}
+
+    {\Large Проверил:}\\
+    Шкваренко Андрей Алексеевич\\
+
+    \vspace{2cm}
+
+    {\large г. Санкт-Петербург}\\
+    {\large 2025}
+
+\end{titlepage}
+
+
+\chapter*{Задание 1}
+
+\section*{Постановка задачи}
+
+Необходимо:
+\begin{itemize}
+    \item Построить доверительный интервал уровня $1 - \alpha$ для параметра $\tau = \mu_1 - \mu_2$.
+    \item Провести 1000 экспериментов.
+    \item Посчитать, сколько раз реальное значение параметра попало в доверительный интервал.
+    \item Повторить эксперимент для размеров выборок $n = m = 25$ и $n = m = 10000$.
+    \item Проанализировать изменение результата при увеличении объема выборки.
+\end{itemize}
+
+\section*{Теоретическое обоснование}
+
+Дано:
+\begin{itemize}
+    \item $X \sim \mathcal{N}(\mu_1, \sigma^2)$, $Y \sim \mathcal{N}(\mu_2, \sigma^2)$,
+    \item $\mu_1 = 2$, $\mu_2 = 1$, $\sigma^2 = 1$,
+    \item Параметр: $\tau = \mu_1 - \mu_2$.
+\end{itemize}
+
+\vspace{0.5em}
+
+Строим доверительный интервал, используя \textbf{объединённую дисперсию} и \textbf{распределение Стьюдента}:
+
+\begin{itemize}
+    \item Выборочные средние:
+    \[
+    \overline{X} = \frac{1}{n} \sum_{i=1}^n X_i, \quad \overline{Y} = \frac{1}{m} \sum_{j=1}^m Y_j
+    \]
+    \item Выборочные несмещённые дисперсии:
+    \[
+    s_X^2 = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})^2, \quad s_Y^2 = \frac{1}{m-1} \sum_{j=1}^m (Y_j - \overline{Y})^2
+    \]
+    \item Объединённая дисперсия:
+    \[
+    S^2 = \frac{(n-1)s_X^2 + (m-1)s_Y^2}{n + m - 2}
+    \]
+    \item Стандартная ошибка разности средних:
+    \[
+    SE = \sqrt{S^2\left(\frac{1}{n} + \frac{1}{m}\right)}
+    \]
+    \item Доверительный интервал:
+    \[
+    (\overline{X} - \overline{Y}) \pm t_{1-\frac{\alpha}{2}, n+m-2} \times SE
+    \]
+
+    \[
+    (\bar{X} - \bar{Y}) \pm t_{1-\frac{\alpha}{2}, n+m-2} \times SE
+    \]
+\end{itemize}
+
+\section*{Шаги выполнения эксперимента}
+
+\begin{enumerate}
+    \item Генерация двух выборок $X$ и $Y$.
+    \item Вычисление $\overline{X}$, $\overline{Y}$, $s_X^2$, $s_Y^2$.
+    \item Нахождение объединённой дисперсии $S^2$.
+    \item Построение доверительного интервала.
+    \item Проверка вхождения истинного значения $\tau = 1$ в интервал.
+    \item Повторение 1000 раз.
+    \item Расчет доли покрытий.
+\end{enumerate}
+
+\section*{Реализация на Python}
+
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import t
+
+# Функция для генерации данных и проверки попадания в доверительный интервал
+def ci_coverage_array(mu1, mu2, sigma, n, m, alpha=0.05, repeats=1000):
+    coverage = np.zeros(repeats, dtype=bool)
+    for i in range(repeats):
+        X = np.random.normal(mu1, sigma, n)
+        Y = np.random.normal(mu2, sigma, m)
+        X_mean = X.mean()
+        Y_mean = Y.mean()
+        X_var = X.var(ddof=1)
+        Y_var = Y.var(ddof=1)
+        S2 = ((n-1)*X_var + (m-1)*Y_var) / (n + m - 2)
+        S = np.sqrt(S2)
+        se = S * np.sqrt(1/n + 1/m)
+        t_crit = t.ppf(1 - alpha/2, n + m - 2)
+        lower = (X_mean - Y_mean) - t_crit * se
+        upper = (X_mean - Y_mean) + t_crit * se
+        coverage[i] = (lower <= (mu1 - mu2) <= upper)
+    return coverage
+
+# Параметры для варианта 2
+mu1, mu2, sigma = 2, 1, 1
+n_small, m_small = 25, 25
+n_big, m_big = 10000, 10000
+alpha = 0.05
+repeats = 1000
+
+# Получаем массивы попаданий для двух экспериментов
+coverage_small = ci_coverage_array(mu1, mu2, sigma, n_small, m_small, alpha, repeats)
+coverage_big = ci_coverage_array(mu1, mu2, sigma, n_big, m_big, alpha, repeats)
+
+# Подсчитаем общее количество попаданий
+total_coverage_small = coverage_small.sum()
+total_coverage_big = coverage_big.sum()
+
+# Визуализация
+plt.figure(figsize=(8, 6))
+
+# Гистограмма попаданий
+plt.bar([0, 1], [repeats-total_coverage_small, repeats-total_coverage_big],
+        label='Не попало в интервал')
+plt.bar([0, 1], [total_coverage_small, total_coverage_big],
+        bottom=[repeats-total_coverage_small, repeats-total_coverage_big],
+        label='Попало в интервал')
+plt.xticks([0, 1], ['n=m=25', 'n=m=10000'])
+plt.title('Количество попаданий в доверительный интервал из 1000 повторений')
+plt.ylabel('Количество экспериментов')
+plt.legend()
+
+for i, (n, c) in enumerate(zip(['n=m=25', 'n=m=10000'],
+                             [total_coverage_small, total_coverage_big])):
+    plt.text(i, c/2 + (repeats-c), f'{c} ({c/repeats:.1%})',
+             ha='center', va='center', color='white')
+    plt.text(i, c/2, f'{repeats-c} ({(repeats-c)/repeats:.1%})',
+             ha='center', va='center', color='white')
+
+plt.tight_layout()
+plt.show()
+
+print(f"Для n=m=25: попадает {total_coverage_small} раз ({total_coverage_small/repeats:.3f})")
+print(f"Для n=m=10000: попадает {total_coverage_big} раз ({total_coverage_big/repeats:.3f})")
+
+\end{verbatim}
+
+\newpage
+\section*{Визуализация}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{1.png}
+    \caption{Графики}
+\end{figure}
+
+\section*{Выводы}
+
+\begin{itemize}
+    \item При $n = 25$ доля покрытий близка к 95\%, но возможны отклонения.
+    \item При $n = 10000$ покрытие практически идеально соответствует 95\%.
+    \item С увеличением объема выборки доверительный интервал сужается и становится надежнее.
+\end{itemize}
+
+\chapter*{Задание 2}
+
+\subsection*{Постановка задачи}
+В этом задании нам нужно\begin{itemize}
+	\item Проверить, как работает доверительный интервал для параметра $\mu$ в распределении Лапласа
+	\item Сделать это на выборках разного размера (25, 10000)
+	\item Повторить 1000 раз для каждой выборки
+\end{itemize}
+
+
+\subsection*{Формулы}
+
+\begin{enumerate}
+	\item \textbf{Оценка $\mu$} (медиана):
+	\[
+	\hat{\mu} = \text{med}(X_1, X_2, ..., X_n)
+	\]
+	
+	\item \textbf{Доверительный интервал}:
+	\[
+	\hat{\mu} \pm 1.96 \cdot \frac{1}{\sqrt{n}}
+	\]
+	где:
+	\begin{itemize}
+		\item $1.96$ - константа для 95\% интервала
+		\item $\frac{1}{\sqrt{n}}$ - стандартная ошибка
+	\end{itemize}
+\end{enumerate}
+
+
+\subsection*{Код}
+
+\begin{verbatim}
+	mu = 2
+	n_list = [25, 10000]
+	fig, ax = plt.subplots(1, 2, figsize=(12, 4))
+	
+	for i, n in enumerate(n_list):
+		oshibki = []
+		popalo = 0
+		
+		for _ in range(1000):
+			data = laplace.rvs(loc=mu, size=n)
+			sred = np.median(data)
+			granica = 1.96 / np.sqrt(n)
+			niz = sred - granica
+			verh = sred + granica
+			
+			if niz <= mu <= verh:
+			popalo += 1
+			
+			oshibki.append(sred)
+		
+		ax[i].hist(oshibki, bins=30, density=True, alpha=0.6, color='skyblue')
+		ax[i].axvline(mu, color='red', linestyle='--')
+		ax[i].axvspan(niz, verh, color='green', alpha=0.2)
+		ax[i].set_title(f'n={n}')
+		ax[i].set_xlabel('mu')
+		ax[i].set_ylabel('Плотность')
+		
+		print(f"При n={n} попали {popalo/10}% раз")
+		
+	plt.tight_layout()
+	plt.show()
+\end{verbatim}
+
+
+\section*{Вывод}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{2.png}
+	\caption{Графики}
+\end{figure}
+Итак, на по нашим данным:
+\begin{verbatim}
+При n=25 попали 91.3% раз
+При n=10000 попали 95.1% раз
+\end{verbatim}
+
+
+\end{document}

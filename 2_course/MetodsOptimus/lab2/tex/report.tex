@@ -1,0 +1,212 @@
+\documentclass[a4paper,12pt]{article}
+
+% Основные пакеты
+\usepackage[utf8]{inputenc}             % Поддержка кодировки UTF-8
+\usepackage[T1, T2A]{fontenc}           % Поддержка кириллицы
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к изображениям в сетке
+\usepackage{float}                      % Для улучшенного размещения изображений
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath, amssymb, amsfonts} % Для математических формул и символов
+\usepackage{booktabs}                   % Для красивых таблиц
+\usepackage[dvipsnames]{xcolor}         % Для расширенной поддержки цветов
+\usepackage[colorlinks]{hyperref}       % Для создания гиперссылок
+\usepackage{indentfirst}                % Для красной строки в первом абзаце
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{longtable}                  % Для длинных таблиц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для продвинутых таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{bm}                         % Для жирных математических символов
+\usepackage{pifont}                     % Для специальных символов (например, галочек)
+\usepackage{fontawesome}                % Для иконок
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan
+}
+
+% Настройка листингов
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codestyle}{
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{magenta},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
+\lstset{style=codestyle, extendedchars=\true}
+
+\graphicspath{{../images/}}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		{\large Министерство науки и высшего образования Российской Федерации}\\
+		{\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+		{\large (УНИВЕРСИТЕТ ИТМО)}\\
+		
+		\vspace{2cm}
+		
+		{\large Факультет «Систем управления и робототехники»}\\
+		
+		\vspace{3cm}
+		
+		\textbf{{\Huge ОТЧЕТ}\\
+			{\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №5}}\\
+		
+		\vspace{1cm}
+		
+		{\LARGE По дисциплине «Техническое зрение»}\\
+		{\LARGE на тему: «Преобразование Хафа»}\\
+		
+		\vspace{2cm}
+		
+		{\Large Студент:}\\
+		Охрименко Ева ИСУ 409290\\
+		
+		\vspace{2cm}
+		
+		{\Large Преподаватель:}\\
+		Шаветов Сергей Васильевич\\
+		
+		\vspace{4cm}
+		
+		{\large г. Санкт-Петербург}\\
+		{\large 2025}
+		
+	\end{titlepage} 
+	
+	\tableofcontents  % Оглавление
+	\newpage
+	
+	
+	
+	
+\section{Task. Практическое задание}
+\subsection{Реализация методов для численной оценки градиента и гессиана}
+\subsubsection{Градиент}
+
+Формула для каждой компоненты градиента:
+
+\[
+\frac{\partial f}{\partial x_i} \approx \frac{f(x_1,\dots,x_i+h,\dots,x_n) - f(x_1,\dots,x_n)}{h}
+\]
+
+Где:
+\begin{itemize}
+	\item $h$ - эпсилон
+	\item $f$ - наша функция
+	\item $x_i$ - текущая координата
+\end{itemize}
+
+Весь градиент это вектор таких производных:
+
+\[
+\nabla f \approx \left(
+\frac{f(x+h,y)-f(x,y)}{h}, 
+\frac{f(x,y+h)-f(x,y)}{h}
+\right)
+\]
+Вот код, который реализует это:
+
+\begin{lstlisting}[language=python, caption={Градиент}]
+def numericalGradient(f, x, h=1e-5):
+	grad = np.zeros_like(x)
+	fx = f(x)
+	for i in range(len(x)):
+		xT = x.copy()
+		xT[i] += h
+		grad[i] = (f(xT) - fx) / h
+	return grad
+\end{lstlisting}
+
+
+
+\subsubsection{Гессиан}
+
+Мы хотим найти матрицу вторых производных (гессиан) функции $f(x_1, x_2, ..., x_n)$ в точке.
+
+Для этого мы:
+\begin{itemize}
+	\item Берем маленький шаг $h$ - эпсилон
+	\item Смотрим, как меняется функция при небольших изменениях по разным направлениям
+	\item Используем комбинации значений функции в соседних точках
+\end{itemize}
+
+Мы считаем так:
+
+Для каждой пары переменных $(x_i, x_j)$:
+
+1. Создаем 4 точки, немного меняя $x_i$ и $x_j$:
+\begin{itemize}
+	\item Точка 1: $x_i + h$, $x_j + h$
+	\item Точка 2: $x_i + h$, $x_j - h$
+	\item Точка 3: $x_i - h$, $x_j + h$
+	\item Точка 4: $x_i - h$, $x_j - h$
+\end{itemize}
+
+2. Считаем элемент матрицы по формуле:
+\[
+H_{ij} = \frac{f(\text{Точка1}) - f(\text{Точка2}) - f(\text{Точка3}) + f(\text{Точка4})}{4h^2}
+\]
+
+3. Так как матрица симметричная, $H_{ji} = H_{ij}$
+
+Для функции $f(x,y)$ гессиан будет:
+\[
+H = \begin{pmatrix}
+	\frac{\partial^2 f}{\partial x^2} & \frac{\partial^2 f}{\partial x \partial y} \\
+	\frac{\partial^2 f}{\partial y \partial x} & \frac{\partial^2 f}{\partial y^2}
+\end{pmatrix}
+\]
+
+Вот код:
+\begin{lstlisting}[language=python, caption={Гессиан}]
+def numericalHessian(f, x, h=1e-5):
+	n = len(x)
+	hess = np.zeros((n, n))
+	for i in range(n):
+		for j in range(i, n):x1, x2 = x.copy(), x.copy()
+		x1[i] += h; x1[j] += h
+		x2[i] += h; x2[j] -= h
+		x3, x4 = x.copy(), x.copy()
+		x3[i] -= h; x3[j] += h
+		x4[i] -= h; x4[j] -= h
+		hess[i,j] = (f(x1) - f(x2) - f(x3) + f(x4)) / (4 * h**2)
+		hess[j,i] = hess[i,j]
+			
+	return hess
+\end{lstlisting}
+
+\subsection{Оценка зависимости точности градиента и гессиана от выбора шага h}
+
+
+
+\end{document}

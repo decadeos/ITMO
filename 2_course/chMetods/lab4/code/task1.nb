@@ -1,0 +1,426 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 14.1' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[     16813,        405]
+NotebookOptionsPosition[     17169,        399]
+NotebookOutlinePosition[     17601,        416]
+CellTagsIndexPosition[     17558,        413]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "g", ",", "u", ",", "solution", ",", "filteredU", ",", "timeValues", 
+       ",", "uValues", ",", "filteredValues", ",", "fftU", ",", "fftFiltered",
+        ",", "freqs", ",", "H"}], "}"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"g", "[", "t_", "]"}], ":=", 
+       RowBox[{"Piecewise", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"{", 
+           RowBox[{"a", ",", 
+            RowBox[{"t1", "<=", "t", "<=", "t2"}]}], "}"}], "}"}], ",", "0"}],
+         "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"u", "[", "t_", "]"}], ":=", 
+       RowBox[{
+        RowBox[{"g", "[", "t", "]"}], "+", 
+        RowBox[{"b", "*", 
+         RowBox[{"RandomReal", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", "1"}], "}"}], "]"}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"solution", "=", 
+       RowBox[{"NDSolve", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"T", "*", 
+              RowBox[{
+               RowBox[{"y", "'"}], "[", "t", "]"}]}], "+", 
+             RowBox[{"y", "[", "t", "]"}]}], "==", 
+            RowBox[{"u", "[", "t", "]"}]}], ",", 
+           RowBox[{
+            RowBox[{"y", "[", 
+             RowBox[{"-", "1"}], "]"}], "==", "0"}]}], "}"}], ",", "y", ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", 
+           RowBox[{"-", "1"}], ",", "4"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"filteredU", "[", "t_", "]"}], ":=", 
+       RowBox[{
+        RowBox[{"y", "[", "t", "]"}], "/.", " ", 
+        RowBox[{"solution", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"timeValues", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{"t", ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", 
+           RowBox[{"-", "1"}], ",", "4", ",", "0.01"}], "}"}]}], "]"}]}], ";",
+       "\[IndentingNewLine]", 
+      RowBox[{"SeedRandom", "[", "1", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"uValues", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"u", "[", "t", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", "timeValues"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"filteredValues", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"filteredU", "[", "t", "]"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"t", ",", "timeValues"}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"fftU", "=", 
+       RowBox[{
+        RowBox[{"Abs", "[", 
+         RowBox[{"Fourier", "[", "uValues", "]"}], "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ";;", "250"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"fftFiltered", "=", 
+       RowBox[{
+        RowBox[{"Abs", "[", 
+         RowBox[{"Fourier", "[", "filteredValues", "]"}], "]"}], "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ";;", "250"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"freqs", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{"\[Omega]", ",", 
+         RowBox[{"{", 
+          RowBox[{"\[Omega]", ",", "0", ",", "10", ",", 
+           RowBox[{"10", "/", "249"}]}], "}"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"H", "[", "\[Omega]_", "]"}], ":=", 
+       RowBox[{"1", "/", 
+        RowBox[{"Abs", "[", 
+         RowBox[{"1", "+", 
+          RowBox[{"I", "*", "\[Omega]", "*", "T"}]}], "]"}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Column", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Plot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"g", "[", "t", "]"}], ",", 
+             RowBox[{"u", "[", "t", "]"}], ",", 
+             RowBox[{"filteredU", "[", "t", "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"t", ",", 
+             RowBox[{"-", "1"}], ",", "4"}], "}"}], ",", 
+           RowBox[{"PlotRange", "->", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", "2"}], ",", "10"}], "}"}]}], ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Directive", "[", 
+               RowBox[{
+                RowBox[{"Thickness", "[", "0.005", "]"}], ",", "Red"}], "]"}],
+               ",", 
+              RowBox[{"Directive", "[", 
+               RowBox[{
+                RowBox[{"Thickness", "[", "0.002", "]"}], ",", "Gray"}], 
+               "]"}], ",", 
+              RowBox[{"Directive", "[", 
+               RowBox[{
+                RowBox[{"Thickness", "[", "0.003", "]"}], ",", "Blue"}], 
+               "]"}]}], "}"}]}], ",", 
+           RowBox[{"AxesLabel", "->", 
+            RowBox[{"{", 
+             RowBox[{"\"\<t\>\"", ",", "\"\<Amplitude\>\""}], "}"}]}], ",", 
+           RowBox[{
+           "PlotLabel", "->", 
+            "\"\<\:0421\:0440\:0430\:0432\:043d\:0435\:043d\:0438\:0435 \
+\:0441\:0438\:0433\:043d\:0430\:043b\:043e\:0432\>\""}], ",", 
+           RowBox[{"PlotPoints", "->", "70"}], ",", 
+           RowBox[{"MaxRecursion", "->", "2"}], ",", 
+           RowBox[{"Exclusions", "->", "None"}], ",", 
+           RowBox[{"ImageSize", "->", "500"}]}], "]"}], ",", 
+         RowBox[{"ListLinePlot", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Transpose", "[", 
+              RowBox[{"{", 
+               RowBox[{"freqs", ",", "fftU"}], "}"}], "]"}], ",", 
+             RowBox[{"Transpose", "[", 
+              RowBox[{"{", 
+               RowBox[{"freqs", ",", "fftFiltered"}], "}"}], "]"}], ",", 
+             RowBox[{"Transpose", "[", 
+              RowBox[{"{", 
+               RowBox[{"freqs", ",", 
+                RowBox[{
+                 RowBox[{"H", "[", "freqs", "]"}], "*", 
+                 RowBox[{"Max", "[", "fftU", "]"}]}]}], "}"}], "]"}]}], "}"}],
+            ",", 
+           RowBox[{"PlotStyle", "->", 
+            RowBox[{"{", 
+             RowBox[{"Gray", ",", "Blue", ",", 
+              RowBox[{"{", 
+               RowBox[{"Green", ",", "Dashed"}], "}"}]}], "}"}]}], ",", 
+           RowBox[{"AxesLabel", "->", 
+            RowBox[{"{", 
+             RowBox[{"\"\<\[Omega]\>\"", ",", "\"\<Magnitude\>\""}], "}"}]}], 
+           ",", 
+           RowBox[{"PlotLegends", "->", 
+            RowBox[{"{", 
+             RowBox[{
+             "\"\<\:0418\:0441\:0445\:043e\:0434\:043d\:044b\:0439\>\"", ",", 
+              "\"\<\:0424\:0438\:043b\:044c\:0442\:0440\:043e\:0432\:0430\
+\:043d\:043d\:044b\:0439\>\"", ",", 
+              "\"\<\:0410\:0427\:0425 \:0444\:0438\:043b\:044c\:0442\:0440\
+\:0430\>\""}], "}"}]}], ",", 
+           RowBox[{"PlotRange", "->", "All"}], ",", 
+           RowBox[{"ImageSize", "->", "400"}]}], "]"}]}], "}"}], "]"}]}]}], 
+    "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "a", ",", "4", ",", 
+       "\"\<\:0410\:043c\:043f\:043b\:0438\:0442\:0443\:0434\:0430 \:0441\
+\:0438\:0433\:043d\:0430\:043b\:0430 (a)\>\""}], "}"}], ",", "1", ",", "10", 
+     ",", "0.1", ",", 
+     RowBox[{"Appearance", "->", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "T", ",", "0.2", ",", 
+       "\"\<\:041f\:043e\:0441\:0442\:043e\:044f\:043d\:043d\:0430\:044f \
+\:0432\:0440\:0435\:043c\:0435\:043d\:0438 (T)\>\""}], "}"}], ",", "0.05", 
+     ",", "1", ",", "0.01", ",", 
+     RowBox[{"Appearance", "->", "\"\<Labeled\>\""}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t1", ",", "0"}], "}"}], ",", "None"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"t2", ",", "3"}], "}"}], ",", "None"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"b", ",", "0.5"}], "}"}], ",", "None"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"c", ",", "0.0"}], "}"}], ",", "None"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"d", ",", "5"}], "}"}], ",", "None"}], "}"}], ",", 
+   RowBox[{"ControlPlacement", "->", "Top"}]}], "]"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.954949789006164*^9, 3.954949882434111*^9}, {
+   3.954949926834024*^9, 3.954950098587386*^9}, 3.954951071716498*^9},
+ CellLabel->"In[2]:=",ExpressionUUID->"16db46f9-0a70-45e3-a749-d5dc5c9053d2"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`a$$ = 5.9, $CellContext`b$$ = 
+    0.5, $CellContext`c$$ = 0., $CellContext`d$$ = 5, $CellContext`T$$ = 
+    0.29, $CellContext`t1$$ = 0, $CellContext`t2$$ = 3, Typeset`show$$ = True,
+     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`a$$], 4, 
+       "\:0410\:043c\:043f\:043b\:0438\:0442\:0443\:0434\:0430 \:0441\:0438\
+\:0433\:043d\:0430\:043b\:0430 (a)"}, 1, 10, 0.1, ControlType -> 
+      Manipulator}, {{
+       Hold[$CellContext`T$$], 0.2, 
+       "\:041f\:043e\:0441\:0442\:043e\:044f\:043d\:043d\:0430\:044f \:0432\
+\:0440\:0435\:043c\:0435\:043d\:0438 (T)"}, 0.05, 1, 0.01, ControlType -> 
+      Manipulator}, {{
+       Hold[$CellContext`t1$$], 0}, 0, ControlType -> None}, {{
+       Hold[$CellContext`t2$$], 3}, 0, ControlType -> None}, {{
+       Hold[$CellContext`b$$], 0.5}, 0, ControlType -> None}, {{
+       Hold[$CellContext`c$$], 0.}, 0, ControlType -> None}, {{
+       Hold[$CellContext`d$$], 5}, 0, ControlType -> None}}, 
+    Typeset`size$$ = {517.670625, {266.3298603683595, 271.6267353683595}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+    Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`a$$ = 4, $CellContext`b$$ = 
+        0.5, $CellContext`c$$ = 0., $CellContext`d$$ = 5, $CellContext`T$$ = 
+        0.2, $CellContext`t1$$ = 0, $CellContext`t2$$ = 3}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$, Typeset`keyframeActionsQ$$, 
+        Typeset`keyframeList$$}, "Body" :> 
+      Module[{$CellContext`g$, $CellContext`u$, $CellContext`solution$, \
+$CellContext`filteredU$, $CellContext`timeValues$, $CellContext`uValues$, \
+$CellContext`filteredValues$, $CellContext`fftU$, $CellContext`fftFiltered$, \
+$CellContext`freqs$, $CellContext`H$}, $CellContext`g$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := 
+         Piecewise[{{$CellContext`a$$, $CellContext`t1$$ <= $CellContext`t$ <= \
+$CellContext`t2$$}}, 0]; $CellContext`u$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := $CellContext`g$[$CellContext`t$] + $CellContext`b$$ 
+           RandomReal[{-1, 1}]; $CellContext`solution$ = 
+         NDSolve[{$CellContext`T$$ 
+              Derivative[
+               1][$CellContext`y][$CellContext`t] + \
+$CellContext`y[$CellContext`t] == $CellContext`u$[$CellContext`t], \
+$CellContext`y[-1] == 0}, $CellContext`y, {$CellContext`t, -1, 
+            4}]; $CellContext`filteredU$[
+           Pattern[$CellContext`t$, 
+            Blank[]]] := ReplaceAll[
+           $CellContext`y[$CellContext`t$], 
+           Part[$CellContext`solution$, 1]]; $CellContext`timeValues$ = 
+         Table[$CellContext`t, {$CellContext`t, -1, 4, 0.01}]; 
+        SeedRandom[1]; $CellContext`uValues$ = Table[
+           $CellContext`u$[$CellContext`t], {$CellContext`t, \
+$CellContext`timeValues$}]; $CellContext`filteredValues$ = Table[
+           $CellContext`filteredU$[$CellContext`t], {$CellContext`t, \
+$CellContext`timeValues$}]; $CellContext`fftU$ = Part[
+           Abs[
+            Fourier[$CellContext`uValues$]], 
+           Span[1, 250]]; $CellContext`fftFiltered$ = Part[
+           Abs[
+            Fourier[$CellContext`filteredValues$]], 
+           Span[1, 250]]; $CellContext`freqs$ = 
+         Table[$CellContext`\[Omega], {$CellContext`\[Omega], 0, 10, 10/
+            249}]; $CellContext`H$[
+           Pattern[$CellContext`\[Omega]$, 
+            Blank[]]] := 1/Abs[1 + I $CellContext`\[Omega]$ $CellContext`T$$]; 
+        Column[{
+           Plot[{
+             $CellContext`g$[$CellContext`t], 
+             $CellContext`u$[$CellContext`t], 
+             $CellContext`filteredU$[$CellContext`t]}, {$CellContext`t, -1, 
+             4}, PlotRange -> {-2, 10}, PlotStyle -> {
+              Directive[
+               Thickness[0.005], Red], 
+              Directive[
+               Thickness[0.002], Gray], 
+              Directive[
+               Thickness[0.003], Blue]}, AxesLabel -> {"t", "Amplitude"}, 
+            PlotLabel -> 
+            "\:0421\:0440\:0430\:0432\:043d\:0435\:043d\:0438\:0435 \:0441\
+\:0438\:0433\:043d\:0430\:043b\:043e\:0432", PlotPoints -> 70, MaxRecursion -> 
+            2, Exclusions -> None, ImageSize -> 500], 
+           ListLinePlot[{
+             Transpose[{$CellContext`freqs$, $CellContext`fftU$}], 
+             Transpose[{$CellContext`freqs$, $CellContext`fftFiltered$}], 
+             
+             Transpose[{$CellContext`freqs$, \
+$CellContext`H$[$CellContext`freqs$] Max[$CellContext`fftU$]}]}, 
+            PlotStyle -> {Gray, Blue, {Green, Dashed}}, 
+            AxesLabel -> {"\[Omega]", "Magnitude"}, 
+            PlotLegends -> {
+             "\:0418\:0441\:0445\:043e\:0434\:043d\:044b\:0439", 
+              "\:0424\:0438\:043b\:044c\:0442\:0440\:043e\:0432\:0430\:043d\
+\:043d\:044b\:0439", 
+              "\:0410\:0427\:0425 \
+\:0444\:0438\:043b\:044c\:0442\:0440\:0430"}, PlotRange -> All, ImageSize -> 
+            400]}]], 
+      "Specifications" :> {{{$CellContext`a$$, 4, 
+          "\:0410\:043c\:043f\:043b\:0438\:0442\:0443\:0434\:0430 \
+\:0441\:0438\:0433\:043d\:0430\:043b\:0430 (a)"}, 1, 10, 0.1, Appearance -> 
+         "Labeled"}, {{$CellContext`T$$, 0.2, 
+          "\:041f\:043e\:0441\:0442\:043e\:044f\:043d\:043d\:0430\:044f \
+\:0432\:0440\:0435\:043c\:0435\:043d\:0438 (T)"}, 0.05, 1, 0.01, Appearance -> 
+         "Labeled"}, {{$CellContext`t1$$, 0}, 0, ControlType -> 
+         None}, {{$CellContext`t2$$, 3}, 0, ControlType -> 
+         None}, {{$CellContext`b$$, 0.5}, 0, ControlType -> 
+         None}, {{$CellContext`c$$, 0.}, 0, ControlType -> 
+         None}, {{$CellContext`d$$, 5}, 0, ControlType -> None}}, 
+      "Options" :> {ControlPlacement -> Top}, "DefaultOptions" :> {}],
+     ImageSizeCache->{558.660625, {315.5667353683595, 320.8636103683595}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.954949792050218*^9, 3.95494988467668*^9}, 
+   3.9549499279720373`*^9, 3.954949969151663*^9, {3.9549500097789593`*^9, 
+   3.954950028116144*^9}, 3.954950104052017*^9, {3.954951076048835*^9, 
+   3.954951077162672*^9}},
+ CellLabel->"Out[2]=",ExpressionUUID->"4e73b601-07c3-491f-8bb2-0f7195201364"]
+}, Open  ]]
+},
+WindowSize->{1435.5, 711.75},
+WindowMargins->{{-2.25, Automatic}, {Automatic, -22.5}},
+Magnification:>0.9 Inherited,
+FrontEndVersion->"14.1 for Linux x86 (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"9f7080f6-ded2-416d-b14c-0bb4f5dbd28e"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[1482, 35, 8633, 227, 397, "Input",ExpressionUUID->"16db46f9-0a70-45e3-a749-d5dc5c9053d2",
+ InitializationCell->True],
+Cell[10118, 264, 7035, 132, 672, "Output",ExpressionUUID->"4e73b601-07c3-491f-8bb2-0f7195201364"]
+}, Open  ]]
+}
+]
+*)
+
