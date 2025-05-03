@@ -1,12 +1,12 @@
 import numpy as np
 
 def numericalGradient(f, x, h=1e-5):
+    n = len(x)
     grad = np.zeros_like(x)
-    fx = f(x)
-    for i in range(len(x)):
-        xT = x.copy()
-        xT[i] += h
-        grad[i] = (f(xT) - fx) / h
+    for i in range(n):
+        e_i = np.zeros_like(x)
+        e_i[i] = h
+        grad[i] = (f(x + e_i) - f(x - e_i)) / (2 * h)
     return grad
 
 def numericalHessian(f, x, h=1e-5):

@@ -79,22 +79,22 @@
 		\vspace{3cm}
 		
 		\textbf{{\Huge ОТЧЕТ}\\
-			{\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №5}}\\
+			{\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №2}}\\
 		
 		\vspace{1cm}
 		
-		{\LARGE По дисциплине «Техническое зрение»}\\
-		{\LARGE на тему: «Преобразование Хафа»}\\
+		{\LARGE По дисциплине «Методы оптимизации»}\\
 		
 		\vspace{2cm}
 		
-		{\Large Студент:}\\
-		Охрименко Ева ИСУ 409290\\
+		{\Large Студенты:}\\
+		Охрименко Ева \\
+		Комарова Ольга \\
 		
 		\vspace{2cm}
 		
 		{\Large Преподаватель:}\\
-		Шаветов Сергей Васильевич\\
+		преподаватель преподавательевич\\
 		
 		\vspace{4cm}
 		
@@ -113,37 +113,38 @@
 \subsection{Реализация методов для численной оценки градиента и гессиана}
 \subsubsection{Градиент}
 
-Формула для каждой компоненты градиента:
+Формула для каждой компоненты градиента с использованием центральной разностной схемы:
 
 \[
-\frac{\partial f}{\partial x_i} \approx \frac{f(x_1,\dots,x_i+h,\dots,x_n) - f(x_1,\dots,x_n)}{h}
+\frac{\partial f}{\partial x_i} \approx \frac{f(\mathbf{x} + h\mathbf{e}_i) - f(\mathbf{x} - h\mathbf{e}_i)}{2h}
 \]
 
 Где:
 \begin{itemize}
-	\item $h$ - эпсилон
-	\item $f$ - наша функция
-	\item $x_i$ - текущая координата
+	\item $h$ - малый шаг (эпсилон)
+	\item $f$ - дифференцируемая функция
+	\item $x$ - точка вычисления
+	\item $\mathbf{e}_i$ - $i$-й базисный вектор
 \end{itemize}
 
-Весь градиент это вектор таких производных:
+Весь градиент - это вектор таких производных:
 
 \[
-\nabla f \approx \left(
-\frac{f(x+h,y)-f(x,y)}{h}, 
-\frac{f(x,y+h)-f(x,y)}{h}
+\nabla f(\mathbf{x}) \approx \left(
+\frac{f(x+h,y)-f(x-h,y)}{2h}, 
+\frac{f(x,y+h)-f(x,y-h)}{2h}
 \right)
 \]
 Вот код, который реализует это:
 
 \begin{lstlisting}[language=python, caption={Градиент}]
 def numericalGradient(f, x, h=1e-5):
+	n = len(x)
 	grad = np.zeros_like(x)
-	fx = f(x)
-	for i in range(len(x)):
-		xT = x.copy()
-		xT[i] += h
-		grad[i] = (f(xT) - fx) / h
+	for i in range(n):
+		e_i = np.zeros_like(x)
+		e_i[i] = h
+		grad[i] = (f(x + e_i) - f(x - e_i)) / (2 * h)
 	return grad
 \end{lstlisting}
 
@@ -207,6 +208,321 @@ def numericalHessian(f, x, h=1e-5):
 
 \subsection{Оценка зависимости точности градиента и гессиана от выбора шага h}
 
+\subsubsection{Определение функций}
 
+Для начала зададим функции, которые предложены в задании:
+
+\begin{itemize}
+
+\item  \texttt{Комбинация из пары тригонометрических функций}
+
+Возьмем такую функцию: \[
+f(x_1, x_2) = \sin(x_1)\cos(x_2) + \sin(x_1 + x_2)
+\]
+Вот ее реализация:
+
+\begin{lstlisting}[language=python, caption={Тригонометрическая функция}]
+def trigFunc(x):
+	return sin(x[0]) * cos(x[1]) + sin(x[0] + x[1])
+\end{lstlisting}
+
+Ее градиент: 
+
+
+\[
+\nabla f = 
+\begin{pmatrix}
+	\frac{\partial f}{\partial x_1} \\ 
+	\frac{\partial f}{\partial x_2}
+\end{pmatrix} 
+= 
+\begin{pmatrix}
+	\cos x_1 \cos x_2 + \cos(x_1 + x_2) \\
+	-\sin x_1 \sin x_2 + \cos(x_1 + x_2)
+\end{pmatrix}
+\]
+
+
+Его реализация:
+\begin{lstlisting}[language=python, caption={Градиент тригонометрической функции}]
+def exactGradTrig(x):
+	return np.array([
+	cos(x[0])*cos(x[1]) + cos(x[0] + x[1]),
+	-sin(x[0])*sin(x[1]) + cos(x[0] + x[1])
+	])
+\end{lstlisting}
+
+Также рассмотрим гессиан:
+
+
+\[
+\nabla^2 f = 
+\begin{pmatrix}
+	\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} \\
+	\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2}
+\end{pmatrix}
+=
+\begin{pmatrix}
+	-\sin x_1 \cos x_2 - \sin(x_1 + x_2) & -\cos x_1 \sin x_2 - \sin(x_1 + x_2) \\
+	-\cos x_1 \sin x_2 - \sin(x_1 + x_2) & -\sin x_1 \cos x_2 - \sin(x_1 + x_2)
+\end{pmatrix}
+\]
+
+
+Реализация кодом:
+\begin{lstlisting}[language=python, caption={Гессиан тригонометрической функции}]
+def exactHessTrig(x):
+	return np.array([
+	[-sin(x[0])*cos(x[1]) - sin(x[0] + x[1]), -cos(x[0])*sin(x[1]) - sin(x[0] + x[1])],
+	[-cos(x[0])*sin(x[1]) - sin(x[0] + x[1]), -sin(x[0])*cos(x[1]) - sin(x[0] + x[1])]
+	])
+\end{lstlisting}
+
+
+\item \texttt{Полином нескольких переменных степени 3}
+
+Вот такую функцию мы выбрали:
+\[
+f(x_1, x_2, x_3) = x_1^3 + 2x_1^2x_2 - 3x_1x_2^2 + x_2^3 + x_1x_2x_3
+\]
+
+Реализация на питоне:
+\begin{lstlisting}[language=python, caption=Полином нескольких переменных]
+def polyFunc(x):
+	return x[0]**3 + 2*x[0]**2*x[1] - 3*x[0]*x[1]**2 + x[1]**3 + x[0]*x[1]*x[2]
+\end{lstlisting}
+
+Также расчитаем градиент функции и ее гессиан.
+
+
+\[
+\nabla f =
+\begin{pmatrix}
+	\frac{\partial f}{\partial x_1} \\ 
+	\frac{\partial f}{\partial x_2} \\
+	\frac{\partial f}{\partial x_3} \\
+	
+\end{pmatrix} 
+= 
+\begin{pmatrix}
+	3x_1^2 + 4x_1x_2 - 3x_2^2 + x_2x_3 \\
+	2x_1^2 - 6x_1x_2 + 3x_2^2 + x_1x_3 \\
+	x_1x_2
+\end{pmatrix}
+\]
+
+
+
+\[
+\nabla^2 f = 
+\begin{pmatrix}
+	\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \frac{\partial^2 f}{\partial x_1 \partial x_3} \\
+	\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \frac{\partial^2 f}{\partial x_2 \partial x_3} \\
+	\frac{\partial^2 f}{\partial x_3 \partial x_1} & \frac{\partial^2 f}{\partial x_3 \partial x_2} & \frac{\partial^2 f}{\partial x_3^2}
+\end{pmatrix}
+= 
+\begin{pmatrix}
+	6x_1 + 4x_2 & 4x_1 - 6x_2 & x_2 \\
+	4x_1 - 6x_2 & -6x_1 + 6x_2 & x_1 \\
+	x_2 & x_1 & 0
+\end{pmatrix}
+\]
+
+Вот код на питоне для градиента и гессиана:
+\begin{lstlisting}[language=python, caption=Градиент и гессиан для полинома нескольких переменных]
+def exactGradPoly(x):
+	return np.array([
+	3*x[0]**2 + 4*x[0]*x[1] - 3*x[1]**2 + x[1]*x[2],
+	2*x[0]**2 - 6*x[0]*x[1] + 3*x[1]**2 + x[0]*x[2],
+	x[0]*x[1]
+	])
+	
+def exactHessPoly(x):
+	return np.array([
+	[6*x[0] + 4*x[1], 4*x[0] - 6*x[1], x[1]],
+	[4*x[0] - 6*x[1], -6*x[0] + 6*x[1], x[0]],
+	[x[1], x[0], 0]
+	])
+\end{lstlisting}
+
+\item \texttt{Композиция, содержащая exp, ln, arctan и возведение в степень}
+
+Мы взяли такую функцию:
+
+\[
+f(x_1, x_2, x_3) = e^{x_1} \ln(1 + x_2^2) + \arctg(x_1 x_3)
+\]
+
+Реализация:
+
+
+\begin{lstlisting}[language=python, caption=Композиция нескольких функций]
+def complexFunc(x):
+	return exp(x[0]) * log(1 + x[1]**2) + atan(x[0]*x[2])
+\end{lstlisting}
+
+Также расчитаем градиент и гессиан для этой функции:
+
+\[
+\nabla f =
+\begin{pmatrix}
+	\frac{\partial f}{\partial x_1} \\ 
+	\frac{\partial f}{\partial x_2} \\
+	\frac{\partial f}{\partial x_3} \\
+	
+\end{pmatrix} 
+= 
+ \begin{pmatrix}
+	\frac{z}{x^2 z^2 + 1} + e^x \ln(y^2 + 1) \\
+	2 y \frac{e^x}{y^2 + 1} \\
+	\frac{x}{x^2 z^2 + 1}
+\end{pmatrix}
+\]
+
+\[
+\nabla^2 f = 
+\begin{pmatrix}
+	\frac{\partial^2 f}{\partial x_1^2} & \frac{\partial^2 f}{\partial x_1 \partial x_2} & \frac{\partial^2 f}{\partial x_1 \partial x_3} \\
+	\frac{\partial^2 f}{\partial x_2 \partial x_1} & \frac{\partial^2 f}{\partial x_2^2} & \frac{\partial^2 f}{\partial x_2 \partial x_3} \\
+	\frac{\partial^2 f}{\partial x_3 \partial x_1} & \frac{\partial^2 f}{\partial x_3 \partial x_2} & \frac{\partial^2 f}{\partial x_3^2}
+\end{pmatrix}
+= 
+\begin{pmatrix}
+	-\frac{2 x z^3}{(x^2 z^2 + 1)^2} + e^x \ln(y^2 + 1) & \frac{2 y e^x}{y^2 + 1} & \frac{1 - x^2 z^2}{(x^2 z^2 + 1)^2} \\
+	\frac{2 y e^x}{y^2 + 1} & \frac{2 e^x (1 - y^2)}{(y^2 + 1)^2} & 0 \\
+	\frac{1 - x^2 z^2}{(x^2 z^2 + 1)^2} & 0 & -\frac{2 x^3 z}{(x^2 z^2 + 1)^2}
+\end{pmatrix}
+\]
+
+И также код:
+\begin{lstlisting}[language=python, caption=Градиент и гессиан композиции нескольких функций]
+def exactGradComplex(x):
+	return np.array([
+	exp(x[0])*log(1 + x[1]**2) + x[2]/(1 + (x[0]*x[2])**2),
+	exp(x[0])*(2*x[1])/(1 + x[1]**2),
+	x[0]/(1 + (x[0]*x[2])**2)
+	])
+
+def exactHessComplex(x):
+	h11 = exp(x[0])*log(1 + x[1]**2) - (2*x[0]*x[2]**2)/(1 + (x[0]*x[2])**2)**2
+	h12 = exp(x[0])*(2*x[1])/(1 + x[1]**2)
+	h13 = (1 - (x[0]*x[2])**2)/(1 + (x[0]*x[2])**2)**2
+	h22 = exp(x[0])*(2 - 2*x[1]**2)/(1 + x[1]**2)**2
+	return np.array([
+	[h11, h12, h13],
+	[h12, h22, 0],
+	[h13, 0, -2*x[0]**2*x[2]/(1 + (x[0]*x[2])**2)**2]
+	])
+\end{lstlisting}
+\end{itemize}
+
+
+\subsubsection{Функция оценки точности}
+
+Итак, для начала выберем 3 точки, в которых будем все оценивать:
+
+\begin{align*}
+	\mathbf{x}_1 &= \begin{pmatrix} 0.5 & 1.0 & -0.5 \end{pmatrix}, \\
+	\mathbf{x}_2 &= \begin{pmatrix} 1.0 & -1.0 & 2.0 \end{pmatrix}, \\
+	\mathbf{x}_3 &= \begin{pmatrix} 0.0 & 0.5 & 2.5 \end{pmatrix}.
+\end{align*}
+
+\begin{lstlisting}[language=python, caption=Выбор точек]
+testPoints = [
+	np.array([0.5, 1.0, -0.5]),
+	np.array([1.0, -1.0, 2.0]),
+	np.array([0.0, 0.5, 2.5])
+]
+\end{lstlisting}
+
+Далее создадим переменную \texttt{hValues} и запишем туда 50 чисел:
+
+\begin{lstlisting}[language=python, caption=\texttt{hValues} в логарифмическом масштабе]
+	hValues = np.logspace(-10, -1, 50)
+\end{lstlisting}
+
+Создаёт 50 чисел, равномерно распределённых в логарифмическом масштабе между $10^{-10}$ и $10^{-1}$.
+
+Можно понять это вот так:
+\[ h_i = 10^{x_i}, \quad x_i \in [-10, -1] \]
+
+Теперь точно приступим к функции оценки точности:
+
+
+\begin{lstlisting}[language=python, caption=\texttt{evaluateAccuracy()}]
+def evaluateAccuracy():
+	results = defaultdict(lambda: ([[] for _ in range(3)], [[] for _ in range(3)]))  # (grad_errors, hess_errors)
+	
+	functions = {
+		'trig': (trigFunc, exactGradTrig, exactHessTrig, 2),
+		'poly': (polyFunc, exactGradPoly, exactHessPoly, 3),
+		'complex': (complexFunc, exactGradComplex, exactHessComplex, 3)
+	}
+	
+	for name, (func, exactGrad, exactHess, dim) in functions.items():
+		for i, x_full in enumerate(testPoints):
+			x = x_full[:dim]
+			gradErrors, hessErrors = results[name]
+			
+			for h in hValues:
+				numGrad = numericalGradient(func, x, h)
+				numHess = numericalHessian(func, x, h)
+				
+				gradErrors[i].append(np.linalg.norm(numGrad - exactGrad(x)))
+				hessErrors[i].append(np.linalg.norm(numHess - exactHess(x)))
+	
+	return results
+\end{lstlisting}
+
+Теперь не кратко по ней пройдемся:
+
+\begin{itemize}
+	\item Переменная \texttt{results} во второй строчке нужна для инициализации "как бы таблицы" для хранения ошибок. Вот как она выглядит:	
+	
+	
+	\begin{table}[h]
+		\centering
+		\caption{Пример данных в переменной \texttt{results}}
+		\begin{tabular}{clll}
+			\toprule
+			Функция & Тип ошибки & Точка 1 & Точка 2 \\
+			\midrule
+			\multirow{2}{*}{trig} 
+			& Градиент & $[1.2e{-5}, 5.7e{-6}, \dots]$ & $[8.3e{-6}, 3.1e{-6}, \dots]$ \\
+			& Гессиан & $[4.2e{-3}, 2.1e{-3}, \dots]$ & $[3.8e{-3}, 1.9e{-3}, \dots]$ \\
+			\addlinespace
+			\multirow{2}{*}{poly} 
+			& Градиент & $[6.5e{-7}, 3.2e{-7}, \dots]$ & $[5.1e{-7}, 2.8e{-7}, \dots]$ \\
+			& Гессиан & $[9.4e{-4}, 4.7e{-4}, \dots]$ & $[8.2e{-4}, 4.1e{-4}, \dots]$ \\
+			\addlinespace
+			\multirow{2}{*}{complex} 
+			& Градиент & $[2.3e{-5}, 1.1e{-5}, \dots]$ & $[1.8e{-5}, 9.5e{-6}, \dots]$ \\
+			& Гессиан & $[7.1e{-3}, 3.6e{-3}, \dots]$ & $[6.4e{-3}, 3.2e{-3}, \dots]$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\item Словарь \texttt{functions} нужен, чтобы там хранились ссылки на имена функций, аналитически вычисленных в пункте 1.2.1 градиентов и гессианов для этих функций, а также сюда мы записали размерности функций.
+	
+	
+	\item \texttt{for name, (func, exactGrad, exactHess, dim) in functions.items():} - тут мы проходимся непосредственно по словарю из предыдущего пункта.
+	
+	\item Далее мы проходимся по нашим \texttt{testPoints} и обрезаем точку до размерности функции \texttt{dim}, это нужно так как у нас есть \texttt{2D} и \texttt{3D} функции. Также в этом \texttt{for} мы достаем списки для хранения ошибок.
+	
+	\item 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{itemize}
 
 \end{document}

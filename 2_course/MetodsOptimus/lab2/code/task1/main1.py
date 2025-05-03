@@ -1,79 +1,57 @@
+from collections import defaultdict
 from gradGess import *
 from func import *
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Общие тестовые точки для всех функций (адаптируются под размерность)
 testPoints = [
-    np.array([0.5, 1.0, -0.5]),    # Точка 1 (3D)
-    np.array([1.0, -1.0, 2.0]),    # Точка 2 (3D)
-    np.array([0.0, 0.5, 2.5])      # Точка 3 (3D)
+    np.array([0.5, 1.0, -0.5]),
+    np.array([1.0, -1.0, 2.0]),
+    np.array([0.0, 0.5, 2.5])
 ]
 
 hValues = np.logspace(-10, -1, 50)
 
 def evaluateAccuracy():
-    results = {}
-    funcMap = {
-        'trig': trigFunc,
-        'poly': polyFunc,
-        'complex': complexFunc
-    }
-    exactGrads = {
-        'trig': exactGradTrig,
-        'poly': exactGradPoly,
-        'complex': exactGradComplex
-    }
-    exactHessians = {
-        'trig': exactHessTrig,
-        'poly': exactHessPoly,
-        'complex': exactHessComplex
+    results = defaultdict(lambda: ([[] for _ in range(3)], [[] for _ in range(3)]))  # (grad_errors, hess_errors)
+    
+    functions = {
+        'trig': (trigFunc, exactGradTrig, exactHessTrig, 2),
+        'poly': (polyFunc, exactGradPoly, exactHessPoly, 3),
+        'complex': (complexFunc, exactGradComplex, exactHessComplex, 3)
     }
 
-    for name in ['trig', 'poly', 'complex']:
-        gradErrors = [[] for _ in range(3)]  # По три точки для каждой функции
-        hessErrors = [[] for _ in range(3)]
-        
-        for h in hValues:
-            for i in range(3):  # Для каждой тестовой точки
-                # Берем только нужное количество координат для текущей функции
-                dim = 2 if name == 'trig' else 3
-                x = testPoints[i][:dim]
+    for name, (func, exactGrad, exactHess, dim) in functions.items():
+        for i, xFull in enumerate(testPoints):
+            x = xFull[:dim]
+            gradErrors, hessErrors = results[name]
+            
+            for h in hValues:
+                numGrad = numericalGradient(func, x, h)
+                numHess = numericalHessian(func, x, h)
                 
-                numGrad = numericalGradient(funcMap[name], x, h)
-                numHess = numericalHessian(funcMap[name], x, h)
-                
-                gradErrors[i].append(np.linalg.norm(numGrad - exactGrads[name](x)))
-                hessErrors[i].append(np.linalg.norm(numHess - exactHessians[name](x)))
-        
-        results[name] = (gradErrors, hessErrors)
+                gradErrors[i].append(np.linalg.norm(numGrad - exactGrad(x)))
+                hessErrors[i].append(np.linalg.norm(numHess - exactHess(x)))
     
     return results
 
 def plotResults(results):
     plt.figure(figsize=(15, 10))
-    colors = ['b-', 'g-', 'r-']  # Разные цвета для разных точек
+    colors = ['b-', 'g-', 'r-']
     
-    for i, name in enumerate(['trig', 'poly', 'complex']):
+    for idx, name in enumerate(['trig', 'poly', 'complex']):
         gradErrors, hessErrors = results[name]
         
-        plt.subplot(3, 2, 2*i+1)
-        for j in range(3):
-            plt.loglog(hValues, gradErrors[j], colors[j], label=f'Точка {j+1}')
-        plt.title(f'{name} функция (градиент)')
-        plt.xlabel('Шаг h')
-        plt.ylabel('Ошибка')
-        plt.legend()
-        plt.grid(True)
-        
-        plt.subplot(3, 2, 2*i+2)
-        for j in range(3):
-            plt.loglog(hValues, hessErrors[j], colors[j], label=f'Точка {j+1}')
-        plt.title(f'{name} функция (гессиан)')
-        plt.xlabel('Шаг h')
-        plt.ylabel('Ошибка')
-        plt.legend()
-        plt.grid(True)
+        for plot_pos, errors, title in zip([1, 2], [gradErrors, hessErrors], ['градиент', 'гессиан']):
+            plt.subplot(3, 2, 2*idx + plot_pos)
+            for j in range(3):
+                plt.loglog(hValues, errors[j], colors[j], label=f'Точка {j+1}')
+            
+            plt.title(f'{name} функция ({title})')
+            plt.xlabel('Шаг h')
+            plt.ylabel('Ошибка')
+            plt.legend()
+            plt.grid(True)
     
     plt.tight_layout()
     plt.show()
