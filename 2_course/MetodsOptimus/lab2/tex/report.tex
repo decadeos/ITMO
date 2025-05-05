@@ -513,6 +513,9 @@ def evaluateAccuracy():
 	\item \texttt{for h in hValues:} - это цикл по всем шагам \texttt{hValues}. Тут мы расчитываем градиент и гессиан в какой-то точке, причем градиент и гессиан берутся уже расчитанные и зависящие от названия функции + тут же мы расчитываем численно написанные градиент и гессиан. Далее мы заполняем массивы норм ошибок.
 	
 	
+	
+	
+	\end{itemize}
 	\subsubsection{Графики и анализ}
 	
 	Далее мы прописали функцию для отрисовки графиков. Особого смысла приводить код для этого мы не видим, но в конце отчета обязательно приложим ссылку на GitHub со всеми кодами.
@@ -528,12 +531,101 @@ def evaluateAccuracy():
 	\end{figure}
 	
 	
+	По этим графикам можно сказать, что ...
 	
+	\subsection{Некоторый способ создания функции}
 	
+	\texttt{Оля, тут нужна твоя математическая подкованность}
 	
-	
-	
-	
+    \section{Task. Метод Ньютона}
+    Хотим найти минимум функции $f(x)$. На каждой итерации:
+    \[
+    x_{k+1} = x_k - \alpha (	\nabla^2 f(x_k))^{-1} \nabla f(x_k),
+    \]
+    где:
+    \begin{itemize}
+    	\item $\nabla f(x_k)$ — градиент
+    	\item $H(x_k)$ — гессиан
+    	\item $\alpha$ — шаг (можно брать 1 или подбирать по стратегии) Архимо-Вульфа
+    \end{itemize}
+    \subsection{Реализация метода}
+    
+\begin{itemize}
+	\item Вычисляем градиент $\nabla f$ и гессиан $\nabla^2 f$ численно
+	\item Находим направление $d$ из уравнения $\nabla^2 f \cdot d = -\nabla f$ \\
+	(в коде: \texttt{direction = -np.linalg.solve(hessian, grad)})
+	\item Выбираем шаг $\alpha$:
+	\begin{itemize}
+		\item Если \texttt{alpha='wolfe'}, вычисляем $\alpha$ через \texttt{arhim}
+		\item Иначе $\alpha = 1$ (чистый метод Ньютона)
+	\end{itemize}
+	\item Обновляем точку: $x_{k+1} = x_k + \alpha \cdot d$ \\
+	\item Повторяем, пока $\|\nabla f\| < \texttt{tol}$
 \end{itemize}
+	Итак, вот наша реализация этого метода на python:
+	
+	\begin{lstlisting}[language=python, caption=Метод Ньютона]
+def newtonMethod(f, x0, alpha='wolfe', tol=1e-6, maxIter=100, h=1e-5):
+	x = np.array(x0, dtype=float)
+	history = [x.copy()]
+	
+	for _ in range(maxIter):
+		grad = numericalGradient(f, x, h)
+		if np.linalg.norm(grad) < tol:
+			break
+		
+		hessian = numericalHessian(f, x, h)
+		direction = -np.linalg.solve(hessian, grad)
+	
+		if alpha == 'wolfe':
+			step = arhim(f, lambda x: numericalGradient(f, x, h), x, direction)
+		else:
+			step = 1.0
+	
+		x += step * direction
+		history.append(x.copy())
+	
+	return x, np.array(history)
+	\end{lstlisting}
+	
+	
+	\subsection{Тестирование метода на квадратичной функции}
+	
+	В задании сказано, что нужно взять квадратичные функции из прошлой лабораторной. Мы так и сделаем
+	\[
+	f(\mathbf{x}) = \mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x}
+	\]
+	
+	\[
+	\mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x} = \begin{bmatrix} x_1 & x_2 \end{bmatrix}
+	\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}
+	\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 1 & -1 \end{bmatrix}
+	\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+	= 2x_1^2 + 2x_1x_2 + 3x_2^2 + x_1 - x_2
+	\]
+	
+	
+	\begin{lstlisting}[language=python, caption=Задание функции]
+def f(x):
+	A = np.array([[2, 1], 
+	              [1, 3]])
+	b = np.array([1, -1])
+
+	f = lambda x: x.T @ A @ x + b.T @ x
+	\end{lstlisting}
+	
+	Далее мы будем исследовать метод Ньютона на этой функции из точки $x_0 = \begin{bmatrix} 1000 \\ 1100 \end{bmatrix}$
+	
+	Такие графики у нас получились:
+	
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{newton.png}
+		\caption{Графики}
+		\label{fig:lines}
+	\end{figure}
+	
+	
+	По графикам видно ____такуюто___ сходимости. Теперь оценим сходимости аналитически.
 
 \end{document}

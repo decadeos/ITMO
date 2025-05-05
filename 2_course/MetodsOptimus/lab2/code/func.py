@@ -1,42 +1,6 @@
 import numpy as np
 from math import sin, cos, exp, log, atan
-
-def f1():
-    """f(x) = 2x1² + 3x2² + x1 - x2"""
-    A = np.array([[2, 0],
-                  [0, 3]])
-    b = np.array([1, -1])
-    
-    def f(x):
-        return x.T @ A @ x + b.T @ x
-    
-    return f, A, b
-
-def f2():
-    """f(x) = x1² + 2x2² + x1x2 - x1"""
-    A = np.array([[1, 0.5],
-                  [0.5, 2]])
-    b = np.array([-1, 0])
-    
-    def f(x):
-        return x.T @ A @ x + b.T @ x
-    
-    return f, A, b
-
-def f3():
-    """f(x) = x1² + 2x2² + 3x3² + 0.4x1x2 - 0.6x1x3 + 0.2x2x3 + x2 - x3"""
-    A = np.array([[1, 0.2, -0.3],
-                  [0.2, 2, 0.1],
-                  [-0.3, 0.1, 3]])
-    b = np.array([0, 1, -1])
-    
-    def f(x):
-        return x.T @ A @ x + b.T @ x
-    
-    return f, A, b
-
-
-
+## Для 1 задания функции 
 def trigFunc(x):
     """sin(x1)*cos(x2) + sin(x1+x2)"""
     return sin(x[0]) * cos(x[1]) + sin(x[0] + x[1])
@@ -94,3 +58,12 @@ def exactHessComplex(x):
         [h12, h22, 0],
         [h13, 0, -2*x[0]**2*x[2]/(1 + (x[0]*x[2])**2)**2]
     ])
+
+# Для 2 задания функции
+
+def f(x):
+    A = np.array([[2, 1], 
+              [1, 3]])
+    b = np.array([1, -1])
+    
+    return x.T @ A @ x + b.T @ x
