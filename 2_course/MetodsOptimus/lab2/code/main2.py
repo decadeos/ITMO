@@ -12,7 +12,7 @@ b = np.array([1, -1])
 f = lambda x: x.T @ A @ x + b.T @ x
 
 x0 = np.array([1000.0, 1100.0])
-x_opt, history = newton(f, x0, alpha='nowolfe', tol=1e-6)
+x_opt, history = newton(f, x0, alpha='wolfe', tol=1e-6)
 history = np.array(history)
 
 fig = plt.figure(figsize=(16, 8))

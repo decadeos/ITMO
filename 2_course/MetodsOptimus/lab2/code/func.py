@@ -1,5 +1,5 @@
 import numpy as np
-from math import sin, cos, exp, log, atan
+from math import sin, cos, exp, log, atan, sqrt
 ## Для 1 задания функции 
 def trigFunc(x):
     """sin(x1)*cos(x2) + sin(x1+x2)"""
@@ -35,11 +35,11 @@ def exactGradPoly(x):
     ])
 
 def exactHessPoly(x):
-    return np.array([
-        [6*x[0] + 4*x[1], 4*x[0] - 6*x[1], x[1]],
-        [4*x[0] - 6*x[1], -6*x[0] + 6*x[1], x[0]],
+	return np.array([
+        [6*x[0] + 4*x[1], 4*x[0] - 6*x[1] + x[2], x[1]],
+        [4*x[0] - 6*x[1] + x[2], -6*x[0] + 6*x[1], x[0]],
         [x[1], x[0], 0]
-    ])
+	])
 
 def exactGradComplex(x):
     return np.array([
@@ -67,3 +67,14 @@ def f(x):
     b = np.array([1, -1])
     
     return x.T @ A @ x + b.T @ x
+
+
+def f(x, y):
+    isuEva = 409290
+    isuOla = 408835
+
+    a = ( (2 * isuEva * isuOla) / (isuEva + isuOla) ) / 100000
+    b = ( sqrt(isuEva * isuOla) ) / 100000
+
+    denominator = 1 + (x - a)**2 + (y - b)**2
+    return -1 / denominator
