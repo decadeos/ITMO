@@ -1,0 +1,358 @@
+\documentclass[14pt]{extreport}
+
+% Основные пакеты
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, pdf_tex из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к фигурам
+\usepackage{float}                      % Для улучшенного позиционирования фигур
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath}                    % Для расширенной поддержки математики
+\usepackage{amsfonts}                   % Математические шрифты
+\usepackage{amssymb}                    % Математические символы
+\usepackage{tabu}                       % Улучшенные таблицы
+\usepackage{booktabs}                   % Профессиональные таблицы с вертикальными разделителями
+\usepackage[dvipsnames]{xcolor}         % Расширенная поддержка цветов
+\usepackage{longtable}                  % Для таблиц, занимающих несколько страниц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для современных таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{hyperref}                   % Для гиперссылок
+\usepackage{verbatim}                   % Для вставки кода
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{amsmath}
+\usepackage{listings}
+\newcommand{\outputbox}[1]{
+	\fboxsep=5pt
+	\colorbox{lightgray!20}{\texttt{#1}}
+}
+\usepackage{listings}
+\usepackage[T2A]{fontenc} % Для поддержки кириллицы
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+% Настройка графики
+\graphicspath{ {./images/} }            % Путь к папке с изображениями
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+	linkcolor=blue,                     % Цвет ссылок
+	filecolor=magenta,                  % Цвет ссылок на файлы
+	urlcolor=cyan                       % Цвет URL-адресов
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}  % Цвет для комментариев
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}  % Цвет для номеров строк
+\definecolor{codepurple}{rgb}{0.58,0,0.82}  % Цвет для строк
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}  % Цвет фона
+
+% Определим стиль для выделения переменных
+\lstdefinestyle{codestyle}{
+	backgroundcolor=\color{backcolour},  % Цвет фона
+	commentstyle=\color{codegreen}\itshape,  % Стиль для комментариев
+	keywordstyle=\color{magenta}\bfseries,  % Стиль для ключевых слов
+	numberstyle=\tiny\color{codegray},  % Стиль для номеров строк
+	stringstyle=\color{codepurple},  % Стиль для строк
+	identifierstyle=\color{black},  % Стиль для переменных (выделим их синим)
+	basicstyle=\ttfamily\footnotesize,  % Размер шрифта для кода
+	breakatwhitespace=false,  % Не разрывать строки в пробелах
+	breaklines=true,  % Разбивать длинные строки
+	captionpos=b,  % Позиция заголовка (внизу)
+	keepspaces=true,  % Сохранять пробелы
+	numbers=left,  % Позиция номеров строк
+	numbersep=10pt,  % Расстояние между кодом и номерами строк
+	showspaces=false,  % Не показывать пробелы
+	showstringspaces=false,  % Не показывать пробелы в строках
+	showtabs=false,  % Не показывать табуляции
+	tabsize=4,  % Размер табуляции
+	frame=single,  % Добавить рамку вокруг кода
+	rulecolor=\color{black},  % Цвет рамки
+	backgroundcolor=\color{backcolour},  % Цвет фона рамки
+	xleftmargin=15pt,  % Отступ слева
+	xrightmargin=15pt,  % Отступ справа
+}
+
+
+\lstset{style=codestyle}
+\lstset{extendedchars=\true}
+\graphicspath{{../images/}}
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		{\large Министерство науки и высшего образования Российской Федерации}\\
+		{\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+		{\large (УНИВЕРСИТЕТ ИТМО)}\\
+		
+		\vspace{1cm}
+		
+		\textbf{{\Huge ОТЧЕТ}\\
+			{\Huge ПО ЛАБОРАТОРНОЙ РАБОТЕ №4}}\\
+		
+		\vspace{1cm}
+		
+		{\LARGE По дисциплине\\
+			<<Математическая Статистика>>}\\
+		Вариант 2
+		
+		\vspace{2cm}
+		
+		{\Large Студенты:}\\
+		Охрименко Eва\\
+		Даниил Буцкий
+		
+		\vspace{2cm}
+		
+		{\Large Проверил:}\\
+		Шкваренко Андрей Алексеевич\\
+		
+		\vspace{2cm}
+		
+		{\large г. Санкт-Петербург}\\
+		{\large 2025}
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	
+	\setcounter{section}{0} % Сбрасываем счетчик разделов
+	
+	\section{Task 1}
+	
+	\section{Task 2}
+	
+	В этом задании нужно определить, влияет ли национальность студентов на их общий балл за экзамены. Другими словами — есть ли группы, которые сдают экзамены статистически значимо лучше или хуже других. \\
+	
+	
+	Для начала создадим несколько массивов инициализированных по этническому признаку. И засунем туда суммарные баллы студентов именно этой национальности. Вот код, реализующий это:
+	
+	\begin{lstlisting}[language=python, caption={Инициализация массивов с баллами}]
+f = open('exams_dataset.csv')
+
+countA = []
+countB = []
+countC = []
+countD = []
+countE = [] 
+continueCount = 0
+
+for line in f:
+
+	continueCount += 1
+	if continueCount == 1:
+		continue
+	
+	items = line.strip().replace('"', '').split(',')
+	
+	etnic = items[1]
+	points = sum(map(int, items[-3:])) 
+	
+	if etnic[-1] == 'A':
+		countA.append(points)
+	elif etnic[-1] == 'B':
+		countB.append(points)
+	elif etnic[-1] == 'C':
+		countC.append(points)
+	elif etnic[-1] == 'D':
+		countD.append(points)
+	elif etnic[-1] == 'E':
+		countE.append(points)
+\end{lstlisting}
+	
+	
+	Для того, чтобы сделать модель однофакторного дисперсионного анализа нам надо найти:
+	
+	\begin{itemize}
+		\item $\mu$ --- общее среднее по всем группам
+		\item \texttt{SSB} --- cумма квадратов между группами
+		\item \texttt{SSW} --- cумма квадратов внутри групп
+		\item степени свободы
+		\item \texttt{F}-статистику
+		\item критическое значение $\mathtt{F\_crit}$, чтобы сравнить с \texttt{F}
+	\end{itemize}
+	
+	Итак, начнем. Для начала расчитаем общее среднее по всем группам:
+	\[
+	\mu = \frac{\sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}}{N}
+	\]
+	
+	\begin{lstlisting}[language=python, caption=mean по всем группам]
+allScores = countA + countB + countC + countD + countE
+mu = sum(allScores) / len(allScores)
+\end{lstlisting}
+	
+	
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{mu = 202.404}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+	Теперь найдем \texttt{SSB}:
+	\[
+	\mathtt{SSB} = \sum_{i=1}^{k} n_i (\bar{Y}_i - \mu)^2
+	\]
+	
+	
+	\begin{lstlisting}[language=python, caption=\texttt{SSB}]
+groupMeans = [
+	sum(countA)/len(countA), 
+	sum(countB)/len(countB), 
+	sum(countC)/len(countC), 
+	sum(countD)/len(countD), 
+	sum(countE)/len(countE)  
+]
+
+groupSizes = [len(countA), len(countB), len(countC), len(countD), len(countE)]
+
+SSB = sum(
+	n * (groupMean - mu) ** 2 
+	for n, groupMean in zip(groupSizes, groupMeans)
+)
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{SSB	 $\approx$ 112381.64}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+	
+	Расчитаем \texttt{SSW}:
+	\[
+	\texttt{SSW} = \sum_{i=1}^{k} \sum_{j=1}^{n_i} (Y_{ij} - \bar{Y}_i)^2
+	\]
+	
+	\begin{lstlisting}[language=python, caption=\texttt{SSW}]
+groups = [countA, countB, countC, countD, countE]
+SSW = 0.0
+for group, mean in zip(groups, groupMeans):
+	for score in group:
+		SSW += (score - mean) ** 2
+\end{lstlisting}	
+	
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{SSW $\approx$ 1953413.14}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+	
+	
+	
+	Теперь посчитаем степени свободы:
+	
+	\begin{align*}
+		df_{total} &= N - 1 \\
+		df_{between} &= k - 1 \\
+		df_{within} &= N - k
+	\end{align*}
+	
+	Где:
+	\begin{itemize}
+		\item $N$ - общее количество наблюдений
+		\item $k$ - количество групп
+		\item $df_{total}$ - общие степени свободы
+		\item $df_{between}$ - степени свободы между группами
+		\item $df_{within}$ - степени свободы внутри групп
+	\end{itemize}
+	
+\begin{lstlisting}[language=python, caption=Степени свободы]
+N = sum(len(group) for group in groups)  
+k = len(groups)                           
+
+dfTotal = N - 1
+dfBetween = k - 1
+dfWithin = N - k
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{dfTotal = 999 \\
+			dfBetween = 4 \\
+			dfWithin = 995
+		}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+
+Далее посчитаем \texttt{F}-статистику
+\[
+\texttt{F} = \frac{MSB}{MSW},
+\]
+
+Где: 
+\begin{itemize}
+	\item $MSB = \frac{SSB}{df_{between}}$ 
+	\item $MSW = \frac{SSW}{df_{within}}$ 
+\end{itemize}
+
+
+	\begin{lstlisting}[language=python, caption=\texttt{F}-статистика]
+MSB = SSB / dfBetween 
+MSW = SSW / dfWithin
+F = MSB / MSW 
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{F $\approx$ 14.31}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+Теперь найдем $\mathtt{F\_crit}$ кодом. Возьмем $\alpha = 0.05$ - стандартный уровень значимости.
+
+	\begin{lstlisting}[language=python, caption=\texttt{F}-статистика]
+alpha = 0.05
+F_crit = f.ppf(1 - alpha, dfBetween, dfWithin)
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{F\_crit $\approx$ 2.38}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+
+
+\textbf{Итог:} \\
+В результате однофакторного дисперсионного анализа получилось
+
+\begin{center}
+	\texttt{F} > $\mathtt{F\_crit}$.
+\end{center}
+Это означает, что количество баллов зависит от национальности.	
+
+\end{document}

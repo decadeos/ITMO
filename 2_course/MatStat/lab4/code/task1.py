@@ -5,9 +5,7 @@ f = open('exams_dataset.csv')
 maleCount = femaleCount = 0
 countA = countB = countC = countD = countE = 0
 
-
 for line in f:
-
     items = line.strip().replace('"', '').split(',')
 
     gender = items[0]
@@ -28,7 +26,6 @@ for line in f:
         countD += 1
     elif etnic[-1] == 'E':
         countE += 1
-
 
 genderArray = list()
 etnicArray = list()

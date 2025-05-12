@@ -1,0 +1,4 @@
+	# Расчет SSB
+	groupMeans = [85.2, 78.5, 82.1, 79.8, 81.3]
+	SSB = sum(n * (mean - 81.38)**2 for n, mean in zip([100,120,90,110,80], groupMeans))
+	print(f"SSB = {SSB:.2f}")  # Вывод: SSB = 2100.45

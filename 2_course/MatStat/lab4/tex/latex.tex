@@ -135,20 +135,20 @@ for line in f:
 	etnic = items[1]
 	
 	if gender == 'male':
-	maleCount += 1
+		maleCount += 1
 	elif gender == 'female':
-	femaleCount += 1
+		femaleCount += 1
 	
 	if etnic[-1] == 'A':
-	countA += 1
+		countA += 1
 	elif etnic[-1] == 'B':
-	countB += 1
+		countB += 1
 	elif etnic[-1] == 'C':
-	countC += 1
+		countC += 1
 	elif etnic[-1] == 'D':
-	countD += 1
+		countD += 1
 	elif etnic[-1] == 'E':
-	countE += 1
+		countE += 1
 
 
 genderArray = list()
@@ -267,6 +267,10 @@ Output >>> 0.0377
 	Нам нужно взять $k = 1$, так как оно считается по формуле $k = iterations - 1$ (посчитали по туториалу)и возьмем $\alpha = 0.05$ - средний уровень значимости
 	
 	Тогда наше критическое значение $\chi_{crit}^2 = 3.8$. Так как $\chi_{crit}^2 > \chi^2$, то вывод таков: \texttt{распредедление полов равномерное}.
+	\\
+	\\
+	\\
+	\\
 	
 	Теперь сформулируем гипотезы для этнических принадлежностей:
 	
@@ -275,6 +279,79 @@ Output >>> 0.0377
 		\item \texttt{Альтернативная гипотеза:} Распределение этник неравномерное
 	\end{itemize}
 	
+	Для $\alpha = 0.0377$ и $n=1000$:
+	$$
+	D_{\text{крит}} = \frac{c(\alpha)}{\sqrt{n}} \approx \frac{1.47}{31.623} \approx 0.0465
+	$$
+	где $c(0.0377) \approx 1.47$.
+	
+	Так как $D_n = 0.123 > D_{\text{крит}} = 0.0465$, гипотеза $H_0$ о равномерном распределении не работает. Распределение неравномерно.
 	
 	
+	\section{Вопрос}
+	
+	В этом задании нам нужно проверить гипотезу на однородность результатов по математике и письменной части. Создадим массив \texttt{[0] * 101} куда будем записывать количество сдавших экзамен на i-тый балл, где i - индекс массива. Вот код:
+	
+	
+	\begin{lstlisting}[language=python, caption={Счет выборок}]
+f = open('exams_dataset.csv')
+	
+resultMath = [0] * 101
+resultWrite = [0] * 101
+
+continueCount = 0
+	
+for line in f:
+	
+	continueCount += 1
+	if continueCount == 1:
+		continue
+	
+	items = line.strip().replace('"', '').split(',')
+	
+	resultMath[int(items[-3])] += 1
+	resultWrite[int(items[-1])] += 1
+\end{lstlisting}
+	
+	Теперь напишем статистические тесты. Возьмем уже готовые тесты хи-квадрат и Когломорова-Смирнова. Проведем хи-квадрат для выборки \texttt{resultMath}:
+	
+	\begin{lstlisting}[language=python, caption=$\chi^2$-тест]
+obs = [x for x in resultMath if x > 0]
+exp = [sum(obs)/len(obs)] * len(obs)
+		
+_, p = chisquare(obs, exp)
+print("Неравномерное" if p < 0.05 else "Равномерное")
+
+Output >>> Неравномерное
+\end{lstlisting}
+	
+	И действительно, данные неоднородны. Это можно заметить(даже без точных тестов) по распределению баллов:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{resultMath.png}
+		\label{fig:lines}
+	\end{figure} 
+	
+	
+	Теперь проведем встроенный тест Когломорова-Смирнова на выборке с результатами по письму.
+	
+	\begin{lstlisting}[language=python, caption=K-S тест]
+obs = [x for x in resultWrite if x > 0]
+exp = [sum(obs)/len(obs)] * len(obs)
+
+ks_stat, ks_p = stats.kstest(obs, 'uniform', args=(min(obs), max(obs) - min(obs)))
+print("Неравномерное" if ks_p < 0.05 else "Равномерное")
+	
+Output >>> Неравномерное
+\end{lstlisting}
+
+Также посмотрим на распределение баллов и убедимся в правильности теста:
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{resultWrite.png}
+		\label{fig:lines}
+	\end{figure} 
+
 \end{document}

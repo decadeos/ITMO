@@ -1,0 +1,5 @@
+	obs = [x for x in resultWrite if x > 0]
+	exp = [sum(obs)/len(obs)] * len(obs)
+	
+	ks_stat, ks_p = stats.kstest(obs, 'uniform', args=(min(obs), max(obs) - min(obs)))
+	print("Неравномерное" if ks_p < 0.05 else "Равномерное")
