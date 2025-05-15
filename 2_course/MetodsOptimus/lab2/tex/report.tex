@@ -537,19 +537,19 @@ def evaluateAccuracy():
 	
 	\texttt{Оля, тут нужна твоя математическая подкованность}
 	
-    \section{Task. Метод Ньютона}
-    Хотим найти минимум функции $f(x)$. На каждой итерации:
-    \[
-    x_{k+1} = x_k - \alpha (	\nabla^2 f(x_k))^{-1} \nabla f(x_k),
-    \]
-    где:
-    \begin{itemize}
-    	\item $\nabla f(x_k)$ — градиент
-    	\item $H(x_k)$ — гессиан
-    	\item $\alpha$ — шаг (можно брать 1 или подбирать по стратегии) Архимо-Вульфа
-    \end{itemize}
-    \subsection{Реализация метода}
-    
+\section{Task. Метод Ньютона}
+ Хотим найти минимум функции $f(x)$. На каждой итерации:
+\[
+x_{k+1} = x_k - \alpha (	\nabla^2 f(x_k))^{-1} \nabla f(x_k),
+\]
+где:
+\begin{itemize}
+	\item $\nabla f(x_k)$ — градиент
+	\item $\nabla^2 f$ — гессиан
+	\item $\alpha$ — шаг (можно брать 1 или подбирать по стратегии) Архимо-Вульфа
+\end{itemize}
+\subsection{Реализация метода}
+
 \begin{itemize}
 	\item Вычисляем градиент $\nabla f$ и гессиан $\nabla^2 f$ численно
 	\item Находим направление $d$ из уравнения $\nabla^2 f \cdot d = -\nabla f$ \\
@@ -562,70 +562,66 @@ def evaluateAccuracy():
 	\item Обновляем точку: $x_{k+1} = x_k + \alpha \cdot d$ \\
 	\item Повторяем, пока $\|\nabla f\| < \texttt{tol}$
 \end{itemize}
-	Итак, вот наша реализация этого метода на python:
-	
-	\begin{lstlisting}[language=python, caption=Метод Ньютона]
-def newtonMethod(f, x0, alpha='wolfe', tol=1e-6, maxIter=100, h=1e-5):
+Итак, вот наша реализация этого метода на python:
+
+\begin{lstlisting}[language=python, caption=Метод Ньютона]
+	def newtonMethod(f, x0, alpha='wolfe', tol=1e-6, maxIter=100, h=1e-5):
 	x = np.array(x0, dtype=float)
 	history = [x.copy()]
 	
 	for _ in range(maxIter):
-		grad = numericalGradient(f, x, h)
-		if np.linalg.norm(grad) < tol:
-			break
-		
-		hessian = numericalHessian(f, x, h)
-		direction = -np.linalg.solve(hessian, grad)
+	grad = numericalGradient(f, x, h)
+	if np.linalg.norm(grad) < tol:
+	break
 	
-		if alpha == 'wolfe':
-			step = arhim(f, lambda x: numericalGradient(f, x, h), x, direction)
-		else:
-			step = 1.0
+	hessian = numericalHessian(f, x, h)
+	direction = -np.linalg.solve(hessian, grad)
 	
-		x += step * direction
-		history.append(x.copy())
+	if alpha == 'wolfe':
+	step = arhim(f, lambda x: numericalGradient(f, x, h), x, direction)
+	else:
+	step = 1.0
+	
+	x += step * direction
+	history.append(x.copy())
 	
 	return x, np.array(history)
-	\end{lstlisting}
-	
-	
-	\subsection{Тестирование метода на квадратичной функции}
-	
-	В задании сказано, что нужно взять квадратичные функции из прошлой лабораторной. Мы так и сделаем
-	\[
-	f(\mathbf{x}) = \mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x}
-	\]
-	
-	\[
-	\mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x} = \begin{bmatrix} x_1 & x_2 \end{bmatrix}
-	\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}
-	\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 1 & -1 \end{bmatrix}
-	\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
-	= 2x_1^2 + 2x_1x_2 + 3x_2^2 + x_1 - x_2
-	\]
-	
-	
-	\begin{lstlisting}[language=python, caption=Задание функции]
-def f(x):
-	A = np.array([[2, 1], 
-	              [1, 3]])
-	b = np.array([1, -1])
+\end{lstlisting}
 
+
+\subsection{Тестирование метода на квадратичной функции}
+
+В задании сказано, что нужно взять квадратичные функции из прошлой лабораторной. Мы так и сделаем
+\[
+f(\mathbf{x}) = \mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x}
+\]
+
+\[
+\mathbf{x}^T A \mathbf{x} + \mathbf{b}^T \mathbf{x} = \begin{bmatrix} x_1 & x_2 \end{bmatrix}
+\begin{bmatrix} 2 & 1 \\ 1 & 3 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 1 & -1 \end{bmatrix}
+\begin{bmatrix} x_1 \\ x_2 \end{bmatrix}
+= 2x_1^2 + 2x_1x_2 + 3x_2^2 + x_1 - x_2
+\]
+
+
+\begin{lstlisting}[language=python, caption=Задание функции]
+	def f(x):
+	A = np.array([[2, 1], 
+	[1, 3]])
+	b = np.array([1, -1])
+	
 	f = lambda x: x.T @ A @ x + b.T @ x
-	\end{lstlisting}
-	
-	Далее мы будем исследовать метод Ньютона на этой функции из точки $x_0 = \begin{bmatrix} 1000 \\ 1100 \end{bmatrix}$
-	
-	Такие графики у нас получились:
-	
-		\begin{figure}[H]
-		\centering
-		\includegraphics[width=1\textwidth]{newton.png}
-		\caption{Графики}
-		\label{fig:lines}
-	\end{figure}
-	
-	
-	По графикам видно  сходимости. Теперь оценим сходимости аналитически.
+\end{lstlisting}
+
+Далее мы будем исследовать метод Ньютона на этой функции из точки $x_0 = \begin{bmatrix} 1000 \\ 1100 \end{bmatrix}$
+
+Такие графики у нас получились:
+
+
+
+
+
+
 
 \end{document}
