@@ -1,0 +1,69 @@
+returnFunc[n_] := Module[
+  {aRand, aSum, A, b, x, func, gradFunc},
+  aRand = RandomReal[1, {n, n}] ;
+  aSum = ( aRand + Transpose[aRand])/2;
+  A = aSum  + 3 IdentityMatrix[n];
+  b =  RandomReal[10, n];
+  
+  x = Array[Symbol["x" <> ToString[#]] &, n];
+  func[vec_] := 1/2  + Transpose[vec] . A . vec - b . vec;
+  gradFunc = Grad[func[x], x];
+  {func, gradFunc}
+  ]
+
+
+n = 5;
+plotN = 100;
+
+{f, gradF} = returnFunc[n];
+
+If[
+  n <= 1 || n >= 7,
+  Print[],
+  If[
+   n == 2,
+   Plot3D[f[{x, y}], {x, -plotN, plotN}, {y, -plotN, plotN}],
+   If[ n == 3,
+    ContourPlot3D[
+     f[{x, y, z}], {x, -plotN, plotN}, {y, -plotN, 
+      plotN}, {z, -plotN, plotN}],
+    Print[]
+    ]
+   ]
+  ];
+  
+  
+  
+  
+  
+  heavyBall[func_, gradFunc_, x0_, alpha_, beta_, maxIter_, tol_] := 
+  Module[{x, xPrev, xNew, trajectory, iter, grad, 
+    shouldStop = False},
+   xPrev = x0;
+   grad = gradFunc[x0];
+   x = x0 - alpha*grad;
+   trajectory = {xPrev, x};
+   
+   For[iter = 1, iter <= maxIter && ! shouldStop, iter++,
+    grad = gradFunc[x];
+    xNew = x - alpha*grad + beta*(x - xPrev);
+    
+    If[Norm[xNew - x] < tol,
+     shouldStop = True;
+     ];
+    
+    AppendTo[trajectory, xNew];
+    xPrev = x;
+    x = xNew;
+    ];
+   
+   {x, trajectory}
+   ];
+
+x0 = RandomReal[1000, n];
+alpha = 1/20;
+beta = 8/10;
+maxIter = 100;
+tol = 10^-5;
+
+result = heavyBall[f, gradF, x0, alpha, beta, maxIter, tol]
