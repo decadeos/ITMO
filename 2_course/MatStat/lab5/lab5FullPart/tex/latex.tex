@@ -1,0 +1,590 @@
+\documentclass[14pt]{extreport}
+
+% Основные пакеты
+\usepackage[english, russian]{babel}    % Поддержка русского и английского языков
+\usepackage{graphicx}                   % Для вставки изображений
+\usepackage{import}                     % Для продвинутого импорта (например, pdf_tex из Inkscape)
+\usepackage{subcaption}                 % Для создания подписей к фигурам
+\usepackage{float}                      % Для улучшенного позиционирования фигур
+\usepackage{geometry}                   % Для управления отступами на странице
+\usepackage{amsmath}                    % Для расширенной поддержки математики
+\usepackage{amsfonts}                   % Математические шрифты
+\usepackage{amssymb}                    % Математические символы
+\usepackage{tabu}                       % Улучшенные таблицы
+\usepackage{booktabs}                   % Профессиональные таблицы с вертикальными разделителями
+\usepackage[dvipsnames]{xcolor}         % Расширенная поддержка цветов
+\usepackage{longtable}                  % Для таблиц, занимающих несколько страниц
+\usepackage{makecell}                   % Для улучшенного форматирования ячеек таблиц
+\usepackage{multirow}                   % Для объединения строк в таблицах
+\usepackage{tabularray}                 % Для современных таблиц
+\usepackage{varwidth}                   % Для переменной ширины блоков
+\usepackage{hyperref}                   % Для гиперссылок
+\usepackage{verbatim}                   % Для вставки кода
+\usepackage{listings}                   % Для оформления листингов кода
+\usepackage{amsmath}
+\usepackage{listings}
+\newcommand{\outputbox}[1]{
+	\fboxsep=5pt
+	\colorbox{lightgray!20}{\texttt{#1}}
+}
+\usepackage{listings}
+\usepackage[T2A]{fontenc} % Для поддержки кириллицы
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings}
+% Настройка графики
+\graphicspath{ {./images/} }            % Путь к папке с изображениями
+
+% Настройка отступов на странице
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+% Настройка гиперссылок
+\hypersetup{
+	linkcolor=blue,                     % Цвет ссылок
+	filecolor=magenta,                  % Цвет ссылок на файлы
+	urlcolor=cyan                       % Цвет URL-адресов
+}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}  % Цвет для комментариев
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}  % Цвет для номеров строк
+\definecolor{codepurple}{rgb}{0.58,0,0.82}  % Цвет для строк
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}  % Цвет фона
+
+% Определим стиль для выделения переменных
+\lstdefinestyle{codestyle}{
+	backgroundcolor=\color{backcolour},  % Цвет фона
+	commentstyle=\color{codegreen}\itshape,  % Стиль для комментариев
+	keywordstyle=\color{magenta}\bfseries,  % Стиль для ключевых слов
+	numberstyle=\tiny\color{codegray},  % Стиль для номеров строк
+	stringstyle=\color{codepurple},  % Стиль для строк
+	identifierstyle=\color{black},  % Стиль для переменных (выделим их синим)
+	basicstyle=\ttfamily\footnotesize,  % Размер шрифта для кода
+	breakatwhitespace=false,  % Не разрывать строки в пробелах
+	breaklines=true,  % Разбивать длинные строки
+	captionpos=b,  % Позиция заголовка (внизу)
+	keepspaces=true,  % Сохранять пробелы
+	numbers=left,  % Позиция номеров строк
+	numbersep=10pt,  % Расстояние между кодом и номерами строк
+	showspaces=false,  % Не показывать пробелы
+	showstringspaces=false,  % Не показывать пробелы в строках
+	showtabs=false,  % Не показывать табуляции
+	tabsize=4,  % Размер табуляции
+	frame=single,  % Добавить рамку вокруг кода
+	rulecolor=\color{black},  % Цвет рамки
+	backgroundcolor=\color{backcolour},  % Цвет фона рамки
+	xleftmargin=15pt,  % Отступ слева
+	xrightmargin=15pt,  % Отступ справа
+}
+
+
+\lstset{style=codestyle}
+\lstset{extendedchars=\true}
+\graphicspath{{../images/}}
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		{\large Министерство науки и высшего образования Российской Федерации}\\
+		{\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+		{\large (УНИВЕРСИТЕТ ИТМО)}\\
+		
+		\vspace{1cm}
+		
+		\textbf{{\Huge ОТЧЕТ}\\
+			{\Huge ПО ЛАБОРАТОРНОЙ РАБОТЕ №4}}\\
+		
+		\vspace{1cm}
+		
+		{\LARGE По дисциплине\\
+			<<Математическая Статистика>>}\\
+		Вариант 2
+		
+		\vspace{2cm}
+		
+		{\Large Студенты:}\\
+		Охрименко Eва\\
+		Даниил Буцкий
+		
+		\vspace{2cm}
+		
+		{\Large Проверил:}\\
+		Шкваренко Андрей Алексеевич\\
+		
+		\vspace{2cm}
+		
+		{\large г. Санкт-Петербург}\\
+		{\large 2025}
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	
+	\setcounter{section}{0} % Сбрасываем счетчик разделов
+	
+	\section{Task 1}
+
+\textbf{Постановка задачи}
+Необходимо построить линейную модель вида:
+\begin{equation}
+\text{mobile\_wt} = \beta_0 + \beta_1 \cdot \text{sc\_h} + \beta_2 \cdot \text{sc\_w} + \beta_3 \cdot \text{battery\_power} + \epsilon,
+\end{equation}
+где:
+\begin{itemize}
+    \item \(\text{mobile\_wt}\) — зависимая переменная (вес телефона, в граммах),
+    \item \(\text{sc\_h}\), \(\text{sc\_w}\), \(\text{battery\_power}\) — независимые переменные (высота экрана, ширина экрана, ёмкость аккумулятора),
+    \item \(\beta_0, \beta_1, \beta_2, \beta_3\) — коэффициенты модели,
+    \item \(\epsilon\) — случайная ошибка
+\end{itemize}
+
+Требуется:
+\begin{enumerate}
+    \item Оценить коэффициенты \(\beta_0, \beta_1, \beta_2, \beta_3\) методом наименьших квадратов (МНК).
+    \item Вычислить остаточную дисперсию \(\hat{\sigma}^2\).
+    \item Построить доверительные интервалы для коэффициентов.
+    \item Вычислить коэффициент детерминации \(R^2\).
+    \item Проверить гипотезы:
+    \begin{itemize}
+        \item Чем больше высота экрана, тем больше масса (\(H_{01}\): \(\beta_1 > 0\)).
+        \item Чем больше ширина экрана, тем больше масса (\(H_{02}\): \(\beta_2 > 0\)).
+        \item \(H_0\): \(\beta_2 = \beta_3 = 0\) против \(H_1\): хотя бы один из \(\beta_2, \beta_3 \neq 0\).
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Метод наименьших квадратов (МНК)}
+
+Для оценки коэффициентов используем МНК. Считаем сумму квадратов остатков.
+\begin{equation}
+\text{RSS} = \sum_{i=1}^n (y_i - \hat{y}_i)^2 = \sum_{i=1}^n (y_i - (\beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \beta_3 x_{i3}))^2,
+\end{equation}
+где \(y_i = \text{mobile\_wt}_i\), \(x_{i1} = \text{sc\_h}_i\), \(x_{i2} = \text{sc\_w}_i\), \(x_{i3} = \text{battery\_power}_i\).
+
+В матричной форме модель записывается как:
+\begin{equation}
+\mathbf{y} = \mathbf{X} \mathbf{\beta} + \mathbf{\epsilon},
+\end{equation}
+где:
+\begin{itemize}
+    \item \(\mathbf{y}\) — вектор \(n \times 1\) значений \(\text{mobile\_wt}\),
+    \item \(\mathbf{X}\) — матрица \(n \times (k+1)\) (где \(k = 3\) — число независимых переменных), первый столбец — единицы (для \(\beta_0\)),
+    \item \(\mathbf{\beta} = [\beta_0, \beta_1, \beta_2, \beta_3]^T\) — вектор коэффициентов,
+    \item \(\mathbf{\epsilon}\) — вектор ошибок.
+\end{itemize}
+
+Оценка \(\hat{\mathbf{\beta}}\) находится как:
+\begin{equation}
+\hat{\mathbf{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}.
+\end{equation}
+
+\textbf{Остаточная дисперсия}
+
+Остаточная дисперсия \(\hat{\sigma}^2\) оценивается как:
+\begin{equation}
+\hat{\sigma}^2 = \frac{\text{RSS}}{n - k - 1} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n - k - 1},
+\end{equation}
+где \(\hat{y}_i = \mathbf{x}_i^T \hat{\mathbf{\beta}}\), \(n\) — число наблюдений, \(k\) — число независимых переменных (\(k = 3\)).
+
+\textbf{Доверительные интервалы для коэффициентов}
+
+Для каждого коэффициента \(\hat{\beta}_j\) доверительный интервал на уровне значимости \(\alpha = 0.05\) строится как:
+\begin{equation}
+\hat{\beta}_j \pm t_{1-\alpha/2, n-k-1} \cdot \text{se}(\hat{\beta}_j),
+\end{equation}
+где:
+\begin{itemize}
+    \item \(t_{1-\alpha/2, n-k-1}\) — квантиль \(t\)-распределения с \(n-k-1\) степенями свободы (для \(\alpha = 0.05\), это примерно 1.96 для больших \(n\)),
+    \item \(\text{se}(\hat{\beta}_j) = \sqrt{\hat{\sigma}^2 \cdot (\mathbf{X}^T \mathbf{X})^{-1}_{jj}}\) — стандартная ошибка коэффициента, где \((\mathbf{X}^T \mathbf{X})^{-1}_{jj}\) — \(j\)-й диагональный элемент матрицы \((\mathbf{X}^T \mathbf{X})^{-1}\).
+\end{itemize}
+
+\textbf{Коэффициент детерминации \(R^2\)}
+
+Коэффициент детерминации:
+\begin{equation}
+R^2 = 1 - \frac{\text{RSS}}{\text{TSS}},
+\end{equation}
+где \(\text{TSS} = \sum (y_i - \bar{y})^2\) — общая сумма квадратов, \(\bar{y} = \frac{1}{n} \sum_{i=1}^n y_i\).
+
+\textbf{Проверка гипотез}
+
+\begin{enumerate}
+    \item \(\mathbf{H_{01}}\): Чем больше высота экрана, тем больше масса (\(\beta_1 > 0\)).  
+    Проверяем с помощью \(t\)-теста: \(t = \frac{\hat{\beta}_1}{\text{se}(\hat{\beta}_1)}\). Если \(t > t_{1-\alpha, n-k-1}\), гипотеза подтверждается.
+    
+    \item \(\mathbf{H_{02}}\): Чем больше ширина экрана, тем больше масса (\(\beta_2 > 0\)).  
+    Аналогично: \(t = \frac{\hat{\beta}_2}{\text{se}(\hat{\beta}_2)}\).
+    
+    \item \(\mathbf{H_0}\): \(\beta_2 = \beta_3 = 0\) против \(\mathbf{H_1}\): хотя бы один \(\beta_2, \beta_3 \neq 0\).  
+    Используем \(F\)-тест:
+    \begin{itemize}
+        \item Полная модель: \(\text{mobile\_wt} = \beta_0 + \beta_1 \cdot \text{sc\_h} + \beta_2 \cdot \text{sc\_w} + \beta_3 \cdot \text{battery\_power}\).
+        \item Сокращённая модель (при \(H_0\)): \(\text{mobile\_wt} = \beta_0 + \beta_1 \cdot \text{sc\_h}\).
+        \item \(F\)-статистика:
+        \begin{equation}
+        F = \frac{(\text{RSS}_{\text{сокращённая}} - \text{RSS}_{\text{полная}}) / q}{\text{RSS}_{\text{полная}} / (n - k - 1)},
+        \end{equation}
+        где \(q = 2\) (число ограничений: \(\beta_2 = 0\), \(\beta_3 = 0\)). Сравниваем с критическим значением \(F_{q, n-k-1}\).
+    \end{itemize}
+\end{enumerate}
+
+\begin{lstlisting}[language=python, caption={Инициализация массивов с баллами}]
+import numpy as np
+from scipy.stats import t, f
+import pandas as pd
+
+# Шаг 1: Загрузка данных (предполагаем, что файл доступен)
+# Здесь я использую первые 2000 строк из mobile_phones.csv
+data = pd.read_csv('mobile_phones.csv')
+X = data[['sc_h', 'sc_w', 'battery_power']].values[:2000]
+y = data['mobile_wt'].values[:2000]
+n, k = X.shape[0], X.shape[1]  # n = 2000, k = 3
+
+# Добавляем столбец единиц для свободного члена
+X = np.hstack([np.ones((n, 1)), X])  # Теперь X: 2000 x 4
+
+# Шаг 2: Оценка коэффициентов (МНК)
+XTX = np.dot(X.T, X)
+XTX_inv = np.linalg.inv(XTX)
+XTy = np.dot(X.T, y)
+beta_hat = np.dot(XTX_inv, XTy)
+print("Оценки коэффициентов (beta_0, beta_1, beta_2, beta_3):", beta_hat)
+
+# Шаг 3: Остатки и остаточная дисперсия
+y_hat = np.dot(X, beta_hat)
+residuals = y - y_hat
+RSS = np.sum(residuals**2)
+sigma2_hat = RSS / (n - k - 1)
+print("Остаточная дисперсия:", sigma2_hat)
+
+# Шаг 4: Доверительные интервалы
+# Стандартные ошибки
+C = XTX_inv  # Ковариационная матрица
+se_beta = np.sqrt(sigma2_hat * np.diag(C))
+# Квантиль t-распределения для alpha = 0.05, df = 496
+t_quantile = t.ppf(0.975, df=n-k-1)
+conf_intervals = [(beta_hat[j] - t_quantile * se_beta[j], beta_hat[j] + t_quantile * se_beta[j]) for j in range(len(beta_hat))]
+print("Доверительные интервалы для коэффициентов:", conf_intervals)
+
+# Шаг 5: Коэффициент детерминации
+y_mean = np.mean(y)
+TSS = np.sum((y - y_mean)**2)
+R2 = 1 - RSS / TSS
+print("Коэффициент детерминации R^2:", R2)
+
+# Шаг 6: Проверка гипотез
+# 6.1: H_01: beta_1 > 0 (Чем больше высота экрана, тем больше масса)
+t_stat1 = beta_hat[1] / se_beta[1]
+p_value1 = 1 - t.cdf(t_stat1, df=n-k-1)  # Односторонний тест
+print("t-статистика для beta_1:", t_stat1, "p-значение:", p_value1)
+
+# 6.2: H_02: beta_2 > 0 (Чем больше ширина экрана, тем больше масса)
+t_stat2 = beta_hat[2] / se_beta[2]
+p_value2 = 1 - t.cdf(t_stat2, df=n-k-1)
+print("t-статистика для beta_2:", t_stat2, "p-значение:", p_value2)
+
+# 6.3: H_0: beta_2 = beta_3 = 0
+# Сокращённая модель: mobile_wt = beta_0 + beta_1 * sc_h
+X_reduced = X[:, [0, 1]]  # Только beta_0 и beta_1
+XTX_reduced = np.dot(X_reduced.T, X_reduced)
+XTX_reduced_inv = np.linalg.inv(XTX_reduced)
+XTy_reduced = np.dot(X_reduced.T, y)
+beta_reduced = np.dot(XTX_reduced_inv, XTy_reduced)
+y_hat_reduced = np.dot(X_reduced, beta_reduced)
+residuals_reduced = y - y_hat_reduced
+RSS_reduced = np.sum(residuals_reduced**2)
+
+# F-статистика
+q = 2  # Число ограничений (beta_2 = 0, beta_3 = 0)
+F_stat = ((RSS_reduced - RSS) / q) / (RSS / (n - k - 1))
+p_value_F = 1 - f.cdf(F_stat, dfn=q, dfd=n-k-1)
+print("F-статистика для H_0: beta_2 = beta_3 = 0:", F_stat, "p-значение:", p_value_F)
+\end{lstlisting}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{1.png}
+\end{figure}
+
+\textbf{Анализ вывода программы}
+
+Оценки коэффициентов (\(\beta_0, \beta_1, \beta_2, \beta_3\)): [143.640572, -0.263548, -0.039549, 0.000064]
+
+\begin{itemize}
+    \item \(\hat{\beta}_0 = 143.640572\): Свободный член. Теоретическая масса телефона (в граммах), когда \(\text{sc\_h} = 0\), \(\text{sc\_w} = 0\), \(\text{battery\_power} = 0\). Значение 143.64 грамма выглядит реалистично как базовая масса телефона без учёта экрана и аккумулятора, хотя в реальности такие условия маловероятны.
+    \item \(\hat{\beta}_1 = -0.263548\): Коэффициент при \(\text{sc\_h}\) (высота экрана). Указывает, что увеличение высоты экрана на 1 дюйм уменьшает массу телефона на 0.263548 грамма при фиксированных \(\text{sc\_w}\) и \(\text{battery\_power}\). Отрицательное значение противоречит гипотезе \(H_{01}: \beta_1 > 0\), но может отражать использование лёгких материалов в телефонах с большими экранами.
+    \item \(\hat{\beta}_2 = -0.039549\): Коэффициент при \(\text{sc\_w}\) (ширина экрана). Увеличение ширины на 1 дюйм уменьшает массу на 0.039549 грамма при фиксированных \(\text{sc\_h}\) и \(\text{battery\_power}\). Эффект слабый и также отрицательный, что противоречит \(H_{02}: \beta_2 > 0\).
+    \item \(\hat{\beta}_3 = 0.000064\): Коэффициент при \(\text{battery\_power}\) (ёмкость аккумулятора). Увеличение ёмкости на 1 мА·ч увеличивает массу на 0.000064 грамма, что эквивалентно 0.064 грамма на 1000 мА·ч. Это положительное значение логично, но эффект очень мал.
+\end{itemize}
+
+\textbf{Оценка остаточной дисперсии: 35.405616}
+
+Остаточная дисперсия \(\hat{\sigma} = 35.405616\) показывает средний квадрат ошибки модели. Стандартное отклонение остатков:
+\begin{equation}
+\hat{\sigma} = 35.405616, \text{грамма}.
+\end{equation}
+Предсказания массы отклоняются от реальных значений в среднем на \(\pm 35.405616\) грамма, что составляет значительную часть от диапазона 80--200 граммов.
+
+\textbf{Доверительные интервалы для коэффициентов: [(137.050031, 150.231113), (-0.691046, 0.163950), (-0.452908, 0.373811), (-0.003471, 0.003600)]}
+
+\begin{itemize}
+    \item \(\beta_0\): (137.050031, 150.231113): Интервал включает 143.64, что нормально. Указывает на возможный диапазон базовой массы (137--150 граммов).
+    \item \(\beta_1\): (-0.691046, 0.163950): Интервал включает 0, что подтверждает, что \(\beta_1\) статистически незначим. Отрицательное значение \(\hat{\beta}_1 = -0.263548\) находится внутри интервала.
+    \item \(\beta_2\): (-0.452908, 0.373811): Также включает 0, и \(\hat{\beta}_2 = -0.039549\) внутри. Эффект \(\text{sc\_w}\) незначим.
+    \item \(\beta_3\): (-0.003471, 0.003600): Включает 0, и \(\hat{\beta}_3 = 0.000064\) внутри. Эффект \(\text{battery\_power}\) незначим, несмотря на положительное значение.
+\end{itemize}
+
+\textbf{Коэффициент детерминации \(R^2\): 0.0011644496581527664}
+
+\(R^2 \approx 0.00116\) означает, что модель объясняет только 0.116\% вариации \(\text{mobile\_wt}\). Это крайне низкое значение, указывающее на то, что переменные \(\text{sc\_h}\), \(\text{sc\_w}\) и \(\text{battery\_power}\) практически не влияют на массу телефона. 
+
+\textbf{\(t\)-статистика для \(\beta_1\): -1.2090313328631839, \(p\)-значение: 0.8866029986025021}
+
+\begin{itemize}
+    \item Анализ: Отрицательная \(t\)-статистика (\(t = -1.209\)) указывает на \(\hat{\beta}_1 < 0\). \(p\)-значение 0.8866 (для одностороннего теста \(H_{01}: \beta_1 > 0\)) значительно больше 0.05, поэтому \(H_{01}\) отвергается. Нет доказательств, что высота экрана увеличивает массу; эффект незначим.
+\end{itemize}
+
+\textbf{\(t\)-статистика для \(\beta_2\): -0.18763547736466002, \(p\)-значение: 0.5744092575407408}
+
+\begin{itemize}
+    \item Анализ: \(t = -0.1876\) (отрицательное) и \(p = 0.5744\) (для \(H_{02}: \beta_2 > 0\)) также больше 0.05. \(H_{02}\) отвергается. Ширина экрана не увеличивает массу, и эффект незначим.
+\end{itemize}
+
+\textbf{\(F\)-статистика для \(H_0: \beta_2 = \beta_3 = 0\): 0.018292704595014697, \(p\)-значение: 0.9818737559867448}
+
+\begin{itemize}
+    \item Анализ: \(F\)-тест проверяет, значимы ли \(\beta_2\) и \(\beta_3\) одновременно. \(F = 0.018\) очень мало, а \(p = 0.9819 \gg 0.05\). Это означает, что мы не можем отвергнуть \(H_0: \beta_2 = \beta_3 = 0\). Переменные \(\text{sc\_w}\) и \(\text{battery\_power}\) не вносят значимого вклада в модель.
+\end{itemize}
+
+
+	
+	\section{Task 2}
+	
+	В этом задании нужно определить, влияет ли национальность студентов на их общий балл за экзамены. Другими словами — есть ли группы, которые сдают экзамены статистически значимо лучше или хуже других. \\
+	
+	
+	Для начала создадим несколько массивов инициализированных по этническому признаку. И засунем туда суммарные баллы студентов именно этой национальности. Вот код, реализующий это:
+	
+	\begin{lstlisting}[language=python, caption={Инициализация массивов с баллами}]
+f = open('exams_dataset.csv')
+
+countA = []
+countB = []
+countC = []
+countD = []
+countE = [] 
+continueCount = 0
+
+for line in f:
+
+	continueCount += 1
+	if continueCount == 1:
+		continue
+	
+	items = line.strip().replace('"', '').split(',')
+	
+	etnic = items[1]
+	points = sum(map(int, items[-3:])) 
+	
+	if etnic[-1] == 'A':
+		countA.append(points)
+	elif etnic[-1] == 'B':
+		countB.append(points)
+	elif etnic[-1] == 'C':
+		countC.append(points)
+	elif etnic[-1] == 'D':
+		countD.append(points)
+	elif etnic[-1] == 'E':
+		countE.append(points)
+\end{lstlisting}
+	
+	
+	Для того, чтобы сделать модель однофакторного дисперсионного анализа нам надо найти:
+	
+	\begin{itemize}
+		\item $\mu$ --- общее среднее по всем группам
+		\item \texttt{SSB} --- cумма квадратов между группами
+		\item \texttt{SSW} --- cумма квадратов внутри групп
+		\item степени свободы
+		\item \texttt{F}-статистику
+		\item критическое значение $\mathtt{F\_crit}$, чтобы сравнить с \texttt{F}
+	\end{itemize}
+	
+	Итак, начнем. Для начала расчитаем общее среднее по всем группам:
+	\[
+	\mu = \frac{\sum_{i=1}^{k} \sum_{j=1}^{n_i} Y_{ij}}{N}
+	\]
+	
+	\begin{lstlisting}[language=python, caption=mean по всем группам]
+allScores = countA + countB + countC + countD + countE
+mu = sum(allScores) / len(allScores)
+\end{lstlisting}
+	
+	
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{mu = 202.404}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+	Теперь найдем \texttt{SSB}:
+	\[
+	\mathtt{SSB} = \sum_{i=1}^{k} n_i (\bar{Y}_i - \mu)^2
+	\]
+	
+	
+	\begin{lstlisting}[language=python, caption=\texttt{SSB}]
+groupMeans = [
+	sum(countA)/len(countA), 
+	sum(countB)/len(countB), 
+	sum(countC)/len(countC), 
+	sum(countD)/len(countD), 
+	sum(countE)/len(countE)  
+]
+
+groupSizes = [len(countA), len(countB), len(countC), len(countD), len(countE)]
+
+SSB = sum(
+	n * (groupMean - mu) ** 2 
+	for n, groupMean in zip(groupSizes, groupMeans)
+)
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{SSB	 $\approx$ 112381.64}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+	
+	Расчитаем \texttt{SSW}:
+	\[
+	\texttt{SSW} = \sum_{i=1}^{k} \sum_{j=1}^{n_i} (Y_{ij} - \bar{Y}_i)^2
+	\]
+	
+	\begin{lstlisting}[language=python, caption=\texttt{SSW}]
+groups = [countA, countB, countC, countD, countE]
+SSW = 0.0
+for group, mean in zip(groups, groupMeans):
+	for score in group:
+		SSW += (score - mean) ** 2
+\end{lstlisting}	
+	
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{SSW $\approx$ 1953413.14}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+	
+	
+	
+	Теперь посчитаем степени свободы:
+	
+	\begin{align*}
+		df_{total} &= N - 1 \\
+		df_{between} &= k - 1 \\
+		df_{within} &= N - k
+	\end{align*}
+	
+	Где:
+	\begin{itemize}
+		\item $N$ - общее количество наблюдений
+		\item $k$ - количество групп
+		\item $df_{total}$ - общие степени свободы
+		\item $df_{between}$ - степени свободы между группами
+		\item $df_{within}$ - степени свободы внутри групп
+	\end{itemize}
+	
+\begin{lstlisting}[language=python, caption=Степени свободы]
+N = sum(len(group) for group in groups)  
+k = len(groups)                           
+
+dfTotal = N - 1
+dfBetween = k - 1
+dfWithin = N - k
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{dfTotal = 999 \\
+			dfBetween = 4 \\
+			dfWithin = 995
+		}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+
+Далее посчитаем \texttt{F}-статистику
+\[
+\texttt{F} = \frac{MSB}{MSW},
+\]
+
+Где: 
+\begin{itemize}
+	\item $MSB = \frac{SSB}{df_{between}}$ 
+	\item $MSW = \frac{SSW}{df_{within}}$ 
+\end{itemize}
+
+
+	\begin{lstlisting}[language=python, caption=\texttt{F}-статистика]
+MSB = SSB / dfBetween 
+MSW = SSW / dfWithin
+F = MSB / MSW 
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{F $\approx$ 14.31}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+Теперь найдем $\mathtt{F\_crit}$ кодом. Возьмем $\alpha = 0.05$ - стандартный уровень значимости.
+
+	\begin{lstlisting}[language=python, caption=\texttt{F}-статистика]
+alpha = 0.05
+F_crit = f.ppf(1 - alpha, dfBetween, dfWithin)
+\end{lstlisting}
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		\texttt{F\_crit $\approx$ 2.38}
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+
+
+\textbf{Итог:} \\
+В результате однофакторного дисперсионного анализа получилось
+
+\begin{center}
+	\texttt{F} > $\mathtt{F\_crit}$.
+\end{center}
+Это означает, что количество баллов статистически зависимо от национальности.	
+
+\end{document}

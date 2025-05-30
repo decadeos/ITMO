@@ -1,0 +1,3 @@
+	# Расчет SSB
+	SSB = sum(n * (mean - mu)**2 for n, mean in zip(groupSizes, groupMeans))
+	print(f"SSB = {SSB:.2f}")
