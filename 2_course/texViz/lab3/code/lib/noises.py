@@ -26,30 +26,17 @@ def mulNoise(image, noise):
     noisyImage = image * noise
     return np.clip(noisyImage, 0, 255).astype(np.uint8)
 
-def gayNoise(image, mean, var): # (хихихи)
+def gayNoise(img, mean, var):
+    noise = np.random.normal(mean, var**0.5, img.shape)
+    return np.clip(img + noise * (255 if img.dtype == np.uint8 else 1), 0, 255).astype(img.dtype)
+
+def kvantNoise(img):
     rng = np.random.default_rng()
-    gauss = (rng.normal(mean, var**0.5, image.shape)).reshape(image.shape)
-    if image.dtype == np.uint8:
-        noisyImage = (image.astype(np.float32) + gauss*255).clip(0, 255).astype(np.uint8)
-    else :
-        noisyImage = (image+gauss).astype(np.float32)
-    return noisyImage
-
-def kvantNoise(I):
-    rng = np.random.default_rng()
-
-    if I.dtype == np.uint8:
-        I_f = I . astype ( np . float32 ) / 255
-        vals = len ( np . unique ( I_f ))
-        vals = 2 ** np . ceil ( np . log2 ( vals ))
-        I_out = (255 * \
-        ( rng . poisson ( I_f * vals ) / \
-        float ( vals )). clip (0 , 1)). \
-        astype ( np . uint8 )
-    else :
-        vals = len ( np . unique ( I ))
-        vals = 2 ** np . ceil ( np . log2 ( vals ))
-        I_out = \
-        rng . poisson ( I * vals ) / float ( vals )
-
-    return I_out
+    if img.dtype == np.uint8:
+        img = img.astype(float) / 255
+        noisy = rng.poisson(img * 2) / 2
+        noisy = (255 * noisy.clip(0, 1)).astype(np.uint8)
+    else:
+        noisy = rng.poisson(img * 2) / 2
+    
+    return noisy

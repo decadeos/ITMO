@@ -23,7 +23,7 @@
 \usepackage{bm}                         % Для жирных математических символов
 \usepackage{pifont}                     % Для специальных символов (например, галочек)
 \usepackage{fontawesome}                % Для иконок
-
+\usepackage{tcolorbox}
 % Настройка отступов на странице
 \geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
 
@@ -40,23 +40,30 @@
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
 \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 
+% Определим стиль для выделения переменных
 \lstdefinestyle{codestyle}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{blue},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{magenta},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2
+	backgroundcolor=\color{backcolour},  % Цвет фона
+	commentstyle=\color{codegreen}\itshape,  % Стиль для комментариев
+	keywordstyle=\color{magenta}\bfseries,  % Стиль для ключевых слов
+	numberstyle=\tiny\color{codegray},  % Стиль для номеров строк
+	stringstyle=\color{codepurple},  % Стиль для строк
+	identifierstyle=\color{black},  % Стиль для переменных (выделим их синим)
+	basicstyle=\ttfamily\footnotesize,  % Размер шрифта для кода
+	breakatwhitespace=false,  % Не разрывать строки в пробелах
+	breaklines=true,  % Разбивать длинные строки
+	captionpos=b,  % Позиция заголовка (внизу)
+	keepspaces=true,  % Сохранять пробелы
+	numbers=left,  % Позиция номеров строк
+	numbersep=10pt,  % Расстояние между кодом и номерами строк
+	showspaces=false,  % Не показывать пробелы
+	showstringspaces=false,  % Не показывать пробелы в строках
+	showtabs=false,  % Не показывать табуляции
+	tabsize=4,  % Размер табуляции
+	frame=single,  % Добавить рамку вокруг кода
+	rulecolor=\color{black},  % Цвет рамки
+	backgroundcolor=\color{backcolour},  % Цвет фона рамки
+	xleftmargin=15pt,  % Отступ слева
+	xrightmargin=15pt,  % Отступ справа
 }
 
 \lstset{style=codestyle, extendedchars=\true}
@@ -421,9 +428,177 @@ def kMeans(image, k):
 
 Все успешно сегментируется на похожие цвета.
 
-\section{Вывод}
-Работа показала, что для разных задач стоит использовать соответствующие методы. Автоматические алгоритмы (Оцу, K-means) особенно удобны благодаря минимальным требованиям к настройкам. Полученные навыки можно применять для решения практических задач в области обработки изображений.
 
-Почти все задачи выполнены, поставленные цели достигнуты. Результаты работы демонстрируют эффективность изученных методов сегментации.
-\href{https://github.com/decadeos/ITMO/tree/master/2_course/texViz/lab4}{GitHub}.
+\section{Текстурная сегментация}
+
+В этом задании нужно выбрать произвольное изображение, содержащее две разнородные текстуры. Выполнить текстурную сегментацию изображения, оценить не менее трех параметров выделенных текстур, определить к какому классу относятся текстуры.
+
+Для этого я
+
+\begin{itemize}
+	
+	\item Вычислю и нормализую энтропию для локальных областей размером $9 \times 9$ пикселей:
+		
+			$$E(x,y) = -\sum_{i=0}^{255} p_i \log_2 p_i$$
+			где $p_i$ - вероятность интенсивности $i$ в окрестности точки $(x,y)$.
+			$$E_{\text{norm}} = \frac{E - E_{\min}}{E_{\max} - E_{\min}}$$
+	\item Сделаю бинаризацию  методом Оцу
+	
+	\item Для каждой связной компоненты $C_i$ проверю площадь $A_i$:
+	
+		$$
+		BW(x,y) = 
+		\begin{cases}
+			0, & \text{если } (x,y) \in C_i \text{ и } A_i < 2000 \\
+			BW(x,y), & \text{иначе}
+		\end{cases}
+		$$
+		
+		\item Морфологическое закрытие 
+		$$\text{closed} = (BW \oplus K) \ominus K$$
+		
+		\item Построение маски по контурам 
+		$$\text{mask}(x,y) = 
+		\begin{cases}
+			255, & \text{если } (x,y) \text{ внутри любого контура} \\
+			0, & \text{иначе}
+		\end{cases}$$
+		
+	\item Напишу код:
+	
+	\begin{lstlisting}[language=python, caption={Текстурная сегментация}]
+def texture_segmentation(I):
+	E = rank.entropy(I, rectangle(9, 9))
+	E_norm = (E - E.min()) / (E.max() - E.min())
+	_, BW = cv2.threshold(np.uint8(E_norm * 255), 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+	
+	num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(BW, 8, cv2.CV_32S)
+	for i in range(1, num_labels):
+		if stats[i, cv2.CC_STAT_AREA] < 2000:
+			BW[labels == i] = 0
+	
+	kernel = np.ones((9,9), np.uint8)
+	closed = cv2.morphologyEx(BW, cv2.MORPH_CLOSE, kernel)
+	contours, _ = cv2.findContours(closed, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+	mask = np.zeros_like(closed)
+	cv2.drawContours(mask, contours, -1, 255, -1)
+	
+	return mask
+\end{lstlisting}
+
+
+	
+\end{itemize}
+
+Теперь я разделю  исходное изображения на две текстуры с помощью маски, полученной из функции 
+
+	\begin{lstlisting}[language=python, caption=]
+image = cv2.imread('../images/im4.jpg', cv2.IMREAD_GRAYSCALE)
+mask = texture_segmentation(image)
+texture1 = image.copy()
+texture1[mask != 255] = 0
+texture2 = image.copy()
+texture2[mask == 255] = 0
+\end{lstlisting}
+
+
+Далее сделаю анализ текстур, красивый \texttt{plot} и вывод:
+
+\begin{lstlisting}[language=python, caption={Вывод}]
+def analyze_texture(img, name):
+	glcm = graycomatrix(img, [1], [0], symmetric=True, normed=True)
+	contrast = graycoprops(glcm, 'contrast')[0, 0]
+	energy = graycoprops(glcm, 'energy')[0, 0]
+	homogeneity = graycoprops(glcm, 'homogeneity')[0, 0]
+	print(f"\n{name}:")
+	print(f"Контраст: {contrast:.4f}")
+	print(f"Энергия: {energy:.4f}")
+	print(f"Однородность: {homogeneity:.4f}")
+	
+	return contrast, energy, homogeneity
+
+params1 = analyze_texture(texture1, "Текстура 1")
+params2 = analyze_texture(texture2, "Текстура 2")
+
+plt.figure(figsize=(15, 5))
+plt.subplot(131), plt.imshow(image, cmap='gray'), plt.title('Оригинал')
+plt.subplot(132), plt.imshow(texture1, cmap='gray'), plt.title('Текстура 1')
+plt.subplot(133), plt.imshow(texture2, cmap='gray'), plt.title('Текстура 2')
+plt.tight_layout()
+plt.show()
+
+def classify_texture(contrast, energy, homogeneity):
+	if contrast < 5 and energy > 0.8:
+		return "Гладкая"
+	elif contrast > 10 and energy < 0.5:
+		return "Шершавая"
+	else:
+		return "Средняя"
+
+print("\nКлассификация:")
+print("Текстура 1:", classify_texture(*params1))
+print("Текстура 2:", classify_texture(*params2))
+\end{lstlisting}
+
+Вот что у меня получилось:
+
+\noindent
+\fbox{
+	\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+		\vspace{0.5em} 
+		
+		Текстура 1: \\
+		Контраст: 307.5683 \\
+		Энергия: 0.4779 \\
+		Однородность: 0.5374 \\
+		
+		Текстура 2: \\
+		Контраст: 94.1663 \\
+		Энергия: 0.5204 \\
+		Однородность: 0.7862 \\
+		
+		Классификация: \\
+		Текстура 1: Шершавая \\
+		Текстура 2: Средняя 
+		
+		\vspace{0.5em} 
+	\end{minipage}
+}
+\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{im/im5.jpeg}
+	\caption{Текстурная сегментация} % Подпись снизу
+	\label{fig:my_image} % Метка для ссылок
+\end{figure}
+
+
+\section{Вопросы}
+
+
+\begin{enumerate}
+	\item В каких случаях целесообразно использовать сегментацию по принципу Вебера? 
+	
+	--- Сегментация по Веберу полезна, когда освещение неровное — например, если на фото есть тени или блики.
+	
+	\item Какие значения имеют цветовые координаты \textbf{a} и \textbf{b} цветового пространства \textbf{CIE Lab} в полутновом изображении?
+	
+	--- В полутоновом изображении $a = 0$ и $b = 0$, так как там нет цветовой информации, только яркость $L$.
+	
+	\item Зачем производить сегментацию в цветовом пространстве
+	\textbf{CIE Lab}, а не в исходном \textbf{RGB}?
+	
+	--- Сегментация в \textbf{CIE Lab} лучше, чем в \textbf{RGB}, потому что она отделяет яркость \textit{L} от цвета \textit{a, b}, что делает её устойчивой к изменению освещения
+	
+	\item Что такое \textit{цветовое пространство} и \textit{цветовой охват}?
+	
+	--- Цветовое пространство — это система кодирования цветов (например, \textbf{RGB}), а цветовой охват — диапазон цветов, который оно или устройство может отобразить.
+\end{enumerate}
+
+\section{Вывод}
+
+Эксперименты подтвердили, что для сегментации изображений важно подбирать методы под конкретную задачу. Автоматические алгоритмы (как Оцу или K-means) работают быстро и почти без настроек, что удобно для практики. Большинство задач удалось решить успешно, а результаты показали, что изученные методы действительно полезны.
+
+Текстурная сегментация хорошо отделяет участки с разной структурой — например, воду от песка на снимках. Главный плюс: она учитывает не только цвет, но и узоры, что помогает там, где обычные методы не справляются. 	\href{https://github.com/decadeos/ITMO/tree/master/2_course/texViz/lab4}{GitHub}.
 \end{document}
