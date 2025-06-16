@@ -4,10 +4,8 @@ import soundfile as sf
 from scipy.signal import butter, filtfilt
 from scipy.fft import fft, fftfreq
 
-# === Загрузка файла ===
 data, samplerate = sf.read("MUHA.wav")
 
-# === Полосовой фильтр (оставляет только голосовой диапазон) ===
 def bandpass_filter(data, lowcut, highcut, fs, order=5):
     nyq = 0.5 * fs
     low = lowcut / nyq
@@ -20,10 +18,8 @@ lowcut = 500
 highcut = 3000
 filtered_data = bandpass_filter(data, lowcut, highcut, samplerate)
 
-# === Сохранение отфильтрованного звука ===
 sf.write("MUHA_filtered.wav", filtered_data, samplerate)
 
-# === Графики сигнала во времени ===
 T = len(data) / samplerate
 time = np.linspace(0, T, len(data))
 
@@ -38,7 +34,6 @@ plt.grid()
 plt.tight_layout()
 plt.show()
 
-# === Фурье-анализ ===
 N = len(data)
 xf = fftfreq(N, 1 / samplerate)[:N // 2]
 yf_orig = fft(data)
@@ -47,11 +42,9 @@ yf_filt = fft(filtered_data)
 amp_orig = 2.0 / N * np.abs(yf_orig[:N // 2])
 amp_filt = 2.0 / N * np.abs(yf_filt[:N // 2])
 
-# Нормализация
 amp_orig /= np.max(amp_orig)
 amp_filt /= np.max(amp_filt)
 
-# === Спектры ===
 plt.figure(figsize=(12, 5))
 plt.plot(xf, amp_orig, label="Исходный")
 plt.plot(xf, amp_filt, label="Фильтрованный")

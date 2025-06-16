@@ -11,7 +11,8 @@
 \usepackage{amsmath, amssymb, amsfonts}
 \usepackage{braket} 
 \usepackage{float}
-
+\usepackage{amsmath}  % для математических окружений
+\usepackage{bm}  
 % Гиперссылки и цветовые настройки
 \usepackage[dvipsnames]{xcolor}
 \usepackage[colorlinks]{hyperref}
@@ -21,35 +22,43 @@
 	urlcolor=cyan
 }
 
-% Настройки listings для Mathematica
 \usepackage{listings}
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{xcolor}
 
+% Цвета
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codegreen}{rgb}{0, 0.5, 0}
+\definecolor{codegray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{codepurple}{rgb}{0.58, 0, 0.82}
+\definecolor{keywordcolor}{rgb}{0.0, 0.2, 0.7}
+\definecolor{stringcolor}{rgb}{0.6, 0, 0}
+\definecolor{framecolor}{rgb}{0.7, 0.7, 0.7}
+
+% Стиль для Mathematica
 \lstdefinestyle{mathematica}{
 	language=Mathematica,
 	backgroundcolor=\color{backcolour},
-	basicstyle=\ttfamily\footnotesize,
-	keywordstyle=\color{blue},
-	commentstyle=\color{codegreen},
-	stringstyle=\color{magenta},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{keywordcolor}\bfseries,
+	commentstyle=\color{codegreen}\itshape,
+	stringstyle=\color{stringcolor},
 	numberstyle=\tiny\color{codegray},
-	breakatwhitespace=false,
-	breaklines=true,
-	captionpos=b,
-	keepspaces=true,
 	numbers=left,
 	numbersep=5pt,
-	showspaces=false,
+	breaklines=true,
+	breakatwhitespace=false,
 	showstringspaces=false,
-	showtabs=false,
-	tabsize=2,
+	keepspaces=true,
 	frame=single,
-	extendedchars=true
+	rulecolor=\color{framecolor},
+	frameround=tttt,
+	captionpos=b,
+	tabsize=2,
+	xleftmargin=1em,
+	xrightmargin=0.5em
 }
 
+% Установить стиль по умолчанию
 \lstset{style=mathematica}
 
 % Путь к изображениям
@@ -150,29 +159,7 @@ u(t) = g(t) + 0.5\xi(t) + 0\sin(dt),
 где \(\xi(t) \sim U[-1, 1]\) — равномерное распределение на интервале \([-1, 1]\).
 
 Слагаемое с синусом отсутствует, поэтому колебаний у шума также не будет. 
-Приведу код для задания функций и их отрисовки:
 
-\begin{lstlisting}[language=Mathematica, caption={Инициализация}]
-a = 4;
-t1 = 0;
-t2 = 3;
-c = 0;
-d = 5;
-b = 0.5;
-
-g[t_] := Piecewise[{{a, t1 <= t <= t2}}, 0];
-u[t_] := g[t] + b RandomReal[{-1, 1}] + c Sin[d t]
-
-Plot[{g[t], u[t]}, {t, -1, 4},
-	Exclusions -> None,
-	AspectRatio -> 0.2, 
-	PlotStyle -> {{Red, Thick}, {Gray, Thickness[0.001]}}, 
-	PlotPoints -> 9,
-	AxesLabel -> {t, "Amplitude"},
-	PlotLegends -> Placed[{"Original signal", "Noisy signal"}, Right], 
-	ImageSize -> Large
-]
-\end{lstlisting}
 Теперь посмотрим на график функций \(g(t)\) и \(u(t)\):
 
 \begin{figure}[H]  
@@ -181,97 +168,146 @@ Plot[{g[t], u[t]}, {t, -1, 4},
     \caption{График \(g(t)\) и \(u(t)\)}  
     \label{fig:my_image}  
 \end{figure}
-\hypertarget{mytext}{
-Дальше в задании нужно найти фурье-образ \(u(t)\), обнулить его значение на диапазоне \([- \nu_0, \nu_0]\)
-и восстановить сигнал с помощью обратного преобразования фурье.
-}
 
-Напишу функцию для такого фильтра. Передам в нее зашумненный сигнал, время записи сигнала, частоту частотут дискретизации \texttt{sampleRate}. В самой функции я:
+
+\textbf{Алгоритм фильтрации}:
 \begin{itemize}
-	\item Сделаю сигнал дискретным
-	\item Сделаю дискретное преобразование Фурье
-	\item Построю частотную ось
-	\item Отфильтрую
-	\item Сделаю обратное преобразование Фурье
+	\item Вычисляю спектр сигнала: \texttt{Ushifted}
+	\item Создаю маску, обнуляющую частоты вне диапазона \([-\nu; \nu]\):       \texttt{ filterMask}
+	\item Применяю фильтр: умножаю маску на спектр \texttt{Ufiltered = Ushifted*filterMask} и делаю обратное преобразование Фурье
+	
 \end{itemize}
-
-
-\begin{lstlisting}[language=Mathematica, caption={Функция фильтрации частот вне диапазона}]
-fourierFilter[u_, {t_, tmin_, tmax_}, sampleRate_, v0_] := 
-Module[{timeValues, signalValues, fftValues, freqRange, freqStep, 
-	freqValues, filteredFFT, filteredSignal}, 
-timeValues = Subdivide[tmin, tmax, (tmax - tmin)*sampleRate - 1];
-signalValues = u /@ timeValues;
-fftValues = Fourier[signalValues, FourierParameters -> {-1, 1}];
-freqRange = Length[fftValues];
-freqStep = sampleRate/freqRange;
-freqValues = Table[(n - 1)*sampleRate/freqRange, {n, freqRange}];
-freqValues = If[# > sampleRate/2, # - sampleRate, #] & /@ freqValues;
-filteredFFT = 
-MapThread[If[Abs[#2] <= v0, #1, 0] &, {fftValues, freqValues}];
-filteredSignal = 
-InverseFourier[filteredFFT, FourierParameters -> {-1, 1}];
-{timeValues, Re[filteredSignal]}]
-\end{lstlisting}
-
-
-
-
 
 
 \subsubsection{Фиксирую \(b\)}
 
-Для начала выберем значения \(\nu_0 = 0.5\) и \(b = 0.5\). Теперь посмотрим на график
+Для начала выберу значения \(\nu_0 = 0.5\) и \(b = 0.5\). Теперь посмотрим на график
 получившегося отфильтрованного сигнала при этих значениях. Также я приведу графики 
-модулей фурье образов сигнала \(g(t)\), зашумленного сигнала \(u(t)\) и отфильтрованного сигнала.
+модулей фурье образов сигнала \(g(t)\), зашумленного сигнала \(u(t)\) и отфильтрованного сигнала. 
+\\
+
+Здесь и далее стоит придерживаться такой легенды на графиках:
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=0.2\textwidth]{../images/legend.png}
+	\caption{Значения цветов}  
+	\label{fig:my_image}  
+\end{figure}
+
+На графике фурье-образов также можно заметить две вертикальные синие пунктирные черты, между ними сигнал не облуляется.
+
+
+В этой части задания я зафиксирую параметр \(b = 0.5\) и буду исследовать влияние
+на поведение функций параметра \(\nu_0\). Выберу несколько 
+\(\nu_0 = \set{0.5, 1, 1.5, 3, 5, 10}\)
+и отрисую графики:
+
+\begin{itemize}
+	\item Значения: \(\nu_0 = 0.5\) и \(b = 0.5\)
+
 
 \begin{figure}[H]  
     \centering
     \includegraphics[width=1\textwidth]{../images/1.1_0.5_0.5.png}
-    \caption{Графики при \(\nu_0 = 0.5\) и \(b = 0.5\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-Внизу можно заметить 2 бегунка, с помощью которых можно менять параметры.
-В этой части задания я зафиксирую параметр \(b = 0.5\) и буду исследовать влияние
-на поведение функций параметра \(\nu_0\). Выберу несколько \(\nu_0 = \set{1, 1.5, 3, 10}\)
-и отрисую графики:
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0.5_1.png}
-    \caption{Графики при \(\nu_0 = 1\) и \(b = 0.5\)}  
+    \caption{Сигналы}  
     \label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0.5_1.5.png}
-    \caption{Графики при \(\nu_0 = 1.5\) и \(b = 0.5\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_0.5.png}
+	\caption{Фурье-образы\protect\footnotemark}  
+	\label{fig:my_image}  
+\end{figure}
+\footnotetext{Далее в задании 1.2 я обрежу ось \texttt{Amplitude} до значения \(5000\), поскольку если не обрезать, основная часть будет не такой ясной для восприятия. }
+
+\item Значения: \(\nu_0 = 1\) и \(b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_1.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0.5_3.png}
-    \caption{Графики при \(\nu_0 = 3\) и \(b = 0.5\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_1.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\item Значения: \(\nu_0 = 1.5\) и \(b = 0.5\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_1.5.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0.5_10.png}
-    \caption{Графики при \(\nu_0 = 10\) и \(b = 0.5\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_1.5.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
 \end{figure}
+
+\item Значения: \(\nu_0 = 3\) и \(b = 0.5\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+	
+
+\item Значения: \(\nu_0 = 5\) и \(b = 0.5\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_5.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_5.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\item Значения: \(\nu_0 = 10\) и \(b = 0.5\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_10.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_10.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\end{itemize}
+
 
 \subsubsection{Вывод}
 
 \begin{itemize}
     \item С увеличением \(\nu_0\) изменялось количество колебаний отфильтрованного сигнала. 
     Число гармоник увеличивалось, однако при большем значении \(\nu_0\) не всегда удавалось получить
-    хорошо отфильтрованный сигнал. Наиболее удачным оказался график при параметрах \(\nu_0 = 3\) и \(b = 0.5\). 
+    хорошо отфильтрованный сигнал. Наиболее удачным оказался график при параметрах \(\nu_0 = 5\) и \(b = 0.5\). 
     На этом графике форма отфильтрованного сигнала практически идеально совпадает с исходной, 
     а шум удалён наиболее эффективно.
 
@@ -287,46 +323,82 @@ InverseFourier[filteredFFT, FourierParameters -> {-1, 1}];
 \subsubsection{Фиксирую \(\nu_0\)}
 
 Для этого задания выберу несколько значений \(b = \set{0, 0.5, 1, 2}\),
-чтобы исследовать поведение графиков при фиксированном значении \(\nu_0\ = 3\).
+чтобы исследовать поведение графиков при фиксированном значении \(\nu_0\ = 5\).
 Это значение было выбрано, поскольку ранее мне показалось, что при этом значении
-сигнал хорошо фильтруется.
+сигнал хорошо фильтруется. Также приведу в порядок частотную сетку, оставлю по оси частот значения [-5; 5].
 Ниже рассмотрим эти графики:
 
+\begin{itemize}
+	\item Значения: \(\nu_0 = 5\) и \(b = 0.0\)
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0_3.png}
-    \caption{Графики при \(\nu_0 = 3\) и \(b = 0\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0_3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_0.5_3.png}
-    \caption{Графики при \(\nu_0 = 3\) и \(b = 0.5\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0_3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+	
+	\item Значения: \(\nu_0 = 5\) и \(b = 0.5\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_0.5_3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_1_3.png}
-    \caption{Графики при \(\nu_0 = 3\) и \(b = 1\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_0.5_3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+	\item Значения: \(\nu_0 = 5\) и \(b = 1\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_1_3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.1_2_3.png}
-    \caption{Графики при \(\nu_0 = 3\) и \(b = 2\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_1_3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
 \end{figure}
+	
+	\item Значения: \(\nu_0 = 5\) и \(b = 2\)
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.1_2_3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.1_2_3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+	
+
+	
+	
+\end{itemize}
 
 \subsubsection{Вывод}
 
 \begin{itemize}
     \item При увеличении \(b\) увеличивается шум, а также растет амплитуда колебаний
-    синего графика. То есть чем больше шум, тем больше помех в отфильтрованном сигнале
-    . Идеальным графиком будет первый, поскольку шума совсем нет, 
-    соответственно мы фактически фильтруем не зашумленный сигнал, а идеальный.
+    синего графика. То есть чем больше шум, тем больше помех в отфильтрованном сигнале. 
 
     \item Спектр отфильтрованного сигнала близок к спектру \(g(t)\), но остаются небольшие шумовые компоненты.
     Различия между модулями фурье-образов слабо заметны при моих параметрах \(b\).
@@ -339,16 +411,12 @@ InverseFourier[filteredFFT, FourierParameters -> {-1, 1}];
 
 \subsection{Убираем специфические частоты}
 
-\subsubsection{Предподготовка}
+\subsubsection{Предподготовка} \label{sec:prep}
 
 Для этого задания выберу параметры функций:
 \[
-a = 4, t_0 = 0, t_1 = 3, c = 1, d = 2, b = 0.5
+a = 4, t_0 = 0, t_1 = 3, c = 1, d = 15, b = 0.5
 \]
-
-Значение частоты я выберу \(\nu_0 = 0.5\). Стоит указать, что это только начальные значения
-и в ходе этого задания я буду их менять, чтобы посмотреть, как это отображается на 
-графике.
 
 У меня получатся следующие функции:
 
@@ -370,88 +438,243 @@ u(t) = g(t) + 0.5\xi(t) + \sin(2t),
 \begin{figure}[H]  
     \centering
     \includegraphics[width=1\textwidth]{../images/1.2.png}
-    \caption{Графики при \(b = 0.5\), \(c =  1\), \(d = 1\) и \(\nu_0 = 3\)}  
+    \caption{Сигналы}  
     \label{fig:my_image}  
 \end{figure}
 
 В отличие от предыдущего пункта можно заметить, что шум пошел по синусоиде.
 
 В этом задании нужно сделать совмещенный фильтр - он убирает не только низкие
-частоты, но и гармонические колебания. Алгоритм задания такой же, как и описыватся в \
-пункте \hyperlink{mytext}{1.1.1}.
+частоты, но и гармонические колебания. Отмечу, что в случае \(b = 0\) убирать частоты не требуется, нужно только очистить сигнал от синусоиды.
 
-Также отмечу, что, поскольку нужно исследовать довольно много меняющихся параметров
-в этом задании, я приведу несколько показательных случаев в следующих пунктах
- и отражу влияние компонент в выводе.
-
-\subsubsection{Случай, когда \(b = 0\)}
-
-Отдельно рассмотрю случай, когда \(b = 0\). Вот несколько графиков
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.2.1.png}
-    \caption{Графики при \(b = 0\), \(c =  2.5\), \(d = 0.1\) и \(\nu_0 = 4\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.2.2.png}
-    \caption{Графики при \(b = 0\), \(c =  3\), \(d = 5\) и \(\nu_0 = 0.75\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.2.3.png}
-    \caption{Графики при \(b = 0\), \(c =  2\), \(d \approx 1\) и \(\nu_0 = 3\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-\subsubsection{Остальные случаи}
-
-Приведу графики, когда \(b \neq 0\):
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.3.1.png}
-    \caption{Графики при \(b = 2\), \(c =  0.75\), \(d \approx 5\) и \(\nu_0 = 1\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.3.2.png}
-    \caption{Графики при \(b = 0\), \(c =  3\), \(d = 5\) и \(\nu_0 = 0.75\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.3.3.png}
-    \caption{Графики при \(b = 1\), \(c =  2\), \(d = 2\) и \(\nu_0 = 7\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\subsubsection{Выводы по пунктам 1.3.2 и 1.3.3}
-
-Много раз поменяв параметры \(b\), \(c\), \(d\) и \(\nu_0\), я пришла к следующим выводам:
+\textbf{Алгоритм фильтрации}:
 \begin{itemize}
-    \item Параметр \(b\): Чем больше значение \(b\), тем больше шума накладывается на сигнал. Это связано с тем, что \(b\) определяет амплитуду шума.
-    \item Параметр \(c\): Увеличение \(c\) приводит к увеличению амплитуды колебаний зашумлённой функции. Также \(c\) влияет на количество колебаний шума, делая их более частыми или редкими.
-    \item Параметр \(d\): Увеличение \(d\) приводит к увеличению частоты гармонической составляющей шума, что делает колебания более частыми.
-    \item Параметр \(\nu_0\): Чем больше частота среза \(\nu_0\), тем больше колебаний сохраняется в отфильтрованном сигнале. Это связано с тем, что фильтр пропускает больше высокочастотных компонент.
+	\item Вычисляю спектр сигнала: \texttt{Ushifted}
+	\item Создаю маску, обнуляющую узкую полосу вокруг частоты помехи \texttt{harmFreq = \(\frac{d}{2\pi}\)} - это режекторный фильтр: \texttt{notchMask}. Ширина режектора регулируется параметром \texttt{notchWidth}
+	\item Создаю маску, которая обнуляет частоты вне диапазона \texttt{[-v, v]} - фильтр низких частот: \texttt{lowPassMask}
+	\item Перемножаю маски поэлементно - получаю совмещенную маску: \texttt{combinedMask = lowPassMask*notchMask}. В случае, когда \(b = 0\) я принимаю \texttt{lowPassMask = [1, 1, ..., 1]}. Так как шума нет, мне нужно убрать только гармонические помехи
+	\item Применяю фильтр: умножаю маску на спектр \texttt{Ufiltered = Ushifted*combinedMask} и делаю обратное преобразование Фурье
+
 \end{itemize}
 
-На графиках заметно, что совмещенный фильтр эффективно работает при присутствии
-колебаний в зашумленной функциии.
+\subsubsection{Исследование}
+Возьму набор параметров: \(\nu_0 = 7, c = 1, d = 15, b = 0.5\) и менять поочередно значения, чтобы посмотреть его влияние на графики.
+\begin{itemize}
+	\item Влияние параметра \(b\)
+
+Выбранные параметры: \(\nu_0 = 7, c = 1, d = 15\), \textbf{b = 0}
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.1.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.1.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}	
+
+Выбранные параметры: \(\nu_0 = 7, c = 1, d = 15\), \textbf{b = 0.5}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.2.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.2.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+Выбранные параметры: \(\nu_0 = 7, c = 1, d = 15\), \textbf{b = 1.5}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+	\item Влияние параметра \(d\)
+
+Выбранные параметры: \(\nu_0 = 7, c = 1\), \textbf{d = 5}, \(b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.4.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.4.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+Выбранные параметры: \(\nu_0 = 7, c = 1\), \textbf{d = 20}, \(b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.5.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.5.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+
+
+Выбранные параметры: \(\nu_0 = 7, c = 1\), \textbf{d = 35}, \(b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.6.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.6.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+	\item Влияние параметра \(c\)
+
+Выбранные параметры: \(\nu_0 = 7\), \textbf{c = 0.5}, \(d = 15, b = 0.5\)
+ 
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.7.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.7.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+Выбранные параметры: \(\nu_0 = 7\), \textbf{c = 1.5}, \(d = 15, b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.8.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.8.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+
+Выбранные параметры: \(\nu_0 = 7\), \textbf{c = 3}, \(d = 15, b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.9.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.9.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+
+	\item Влияние параметра \(\nu_0\)
+
+Выбранные параметры: \textbf{\(\bm{\nu_0 = 3}\)}, \(c = 1, d = 15, b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.10.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.10.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+Выбранные параметры: \textbf{\(\bm{\nu_0 = 5}\)}, \(c = 1, d = 15, b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.11.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.11.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+Выбранные параметры: \textbf{\(\bm{\nu_0 = 10}\)}, \(c = 1, d = 15, b = 0.5\)
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.2.12.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.2.12.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+\end{itemize}
+
+\subsubsection{Вывод}
+
+Параметр \(b\) определяет интенсивность шума. Чем больше параметр, тем больше шума будет у сигнала. При \(b = 0\) не требуется убирать помехи шума, нужно убирать только гармонику.
+
+Параметр \(d\) отвечает за частотные показатели гармонического шума.
+
+\(c\) - характеризует мощность ("высоту") гармонических помех. Но качество фильтрации практически не изменяется при фиксированных параметрах. 
+
+Параметр \(\nu_0\) контролирует сколько высокочастотных составляющих останется в фильтрованном сигнале.
+
 
 \subsection{Убираем низкие частоты?}
 \subsubsection{Предподготовка}
@@ -465,73 +688,80 @@ g(t) =
 \]
 
 \[
-u(t) = g(t) + 0.5\xi(t) + \sin(2t),
+u(t) = g(t) + 0.5\xi(t) + \sin(15t),
 \]
 где \(\xi(t) \sim U[-1, 1]\) — равномерное распределение на интервале \([-1, 1]\).
 
 И пропущу функцию \(u(t)\) через фильтр, который обнуляет фурье-образ в 
-окресности точки \(v = 0\)
+окресности точки \(v = 0\). Окресность регулируется параметром \(\Delta\nu\).
+
+\textbf{Алгоритм фильтрации}:
+\begin{itemize}
+	\item Вычисляю спектр сигнала: \texttt{Ushifted}
+	\item Создаю маску, обнуляющую узкую полосу вокруг частоты \(\nu_0 = 0\):       \texttt{ zeroAroundZeroMask}
+	\item Применяю фильтр: умножаю маску на спектр \texttt{Ufiltered = Ushifted*zeroAroundZeroMask} и делаю обратное преобразование Фурье
+	
+\end{itemize}
 
 \subsubsection{Графики}
 
-Изображу график для выбранных ранее параметров:
+Изображу график для выбранных ранее параметров. Буду менять окрестность точки \(v\) - \(\varDelta v = \set{0, 0.5, 1}\) и оценю результаты.
+
+\begin{itemize}
+	
+	\item Значения: \(b = 0.5\), \(c =  1\), \(d = 15\) и \textbf{$\bm{\Delta \nu = 0}$}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.1.png}
-    \caption{Графики при \(b = 0.5\), \(c =  1\), \(d = 2\) и \(\varDelta  v = 0.5\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-Далее буду менять окрестность точки \(v\) - \(\varDelta v = \set{0, 1}\) для
-трех наборов параметров \(b\), \(c\), \(d\), которые будут отражены внизу рисунка.
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.2.png}
-    \caption{Графики при \(b = 0.5\), \(c =  1\), \(d = 2\) и \(\varDelta  v = 0\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.3.png}
-    \caption{Графики при \(b = 0.5\), \(c =  1\), \(d = 2\) и \(\varDelta  v = 1\)}  
-    \label{fig:my_image}  
-\end{figure}
-
-
-\begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.4.png}
-    \caption{Графики при \(b = 0.3\), \(c =  2\), \(d \approx 1\) и \(\varDelta  v = 0\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.4.2.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.5.png}
-    \caption{Графики при \(b = 0.3\), \(c =  2\), \(d \approx 1\) и \(\varDelta  v = 1\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.4.2.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
 \end{figure}
 
+	\item Значения: \(b = 0.5\), \(c =  1\), \(d = 15\) и \textbf{$\bm{\Delta \nu = 0.5}$}
+	
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.4.1.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
+\end{figure}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.6.png}
-    \caption{Графики при \(b = 1\), \(c \approx 3.5\), \(d = 5\) и \(\varDelta  v = 0\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.4.1.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
 \end{figure}
-
+	
+	\item Значения: \(b = 0.5\), \(c =  1\), \(d = 15\) и \textbf{$\bm{\Delta \nu = 1}$}
 
 \begin{figure}[H]  
-    \centering
-    \includegraphics[width=1\textwidth]{../images/1.4.7.png}
-    \caption{Графики при \(b = 1\), \(c \approx 3.5\), \(d = 5\) и \(\varDelta  v = 1\)}  
-    \label{fig:my_image}  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/1.4.3.png}
+	\caption{Сигналы}  
+	\label{fig:my_image}  
 \end{figure}
+
+\begin{figure}[H]  
+	\centering
+	\includegraphics[width=1\textwidth]{../images/f1.4.3.png}
+	\caption{Фурье-образы}  
+	\label{fig:my_image}  
+\end{figure}
+
+
+
+
+\end{itemize}
+
 
 
 \subsubsection{Выводы}
@@ -576,20 +806,7 @@ u(t) = g(t) + 0.5\xi(t) + \sin(2t),
 В качестве фильтра для этого задания я выбрала полосовой, который фильтрует
 сигнал в диапазоне. Размеры диапазона были подобраны самостоятельно.
 
-Приступлю к написанию фильтра:
-
-\begin{lstlisting}[caption={Полосовой фильтр}]
-def bandpass_filter(data, lowcut, highcut, fs, order=5):
-    nyq = 0.5 * fs
-    low = lowcut / nyq
-    high = highcut / nyq
-    b, a = butter(order, [low, high], btype='band')
-    return filtfilt(b, a, data)
-\end{lstlisting}
-    
-
-
-Применю этот фильтр к сигналу. Оставлю частоты $\in [500, 3000]$ Гц:
+Применю фильтр к сигналу. Оставлю частоты $\in [500, 3000]$ Гц:
 \begin{figure}[H]  
     \centering
     \includegraphics[width=1\textwidth]{../images/sigaF.png}
@@ -630,5 +847,277 @@ def bandpass_filter(data, lowcut, highcut, fs, order=5):
 Всё это помогло мне лучше понять, как работает частотная фильтрация 
 на практике. 
 \href{https://github.com/decadeos/ITMO/tree/master/2_course/chMetods/lab3}{GitHub}.
+
+
+\section{Приложение}
+
+
+\begin{lstlisting}[caption={Инициализация исходного и зашумленного сигналов}]
+a = 4;
+t1 = 0;
+t2 = 3;
+c = 0;
+d = 5;
+b = 0.5;
+
+T = 20;
+dt = 0.001;
+tValues = Range[-T/2, T/2, dt];
+n = Length[tValues];
+
+vValues = Table[-1/(2 dt) + (k - 1)*1/T, {k, n}];
+
+gVals = Table[If[t1 <= t <= t2, a, 0], {t, tValues}];
+xi = RandomReal[{-1, 1}, n];
+uVals = gVals + b*xi + c*Sin[d*tValues];
+
+ListLinePlot[{Transpose[{tValues, uVals}], 
+	Transpose[{tValues, gVals}]}, 
+AspectRatio -> 0.2,
+PlotLegends -> Placed[{"Original", "Noisy"}, Right],
+PlotStyle -> {{Gray, Thickness[0.002]}, {Red, Thickness[0.004]}},
+AxesLabel -> {"t", "Amplitude"},
+ImageSize -> 1000,
+PlotRange -> {{-1, 4}, {-1, 5}}
+]
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Фильтрация низких частот. Отрисовка сигналов и фурье-образов}]
+v = 5;
+U = Fourier[uVals, FourierParameters -> {1, -1}];
+Ushifted = RotateLeft[U, Floor[n/2]];  
+
+filterMask = Table[If[Abs[f] <= v, 1, 0], {f, vValues}];
+Ufiltered = Ushifted*filterMask; 
+UfilteredBack = RotateRight[Ufiltered, Floor[n/2]];
+uFilteredVals = 
+InverseFourier[UfilteredBack, FourierParameters -> {1, -1}];
+
+ListLinePlot[{Transpose[{tValues, uVals}], 
+	Transpose[{tValues, Re[uFilteredVals]}], 
+	Transpose[{tValues, gVals}]},
+PlotStyle -> {{Gray, Thickness[0.002]}, {Blue, 
+		Thickness[0.003]}, {Red, Thickness[0.002]}},
+AxesLabel -> {"t", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Filtered", "Original"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-1.5, 4.5}, {-5, 9}}, 
+GridLines -> Automatic
+]
+(******************************************************************)
+G = Fourier[gVals, FourierParameters -> {1, -1}];
+Gshifted = RotateLeft[G, Floor[n/2]];
+
+UfilteredSpec = 
+Fourier[Re[uFilteredVals], FourierParameters -> {1, -1}];
+UfilteredShifted = RotateLeft[UfilteredSpec, Floor[n/2]];
+
+vidthN = 5000;
+
+ListLinePlot[{Transpose[{vValues, Abs[Ushifted]}], 
+	Transpose[{vValues, Abs[Gshifted]}], 
+	Transpose[{vValues, Abs[UfilteredShifted]}]}, 
+PlotStyle -> {{Gray, Thickness[0.002]}, {Red, 
+		Thickness[0.002]}, {Blue, Thickness[0.002]}},
+AxesLabel -> {"Frequency", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Original", "Filtered"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-10, 10}, {-10, vidthN}}, 
+Epilog -> {
+	Dashed, Blue,
+	Line[{{v, 0}, {v, vidthN}}],
+	Line[{{-v, 0}, {-v, vidthN}}]
+},
+GridLines -> Automatic
+]
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Фильтрация специфических частот. Отрисовка сигналов и фурье-образов}]
+U = Fourier[uVals, FourierParameters -> {1, -1}];
+Ushifted = RotateLeft[U, Floor[n/2]];
+
+v = 10; 
+harmFreq = d/(2 Pi);
+notchWidth = 0.13;
+
+lowPassMask = Table[If[Abs[f] <= v, 1, 0], {f, vValues}];
+notchMask = 
+Table[If[
+Abs[f - harmFreq] < notchWidth || Abs[f + harmFreq] < notchWidth, 
+0, 1], {f, vValues}];
+combinedMask = lowPassMask*notchMask;
+
+Ufiltered = Ushifted*combinedMask;
+UfilteredBack = RotateRight[Ufiltered, Floor[n/2]];
+uFilteredVals = 
+InverseFourier[UfilteredBack, FourierParameters -> {1, -1}];
+
+ListLinePlot[{Transpose[{tValues, uVals}], 
+	Transpose[{tValues, Re[uFilteredVals]}], 
+	Transpose[{tValues, gVals}]},
+PlotStyle -> {{Gray, Thickness[0.002]}, {Blue, 
+		Thickness[0.003]}, {Red, Thickness[0.002]}},
+AxesLabel -> {"t", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Filtered", "Original"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-1.5, 4.5}, {-3.5, 7.5}}, 
+GridLines -> Automatic
+]
+(******************************************************************)
+G = Fourier[gVals, FourierParameters -> {1, -1}];
+Gshifted = RotateLeft[G, Floor[n/2]];
+
+UfilteredSpec = 
+Fourier[Re[uFilteredVals], FourierParameters -> {1, -1}];
+UfilteredShifted = RotateLeft[UfilteredSpec, Floor[n/2]];
+
+plotWigth = 12000;
+ListLinePlot[{Transpose[{vValues, Abs[Ushifted]}], 
+	Transpose[{vValues, Abs[Gshifted]}], 
+	Transpose[{vValues, Abs[UfilteredShifted]}]}, 
+PlotStyle -> {{Gray, Thickness[0.002]}, {Red, 
+		Thickness[0.002]}, {Blue, Thickness[0.002]}},
+AxesLabel -> {"Frequency", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Original", "Filtered"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-10, 10}, {-10, plotWigth}}, 
+Epilog -> {
+	Dashed, Blue,
+	Line[{{v, 0}, {v, plotWigth}}],
+	Line[{{-v, 0}, {-v, plotWigth}}]
+}, GridLines -> Automatic
+]
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Фильтрация высоких частот. Отрисовка сигналов и фурье-образов}]
+U = Fourier[uVals, FourierParameters -> {1, -1}];
+Ushifted = RotateLeft[U, Floor[n/2]];
+
+v = 0;
+notchWidthAroundZero = 1;
+
+zeroAroundZeroMask = 
+Table[If[Abs[f - v] < notchWidthAroundZero, 0, 1], {f, vValues}];
+
+Ufiltered = Ushifted*zeroAroundZeroMask;
+UfilteredBack = RotateRight[Ufiltered, Floor[n/2]];
+uFilteredVals = 
+InverseFourier[UfilteredBack, FourierParameters -> {1, -1}];
+
+ListLinePlot[{Transpose[{tValues, uVals}], 
+	Transpose[{tValues, Re[uFilteredVals]}], 
+	Transpose[{tValues, gVals}]},
+PlotStyle -> {{Gray, Thickness[0.002]}, {Blue, 
+		Thickness[0.003]}, {Red, Thickness[0.002]}},
+AxesLabel -> {"t", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Filtered", "Original"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-1.5, 4.5}, {-3.5, 7.5}}, 
+GridLines -> Automatic
+]
+(******************************************************************)
+G = Fourier[gVals, FourierParameters -> {1, -1}];
+Gshifted = RotateLeft[G, Floor[n/2]];
+
+UfilteredSpec = 
+Fourier[Re[uFilteredVals], FourierParameters -> {1, -1}];
+UfilteredShifted = RotateLeft[UfilteredSpec, Floor[n/2]];
+
+plotN = 12500;
+
+ListLinePlot[{Transpose[{vValues, Abs[Ushifted]}], 
+	Transpose[{vValues, Abs[Gshifted]}], 
+	Transpose[{vValues, Abs[UfilteredShifted]}]}, 
+PlotStyle -> {{Gray, Thickness[0.002]}, {Red, 
+		Thickness[0.002]}, {Blue, Thickness[0.002]}},
+AxesLabel -> {"Frequency", "Amplitude"},
+PlotLegends -> Placed[{"Noisy", "Original", "Filtered"}, Right],
+AspectRatio -> 0.3,
+ImageSize -> 1000,
+PlotRange -> {{-7, 7}, {-20, plotN}}, 
+Epilog -> {
+	Dashed, Blue,
+	Line[{{notchWidthAroundZero, 0}, {notchWidthAroundZero, plotN}}],
+	Line[{{-notchWidthAroundZero, 0}, {-notchWidthAroundZero, plotN}}]
+},
+GridLines -> Automatic
+]
+\end{lstlisting}
+
+\begin{lstlisting}[language=python,caption={Задание 2. Фильтрация сигнала}]
+import numpy as np
+import matplotlib.pyplot as plt
+import soundfile as sf
+from scipy.signal import butter, filtfilt
+from scipy.fft import fft, fftfreq
+
+data, samplerate = sf.read("MUHA.wav")
+
+def bandpass_filter(data, lowcut, highcut, fs, order=5):
+nyq = 0.5 * fs
+low = lowcut / nyq
+high = highcut / nyq
+b, a = butter(order, [low, high], btype='band')
+return filtfilt(b, a, data)
+
+
+lowcut = 500
+highcut = 3000
+filtered_data = bandpass_filter(data, lowcut, highcut, samplerate)
+
+sf.write("MUHA_filtered.wav", filtered_data, samplerate)
+
+T = len(data) / samplerate
+time = np.linspace(0, T, len(data))
+
+plt.figure(figsize=(12, 4))
+plt.plot(time, data, label="Original", alpha=0.6)
+plt.plot(time, filtered_data, label="Filtreted", alpha=0.7)
+plt.title("Signals in time")
+plt.xlabel("Time (s)")
+plt.ylabel("Amplitude")
+plt.legend()
+plt.grid()
+plt.tight_layout()
+plt.show()
+
+N = len(data)
+xf = fftfreq(N, 1 / samplerate)[:N // 2]
+yf_orig = fft(data)
+yf_filt = fft(filtered_data)
+
+amp_orig = 2.0 / N * np.abs(yf_orig[:N // 2])
+amp_filt = 2.0 / N * np.abs(yf_filt[:N // 2])
+
+amp_orig /= np.max(amp_orig)
+amp_filt /= np.max(amp_filt)
+
+plt.figure(figsize=(12, 5))
+plt.plot(xf, amp_orig, label="Original")
+plt.plot(xf, amp_filt, label="Filtreted")
+plt.title("Spektrs")
+plt.xlabel("GZ")
+plt.ylabel("Norm Amplitude)
+plt.xlim(0, 2000)
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+\end{lstlisting}
+
+
+
+
+
+
+
+
 
 \end{document}
