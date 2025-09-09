@@ -1,0 +1,311 @@
+\documentclass[a4paper,12pt]{article}
+
+% Основные пакеты
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english, russian]{babel}
+\usepackage{geometry}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{braket} 
+\usepackage{float}
+\usepackage{amsmath}  % для математических окружений
+\usepackage{bm}  
+% Гиперссылки и цветовые настройки
+\usepackage[dvipsnames]{xcolor}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{
+	linkcolor=blue,
+	filecolor=magenta,
+	urlcolor=cyan
+}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Цвета
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codegreen}{rgb}{0, 0.5, 0}
+\definecolor{codegray}{rgb}{0.4, 0.4, 0.4}
+\definecolor{codepurple}{rgb}{0.58, 0, 0.82}
+\definecolor{keywordcolor}{rgb}{0.0, 0.2, 0.7}
+\definecolor{stringcolor}{rgb}{0.6, 0, 0}
+\definecolor{framecolor}{rgb}{0.7, 0.7, 0.7}
+
+% Стиль для Mathematica
+\lstdefinestyle{python}{
+	language=python,
+	backgroundcolor=\color{backcolour},
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{keywordcolor}\bfseries,
+	commentstyle=\color{codegreen}\itshape,
+	stringstyle=\color{stringcolor},
+	numberstyle=\tiny\color{codegray},
+	numbers=left,
+	numbersep=5pt,
+	breaklines=true,
+	breakatwhitespace=false,
+	showstringspaces=false,
+	keepspaces=true,
+	frame=single,
+	rulecolor=\color{framecolor},
+	frameround=tttt,
+	captionpos=b,
+	tabsize=2,
+	xleftmargin=1em,
+	xrightmargin=0.5em
+}
+
+% Установить стиль по умолчанию
+\lstset{style=python}
+
+% Путь к изображениям
+\graphicspath{{./images/}}
+
+% Геометрия страницы
+\geometry{left=2cm, right=2cm, bottom=2cm, top=2cm}
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		{\large Министерство науки и высшего образования Российской Федерации}\\
+		{\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ АВТОНОМНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ОБРАЗОВАНИЯ «НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ИТМО»}\\
+		{\large (УНИВЕРСИТЕТ ИТМО)}\\
+		
+		\vspace{2cm}
+		
+		{\large Факультет «Систем управления и робототехники»}\\
+		
+		\vspace{3cm}
+		
+		\textbf{{\Huge ОТЧЕТ}\\
+			{\Huge О ЛАБОРАТОРНОЙ РАБОТЕ №5}}\\
+		
+		\vspace{1cm}
+		
+		{\LARGE По дисциплине «Частотные методы»}\\
+		{\LARGE на тему: «Связь непрерывного и дискретного»}\\
+		
+		\vspace{3cm}
+		
+		{\Large Студент:}\\
+		Охрименко Ева
+		
+		\vspace{2cm}
+		
+		{\Large Преподаватели:}\\
+		Догадин Егор Витальевич\\
+		Пашенко Артем Витальевич\\
+		
+		\vspace{3cm}
+		{\large г. Санкт-Петербург}\\
+		{\large 2025}
+		
+	\end{titlepage}
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	\section{Задание. Непрерывное и дискретное преобразование Фурье.}
+	
+	Рассмотрю прямоугольную функцию $\Pi: \mathbb{R} \to \mathbb{R}$:
+	\[
+	\Pi(t) = 
+	\begin{cases}
+	1, & |t| \leq \frac{1}{2} \\
+	0, & |t| > \frac{1}{2}
+	\end{cases}
+	\]
+	
+	Вычислю фурье-образ функции $\Pi(t)$:
+	\[
+	\hat{\Pi}(\nu) = \int_{-1/2}^{1/2} e^{-2\pi i \nu t} dt = \left. \frac{e^{-2\pi i \nu t}}{-2\pi i \nu} \right|_{-1/2}^{1/2} = \frac{e^{\pi i \nu} - e^{-\pi i \nu}}{2\pi i \nu} = \frac{\sin(\pi \nu)}{\pi \nu} = \text{sinc}(\nu)
+	\]
+	
+	Также приведу графики $\Pi(t)$ и $\hat{\Pi}(\nu)$:
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task1/first.png} 
+		\caption{Графики функции и фурье-образа}
+	\end{figure}
+
+\subsection{Численное интегрирование}
+
+В этом задании мне нужно задать функцию \(\Pi(t)\), найти ее Фурье-образ с помощью функции численного интегрирования \texttt{trapz}. Далее опять с помощью численного интегрирования выполнить обратное преобразование Фурье от найденного Фурье-образа, чтобы восстановить функцию. Мои схематичные действия: 
+
+\[
+\Pi(t) \xrightarrow{\text{trapz}} \hat{\Pi}(\nu) \xrightarrow{\text{trapz}} \Pi(t)
+\]
+
+\textbf{Ожидаемые результаты}
+
+\begin{itemize}
+	\item Наиболее показательные значения параметров $T$, $\Delta t$, $V$, $\Delta \nu$.
+	
+	\item Графики аналитического образа и найденного с помощью численного интегрирования $\hat{\Pi}(\nu)$.
+	
+	\item Графики исходной $\Pi(t)$ и восстановленных функций.
+	
+	\item Выводы о влиянии шага и промежутка интегрирования и о точности и быстродействии метода.
+	
+\end{itemize}
+\hrule
+
+\subsubsection{Предподготовка}
+
+Задам функцию \(\Pi(t)\) в python. Зафиксирую параметры функции $T = 20$, $\Delta t = 0.005$, $V = 20$, $\Delta \nu = 0.005$. Отрисую полученные сигналы и образы, при этом засеку время вычислений. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов}
+\end{figure}
+
+Время выполнения цикла (время построения двух графиков со всеми расчетами) заняло 6.5 секунд. 
+
+\subsubsection{Влияние параметра \(T\)}
+
+Исследую влияние параметра \(T\). Возьму значения \(T \in [40, 10, 1]\) и посмотрю на изменения. Остальные значения: $\Delta t = 0.005$, $V = 20$, $\Delta \nu = 0.005$ - остануться прежними.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_40_dt_0.005_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(T = 40\).}
+\end{figure}
+
+Время выполнения - 10.2 секунды.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_10_dt_0.005_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(T = 10\).}
+\end{figure}
+		
+Время выполнения - 4.1 секунды.
+
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_1_dt_0.005_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(T = 1\).}
+\end{figure}
+
+Время выполнения - 2.8 секунды.
+
+
+\[\]
+
+
+\textbf{Итог:} Параметр \(T\) определяет временной интервал реконструкции сигнала. С увеличением \(T\) возрастает время вычислений (с 2.8 с при \(T = 1\) до 10.2 с при \(T = 40\), однако это не приводит к ослаблению эффекта Гиббса. Эффект сохраняется на краях разрыва функции независимо от величины параметра.	
+
+
+\subsubsection{Влияние параметра \(\Delta t\)}
+
+Исследую влияние параметра \(\Delta t\). Возьму значения \(\Delta t \in [0.01, 0.1, 0.4]\) и посмотрю на изменения. Остальные значения: $T = 20$, $V = 20$, $\Delta \nu = 0.005$ - останутся прежними.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.01_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta t = 0.01\).}
+\end{figure}
+
+Время выполнения - 5.8 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.05_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta t = 0.05\).}
+\end{figure}
+
+Время выполнения - 2.8 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.1_V_20_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta t = 0.1\).}
+\end{figure}
+
+Время выполнения - 2.3 секунды.
+
+\[\]
+
+\textbf{Итог: } Экспериментально удалось выяснить, что при \(\Delta t >= 0.05\) у восстановленного сигнала исчезает эффект Гиббса и сигнал становится прямоугольным. Это связано с тем, что грубая дискретизация отсекает высокие частоты.  Однако если слишком сильно увеличить параметр у прямоугольного восстановленного сигнала значительно увеличится амплитуда.
+
+\subsubsection{Влияние параметра \(V\)}
+
+Исследую влияние параметра \(V\). Возьму значения \(V \in [10, 5, 1]\) и посмотрю на изменения. Остальные значения: $T = 20$, $\Delta t = 0.005$, $\Delta \nu = 0.005$ - останутся прежними.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_10_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(V = 10\).}
+\end{figure}
+
+Время выполнения - 5.1 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_5_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(V = 5\).}
+\end{figure}
+
+Время выполнения - 3.5 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_1_dnu_0.005.png} 
+	\caption{Графики функций и фурье-образов. \(V = 1\).}
+\end{figure}
+
+Время выполнения - 2.1 секунды.
+
+\[\]
+
+\textbf{Итог: } При уменьшении \(V\) происходит обрезание высокочастотных компонент спектра, что приводит к усилению эффекта Гиббса.
+
+\subsubsection{Влияние параметра \(\Delta \nu\)}
+
+Исследую влияние параметра \(\Delta \nu\). Возьму значения \(\Delta \nu \in [0.01, 0.01, 0.4]\) и посмотрю на изменения. Остальные значения: $T = 20$, $\Delta t = 0.005$, $V = 20$ - останутся прежними.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_20_dnu_0.01.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta \nu = 0.01\).}
+\end{figure}
+
+Время выполнения - 5.2 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_20_dnu_0.1.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta \nu = 0.1\).}
+\end{figure}
+
+
+Время выполнения - 2.9 секунды.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task1/combined_T_20_dt_0.005_V_20_dnu_0.4.png} 
+	\caption{Графики функций и фурье-образов. \(\Delta \nu = 0.4\).}
+\end{figure}
+
+
+Время выполнения - 2.5 секунды.
+
+\[\]
+
+\textbf{Итог: }
+
+\end{document}
+
+	
+	
