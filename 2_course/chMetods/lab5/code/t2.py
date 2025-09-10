@@ -75,7 +75,7 @@ for dt in adt:
              color='darkblue', 
              label=r'$\hat{\Pi}(\nu)$')
     
-    ax2.set_xlabel('Frequency $\\nu$', fontsize=16)
+    ax2.set_xlabel('Frequency $сnu$', fontsize=16)
     ax2.set_ylabel('Amplitude', fontsize=16)
     ax2.legend(fontsize=16)
     ax2.set_xlim(-5, 5)
