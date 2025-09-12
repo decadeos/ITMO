@@ -660,6 +660,8 @@ y_1(t) = \sum_{n=-B}^{B} y_1(t_n) \cdot \text{sinc}(2B(t - t_n))
 	\caption{График функций \(y_1(t)\) интерполяционной.}
 \end{figure}
 
+На графике заметен алиасинг - эффект наложеня спектров. Это приводит к неверному изображению восстановленной функции.
+
 \subsubsection{Соблюдение условия теоремы}
 
 При \(\Delta t_{sample} = \frac{1}{100}\) построю график исходной функции \(y_1(t)\) и сэмплированной.
@@ -680,6 +682,173 @@ y_1(t) = \sum_{n=-B}^{B} y_1(t_n) \cdot \text{sinc}(2B(t - t_n))
 
 \subsubsection{Сравнение фурье-образов}
 
+Построю сравнительный график фурье-образов для исходной функции \(y_1(t)\), восстановленной функции с параметром \(\Delta t_{sample} = \frac{1}{5}\), которое нарушает условие теоремы Найквиста и  восстановленной функции с параметром \(\Delta t_{sample} = \frac{1}{100}\), которое соблюдает условие теоремы Найквиста. Проведу две вертикальные линии на частоте \(B = \pm 6\).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/spectrum_y1.png} 
+	\caption{График спектров.}
+\end{figure}
+
+Спектры подтверждают, что при правильном выборе \(\Delta t_{sample}\) происходит точное восстановление частотных характеристик сигнала в полосе $[-B, B]$.
+
+\subsection{Вторая функция}
+
+Построю график функции \[y_2(t)= \text{sinc}(3\pi t)\] без видимой дискретизации.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/original_y2.png} 
+	\caption{График функции \(y_2(t)\).}
+\end{figure}
+
+Возьму два значения \(\Delta t_{sample} \in [\frac{1}{5}, \frac{1}{100}]\). Первое удовлетворяет условию теоремы, а второе нет. 
+
+\subsubsection{Нарушение условия теоремы}
+
+При \(\Delta t_{sample} = \frac{1}{5}\) построю график исходной функции \(y_1(t)\) и сэмплированной.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/sampling_y2_violation.png} 
+	\caption{График функций \(y_2(t)\) и сэмплированой.}
+\end{figure}
+
+Применю формулу интерполяциик сэмплированному варианту функции:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/reconstruction_y2_violation.png} 
+	\caption{График функций \(y_2(t)\) интерполяционной.}
+\end{figure}
+
+
+\subsubsection{Соблюдение условия теоремы}
+
+При \(\Delta t_{sample} = \frac{1}{100}\) построю график исходной функции \(y_2(t)\) и сэмплированной.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/sampling_y2_nyquist.png} 
+	\caption{График функций \(y_2(t)\) и сэмплированой.}
+\end{figure}
+
+Также построю график исходной и интерполяционной функции
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/reconstruction_y2_nyquist.png} 
+	\caption{График функций \(y_2(t)\) интерполяционной.}
+\end{figure}
+
+\subsubsection{Сравнение фурье-образов}
+
+Построю сравнительный график фурье-образов для исходной функции \(y_2(t)\), восстановленной функции с параметром \(\Delta t_{sample} = \frac{1}{5}\), которое нарушает условие теоремы Найквиста и  восстановленной функции с параметром \(\Delta t_{sample} = \frac{1}{100}\), которое соблюдает условие теоремы Найквиста. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../images/spectrum_y2.png} 
+	\caption{График спектров.}
+\end{figure}
+
+Спектры подтверждают, что при правильном выборе \(\Delta t_{sample}\) происходит точное восстановление частотных характеристик сигнала в полосе $[-B, B]$.
+
+\subsection{Вывод}
+
+Теорема Найквиста-Шеннона-Котельникова экспериментально подтверждена: для точного восстановления сигнала необходимо, чтобы частота дискретизации как минимум в два раза превышала максимальную частоту в спектре сигнала.
+
+\begin{itemize}
+	\item При $\Delta t = \frac{1}{100}$ восстановленные сигналы $y_1(t)$ и $y_2(t)$ практически идеально совпадают с исходными.
+	\item При $\Delta t = \frac{1}{5}$ наблюдаются значительные искажения, вызванные эффектом наложения спектров.
+\end{itemize}
+
+\newpage
+
+\section{Вывод}
+
+В ходе работы проведено сравнительное исследование методов вычисления преобразования Фурье, разработан алгоритм приближения аналитического образа с помощью FFT. Экспериментально подтверждена теорема Найквиста-Шеннона-Котельникова, доказана возможность точного восстановления непрерывных сигналов из дискретных отсчётов. Практически исследована связь между непрерывными и дискретными представлениями сигналов.
+
+\newpage
+
+\section{Приложение}
+
+\begin{lstlisting}[language=python, caption=Пункт 1.1]
+def compute_fourier(T, dt, V, dnu):
+	t = np.arange(-T/2, T/2, dt)
+	nu = np.arange(-V/2, V/2, dnu)
+	
+	signal = np.zeros_like(t)
+	signal[np.abs(t) <= 0.5] = 1
+	
+	fourier_result = np.zeros(len(nu), dtype=complex)
+	for i in range(len(nu)):
+		integrand = signal * np.exp(-2j * np.pi * nu[i] * t)
+		fourier_result[i] = np.trapz(integrand, t)
+	
+	reconstructed = np.zeros(len(t), dtype=complex)
+	for j in range(len(t)):
+		integrand_back = fourier_result * np.exp(2j * np.pi * nu * t[j])
+		reconstructed[j] = np.trapz(integrand_back, nu)
+	
+	return t, nu, signal, fourier_result, reconstructed
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption=Пункт 1.2]
+def compute_dft(T, dt):
+	time_axis = np.arange(-T/2, T/2, dt)
+	n_points = len(time_axis)
+	
+	signal_data = np.zeros_like(time_axis)
+	signal_data[np.abs(time_axis) <= 0.5] = 1
+	
+	dft_result = np.fft.fft(signal_data, norm='ortho')
+	dft_result_shifted = np.fft.fftshift(dft_result)
+	
+	freq_axis = np.fft.fftfreq(n_points, dt)
+	freq_axis_shifted = np.fft.fftshift(freq_axis)
+	
+	idft_input = np.fft.ifftshift(dft_result_shifted)
+	reconstructed_signal = np.fft.ifft(idft_input, norm='ortho')
+	
+	return time_axis, freq_axis_shifted, signal_data, dft_result_shifted, reconstructed_signal
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=python, caption=Пункт 1.4]
+def compute_continuous_ft(T, dt):
+	time_points = np.arange(-T/2, T/2, dt)
+	n_samples = len(time_points)
+	
+	signal_values = np.zeros_like(time_points)
+	signal_values[np.abs(time_points) <= 0.5] = 1
+	
+	freq_points = np.fft.fftshift(np.fft.fftfreq(n_samples, dt))
+	
+	forward_coeff = dt * np.exp(-2j * np.pi * freq_points * (-T/2))
+	ft_result = np.fft.fftshift(forward_coeff * np.fft.fft(signal_values))
+	
+	inverse_coeff = 1 / dt * np.exp(2j * np.pi * freq_points * (-T/2))
+	inverse_ft = np.fft.ifft(np.fft.ifftshift(ft_result * inverse_coeff))
+	
+	return time_points, freq_points, signal_values, ft_result, inverse_ft
+\end{lstlisting}
+
+\begin{lstlisting}[language=python, caption=Сэмплирование]
+def interp_optimized(sample_values, sample_times, continuous_t, bandwidth):
+	time_step = sample_times[1] - sample_times[0]
+	time_diff_matrix = continuous_t[:, np.newaxis] - sample_times
+	sinc_values = np.sinc(2 * bandwidth * time_diff_matrix)
+	restored_signal = np.dot(sinc_values, sample_values) * 2 * bandwidth * time_step
+	return restored_signal
+
+def compute_spectrum(time_array, signal_array):
+	num_points = len(time_array)
+	sampling_interval = time_array[1] - time_array[0]
+	frequency_axis = np.fft.fftshift(np.fft.fftfreq(num_points, sampling_interval))
+	spectral_data = np.fft.fftshift(np.fft.fft(signal_array) / num_points)
+	return frequency_axis, np.abs(spectral_data)
+\end{lstlisting}
+	
 \end{document}
 
 	
