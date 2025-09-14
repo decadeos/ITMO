@@ -24,7 +24,7 @@ normalizedLogMagnitude = (logMagnitude - np.min(logMagnitude)) / (np.max(logMagn
 logMagnitudeImage = (normalizedLogMagnitude * 255).astype(np.uint8)
 Image.fromarray(logMagnitudeImage).save(directoryPath + "logMagnitude.png")
 
-logMagnitudeCorrect = Image.open(directoryPath + "rec4.jpg")
+logMagnitudeCorrect = Image.open(directoryPath + "rec5.jpg")
 
 if logMagnitudeCorrect.mode == 'RGBA':
     logMagnitudeCorrect = logMagnitudeCorrect.convert('RGB')
@@ -43,4 +43,4 @@ for channel in range(3):
 
 filteredImage = np.clip(filteredImage, 0, 1)  
 filteredImage = (filteredImage * 255).astype(np.uint8)
-Image.fromarray(filteredImage).save(directoryPath + "final4.png")
+Image.fromarray(filteredImage).save(directoryPath + "final5.png")
