@@ -478,6 +478,202 @@
 	\newpage
 	\section{Задание. Многоканальная система в форме вход-выход}
 	
+	В этом задании мне нужно:
+	
+	\begin{itemize}
+		
+		\item Взять коэффициенты \(a_{ij}(p)\), \(b_{ij}(p)\) из таблицы 2 и рассмотреть систему
+		
+		\[
+		A(p) y(t) = B(p) u(t),
+		\quad
+		A(p) = \begin{pmatrix}
+			a_{11}(p) & a_{12}(p) \\
+			a_{21}(p) & a_{22}(p)
+		\end{pmatrix},
+		\quad
+		B(p) = \begin{pmatrix}
+			b_{11}(p) & b_{12}(p) \\
+			b_{21}(p) & b_{22}(p)
+		\end{pmatrix}
+		\]
+		
+		\item Найти передаточную матрицу \(W(p)\).
+		
+		\item Построить структурную схему системы с блоками, соответствующими передаточным функциям \(W_{ij}(p)\), без разбиения на элементарные операции.
+		
+		\item Смоделировать систему при входах \(u_1(t) = 1(t)\), \(u_2(t) = \sin(t)\) и нулевых начальных условиях.
+		
+		\item Представить в отчёте:
+		\begin{itemize}
+			\item математическую модель (передаточную матрицу),
+			\item структурную схему,
+			\item графики входов \(u(t)\) и выходов \(y(t)\).
+		\end{itemize}
+		
+	\end{itemize}
+	
+	\subsection{Математическая модель системы}
+	
+	Для начала найду передаточную матрицу системы:
+	
+	\[A(p) y(t) = B(p) u(t)\]
+	
+	Перенесу \(A(p)\) вправо:
+	
+	\[
+	y(t) = \underbrace{ A^{-1}(p) B(p)}_{\textstyle W(p)} \cdot u(t)
+	\]
+	
+	То есть матрица передаточных функций \(W(p)\) равна:
+	
+	\[W(p) = A^{-1}(p) B(p)\]
+	
+	Запишу матрицы \(A\) и \(B\) в соответствии с моим вариантом:
+	
+	
+	\[
+	W(p) = 
+	\begin{bmatrix}
+		p + 11 & p+2 \\
+		p + 2 & p + 6
+	\end{bmatrix}^{-1}
+	\cdot
+	\begin{bmatrix}
+		9 & 8\\
+		1 & 8
+	\end{bmatrix}
+	\]
+	
+	Теперь вычислю матрицу \(A^{-1}\). Умножу обратный определитель на транспонированную матрицу алгебраических дополнений:
+	
+	\[
+	A^{-1} = \frac{1}{(p+11) \cdot (p+6) - (p+2)^2} \cdot  
+	\begin{bmatrix}
+		p + 6 & -(p+2) \\
+		-(p+2) & p + 11
+	\end{bmatrix}
+	= 
+	\frac{1}{13p + 62} \cdot  
+	\begin{bmatrix}
+		p + 6 & -(p+2) \\
+		-(p+2) & p + 11
+	\end{bmatrix}
+	\]
+	
+	Вычислю передаточную матрицу:
+	
+	\[
+	W(p) = 
+	\frac{1}{13p + 62} \cdot  
+	\begin{bmatrix}
+		p + 6 & -(p+2) \\
+		-(p+2) & p + 11
+	\end{bmatrix} \cdot  
+	\begin{bmatrix}
+		9 & 8\\
+		1 & 8
+	\end{bmatrix} = 
+	\frac{1}{13p + 62} \cdot 
+	\begin{bmatrix}
+		8p+52 & 32\\
+		-8p-7 & 72
+	\end{bmatrix}
+	\]
+	
+	Итоговая передаточная матрица:
+	
+	\[
+	\renewcommand{\arraystretch}{2.3}
+	W(p) =  
+	\begin{bmatrix}
+		\displaystyle \frac{8p+52}{13p + 62} & \displaystyle \frac{32}{13p + 62} \\
+		\displaystyle \frac{-8p-7}{13p + 62} & \displaystyle \frac{72}{13p + 62}
+	\end{bmatrix}
+	\renewcommand{\arraystretch}{1}
+	\]
+	
+	Запишу математическую модель двухканальной системы в матричном виде:
+	
+	\[
+	\begin{bmatrix}
+		y_1(t) \\
+		y_2(t)
+	\end{bmatrix}
+	=
+	\renewcommand{\arraystretch}{2.3}
+	\begin{bmatrix}
+		\displaystyle \frac{8p+52}{13p + 62} & \displaystyle \frac{32}{13p + 62} \\
+		\displaystyle \frac{-8p-7}{13p + 62} & \displaystyle \frac{72}{13p + 62}
+	\end{bmatrix}
+	\renewcommand{\arraystretch}{1}
+	\cdot
+	\begin{bmatrix}
+		u_1(t) \\
+		u_2(t)
+	\end{bmatrix}
+	\]
+	
+	
+	Запишу математическую модель двухканальной системы покомпонентно:
+	
+	\[
+	\begin{cases}
+		y_1(t) = \displaystyle \frac{8p+52}{13p + 62} u_1(t) + \frac{32}{13p + 62} u_2(t), \\[12pt]
+		y_2(t) = \displaystyle \frac{-8p-7}{13p + 62} u_1(t) + \frac{72}{13p + 62} u_2(t).
+	\end{cases}
+	\]
+	
+	Модель описывает взаимовлияние каждого входного сигнала на оба выхода системы через соответствующие передаточные функции.
+
+	\subsection{Структурная схема системы}
+	
+	 На схеме помимо сигналов показаны передаточные функции:
+	
+	\[
+	W_{11}(p) = \frac{8p+52}{13p + 62}, \quad W_{12}(p) = \frac{32}{13p + 62},
+	\]
+	
+	\[
+	W_{21}(p) = \frac{-8p-7}{13p + 62}, \quad W_{22}(p) = \frac{72}{13p + 62}
+	\]
+	
+	Для удобства нарисую два выхода на одной схеме.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task3/model.png}
+		\caption{Структурная схема двухканальной линейной динамической системы}
+	\end{figure}
+	
+	
+	\subsection{Графики входов и выходов}
+	
+	На одном графике изображу входы системы \(u_1(t) = 1(t)\) и \(u_2(t) = sin(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task3/u.png}
+		\caption{График входов \(u_1(t)\) и \(u_2(t)\)}
+	\end{figure}
+	
+	Также на одном графике изображу выходы системы \(y_1(t)\) и \(y_2(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task3/y.png}
+		\caption{График выходов \(y_1(t)\) и \(y_2(t)\)}
+	\end{figure}
+	
+	\textbf{Итог: } В этом задании я получила передаточную матрицу двухканальной системы \( W(p)\), описывающую связь входов и выходов. Построила структурную схему с блоками передаточных функций. Провела моделирование при входах \( u_1(t) = 1(t) \) и \( u_2(t) = \sin(t) \), результаты которого представлены графиками входных и выходных сигналов. 
+	
+	
+	
+	
+	
+	
+	
+	
 	\newpage
 	\section{Вывод}
 	
