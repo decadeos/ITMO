@@ -8,7 +8,31 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
 
+
+\lstset{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color{red},
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	numbersep=8pt,
+	backgroundcolor=\color{white},
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false,
+	captionpos=b,
+	escapeinside={\%*}{*)}, % для вставки LaTeX кода внутри листинга
+}
 % Настройка геометрии
 \geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
 
@@ -667,21 +691,149 @@
 	
 	\textbf{Итог: } В этом задании я получила передаточную матрицу двухканальной системы \( W(p)\), описывающую связь входов и выходов. Построила структурную схему с блоками передаточных функций. Провела моделирование при входах \( u_1(t) = 1(t) \) и \( u_2(t) = \sin(t) \), результаты которого представлены графиками входных и выходных сигналов. 
 	
+	\section{Задание. Многоканальная система в форме вход-состояние-выход}
+	
+	В этом задании мне нужно:
+	
+	\begin{itemize}
+		\item Взять матрицы \(A\), \(B\) и \(C\) из и рассмотреть систему в форме:
+		\[
+		\dot{x}(t) = A x(t) + B u(t), \quad y(t) = C x(t)
+		\]
+		
+		\item Построить структурную схему системы с использованием блоков элементарных операций (сумматоры, интеграторы, усилители), с явным обозначением каналов для каждой компоненты вектора состояния \(x(t)\).
+		
+		\item Смоделировать поведение системы при входных воздействиях \(u_1(t) = 1(t)\), \(u_2(t) = \sin(t)\) и нулевых начальных условиях \(x(0) = 0\).
+		
+		\item Представить в отчёте: математическую модель системы, структурную схему системы, графики входов \(u(t)\) и выходов \(y(t)\).
+	\end{itemize}
+	
+	\subsection{Математическая модель системы}
+	
+	Рассмотрю линейную многоканальную систему:
+	
+	\[
+	\dot{x}(t) = A x(t) + B u(t), \quad y(t) = C x(t)
+	\]
+	
+	Соглавно моему варианту возьму матрицы системы:
 	
 	
+	\[
+	\begin{bmatrix}
+		\dot{x_1}(t) \\ \dot{x_2}(t)
+	\end{bmatrix} = 
+	\begin{bmatrix}
+		0 & -9 \\
+		1 & -3
+	\end{bmatrix}\cdot
+	\begin{bmatrix} 
+		x_1(t) \\ x_2(t)
+	\end{bmatrix} + 
+	\begin{bmatrix}
+		9 & 5 \\
+		2 & 11
+	\end{bmatrix}\cdot
+	\begin{bmatrix}
+		1 \\
+		\sin(t)
+	\end{bmatrix}, \quad \begin{bmatrix}
+	y_1(t) \\ y_2(t)
+	\end{bmatrix} = \begin{bmatrix}
+	5 & 6 \\
+	3 & 8
+	\end{bmatrix}\cdot \begin{bmatrix}
+	x_1(t) \\ x_2(t)
+	\end{bmatrix}
+	\]
 	
+	Система дифференциальных уравнений имеет вид:
 	
+	\[
+	\begin{cases}
+		\dot{x}_1(t) = -9x_2(t) + 9 + 5\sin(t) \\
+		\dot{x}_2(t) = x_1(t) - 3x_2(t) + 2 + 11\sin(t) \\
+		y_1(t) = 5x_1(t) + 6x_2(t) \\
+		y_2(t) = 3x_1(t) + 8x_2(t)
+	\end{cases}
+	\]
 	
+	\subsection{Структурная схема системы}
+	
+
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task4/model.png}
+		\caption{Структурная схема многоканальной системы в форме В-С-В}
+	\end{figure}
+	
+	Схема наглядно показывает, как связаны между собой входы, состояния и выходы системы.
+	
+	\subsection{Графики входов и выходов}
+
+	
+	На одном графике изображу входы системы \(u_1(t) = 1(t)\) и \(u_2(t) = sin(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task3/u.png}
+		\caption{График входов \(u_1(t)\) и \(u_2(t)\)}
+	\end{figure}
+	
+	Также на одном графике изображу выходы системы \(y_1(t)\) и \(y_2(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task4/y.png}
+		\caption{График выходов \(y_1(t)\) и \(y_2(t)\)}
+	\end{figure}
+	
+	\textbf{Итог: } 
+	В этом задании я рассмотрела линейную многоканальную систему, задала матрицы \(A\), \(B\), \(C\) и построила её структурную схему. Смоделировала поведение системы при заданных входах и нулевых начальных условиях.
 	
 	
 	\newpage
 	\section{Вывод}
 	
+	В этой лабораторной работе я изучила моделирование линейных динамических систем как через одно уравнение высокого порядка, так и через систему дифференциальных уравнений первого порядка. На основе заданных матриц я построила систему в пространстве состояний и исследовала её поведение.
+	
+	С помощью симулинка я провела численное моделирование, получила графики и проанализировала динамику состояний и выходных сигналов.
+	
+	В итоге я закрепила теорию и получила практические навыки моделирования линейных систем управления.
+	
+	
 	
 	\newpage
 	\section{Приложение}
 	
+	\begin{lstlisting}[caption={Общие настройки графиков}]
+ax = gca;
+ax.LineWidth = 1.5;          
+ax.FontSize = 11;             
+ax.FontName = 'DejaVuMathTeXGyre'; 
+ax.XColor = [0.3, 0.3, 0.3]; 
+ax.YColor = [0.3, 0.3, 0.3]; 
+
+grid on; grid minor;
+ax.GridColor = [0.9, 0.9, 0.9];         
+ax.GridAlpha = 0.4;                     
+ax.MinorGridColor = [0.95, 0.95, 0.95]; 
+ax.MinorGridAlpha = 0.2;               
+
+xlabel('Time', 'FontSize', 13, 'FontWeight', 'normal');
+ylabel('Amplitude', 'FontSize', 13, 'FontWeight', 'normal');
+
+legend({'y_1(t)', 'y_2(t)'}, 'Location', 'northeast', 'FontSize', 13);
+
+set(gcf, 'Color', 'w');
+box on;
+
+	\end{lstlisting}
 	
-	
+\noindent
+Рабочая директория с исходниками лабораторной доступна по ссылке: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab1}{GitHub — lsau/lab1}.
+
+
 	
 \end{document}
