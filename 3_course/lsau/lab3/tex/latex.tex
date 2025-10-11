@@ -1,0 +1,184 @@
+\documentclass[a4paper,12pt]{article}
+
+% Самые необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{caption}
+\usepackage{subcaption}
+
+
+\lstset{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color{red},
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	numbersep=8pt,
+	backgroundcolor=\color{white},
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false,
+	captionpos=b,
+	escapeinside={\%*}{*)}, % для вставки LaTeX кода внутри листинга
+}
+% Настройка геометрии
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\begin{document}
+	
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		% Министерство
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\
+			«Национальный исследовательский университет ИТМО»\\
+		}
+		
+		\vspace{2cm}
+		
+		% Факультет
+		{\large
+			Факультет систем управления и робототехники\\
+		}
+		
+		\vspace{3cm}
+		
+		% Основной заголовок
+		{\Huge\bfseries
+			ОТЧЕТ\\
+		}
+		\vspace{0.5cm}
+		{\LARGE\bfseries
+			о лабораторной работе №3\\
+		}
+		
+		\vspace{1cm}
+		
+		% Дисциплина и тема
+		{\Large
+			По дисциплине: «Линейные системы автоматического управления»\\
+			\vspace{0.5cm}
+			Тема: «Вынужденное движение и показатели качества»\\
+		}
+		
+		\vspace{3cm}
+		
+		% Информация о студенте и преподавателях
+		\begin{minipage}{0.4\textwidth}
+			\raggedright
+			{\large
+				Студент:\\
+			}
+			Охрименко Е. Д.\\
+			Поток: 1.1.3\\
+			Вариант: 17\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.4\textwidth}
+			\raggedleft
+			{\large
+				Преподаватель:\\
+			}
+			Пашенко А. В.\\
+		\end{minipage}
+		
+		\vfill
+		
+		% Город и год
+		{\large
+			Санкт-Петербург\\
+			2025\\
+		}
+		
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage
+	\section{Задание. Вынужденное движение}
+	
+	Рассмотрю линейную систему второго порядка, заданную дифференциальным уравнением:
+	
+	\[
+	\ddot{y} + a_1 \dot{y} + a_0 y = a_0 u(t)
+	\]
+	
+	Требуется:
+	
+	\begin{itemize}
+		\item Построить структурную схему системы с использованием элементарных блоков и отметить на ней узлы задания начальных условий \( y(0) \) и \( \dot{y}(0) \).
+		\item Выполнить моделирование системы для нескольких наборов коэффициентов \( a_1 \) и \( a_0 \) при различных начальных условиях.
+		\item Построить графики выходных сигналов \( y(t) \) для каждого варианта на одной координатной плоскости для наглядного сравнения.
+		\item Сделать соответствующие выводы по результатам моделирования.
+	\end{itemize}
+	
+	\subsection{Аналитические выкладки}
+	
+	В работе используются параметры коэффициентов \(a_1\) и \(a_0\), вычисленные в Лабораторной работе №2 (задания 2, 3, 4). Для удобства их значения сведены в таблицу \ref{tab:params}.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Параметры экспериментов для варианта 17}
+		\label{tab:params}
+		\renewcommand{\arraystretch}{1.3}
+		\begin{tabular}{@{}clccc@{}}
+			\toprule
+			№ эксперимента & \(a_1\) & \(a_0\) & Начальные условия \(y(0), \dot{y}(0)\) & Вход \(u(t)\) \\
+			\midrule
+			1 & 5.8 & 57.41 & \(-1, 0\); \(0, 0\); \(1, 0\) & \(0.5\) \\
+			2 & 0 & 361 & \(-1, 0\); \(0, 0\); \(1, 0\) & \(0.8 t\) \\
+			3 & -1.8 & 49.81 & \(-1, 0\); \(0, 0\); \(1, 0\) & \(\cos(2t)\) \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	На графиках для каждого эксперимента будут представлены три траектории выхода \( y(t) \), соответствующие разным начальным условиям \( y(0) = -1, 0, 1 \) при фиксированном значении \(\dot{y}(0) = 0\). 
+	
+	
+	
+	\subsection{Структураня схема системы}
+	
+	Построю структурную схему систему -- возьму за основу схему из Лабораторной работы №2 (задание 1) и дострою вход \(u(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{../images/task1/model1.png}
+		\caption{Структурная схема системы}
+	\end{figure}
+	
+	\newpage
+	\section{Задание. Качество переходных процессов}
+	
+	
+	
+	
+	
+	\newpage
+	\section{Вывод}
+
+	
+\end{document}
