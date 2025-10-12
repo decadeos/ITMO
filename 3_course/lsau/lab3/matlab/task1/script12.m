@@ -1,15 +1,14 @@
-a0 = 57.41;
-a1 = 5.8;
+a1 = 0;
+a0 = 361;
 
-y0 = -1;
 y0_values = [-1, 0, 1];
 dy0 = 0;
 
 t = 0:0.01:10;
 
 u = [t' 0.5 * ones(length(t), 1)];
-% u = [t' 0.8 * t'];
-% u = [t' cos(2 * t')];
+u = [t' 0.8 * t'];
+u = [t' cos(2 * t')];
 
 assignin('base', 'a1', a1);
 assignin('base', 'a0', a0);
@@ -24,7 +23,7 @@ grid on;
 
 ax = gca;
 ax.LineWidth = 1.5;
-ax.FontSize = 11;
+ax.FontSize = 13;
 ax.FontName = 'DejaVuMathTeXGyre';
 ax.XColor = [0.3, 0.3, 0.3];
 ax.YColor = [0.3, 0.3, 0.3];
@@ -33,7 +32,15 @@ ax.GridColor = [0.9, 0.9, 0.9];
 ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
+xlim([0, 3]);
+ylim([-1.2, 2.0]);
 box on;
+
+line_styles = {
+    {'Color', [0, 0, 0.7], 'LineStyle', '-', 'LineWidth', 2.5},  % первый: синий сплошной
+    {'Color', [0.8, 0.2, 0.2], 'LineStyle', '-', 'LineWidth', 2.5},  % второй: красный сплошной
+    {'Color', [0, 0.5, 0.4], 'LineStyle', '-', 'LineWidth', 2.5}     % третий: еленый сплошной
+};
 
 for i = 1:length(y0_values)
     y0 = y0_values(i);
@@ -44,14 +51,14 @@ for i = 1:length(y0_values)
     y = out.y;
     t_out = out.tout;
     
-    plot(t_out, y.signals.values, 'LineWidth', 2.5);
+    % Рисуем график с заданным стилем
+    plot(t_out, y.signals.values, line_styles{i}{:});
 end
 
 xlabel('Time', 'FontSize', 15, 'FontWeight', 'normal');
 ylabel('Amplitude', 'FontSize', 15, 'FontWeight', 'normal');
-legend({'1', '2', '3'}, 'Interpreter', 'latex', 'Location', 'northeast', 'FontSize', 15, 'FontName', 'DejaVuMathTeXGyre');
+legend({'$y(0) = 1; \quad \dot{y}(0) = 0$', '$y(0) = 0; \quad \dot{y}(0) = 0$', '$y(0) = -1; \quad \dot{y}(0) = 0$'}, 'Interpreter', 'latex', 'Location', 'northeast', 'FontSize', 15, 'FontName', 'DejaVuMathTeXGyre');
 
 hold off;
 
-% relativePath = fullfile('../../images/task1', 'model1.png');
-% print('-smodel1', '-dpng', '-r300', relativePath) % сохранение пнг
+exportgraphics(gcf, '../../images/task1/y23.png', 'Resolution', 300);

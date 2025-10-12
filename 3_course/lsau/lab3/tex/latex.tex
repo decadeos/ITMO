@@ -15,8 +15,10 @@
 \usepackage{caption}
 \usepackage{booktabs}
 \usepackage{amssymb}
-\usepackage{caption}
 \usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
 
 
 \lstset{
@@ -160,7 +162,7 @@
 	
 	
 	
-	\subsection{Структураня схема системы}
+	\subsection{Структурная схема системы}
 	
 	Построю структурную схему систему -- возьму за основу схему из Лабораторной работы №2 (задание 1) и дострою вход \(u(t)\) с помощью блока \texttt{From Workspace}.
 	
@@ -172,23 +174,84 @@
 	
 	\subsection{Графики выходов}
 	
-	На графике первого эксперимента покажу выходной сигнал $y(t)$ при различных начальных условиях:
+	На графикaх экспериментов покажу выходные сигналы $y(t)$ при различных начальных условиях:
 	\[
 	y(0) = -1,\quad y(0) = 0,\quad y(0) = 1, \quad \dot{y}(0) = 0.
 	\]
 	
-	Для моделирования использованы параметры: \[a_1 = 5.8, \quad a_0 = 57.41\]
-	Входной сигнал: \[u(t) = 0.5\]
+	И при различных входных сигналах:
+		
+		\[u_1(t) = 0.5 \quad u_2(t) = \text{cos}(2t) \quad u_3(t) = \text{cos}(2t) \]
+		
+	\subsubsection{Эксперимент 1}
+	
+	Для моделирования использованы параметры: \(a_1 = 5.8, \quad a_0 = 57.41\)
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y11.png}
+		\caption{График сигналов при \(u_1(t) = 0.5\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y12.png}
+		\caption{График сигналов при \(u_2(t) = 0.8 t\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y13.png}
+		\caption{График сигналов при \(u_3(t) = \text{cos}(2t)\)}
+	\end{figure}
 	
 	
+	\subsubsection{Эксперимент 2}
+	
+	Для моделирования использованы параметры: \(a_1 = 0, \quad a_0 = 361\)
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y21.png}
+		\caption{График сигналов при \(u(t) = 0.5\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y22.png}
+		\caption{График сигналов при \(u(t) = 0.8 t\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y23.png}
+		\caption{График сигналов при \(u(t) = \text{cos}(2t)\)}
+	\end{figure}
+	
+	\subsubsection{Эксперимент 3}
+	
+	Для моделирования использованы параметры: \(a_1 = -1.8, \quad a_0 = 49.81\)
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y31.png}
+		\caption{График сигналов при \(u(t) = 0.5\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y32.png}
+		\caption{График сигналов при \(u(t) = 0.8 t\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task1/y33.png}
+		\caption{График сигналов при \(u(t) = \text{cos}(2t)\)}
+	\end{figure}
 	
 	
-	
-	
-	
-	
-	
-	
+	\textbf{Итог: }
 	
 	
 	
