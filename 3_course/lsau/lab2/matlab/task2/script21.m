@@ -10,7 +10,7 @@ figure('Color', 'white', 'Position', [100, 100, 900, 600]);
 
 plot(T1, K, 'LineWidth', 2.5, 'Color', [0, 0, 0.65]);
 hold on
-% Для примера можно добавить горизонтальную линию с K=12.5 (из твоих данных)
+
 yline(12.5, '--', 'LineWidth', 2.5, 'Color', [0.8, 0.2, 0.2]);
 hold off
 
