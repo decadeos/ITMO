@@ -51,7 +51,6 @@ for i = 1:length(y0_values)
     y = out.y;
     t_out = out.tout;
     
-    % Рисуем график с заданным стилем
     plot(t_out, y.signals.values, line_styles{i}{:});
 end
 
