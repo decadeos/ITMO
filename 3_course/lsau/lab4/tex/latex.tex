@@ -240,36 +240,54 @@
 		k_0 < -2 \\
 	\end{cases}
 	\]
-
 	
 	Для обеспечения устойчивости замкнутой системы выберу параметры регулятора \(k_0\) и \(k_1\) из получившихся диапазонов: 
 	
 	\[
 	\begin{cases}
-		k_1 = -3 \\
-		k_0 > -5 \\
+		k_1 = -1.5 \\
+		k_0 = -15 \\
+	\end{cases}
+	\]
+	
+	Приступлю к построению структурной схемы системы. 
+
+	\[
+	a_2 \ddot{y} + a_1 \dot{y} - k_1 \dot{y} + a_0 y - k_0 y = 0
+	\]
+	
+	\[
+	a_2 \ddot{y} = (k_1 - a_1)\, \dot{y} + (k_0 - a_0)\, y
+	\]
+	
+	\[
+	\ddot{y} = \frac{1}{a_2} \left[ (k_1 - a_1)\, \dot{y} + (k_0 - a_0)\, y \right]
+	\]
+	
+	
+	
+	Для удобства построения схемы запишу в следующем виде:
+	
+	\[
+	\begin{cases}
+		\dot{y} = \texttt{Derivative}(y) \\
+		\ddot{y} = \dfrac{1}{a_2} \left[ (k_1 - a_1)\, \dot{y} + (k_0 - a_0)\, y \right]
 	\end{cases}
 	\]
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1.07\textwidth]{../images/task1/model.png}
+		\caption{Структурная схема замкнутой системы}
+	\end{figure}
 	
 	
 	\newpage
 	\section{Вывод}
 	
 	
-	Материалы работы: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab3}{\texttt{github.com}}
+	Материалы работы: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab4}{\texttt{github.com}}
 	
 \end{document}

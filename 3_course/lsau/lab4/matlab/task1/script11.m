@@ -8,9 +8,7 @@ odefun = @(t, x) [x(2);
 tspan = [0 10];
 x0 = [y0; dy0];
 [t, x] = ode45(odefun, tspan, x0);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Color', 'white', 'Position', [100, 100, 900, 400]);
 
 plot(t, x(:,1), ...
@@ -18,25 +16,15 @@ plot(t, x(:,1), ...
     'Color', [0.0, 0.0, 0.7]);
 
 ylim([-51, 1]); xlim([0, 5.05]); 
+xlabel('Time'); ylabel('Amplitude');
 
-grid on;
-xlabel('Time');
-ylabel('Amplitude');
+ax = gca; ax.XTick = 0:1:10; 
+ax.LineWidth = 1.5; ax.FontSize = 12;
+ax.XColor = [0.3, 0.3, 0.3]; ax.YColor = [0.3, 0.3, 0.3];
+ax.GridColor = [0.9, 0.9, 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95, 0.95, 0.95]; ax.MinorGridAlpha = 0.2;
 
-ax = gca;
-ax.XTick = 0:1:10; 
-ax.LineWidth = 1.5;
-ax.FontSize = 12;
-ax.XColor = [0.3, 0.3, 0.3];
-ax.YColor = [0.3, 0.3, 0.3];
-
-grid on; grid minor;
-
-ax.GridColor = [0.9, 0.9, 0.9];
-ax.GridAlpha = 0.4;
-ax.MinorGridColor = [0.95, 0.95, 0.95];
-ax.MinorGridAlpha = 0.2;
-box on;
+grid on; grid minor; box on; grid on;
 
 legend('y_{paz}(t)', 'Location', 'northeast', 'FontSize', 15)
 
