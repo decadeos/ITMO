@@ -1,7 +1,7 @@
 a1 = 0;
 a0 = 361;
 
-y0_values = [-1, 0, 1];
+y0_values = [1, 0, -1];
 dy0 = 0;
 
 t = 0:0.01:10;
@@ -33,7 +33,7 @@ ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
 xlim([0, 3]);
-ylim([-1.2, 2.0]);
+ylim([-3.1, 4.1]);
 box on;
 
 line_styles = {
@@ -60,4 +60,5 @@ legend({'$y(0) = 1; \quad \dot{y}(0) = 0$', '$y(0) = 0; \quad \dot{y}(0) = 0$', 
 
 hold off;
 
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task1/y23.png', 'Resolution', 300);

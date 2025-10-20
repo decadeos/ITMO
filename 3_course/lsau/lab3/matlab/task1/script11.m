@@ -2,14 +2,14 @@ a0 = 57.41;
 a1 = 5.8;
 
 y0 = -1;
-y0_values = [-1, 0, 1];
+y0_values = [1, 0, -1];
 dy0 = 0;
 
 t = 0:0.01:10;
 
 u = [t' 0.5 * ones(length(t), 1)];
-% u = [t' 0.8 * t'];
-% u = [t' cos(2 * t')];
+u = [t' 0.8 * t'];
+u = [t' cos(2 * t')];
 
 assignin('base', 'a1', a1);
 assignin('base', 'a0', a0);
@@ -34,6 +34,7 @@ ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
 xlim([0, 4]);
+ylim([-1.2, 2.2]);
 box on;
 
 line_styles = {
@@ -63,7 +64,8 @@ hold off;
 % relativePath = fullfile('../../images/task1', 'model1.png');
 % print('-smodel1', '-dpng', '-r300', relativePath) % сохранение пнг
 
-exportgraphics(gcf, '../../images/task1/y11.png', 'Resolution', 300);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task1/y13.png', 'Resolution', 300);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

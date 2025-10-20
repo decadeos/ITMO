@@ -1,6 +1,6 @@
 t = 0:0.01:100;
 
-lambda = [-1+1j, -1-1j, -0.1];
+lambda = [-0.2+4j, -0.2-4j, -3];
 
 num = abs(prod(lambda));
 den = poly(lambda);
@@ -38,17 +38,24 @@ uistack(h_fill, 'bottom')
 
 h_plot = plot(t_out, y, 'b-', 'LineWidth', 2.5, 'Color', [0, 0, 0.7]);
 
-if tp > 0
-    h_tp = plot([tp, tp], [0, lower_bound], 'r--', 'LineWidth', 1.5, 'Color', [0.8, 0, 0]);
+h_ymax = plot([0, t_max], [y_max, y_max], 'k--', 'LineWidth', 1.5);
 
-    text(tp+2, -0.011, sprintf('t_p', tp), ...
+text(-0.3, y_max - 0.05, 'y_{max}', ...
+    'HorizontalAlignment', 'right', ...
+    'VerticalAlignment', 'bottom', ...  
+    'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
+
+if tp > 0
+    h_tp = plot([tp, tp], [0, upper_bound], 'r--', 'LineWidth', 1.5, 'Color', [0.8, 0, 0]);
+
+    text(tp, -0.011, sprintf('t_p', tp), ...
      'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', ...
      'FontSize', 12, 'Color', [0.8, 0, 0], 'FontWeight', 'bold');
 end
 
 h_yinf = plot([0, t_out(end)], [y_inf, y_inf], 'k--', 'LineWidth', 1.5);
 
-text(-1.5, y_inf, sprintf('y_{∞}', y_inf), ...
+text(-0.5, y_inf, sprintf('y_{∞}', y_inf), ...
      'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', ...
      'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
 
@@ -67,26 +74,25 @@ ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
 box on;
 
-ylim([-0.02, 1.1]); 
-xlim([0, t_out(end)]); 
+ylim([-0.02, 1.5]); 
+xlim([0, 35]); 
+
+ax.TickDir = 'in';
+
+ax.YTick = 0:0.4:1.2; 
 
 xlabel('Time');
 ylabel('Amplitude');
 
-if tp > 0
-    legend([h_plot, h_fill, h_yinf, h_tp], ...
-           'Step response', '±5% region', ...
-           sprintf('y_{∞} = %.2f', y_inf), ...
-           sprintf('t_p = %.2f', tp), ...
-           'Location', 'southeast');
-else
-    legend([h_plot, h_fill, h_yinf], ...
-           'Step response', '±5% region', ...
-           sprintf('y_{∞} = %.2f', y_inf), ...
-           'Location', 'southeast');
-end
+h_leg = legend([h_plot, h_fill, h_yinf, h_ymax, h_tp], ...
+       'Step response', '±5% region', ...
+       sprintf('y_{∞} = %.2f', y_inf), ...
+       sprintf('y_{max} = %.2f', y_max), ...
+       sprintf('t_p = %.2f s', tp), ...
+       'Location', 'southeast');
 
-% exportgraphics(gcf, '../../images/task2/y8.png', 'Resolution', 300);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task2/y8.png', 'Resolution', 300);
 
 fprintf('\n==== Результаты ====\n');
 fprintf('Полюса:                 %s\n', mat2str(lambda));
@@ -136,13 +142,13 @@ ax.MinorGridAlpha = 0.2;
 xlabel('Re(\lambda)');
 ylabel('Im(\lambda)');
 
-xlim([-2.1, 2.1]);
-ylim([-2.1, 2.1]);
+xlim([-5.5, 5.25]); 
+ylim([-5.25, 5.24]); 
 
 ax.TickDir = 'in';
 
-ax.XTick = -2:1:2; 
-ax.YTick = -2:1:2;
+ax.XTick = -12:2:12; 
+ax.YTick = -12:2:12;
 
 ax.XAxis.Label.FontSize = 13;
 ax.YAxis.Label.FontSize = 13;
@@ -150,16 +156,17 @@ ax.YAxis.Label.FontSize = 13;
 hold on;
 
 arrowColor = [0.3, 0.3, 0.3];
-arrowSize = 0.25; 
+arrowSize = 0.15; 
 
-x_arrow_x = [1.98, 2.1, 1.98, 1.98]; 
+x_arrow_x = [1.98, 2.2, 1.98, 1.98];
 x_arrow_y = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
 fill(x_arrow_x, x_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 y_arrow_x = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
-y_arrow_y = [1.98, 2.1, 1.98, 1.98];  
+y_arrow_y = [1.98, 2.2, 1.98, 1.98];
 fill(y_arrow_x, y_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 hold off;
 
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task2/lambda8.png', 'Resolution', 300);

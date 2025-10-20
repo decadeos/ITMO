@@ -40,29 +40,25 @@ h_plot = plot(t_out, y, 'b-', 'LineWidth', 2.5, 'Color', [0, 0, 0.7]);
 
 h_ymax = plot([0, t_max], [y_max, y_max], 'k--', 'LineWidth', 1.5);
 
-text(-0.3, y_max + 0.00, 'y_{max}', ...
+text(-0.3, y_max - 0.05, 'y_{max}', ...
     'HorizontalAlignment', 'right', ...
     'VerticalAlignment', 'bottom', ...  
     'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
 
+h_tp = plot([tp, tp], [0, lower_bound], 'r--', 'LineWidth', 1.5, 'Color', [0.8, 0, 0]);
 
-if tp > 0
-    h_tp = plot([tp, tp], [0, lower_bound], 'r--', 'LineWidth', 1.5, 'Color', [0.8, 0, 0]);
+text(tp+1.2, -0.011, sprintf('t_p', tp), ...
+ 'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', ...
+ 'FontSize', 12, 'Color', [0.8, 0, 0], 'FontWeight', 'bold');
 
-    text(tp+1, -0.011, sprintf('t_p', tp), ...
-     'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', ...
-     'FontSize', 12, 'Color', [0.8, 0, 0], 'FontWeight', 'bold');
-end
 
 h_yinf = plot([0, t_out(end)], [y_inf, y_inf], 'k--', 'LineWidth', 1.5);
 
-text(-1, y_inf, sprintf('y_{∞}', y_inf), ...
+text(-2, y_inf, sprintf('y_{∞}', y_inf), ...
      'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', ...
      'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
 
 hold off;
-
-
 
 ax = gca;
 ax.LineWidth = 1.5;
@@ -75,15 +71,19 @@ ax.GridColor = [0.9, 0.9, 0.9];
 ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
+
+ax.YTick = 0:10:50;
+ax.YTick = 0:0.2:1;
+
 box on;
 
-ylim([-0.02, 1.3]); 
+ylim([-0.02, 1.29]); 
 xlim([0, t_out(end)]); 
 
 xlabel('Time');
 ylabel('Amplitude');
 
-legend([h_plot, h_fill, h_yinf, h_ymax, h_tp], ...
+h_leg = legend([h_plot, h_fill, h_yinf, h_ymax, h_tp], ...
        'Step response', '±5% region', ...
        sprintf('y_{∞} = %.2f', y_inf), ...
        sprintf('y_{max} = %.2f', y_max), ...
@@ -91,7 +91,8 @@ legend([h_plot, h_fill, h_yinf, h_ymax, h_tp], ...
        'Location', 'southeast');
 
 
-exportgraphics(gcf, '../../images/task2/y7.png', 'Resolution', 300);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+% exportgraphics(gcf, '../../images/task2/y7.png', 'Resolution', 300);
 
 fprintf('\n==== Результаты ====\n');
 fprintf('Полюса:                 %s\n', mat2str(lambda));
@@ -141,8 +142,8 @@ ax.MinorGridAlpha = 0.2;
 xlabel('Re(\lambda)');
 ylabel('Im(\lambda)');
 
-xlim([-2.1, 2.1]);
-ylim([-2.1, 2.1]); 
+xlim([-2.1, 2.2]);
+ylim([-2.1, 2.2]); 
 
 ax.TickDir = 'in';
 
@@ -155,16 +156,18 @@ ax.YAxis.Label.FontSize = 13;
 hold on;
 
 arrowColor = [0.3, 0.3, 0.3];
-arrowSize = 0.25; 
+arrowSize = 0.15; 
 
-x_arrow_x = [1.98, 2.1, 1.98, 1.98];
+x_arrow_x = [1.98, 2.2, 1.98, 1.98];
 x_arrow_y = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
 fill(x_arrow_x, x_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 y_arrow_x = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
-y_arrow_y = [1.98, 2.1, 1.98, 1.98]; 
+y_arrow_y = [1.98, 2.2, 1.98, 1.98];
 fill(y_arrow_x, y_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 hold off;
 
-exportgraphics(gcf, '../../images/task2/lambda7.png', 'Resolution', 300);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+
+% exportgraphics(gcf, '../../images/task2/lambda7.png', 'Resolution', 300);

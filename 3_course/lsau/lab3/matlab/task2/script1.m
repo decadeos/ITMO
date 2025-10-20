@@ -47,7 +47,7 @@ end
 
 h_yinf = plot([0, t_out(end)], [y_inf, y_inf], 'k--', 'LineWidth', 1.5);
 
-text(-0.3, y_inf, sprintf('y_{∞}', y_inf), ...
+text(-0.4, y_inf, sprintf('y_{∞}', y_inf), ...
      'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', ...
      'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
 
@@ -72,19 +72,14 @@ xlim([0, t_out(end)]);
 xlabel('Time');
 ylabel('Amplitude');
 
-if tp > 0
-    legend([h_plot, h_fill, h_yinf, h_tp], ...
-           'Step response', '±5% region', ...
-           sprintf('y_{∞} = %.2f', y_inf), ...
-           sprintf('t_p = %.2f', tp), ...
-           'Location', 'southeast');
-else
-    legend([h_plot, h_fill, h_yinf], ...
-           'Step response', '±5% region', ...
-           sprintf('y_{∞} = %.2f', y_inf), ...
-           'Location', 'southeast');
-end
 
+legend([h_plot, h_fill, h_yinf, h_tp], ...
+       'Step response', '±5% region', ...
+       sprintf('y_{∞} = %.2f', y_inf), ...
+       sprintf('t_p = %.2f', tp), ...
+       'Location', 'southeast');
+
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task2/y1.png', 'Resolution', 300);
 
 fprintf('\n==== Результаты ====\n');
@@ -123,8 +118,8 @@ ax.MinorGridAlpha = 0.2;
 xlabel('Re(\lambda)');
 ylabel('Im(\lambda)');
 
-xlim([-2.1, 2.1]);
-ylim([-2.1, 2.1]);
+xlim([-2.1, 2.2]);
+ylim([-2.1, 2.17]);
 
 ax.TickDir = 'in';
 ax.XTick = -2:1:2; 
@@ -136,16 +131,17 @@ ax.YAxis.Label.FontSize = 13;
 hold on;
 
 arrowColor = [0.3, 0.3, 0.3];
-arrowSize = 0.14; 
+arrowSize = 0.15; 
 
-x_arrow_x = [1.98, 2.1, 1.98, 1.98]; 
+x_arrow_x = [1.98, 2.2, 1.98, 1.98];
 x_arrow_y = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
 fill(x_arrow_x, x_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 y_arrow_x = [arrowSize/2, 0, -arrowSize/2, arrowSize/2];
-y_arrow_y = [1.98, 2.1, 1.98, 1.98];
+y_arrow_y = [1.98, 2.2, 1.98, 1.98];
 fill(y_arrow_x, y_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 hold off;
 
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task2/lambda1.png', 'Resolution', 300);

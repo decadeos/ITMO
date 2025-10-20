@@ -1,7 +1,7 @@
 a1 = -1.8;
 a0 = 49.81;
 
-y0_values = [-1, 0, 1];
+y0_values = [1, 0, -1];
 dy0 = 0;
 
 t = 0:0.01:10;
@@ -33,7 +33,7 @@ ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
 xlim([0, 4]);
-ylim([-55, 55]);
+ylim([-48, 48]);
 box on;
 
 line_styles = {
@@ -56,8 +56,9 @@ end
 
 xlabel('Time', 'FontSize', 15, 'FontWeight', 'normal');
 ylabel('Amplitude', 'FontSize', 15, 'FontWeight', 'normal');
-legend({'$y(0) = 1; \quad \dot{y}(0) = 0$', '$y(0) = 0; \quad \dot{y}(0) = 0$', '$y(0) = -1; \quad \dot{y}(0) = 0$'}, 'Interpreter', 'latex', 'Location', 'northeast', 'FontSize', 15, 'FontName', 'DejaVuMathTeXGyre');
+legend({'$y(0) = 1; \quad \dot{y}(0) = 0$', '$y(0) = 0; \quad \dot{y}(0) = 0$', '$y(0) = -1; \quad \dot{y}(0) = 0$'}, 'Interpreter', 'latex', 'Location', 'southwest', 'FontSize', 15, 'FontName', 'DejaVuMathTeXGyre');
 
 hold off;
 
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task1/y31.png', 'Resolution', 300);

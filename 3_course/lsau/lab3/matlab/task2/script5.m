@@ -40,7 +40,7 @@ h_plot = plot(t_out, y, 'b-', 'LineWidth', 2.5, 'Color', [0, 0, 0.7]);
 
 h_ymax = plot([0, t_max], [y_max, y_max], 'k--', 'LineWidth', 1.5);
 
-text(-0.3, y_max, 'y_{max}', ...
+text(-0.1, y_max, 'y_{max}', ...
     'HorizontalAlignment', 'right', ...
     'VerticalAlignment', 'middle', ...
     'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
@@ -48,20 +48,18 @@ text(-0.3, y_max, 'y_{max}', ...
 if tp > 0
     h_tp = plot([tp, tp], [0, upper_bound], 'r--', 'LineWidth', 1.5, 'Color', [0.8, 0, 0]);
 
-    text(tp+0.2, -0.011, sprintf('t_p', tp), ...
+    text(tp+0.1, -0.011, sprintf('t_p', tp), ...
      'HorizontalAlignment', 'center', 'VerticalAlignment', 'top', ...
      'FontSize', 12, 'Color', [0.8, 0, 0], 'FontWeight', 'bold');
 end
 
 h_yinf = plot([0, t_out(end)], [y_inf, y_inf], 'k--', 'LineWidth', 1.5);
 
-text(-0.3, y_inf, sprintf('y_{∞}', y_inf), ...
+text(-0.4, y_inf, sprintf('y_{∞}', y_inf), ...
      'HorizontalAlignment', 'right', 'VerticalAlignment', 'middle', ...
      'FontSize', 12, 'Color', 'black', 'FontWeight', 'bold');
 
 hold off;
-
-
 
 ax = gca;
 ax.LineWidth = 1.5;
@@ -76,6 +74,9 @@ ax.MinorGridColor = [0.95, 0.95, 0.95];
 ax.MinorGridAlpha = 0.2;
 box on;
 
+ax.YTick = 0:2:10;
+ax.YTick = 0:0.2:1;
+
 ylim([-0.02, 1.3]); 
 xlim([0, t_out(end)]); 
 
@@ -89,7 +90,7 @@ legend([h_plot, h_fill, h_yinf, h_ymax, h_tp], ...
        sprintf('t_p = %.2f s', tp), ...
        'Location', 'southeast');
 
-
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task2/y5.png', 'Resolution', 300);
 
 fprintf('\n==== Результаты ====\n');
@@ -166,6 +167,5 @@ fill(y_arrow_x, y_arrow_y, arrowColor, 'EdgeColor', arrowColor, 'LineWidth', 1);
 
 hold off;
 
-
-
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task2/lambda5.png', 'Resolution', 300);
