@@ -1,3 +1,4 @@
+# latex
 *.aux
 *.log
 *.out
@@ -6,6 +7,9 @@
 *.fls
 *.synctex.gz
 
+# matlab
+*.asv
+slprj/
 
 # Python
 __pycache__/
