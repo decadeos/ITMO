@@ -6,6 +6,7 @@ out = sim('model1');
 
 t = out.y.time;
 y = out.y.signals.values;
+save(fullfile("../task2", 'sim_data.mat'), 't', 'y');
 
 figure('Color', 'white', 'Position', [100, 100, 900, 400]);
 
