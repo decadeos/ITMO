@@ -1,6 +1,7 @@
 t = 0:0.01:11;
 g1 = 4 * ones(size(t));
-g2 = t;    
+g2 = t;
+g3 = 0.25 * t .* t;
 
 figure('Color', 'white', 'Position', [100, 100, 900, 400]);
 hold on;
@@ -12,13 +13,14 @@ line_styles = {
     {'Color', [0.8, 0.2, 0.2], 'LineStyle', '-', 'LineWidth', 2.5},  % red
 };
 plot(t, g1, line_styles{3}{:}); 
-plot(t, g2, line_styles{4}{:})
+plot(t, g2, line_styles{4}{:});
+plot(t, g3, line_styles{2}{:});
 
 xlabel('Time');
 ylabel('g(t)');
 
-legendStrings = {'g_1 = 4', 'g_2 = t'};
-legend(legendStrings, 'Location', 'northeast', 'FontSize', 13);
+legendStrings = {'g_1 = 4', 'g_2 = t', 'g_3 = 0.25t^2'};
+legend(legendStrings, 'Location', 'southeast', 'FontSize', 13);
 
 ax = gca; ax.XTick = 0:1:10; 
 ax.LineWidth = 1.5; ax.FontSize = 12;
@@ -30,4 +32,4 @@ grid on; grid minor; box on; grid on;
 grid on; grid minor; box on;
 
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
-exportgraphics(gcf, '../../images/task3/g1.png', 'Resolution', 300);
+exportgraphics(gcf, '../../images/task4/g1.png', 'Resolution', 300);
