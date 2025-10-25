@@ -1,0 +1,84 @@
+kVal = [0.1, 0.5, 1];
+t = 0:0.01:60;
+g = [t' t'];   
+
+figure('Color', 'white', 'Position', [100, 100, 900, 400]);
+hold on;
+
+line_styles = {
+    % {'Color', [0.85, 0.65, 0], 'LineStyle', '-', 'LineWidth', 2.5}, % Gold
+    {'Color', [0, 0.5, 0.4], 'LineStyle', '-', 'LineWidth', 2.5} % green
+    {'Color', [0, 0, 0.7], 'LineStyle', '-', 'LineWidth', 2.5},  % blue
+    {'Color', [0.8, 0.2, 0.2], 'LineStyle', '--', 'LineWidth', 2.5},  % red
+};
+
+plot(t, t, ':', 'LineWidth', 2.5, 'Color', [0.3, 0.3, 0.3]);
+
+for i = 1:length(kVal)
+    k = kVal(i);
+    assignin('base', 'k', k);
+    out = sim('model41');
+
+    t = out.y.time;
+    y = out.y.signals.values;
+
+    plot(t, y, line_styles{i}{:});
+end
+
+xlabel('Time');
+ylabel('y(t)');
+
+legendStrings = arrayfun(@(i) sprintf('k_{%d} = %.1f', i, kVal(i)), 1:length(kVal), 'UniformOutput', false);
+legendStrings = [{'g_{2} = t'}, legendStrings]; 
+legend(legendStrings, 'Location', 'northwest', 'FontSize', 13, 'NumColumns', 1);
+
+
+ax = gca;
+ax.LineWidth = 1.5; ax.FontSize = 12;
+ax.XColor = [0.3, 0.3, 0.3]; ax.YColor = [0.3, 0.3, 0.3];
+ax.GridColor = [0.9, 0.9, 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95, 0.95, 0.95]; ax.MinorGridAlpha = 0.2;
+xlim([-0.1, 60.01]); ylim([-1, 60.01]);
+grid on; grid minor; box on; grid on;
+grid on; grid minor; box on;
+
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task4/y2.png', 'Resolution', 300);
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+figure('Color', 'white', 'Position', [100, 100, 900, 400]);
+hold on;
+
+e_ust = zeros(length(kVal), 1); 
+for i = 1:length(kVal)
+    k = kVal(i);
+    assignin('base', 'k', k);
+    out = sim('model41');
+
+    t = out.e.time;
+    e = out.e.signals.values;
+    plot(t, e, line_styles{i}{:});
+
+    e_ust(i) = e(end);
+end
+
+xlabel('Time');
+ylabel('e(t)');
+
+legendStrings = cell(length(kVal), 1);
+for i = 1:length(kVal)
+    legendStrings{i} = sprintf('e_{%d}^{yct} = %.3f', i, e_ust(i));
+end
+legend(legendStrings, 'Location', 'east', 'FontSize', 13, 'NumColumns', 1);
+
+ax = gca;
+ax.LineWidth = 1.5; ax.FontSize = 12;
+ax.XColor = [0.3, 0.3, 0.3]; ax.YColor = [0.3, 0.3, 0.3];
+ax.GridColor = [0.9, 0.9, 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95, 0.95, 0.95]; ax.MinorGridAlpha = 0.2;
+% xlim([-0.01, 4.05]); ylim([-0.1, 1.55]);
+grid on; grid minor; box on; grid on;
+grid on; grid minor; box on;
+
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task4/e2.png', 'Resolution', 300);
