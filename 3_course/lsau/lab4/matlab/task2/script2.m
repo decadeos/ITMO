@@ -1,5 +1,5 @@
 load('../task2/sim_data.mat');
-% print(['-s' gcs], '-dpng', '-r300', '../../images/task1/model.png');
+print(['-s' gcs], '-dpng', '-r300', '../../images/task2/model.png');
 t_load = t; y_load = y;
 
 a2 = 1; a1 = 1; a0 = -2;

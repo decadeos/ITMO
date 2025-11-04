@@ -37,8 +37,7 @@ for i = 1:size(k_combinations, 1)
     plot(t_sim, y, line_styles{i}{:});
 end
 
-xlabel('Time');
-ylabel('y(t)');
+xlabel('Time'); ylabel('y(t)');
 
 legendStrings = arrayfun(@(i) sprintf('k_i=%.0f, k_p=%.1f', ...
     k_combinations(i,1), k_combinations(i,2)), ...

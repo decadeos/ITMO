@@ -75,17 +75,16 @@ end
 xlabel('Time');
 ylabel('e(t)');
 
-legendStrings = arrayfun(@(i) sprintf('k_i=%.0f, k_p=%.1f', ...
-    k_combinations(i,1), k_combinations(i,2)), ...
+legendStrings = arrayfun(@(i) sprintf('e_%d', i), ...
     1:size(k_combinations,1), 'UniformOutput', false);
-legend(legendStrings, 'Location','northeast','FontSize',13);
+legend(legendStrings, 'Location','northeast','FontSize',13, NumColumns=2);
 
 ax = gca;
 ax.LineWidth = 1.5; ax.FontSize = 12;
 ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
 ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
-xlim([-0.05 80.05]); ylim([-1.55 2.85]);
+xlim([-0.05 80.05]); ylim([-1.35 2.05]);
 grid on; grid minor; box on;
 
 set(findall(gcf,'-property','FontName'),'FontName','DejaVu Math TeX Gyre');
