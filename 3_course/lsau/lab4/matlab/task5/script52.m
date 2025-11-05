@@ -41,7 +41,7 @@ ylabel('y(t)');
 legendStrings = arrayfun(@(i) sprintf('k_i=%.0f, k_p=%.1f', ...
     k_combinations(i,1), k_combinations(i,2)), ...
     1:size(k_combinations,1), 'UniformOutput', false);
-legendStrings = [{'g(t)=t'}, legendStrings];
+legendStrings = [{'g(t)=4 sin(0.25t)'}, legendStrings];
 legend(legendStrings, 'Location','northeast','FontSize',13,'NumColumns',1);
 
 ax = gca;
