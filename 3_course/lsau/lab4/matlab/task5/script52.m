@@ -49,7 +49,7 @@ ax.LineWidth = 1.5; ax.FontSize = 12;
 ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
 ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
-xlim([-0.05 80.05]); ylim([-5.05 12.05]);
+xlim([-0.05 80.05]); ylim([-5.05 13.05]);
 grid on; grid minor; box on;
 
 set(findall(gcf,'-property','FontName'),'FontName','DejaVu Math TeX Gyre');
@@ -88,4 +88,4 @@ xlim([-0.05 80.05]); ylim([-1.35 2.05]);
 grid on; grid minor; box on;
 
 set(findall(gcf,'-property','FontName'),'FontName','DejaVu Math TeX Gyre');
-exportgraphics(gcf, '../../images/task5/e2.png', 'Resolution', 300);
+% exportgraphics(gcf, '../../images/task5/e2.png', 'Resolution', 300);

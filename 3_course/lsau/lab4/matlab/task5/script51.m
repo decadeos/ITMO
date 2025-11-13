@@ -54,7 +54,7 @@ xlim([-0.05 20.05]); ylim([-0.2 20]);
 grid on; grid minor; box on;
 
 set(findall(gcf,'-property','FontName'),'FontName','DejaVu Math TeX Gyre');
-exportgraphics(gcf, '../../images/task5/y1.png', 'Resolution', 300);
+% exportgraphics(gcf, '../../images/task5/y1.png', 'Resolution', 300);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 figure('Color', 'white', 'Position', [100, 100, 900, 400]);
 hold on;
@@ -90,7 +90,7 @@ ax.LineWidth = 1.5; ax.FontSize = 12;
 ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
 ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
-xlim([-0.05 20.05]);
+xlim([-0.05 30.05]);
 grid on; grid minor; box on;
 
 set(findall(gcf,'-property','FontName'),'FontName','DejaVu Math TeX Gyre');
