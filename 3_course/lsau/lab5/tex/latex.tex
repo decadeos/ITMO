@@ -731,7 +731,7 @@
 			
 			\node[orange] at (1,1.3) {$k$};
 			
-			\draw[fill=blue!40] (2,0.3) rectangle (3.5,1.7);
+			\draw[fill=blue!20] (2,0.3) rectangle (3.5,1.7);
 			\node[white] at (2.75,1.0) {\Large $M$};
 			
 			\foreach \x in {0.1,0.3,...,5}{
@@ -739,7 +739,7 @@
 			}
 			
 			\draw[->,red, line width=1.4pt] (3.5,1) -- (4.7,1);
-			\node[red] at (4.8,1.2) {$F$};
+			\node[red] at (4.1,1.2) {$F$};
 			
 		\end{tikzpicture}
 		\caption{Пружинный маятник}
@@ -830,7 +830,7 @@
 	\begin{cases}
 		a = 0 & \omega < T^{-1} \\
 		a = 1 & \omega > T^{-1}
-	\end{cases} 
+	\end{cases} хема операционного усилителя
 	\quad \Longrightarrow \quad
 	\begin{cases}
 		a = 0 & \omega < \sqrt{\dfrac{71}{14}} \\[8pt]
@@ -864,9 +864,101 @@
 	\newpage
 	\section{Регулятор на операционном усилителе}
 	
+	\begin{figure}[h!]
+	\centering   
+	\begin{tikzpicture}
+		
+		\fill (canvas cs:x=0cm,y=3cm) circle (2pt);
+		\draw (0,3) -- (1,3);
+		
+		% резистор 1
+		\filldraw[fill=blue!20] (1,2.7) rectangle (3,3.3);
+		\node at (2,3.6) {$R_1$};
+		
+		\draw (3,3) -- (4,3) -- (4, 4.5);
+		\fill (canvas cs:x=4cm,y=3cm) circle (2pt);
+		\draw (4, 4.5) -- (5, 4.5);
+		
+		% конденсатор
+		\draw[line width=1.5pt]  (5, 4) -- (5, 5);   
+		\draw[line width=1.5pt]  (5.3, 4) -- (5.3, 5); 
+		\node at (5.15, 5.3) {$C$};
+		
+		\draw (5.3, 4.5) -- (6.3, 4.5);
+		
+		% резистор 2
+		\filldraw[fill=blue!20] (6.3, 4.2) rectangle (8.3, 4.8);
+		\node at (7.3, 5.1) {$R_2$};
+		
+		\draw (8.3, 4.5) -- (9.3, 4.5) -- (9.3, 2.5);
+		\draw (4, 3) -- (6.3, 3);
+		
+		% Gain
+		\filldraw[fill=blue!20] (6.3, 3.5) -- (6.3, 1.5) -- (8, 2.5) -- cycle;
+		\node[text=white, font=\Large\boldmath] at (6.6, 3.0) {$-$};
+		\node[text=white, font=\Large\boldmath] at (6.6, 2.0) {$+$};
+		\draw (8, 2.5) -- (10, 2.5);
+		\fill (canvas cs:x=10cm,y=2.5cm) circle (2pt);
+
+		\draw (6.3, 2) -- (5.3, 2) -- (5.3, 1);
+		\fill (canvas cs:x=5.3cm,y=1cm) circle (2pt);
+		\draw (0, 1) -- (10, 1);
+		\fill (canvas cs:x=0cm,y=1cm) circle (2pt);
+		\fill (canvas cs:x=10cm,y=1cm) circle (2pt);
+		
+		\node at (0.5, 2) {$U_\text{вх}$};
+		\node at (10, 1.8) {$U_\text{вых}$};
+	\end{tikzpicture}
+	\caption{Принципиальная схема регулятора на операционном усилителе}
+	\end{figure}
 	
+	
+	Приступлю к поиску передаточной функции объекта. Для начала запишу ток через первый резистор:
+	
+	\[I_1 = \frac{U_\text{вх}}{R_1}\]
+	
+	Дальше ток должен пойти в минус усилителя и в обратную связь, так как в землю ток не потечет.
+	
+	Посчитаю импеданс обратной связи. Так как конденсатор и второй резистор соединены последовательно:
+	
+	\[Z_f = R_2 + \frac{1}{s\,C}\]
+	
+	Посчитаю ток в обратной связи:
+	
+	\[I_f = - \frac{U_\text{вых}}{Z_f}\]
+	
+	По закону Кирхгофа в узле:
+	
+	\[I_1 + I_f = 0 \quad \Longrightarrow \quad \frac{U_\text{вх}}{R_1} = \frac{U_\text{вых}}{Z_f}	\]
+	
+	Запишу передаточную функцию:
+	
+	\[W(s) = \frac{U_\text{вых}}{U_\text{вх}} =  \frac{Z_f}{R_1} = \frac{R_2 + \dfrac{1}{s\,C}}{R_1}\]
+	
+	Приеду к стандартному виду:
+	
+	\[W(s) = \frac{R_2}{R_1} + \frac{1}{s} \cdot \frac{1}{R_1\,C} = \frac{R_2}{R_1} \left(1 + \frac{1}{R
+	_2 C\,s}\right)\]
+	
+	Это передаточная функция ПИ-регулятора. Параметры:
+	
+	\[k_p = \frac{R_2}{R_1} \qquad k_i = \frac{1}{R_2 C}\]
 	
 	\subsection{Временные характеристики}
+	
+	Запишу весовую функцию ПИ-регулятора:
+	
+	\[w(t) = k_p \cdot \delta(t) + k_i\]
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\subsection{Частотные характеристики}
 
 
