@@ -1,0 +1,418 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+
+% Самые необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+
+% --- MATLAB code listing style ---
+\usepackage{listings}
+\usepackage{courier}
+
+\lstdefinestyle{matlab-editor}{
+	language=Matlab,
+	basicstyle=\footnotesize\ttfamily,      % шрифт Inconsolata
+	keywordstyle=\color{blue}\bfseries,     % for, if, while, end
+	stringstyle=\color{green!40!black},     % строки
+	commentstyle=\color{gray!70}\itshape,   % комментарии %
+	morekeywords={...,ode45,atan,vpasolve}, % доп. ключевые слова
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=10pt,
+	frame=single,
+	rulecolor=\color{gray!40},
+	backgroundcolor=\color{gray!4},
+	breaklines=true,
+	showstringspaces=false,
+	tabsize=4,
+}
+\lstset{style=matlab-editor}
+
+
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\begin{document}
+	
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		% Министерство
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\
+			«Национальный исследовательский университет ИТМО»\\
+		}
+		
+		\vspace{2cm}
+		
+		% Факультет
+		{\large
+			Факультет систем управления и робототехники\\
+		}
+		
+		\vspace{3cm}
+		
+		% Основной заголовок
+		{\Huge\bfseries
+			ОТЧЕТ\\
+		}
+		\vspace{0.5cm}
+		{\LARGE\bfseries
+			о практической работе №2\\
+		}
+		
+		\vspace{1cm}
+		
+		% Дисциплина и тема
+		{\Large
+			По дисциплине: «Моделирование динамических систем»\\
+			\vspace{0.5cm}
+			Тема: «Нелинейные системы управления»\\
+			\vspace{0.5cm}
+			Вариант: 3\\
+		}
+		
+		\vspace{3cm}
+		
+		\begin{minipage}{0.4\textwidth}
+			\raggedright
+			{\large
+				Студенты:\\
+			}
+			Охрименко Е. Д.\\
+			Комарова О. И.\\
+			Чупрова Д. В.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.4\textwidth}
+			\raggedleft
+			{\large
+				Преподаватель:\\
+			}
+			Семенов Д. М.\\
+		\end{minipage}
+		
+		\vfill
+		
+		% Город и год
+		{\large
+			Санкт-Петербург\\
+			2025\\
+		}
+		
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage
+	\section{Задание 1.}
+
+	В этом задании мы рассмотрим нелинейную систему:
+	
+	\[
+	\begin{cases}
+		\dot{x} = -3x + y \\
+		\dot{y} = x - 4y - \arctg2y
+	\end{cases}
+	\]
+
+	Необходимо:
+	\begin{itemize}
+		\item Найти положения равновесия системы
+		\item Линеаризовать систему около одного из положений равновесия,
+		исследовать полученную систему на устойчивость
+		\item Доказать устойчивость исходной системы с помощью метода
+		функций Ляпунова
+		\item Построить графики исходной и линеаризованной систем
+	\end{itemize}
+	
+	\hrule
+	\[\]	
+	\textbf{Решение: }
+	
+	Найдем точки равновесия системы:
+	
+	\[
+	\begin{cases}
+		-3x + y = 0\\
+		x - 4y - \arctg2y = 0
+	\end{cases} 
+	\quad \Longrightarrow \quad 
+	\begin{cases}
+		x^* = 0\\
+		y^* = 0
+	\end{cases} 
+	\] 
+	
+	Теперь линеаризуем исследуемую систему в окрестности точки равновесия \((0, 0)\):
+
+	\[
+	J(x) = 
+	\begin{bmatrix}
+		-3 & 1 \\[6pt]
+		1 & -4 - \dfrac{2}{1+4y^2}
+	\end{bmatrix} 
+	\qquad
+	J(0, 0) = 
+	\underbrace{\begin{bmatrix}
+		-3 & 1 \\[6pt]
+		1 & -6
+	\end{bmatrix}}_{\text{\large \(A\)}}
+	\]
+
+	Далее нужно определить тип положения системы. Найдем собственные значения матрицы \(A\):
+	
+	\[
+	\det\{A - \lambda I\}
+	=
+	\left|
+	\begin{matrix}
+		-3 - \lambda & 1 \\[4pt]
+		1 & -6 -\lambda 
+	\end{matrix}
+	\right| = (-3 - \lambda) \cdot (-6 -\lambda ) - 1 \cdot 1 = \lambda^2 +9 \lambda + 17 = 0
+	\]
+	
+	\[\lambda_\text{1,2} = \dfrac{-9 \pm \sqrt{13}}{2}\]
+	
+	Получаем, что:
+	
+	\[\lambda_\text{1,2} \in \mathbb{R} \quad \lambda_1 < 0 \quad \lambda_2 < 0\]
+	
+	Тип системы -- \textbf{устойчивый узел}.\\
+
+	Введём функцию Ляпунова
+	\[
+	V(x,y) = x^2 + y^2
+	\]
+	
+	Вычислим производную функции $V$ вдоль траекторий системы:
+	\[
+	\dot V(x,y) = 2x\dot x + 2y\dot y
+	= 2x(-3x + y) + 2y\bigl(x - 4y - \arctg(2y)\bigr)
+	\]
+	
+	Раскроем скобки и сгруппируем слагаемые:
+	\[
+	\dot V(x,y)
+	= -6x^2 + 4xy - 8y^2 - 2y\,\arctg(2y)
+	\]
+	
+	Перепишем квадратичную часть в виде суммы квадратов:
+	\[
+	6x^2 - 4xy + 8y^2
+	= 6\left(x - \frac{y}{3}\right)^2 + \frac{22}{3}y^2 > 0
+	\quad \forall (x,y)\neq(0,0)
+	\]
+	
+	Тогда
+	\[
+	\dot V(x,y)
+	= -\Bigl(6x^2 - 4xy + 8y^2\Bigr) - 2y\,\arctg(2y)
+	= -6\left(x - \frac{y}{3}\right)^2 - \frac{22}{3}y^2 - 2y\,\arctg(2y)
+	\]
+	
+	Заметим, что функция $\arctg(2y)$ монотонно возрастает и нечётна, поэтому
+	\[
+	y\,\arctg(2y) \ge 0,\quad
+	y\,\arctg(2y) = 0 \Longleftrightarrow y = 0
+	\]
+	
+	Следовательно,
+	\[
+	\dot V(x,y) < 0 \quad \forall (x,y)\in\mathbb{R}^2\setminus\{(0,0)\}
+	\]
+	
+	Из последнего следует, что для введённой функции Ляпунова $V(x,y)$
+	и исследуемой системы выполняются условия теоремы об асимптотической
+	устойчивости. Таким образом, нулевое решение нелинейной системы
+	глобально асимптотически устойчиво.
+
+	Теперь построим графики исходной и линеаризованной систем:
+
+	\begin{figure}[h!]
+		\centering
+		
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{../images/task1/lin.png}
+			(а) Линеаризованная система
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{../images/task1/non-lin.png}
+			(б) Исходная система
+		\end{minipage}
+		
+		\caption{Графики динамики линеаризованной и исходной систем}
+	\end{figure}
+	
+	\newpage
+	\section{Задание 2.}
+
+	В этом задании рассмотрим нелинейную систему
+
+	\[
+	\dot{x} = A x + b\,\xi
+	\qquad 
+	\sigma = c^{*} x
+	\qquad
+	\xi = \varphi(\sigma, t)
+	\]
+	
+	где:
+	
+	\[
+	A = 
+	\begin{bmatrix}
+		-2 & 1 \\
+		1 & -2
+	\end{bmatrix}
+	\qquad
+	b =
+	\begin{bmatrix}
+		1 \\
+		0
+	\end{bmatrix}
+	\qquad
+	c =
+	\begin{bmatrix}
+		1 \\
+		0
+	\end{bmatrix}
+	\qquad
+	\xi = \frac{e^{\sigma} - e^{-\sigma}}{e^{\sigma} + e^{-\sigma}}
+	\]
+	
+
+
+
+	Необходимо: 
+	\begin{itemize}
+		\item С помощью кругового критерия доказать экспоненциальную устойчивость системы
+	\end{itemize}
+
+	\hrule
+	\[\]	
+	\textbf{Решение: }
+
+
+
+
+
+
+
+
+
+
+
+	\newpage
+	\section{Задание 3.}
+	
+	\newpage
+	\section{Вывод}
+	
+	\newpage
+	\section{Приложение}
+	
+	\subsection{Задание 1}
+	
+	\begin{lstlisting}[caption=Решение системы нелинейных уравнений, language=matlab]
+syms x y
+eq1 = -3*x + y == 0;
+eq2 = x - 4*y - atan(2*y) == 0;
+
+sol = vpasolve([eq1, eq2], [x, y], [0, 0]);
+sol.x 
+sol.y
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Поиск собственных значений матрицы, language=matlab]
+A = [-3 1;
+	 1 -6];
+
+lambda = eig(A)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Построение графиков систем, language=matlab]
+A = [-3 1;
+	1 -6];
+
+f = @(t, X)[
+	-3*X(1) + X(2);              % x'
+	X(1) - 4*X(2) - atan(2*X(2)) % y'
+];
+
+lin = @(t, X) A*X;
+
+tspan = [0 5];
+X0 = [-5; 30];    
+
+[t1, Xnl] = ode45(f,  tspan, X0);   
+[t2, Xlin] = ode45(lin, tspan, X0); 
+
+figure('Position', [100 100 900 500], 'Color','white');
+plot(t2, Xlin(:,1), 'Color', [0, 0, 0.7], 'LineStyle', '-', 'LineWidth', 3.5); 
+hold on;
+plot(t2, Xlin(:,2), 'Color', [0.8 0.2 0.2], 'LineStyle', '--', 'LineWidth', 3.5);
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 20;
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; 
+
+xlabel('Time'); ylabel('State variable');
+legend('x', 'y', fontsize = 22);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task1/lin.png', 'Resolution', 500);
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+
+figure('Position', [100 100 900 500], 'Color','white');
+plot(t1, Xnl(:,1), 'Color', [0, 0, 0.7], 'LineStyle', '-', 'LineWidth', 3.5); 
+hold on;
+plot(t1, Xnl(:,2), 'Color', [0.8 0.2 0.2], 'LineStyle', '--', 'LineWidth', 3.5);
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 20;
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; 
+
+xlabel('Time'); ylabel('State variable');
+legend('x', 'y', fontsize = 22);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task1/non-lin.png', 'Resolution', 500);
+\end{lstlisting}
+	
+\end{document}
