@@ -1,8 +1,8 @@
-K = 1/419;
-sys = tf(K, [1 0]);
-w = logspace(-1, 3, 1000);
-A_theory = K ./ w;
+K = 3.254; T = 0.144; xi = 0.33;
+sys = tf(K, [T^2 2*xi*T 1]);
+w = logspace(-1, 3, 500);
 
+A_theory = K ./ sqrt( (1 - (w*T).^2 ).^2 + (2*xi*w*T).^2 );
 [mag, phase] = bode(sys, w);
 mag = squeeze(mag);
 
@@ -15,9 +15,9 @@ ax = gca; ax.LineWidth = 1.5; ax.FontSize = 13;
 ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
 ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
 ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
-grid on; grid minor; box on; ylim([-0.005, 0.025]); xlim([0, 10]);
+grid on; grid minor; box on; ylim([-0.1, 5.5]);
 
 xlabel('\omega'); ylabel('A(\omega)');
 legend('A_{theor}', 'A_{sys}', 'Location','northeast','FontSize',15);
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
-exportgraphics(gcf, '../../../images/task3/freq/ach3.png', 'Resolution', 500);
+exportgraphics(gcf, '../../../images/task2/freq/ach2.png', 'Resolution', 500);

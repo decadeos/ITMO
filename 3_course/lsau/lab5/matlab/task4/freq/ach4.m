@@ -19,6 +19,6 @@ ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
 grid on; grid minor; box on; xlim([-0.1, 10]); ylim([-0.1, 8.1]);
 
 xlabel('\omega'); ylabel('A(\omega)');
-legend('\omega_{theor}', '\omega_{sys}', 'Location','northeast','FontSize',15);
+legend('A_{theor}', 'A_{sys}', 'Location','northeast','FontSize',15);
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../../images/task4/freq/ach4.png', 'Resolution', 500);
