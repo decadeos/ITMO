@@ -1,0 +1,356 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+
+% Самые необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[figure]{name=Рисунок}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage{tikz}
+\usetikzlibrary{decorations.markings}
+\usepackage{amsthm}
+% --- MATLAB code listing style ---
+\usepackage{listings}
+\usepackage{courier}
+
+\lstdefinestyle{matlab-editor}{
+	language=Matlab,
+	basicstyle=\footnotesize\ttfamily,      % шрифт Inconsolata
+	keywordstyle=\color{blue}\bfseries,     % for, if, while, end
+	stringstyle=\color{green!40!black},     % строки
+	commentstyle=\color{gray!70}\itshape,   % комментарии %
+	morekeywords={...,ode45,atan,vpasolve}, % доп. ключевые слова
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	numbersep=10pt,
+	frame=single,
+	rulecolor=\color{gray!40},
+	backgroundcolor=\color{gray!4},
+	breaklines=true,
+	showstringspaces=false,
+	tabsize=4,
+}
+\lstset{style=matlab-editor}
+
+
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+
+\hypersetup{
+	hidelinks
+}
+
+
+\begin{document}
+	
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		% Министерство
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\
+			«Национальный исследовательский университет ИТМО»\\
+		}
+		
+		\vspace{2cm}
+		
+		% Факультет
+		{\large
+			Факультет систем управления и робототехники\\
+		}
+		
+		\vspace{3cm}
+		
+		% Основной заголовок
+		{\Huge\bfseries
+			ОТЧЕТ\\
+		}
+		\vspace{0.5cm}
+		{\LARGE\bfseries
+			о практической работе №5\\
+		}
+		
+		\vspace{1cm}
+		
+		% Дисциплина и тема
+		{\Large
+			По дисциплине: «Моделирование динамических систем»\\
+			\vspace{0.5cm}
+			Тема: «Системы с задержками»\\
+			\vspace{0.5cm}
+			Вариант: 3\\
+		}
+		
+		\vspace{3cm}
+		
+		\begin{minipage}{0.4\textwidth}
+			\raggedright
+			{\large
+				Студенты:\\
+			}
+			Охрименко Е. Д.\\
+			Комарова О. И.\\
+			Чупрова Д. В.\\
+			Шишкина М. Н.
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.4\textwidth}
+			\raggedleft
+			{\large
+				Преподаватель:\\
+			}
+			Семенов Д. М.\\
+		\end{minipage}
+		
+		\vfill
+		
+		% Город и год
+		{\large
+			Санкт-Петербург\\
+			2025\\
+		}
+		
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage
+	\section{Задание 1.}
+	
+	Рассмотрим систему с задержкой:
+	
+	\[\dot{x} = - \operatorname{sign}x(t - h) \qquad t \ge 0 \quad h \ge 0\]
+	
+	где:
+	
+	\[
+	\operatorname{sign}(x) =
+	\begin{cases}
+		1 & x > 0 \\
+		0 & x = 0 \\
+		-1 & x < 0
+	\end{cases}
+	\]
+	
+	\(h = 2\) -- постоянная задержка, \(x(t) = \varphi(t)\) при \(t \in [-h, 0]\).\\
+	
+	Необходимо:
+	\begin{itemize}
+		\item Используя метод шагов, построить график решения системы при:
+		
+		\[
+		\varphi(t) =
+		\begin{cases}
+			0.5 & t \in [-2, -1) \\
+			-t - 0.5 & t \in [-1, 0] 
+		\end{cases}
+		\]
+		
+	\end{itemize}
+	
+	\hrule
+	\[\]	
+	\textbf{Решение: } Ограничимся решением системы на промежутке \([-2,2]\).
+	
+	\begin{itemize}
+		
+		\item \textit{Шаг 1.} \(\qquad t \in [0, 2] \qquad x(0) = \varphi(0) = -0.5 \quad \dot{x}(t) = -\operatorname{sign}(\varphi(t - h)) \quad \Longrightarrow\)
+
+		
+		\[
+		\Longrightarrow \quad 
+		\dot{x}(t) = 
+		\begin{cases}
+		-1 & \varphi(t - h) > 0	\\
+		0 & \varphi(t - h) = 0 \\
+		1 & \varphi(t - h) < 0 \\
+		\end{cases}
+		\quad \Longrightarrow \quad 
+		\dot{x}(t) = 
+		\begin{cases}
+			-1 &  t \in [0, 1.5)	\\
+			0 & t = 1.5 \\
+			1 & t \in (1.5, 2] \\
+		\end{cases}
+		\]
+	
+		\begin{itemize}
+			\item \textit{Шаг 1.1} Рассмотрим \(\dot{x}(t)\) на полуинтервале \(t \in [0, 1.5) \).
+			
+			Так как:
+			
+			\[\dot{x}(t) = \frac{dx}{dt} = -1 \quad \Longrightarrow \quad dx = -dt\]
+
+			Проинтегрируем:
+			
+			\[ \int_{x(0)}^{x(t)}dx = -\int_{0}^{t}ds \quad \Longrightarrow \quad x(t) - x(0) = -t \quad \Longrightarrow \quad x(t) = -t -0.5\]	
+			
+			\item \textit{Шаг 1.2} Рассмотрим \(\dot{x}(t)\) в точке  \(t = 1.5 \). Из соображений в \textit{Шаге 1.1}:
+			
+			\[x(1.5) = -1.5 - 0.5 = -2\]
+			
+			\item \textit{Шаг 1.3} Рассмотрим \(\dot{x}(t)\) на интервале \(t \in (1.5, 2) \).
+			
+			Так как:
+			
+			\[\dot{x}(t) = \frac{dx}{dt} = 1 \quad \Longrightarrow \quad dx = dt\]
+			
+			Проинтегрируем и подставим \(x(1.5) = -2\):
+			
+			\[ \int_{x(1.5)}^{x(t)}dx = \int_{1.5}^{t}ds \quad \Longrightarrow \quad x(t) - x(1.5) = t - 1.5 \quad \Longrightarrow \quad x(t) = t - 3.5\]	
+
+		\end{itemize}
+	
+		Итак, мы нашли решение \(x(t)\) на промежутке \(t \in [0,2]\):
+		
+		\[
+		x(t) =
+		\begin{cases}
+			-t - 0.5 & t \in [0, 1.5]\\
+			t - 3.5  & t \in (1.5, 2]
+		\end{cases}
+		\]
+		
+		\item \textit{Шаг 2.} \(\qquad t \in (2, 4] \qquad x(2) = -1.5 \quad \dot{x}(t) = -\operatorname{sign}(x(t - h)) \quad \Longrightarrow\)
+		
+		\[
+		\Longrightarrow \quad 
+		\dot{x}(t) = 
+		\begin{cases}
+			1 & x(t - h) > 0	\\
+			0 & x(t - h) = 0 \\
+			-1 & x(t - h) < 0 \\
+		\end{cases}
+		\quad \Longrightarrow \quad
+		\dot{x}(t) =  1 \quad t \in (2, 4]
+		\]
+		
+		\begin{itemize}
+			
+			\item  \textit{Шаг 2.1} Рассмотрим \(\dot{x}(t)\) на полуинтервале \(t \in (2, 4]\).
+			
+			Так как:
+			
+			\[\dot{x}(t) = \frac{dx}{dt} = 1 \quad \Longrightarrow \quad dx = dt\]
+			
+			Проинтегрируем:
+			
+			\[ \int_{x(2)}^{x(t)}dx = \int_{2}^{t}ds \quad \Longrightarrow \quad x(t) - x(2) = t - 2 \quad \Longrightarrow \quad x(t) = t - 3.5\]
+			
+		\end{itemize}
+		
+	\end{itemize}
+	
+	Полное решение на промежутке \(t \in [-2, 2]\)
+	
+	\[
+	x(t) =
+	\begin{cases}
+		0.5      & t \in [-2,-1)\\
+		-t - 0.5 & t \in [-1,1.5]\\
+		t - 3.5  & t \in (1.5,4]
+	\end{cases}
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task1/lines.png}
+		\caption{Решение уравнения методом шагов}
+	\end{figure}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	\newpage
+	\section{Задание 2.}
+
+	Необходимо: 
+	\begin{itemize}
+		\item 
+	\end{itemize}
+	
+	\hrule
+	\[\]	
+	\textbf{Решение: } 
+	
+	\newpage
+	\section{Задание 3.}
+	
+	Необходимо: 
+	\begin{itemize}
+		\item 
+	\end{itemize}
+	
+	\hrule
+	\[\]	
+	\textbf{Решение: } 
+	
+	\newpage
+	\section{Вывод}
+	
+	\newpage
+	\section{Приложение}
+	
+	\subsection*{Задание 1}
+
+	\begin{lstlisting}[caption={Построение графика}]
+figure('Position', [100 100 900 400], 'Color','white');
+fplot(@(x) 0.5,[-2 -1], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5) hold on
+fplot(@(x) -x-0.5,[-1 1.5], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5)
+fplot(@(x) x-3.5,[1.5 4], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5)
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 13;
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; ylim([-2.5, 1])
+
+xlabel('t'); ylabel('x(t)');
+legend('x(t)', 'Location','northeast','FontSize',15);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task1/lines.png', 'Resolution', 500);
+\end{lstlisting}
+
+	
+	
+\end{document}
