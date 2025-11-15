@@ -19,7 +19,6 @@
 \usepackage{subcaption}
 \usepackage{caption}
 \captionsetup[figure]{name=Рисунок}
-\captionsetup[table]{name=Таблица}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows.meta}
@@ -28,7 +27,7 @@
 \usepackage[siunitx]{circuitikz}
 \usepackage{tikz}
 \usetikzlibrary{decorations.markings}
-
+\usepackage{amsthm}
 % --- MATLAB code listing style ---
 \usepackage{listings}
 \usepackage{courier}
@@ -54,6 +53,15 @@
 
 
 \geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+
+
+\hypersetup{
+	hidelinks
+}
+
 
 \begin{document}
 	
@@ -109,6 +117,7 @@
 			Охрименко Е. Д.\\
 			Комарова О. И.\\
 			Чупрова Д. В.\\
+			Шишкина М. Н.
 		\end{minipage}
 		\hfill
 		\begin{minipage}{0.4\textwidth}
@@ -255,19 +264,21 @@
 	и исследуемой системы выполняются условия теоремы об асимптотической
 	устойчивости. Таким образом, нулевое решение нелинейной системы
 	глобально асимптотически устойчиво.
+	
+	\qed
 
 	Теперь построим графики исходной и линеаризованной систем:
 
 	\begin{figure}[h!]
 		\centering
 		
-		\begin{minipage}{0.48\textwidth}
+		\begin{minipage}{0.49\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{../images/task1/lin.png}
 			(а) Линеаризованная система
 		\end{minipage}
 		\hfill
-		\begin{minipage}{0.48\textwidth}
+		\begin{minipage}{0.49\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{../images/task1/non-lin.png}
 			(б) Исходная система
@@ -312,9 +323,6 @@
 	\qquad
 	\xi = \frac{e^{\sigma} - e^{-\sigma}}{e^{\sigma} + e^{-\sigma}}
 	\]
-	
-
-
 
 	Необходимо: 
 	\begin{itemize}
@@ -323,30 +331,325 @@
 
 	\hrule
 	\[\]	
-	\textbf{Решение: }
+	\textbf{Решение: } Пройдемся по всем пунктам кругового критерия.
+	
 
+	\begin{enumerate}
+		\item Секторное условие.
+		
+		\[\mu_1 \le	\varphi(\sigma) / \sigma \le \mu_2 \quad \sigma \neq 0 \quad \forall t \in (0, +\infty)\]
+		
+		В нашем случае представим \(\xi\) как:
+		\[\xi = \frac{e^{\sigma} - e^{-\sigma}}{e^{\sigma} + e^{-\sigma}} = \tanh(\sigma)\]
+		
+		Подставим в условие:
+		
+		\[\mu_1 \sigma \le \tanh(\sigma) \le \mu_2 \sigma\]
+		
+		Возьмем производную по \(\sigma\):
+		
+	    \[\varphi'(\sigma) =  \frac{1}{\cosh(\sigma)}  \in (0, 1]  \quad \forall \sigma\]
+	    
+	    График функции, проходя через точку \((0, 0)\), имеет наклон не больше 1 и всегда одного знака с \(\sigma\).
+	    
+	    \begin{figure}[H]
+	    	\centering
+	    	\includegraphics[width=0.8\textwidth]{../images/task2/lines.png}
+	    	\caption{Выполнение секторного условия}
+	    \end{figure}
+	    
+	    Отсюда:
+	    
+	    \[0 < \frac{\tanh(\sigma)}{\sigma} \le 1\]
+	    
+	    Значит, нелинейность лежит в секторе:
+	    
+	    \[[\mu_1, \mu_2] = [0, 1]\]
+	    
+	    Условие выполнено.
+	    
+	   \item Наличие у матрицы \(A\) чисто мнимых собственных значений.
+	   
+	   Найдем собственные значения матрицы \(A\):
+	   
+	   	\[
+	   \det\{A - \lambda I\}
+	   =
+	   \left|
+	   \begin{matrix}
+	   	-2 - \lambda & 1 \\[4pt]
+	   	1 & -2 -\lambda 
+	   \end{matrix}
+	   \right| = (-2 - \lambda) \cdot (-2 -\lambda ) - 1 \cdot 1 = \lambda^2 + 4 \lambda + 3 = 0
+	   \]
+	   
+	   \[\lambda_\text{1,2} = \dfrac{- 4 \pm \sqrt{4}}{2} = 
+	   \left[
+	   \begin{aligned}
+	   	-1\\
+	   	-3
+	   \end{aligned}
+	   \right.
+	   \]
 
+	   У матрицы нет чисто мнимых собственных значений, значит это условие выполнено.
+	   
+	   \item  Асимптотическая устойчивость системы при \(\xi  = \mu_0 \sigma\).
+	   
+	   Рассмотрим линейную систему:
+	   
+	   \[\xi = \mu_0 \sigma \quad \dot{x} = (A + \mu_0 b c^T)x \quad b c^T = 
+	   \begin{bmatrix}
+	   	1 & 0 \\
+	   	0 & 0
+	   \end{bmatrix}
+	   \]
+	   
+	   Для простоты положим:
+	   
+	   \[\mu_0 = 0 \in [0, 1]\]
+	   
+	   Тогда система будет иметь вид:
+	   
+	   \[\dot{x} = A x\]
+	   
+	   Так как:
+	   
+	   \[\lambda_\text{1,2} \in \mathbb{R} \quad \lambda_\text{1,2} < 0\]
+	   
+	   то матрица \(A\) устойчива, система асимптотически устойчива, условие выполнено.
+	   
+	   \item Выполнение частотного условия.
+	   
+	   Найдем передаточную функцию \(W(\lambda)\) с помощью \texttt{MATLAB} (листинг~\ref{lst:Wlambda1}):
+	   
+	   \[W(\lambda) = c^T(A - \lambda I)^{-1} b  = -\frac{\lambda +2}{\lambda ^2+4\,\lambda +3}\]
+	   
+	   Теперь положим \(\lambda = i \omega\)  проверим выполнение следующего неравенства:
+	   
+	   \[\Re\{\left[1 + W(i \omega)\right]^*\} > 0 \quad \omega \in [-\infty, +\infty]\]
+	   
+	   \[
+	   \Re\!\left\{ \left[1 + W(i\omega)\right]^* \right\}
+	   =
+	   \Re\!\left\{ \left[ 1 - \frac{i \omega + 2}{(i \omega)^2 + 4i \omega + 3} \right]^* \right\}
+	   =
+	    \Re\!\left\{ \left[\frac{(i \omega)^2 + 3 i \omega + 1}{(i \omega)^2 + 4i \omega + 3} \right]^* \right\}
+	   \]
+	   
+	   Домножим на комплексно-сопряженный знаменатель \( \left((i \omega)^2 - 4i \omega + 3 \right) \). Получим:
+	   
+	   \[
+	   \Re\!\left\{ \left[1 + W(i\omega)\right]^* \right\}
+	   =
+	    \Re\!\left\{ \left[\frac{((i \omega)^2 + 3 i \omega + 1) \cdot \left((i \omega)^2 - 4i \omega + 3 \right)}{((i \omega)^2 + 4i \omega + 3) \cdot \left((i \omega)^2 - 4i \omega + 3 \right)} \right]^* \right\} =
+	   \]
+	   
+	   \[
+	   = \frac{\omega^4 + 8\omega^2 + 3}{\omega^4 + 10\omega^2 + 9} > 0 \quad \forall \omega \in \mathbb{R}
+	   \]
+	   
+		Следовательно, последнее условие выполнено.
+		
+	\end{enumerate}
 
-
-
-
-
-
-
-
+	\qed
 
 	\newpage
 	\section{Задание 3.}
 	
+	В этом задании рассмотрим нелинейную систему:
+	
+	\[
+	\dot{x} = A x + b\,\xi
+	\qquad 
+	\sigma = c^{*} x
+	\qquad
+	\xi = \varphi(\sigma)
+	\]
+	
+	где:
+	
+	\[
+	A =
+	\begin{bmatrix}
+		-1 & -3 \\
+		-1 & -4
+	\end{bmatrix}
+	\qquad
+	b =
+	\begin{bmatrix}
+		1 \\
+		0
+	\end{bmatrix}
+	\qquad
+	c =
+	\begin{bmatrix}
+		0 \\
+		1
+	\end{bmatrix}
+	\qquad
+	\xi =
+	\begin{cases}
+		2\sigma & \text{при } |\sigma| < 1\\[6pt]
+		2\operatorname{sign}\sigma & \text{при } |\sigma| \ge 1
+	\end{cases}
+	\]
+	
+	Необходимо: 
+	\begin{itemize}
+		\item С помощью критерия Попова доказать асимптотическую устойчивость системы
+	\end{itemize}
+	
+	\hrule
+	\[\]	
+	\textbf{Решение: } Пройдемся по всем пунктам критерия Попова.
+	
+	\begin{enumerate}
+		\item Секторное условие.
+		
+		\[
+		0 \le \frac{\varphi(\sigma)}{\sigma} \le \mu_0 \le +\infty
+		\qquad
+		\sigma \ne 0 \quad \forall t \in (0,\infty)
+		\]
+		
+		В нашем случае:
+		\[
+		\varphi(\sigma) =
+		\begin{cases}
+			2\sigma & |\sigma| < 1\\[4pt]
+			2\,\operatorname{sign}\sigma & |\sigma| \ge 1
+		\end{cases}
+		\]
+		
+		Отсюда для $\sigma \ne 0$ имеем:
+		\[
+		\frac{\varphi(\sigma)}{\sigma} =
+		\begin{cases}
+			2 & 0<|\sigma| < 1\\[8pt]
+			\dfrac{2}{|\sigma|} & |\sigma| \ge 1
+		\end{cases}
+		\]
+		поэтому:
+		\[
+		0 < \frac{\varphi(\sigma)}{\sigma} \le 2 \qquad \forall\,\sigma\ne 0
+		\]
+		
+		Следовательно, нелинейность принадлежит сектору $[0,2]$, и можно положить $\mu_0 = 2$.
+		
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.8\textwidth]{../images/task3/lines.png}
+			\caption{Выполнение секторного условия}
+		\end{figure}
+		
+		\item Устойчивость матрицы \(A\).
+		
+		Найдем собственные числа матрицы. 
+		
+		\[
+		\det\{A - \lambda I\}
+		=
+		\left|
+		\begin{matrix}
+			-1 - \lambda & -3 \\[4pt]
+			-1 & -4 -\lambda 
+		\end{matrix}
+		\right| = (-1 - \lambda) \cdot (-4 -\lambda ) - (-3) \cdot (-1) = \lambda^2 + 5 \lambda + 1 = 0
+		\]
+		
+		\[\lambda_\text{1,2} = \dfrac{- 5 \pm \sqrt{21}}{2} \quad \Longrightarrow \quad \text{Re}(\lambda_{1,2}) < 0\]
+		
+		Значит матрица \(A\) устойчива.
+		
+		\item Выполнение частотного условия
+		
+		Найдем передаточную функцию \(W(\lambda)\) с помощью \texttt{MATLAB} (листинг~\ref{lst:Wlambda2}):
+		
+		\[
+		W(\lambda) = c^T(A - \lambda I)^{-1} b  = \frac{1}{\lambda^2 + 5\lambda + 1}
+		\]
+		
+		Положим \(\lambda = i\omega\). Частотное условие Попова:
+		
+		\[
+		\mu_0^{-1} + \Re\bigl[(1 + i\omega\nu)\,W(i\omega)\bigr] > 0
+		\qquad
+		\forall\omega \in [0,+\infty]
+		\]
+		
+		Так как нелинейность принадлежит сектору \([0,2]\), то \(\mu_0 = 2\) и
+		\(\mu_0^{-1} = \dfrac{1}{2}\). Возьмём \(\nu = 0\). Тогда:
+		
+		\[
+		\frac{1}{2} + \Re W(i\omega) > 0
+		\]
+		
+		Подставим \(W(i\omega)\):
+		
+		\[
+		W(i\omega)
+		= \frac{1}{(i\omega)^2 + 5i\omega + 1}
+		= \frac{1}{1 - \omega^2 + 5i\omega}
+		\]
+		
+		Домножим числитель и знаменатель на комплексно-сопряжённое выражение
+		\((1 - \omega^2 - 5i\omega)\):
+		
+		\[
+		W(i\omega)
+		= \frac{1 - \omega^2 - 5i\omega}{(1 - \omega^2)^2 + 25\omega^2}
+		\]
+		
+		Действительная часть:
+		
+		\[
+		\Re W(i\omega)
+		= \frac{1 - \omega^2}{(1 - \omega^2)^2 + 25\omega^2}
+		\]
+		
+		Тогда:
+		
+		\[
+		\frac{1}{2} + \Re W(i\omega)
+		= 
+		\frac{1}{2}
+		+
+		\frac{1 - \omega^2}{(1 - \omega^2)^2 + 25\omega^2}
+		=
+		\frac{\omega^4 + 21\omega^2 + 3}
+		{2\bigl(\omega^4 + 23\omega^2 + 1\bigr)}  > 0
+		\quad \forall\,\omega \in [0,+\infty]
+		\]
+
+	\end{enumerate}
+	
+	Следовательно, критерий Попова выполняется.
+	
+	\qed
+	
 	\newpage
 	\section{Вывод}
 	
+	В работе были исследованы три нелинейные системы.  
+	
+	\begin{itemize}
+		\item В первом задании асимптотическая устойчивость подтверждена методом Ляпунова.  
+		\item Во втором -- экспоненциальная устойчивость доказана с помощью кругового критерия.  
+		\item В третьем -- асимптотическая устойчивость установлена по критерию Попова. 
+	\end{itemize}
+
+	Во всех заданиях устойчивость рассмотренных систем подтверждена.
+	
+	
+
 	\newpage
 	\section{Приложение}
 	
-	\subsection{Задание 1}
+	\subsection*{Задание 1.}
 	
-	\begin{lstlisting}[caption=Решение системы нелинейных уравнений, language=matlab]
+\begin{lstlisting}[caption=Решение системы нелинейных уравнений, language=matlab]
 syms x y
 eq1 = -3*x + y == 0;
 eq2 = x - 4*y - atan(2*y) == 0;
@@ -359,7 +662,6 @@ sol.y
 \begin{lstlisting}[caption=Поиск собственных значений матрицы, language=matlab]
 A = [-3 1;
 	 1 -6];
-
 lambda = eig(A)
 \end{lstlisting}
 
@@ -414,5 +716,88 @@ legend('x', 'y', fontsize = 22);
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task1/non-lin.png', 'Resolution', 500);
 \end{lstlisting}
+
+	\newpage
+	\subsection*{Задание 2.}
 	
+\begin{lstlisting}[caption=График соблюдения кругового критерия, language=matlab]
+sigma = linspace(-3, 3, 1000); phi = tanh(sigma);
+mu1 = 0; mu2 = 1;
+phi_mu1 = mu1 * sigma; phi_mu2 = mu2 * sigma;
+
+figure('Position', [100 100 900 400], 'Color','white');
+plot(sigma, phi, 'LineWidth', 2.5, 'Color', [0.85, 0.65, 0]); hold on;     
+plot(sigma, phi_mu1, ':', 'LineWidth', 2.5, 'Color', [0, 0, 0.7]);     
+plot(sigma, phi_mu2, ':', 'LineWidth', 2.5, 'Color', [0.8 0.2 0.2]);     
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 15;
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; 
+
+xlabel('\sigma'); ylabel('\varphi(\sigma)');
+legend({'\varphi(\sigma) = tanh(\sigma)', '\mu_1=0', '\mu_2=1'},'Location','northwest', fontsize = 15);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task2/lines.png', 'Resolution', 500);
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Поиск собственных значений матрицы, language=matlab]
+A = [-2 1;
+	1 -2];
+lambda = eig(A)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Поиск передаточной функции, language=matlab, label={lst:Wlambda1}]
+syms lambda
+A = [-2 1; 1 -2];
+b = [1; 0]; c = [1; 0];
+W = c.' * inv(A - lambda*eye(2)) * b;
+latex(W)
+\end{lstlisting}
+
+	\newpage
+	\subsection*{Задание 3.}
+		
+\begin{lstlisting}[caption=График соблюдения кругового критерия, language=matlab]
+sigma = linspace(-3, 3, 1000); phi = zeros(size(sigma));
+idx = abs(sigma) < 1;
+phi(idx)  = 2 * sigma(idx);
+phi(~idx) = 2 * sign(sigma(~idx));
+
+mu1 = 0; mu0 = 2;
+phi_mu1 = mu1 * sigma;
+phi_mu0 = mu0 * sigma;
+
+figure('Position',[100 100 900 400],'Color','white');
+plot(sigma, phi, 'LineWidth', 3.0, 'Color', [0.85, 0.65, 0]); hold on;   
+plot(sigma, phi_mu1, ':', 'LineWidth', 3.0, 'Color', [0, 0, 0.7]);  
+plot(sigma, phi_mu0, ':', 'LineWidth', 3.0, 'Color', [0.8 0.2 0.2]);   
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 15;
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; 
+
+xlabel('\sigma'); ylabel('\varphi(\sigma)');
+legend({'\varphi(\sigma)', '\mu_1=0 \cdot \sigma', '\mu_2=2 \cdot \sigma'},'Location','northwest', fontsize = 15);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task3/lines.png', 'Resolution', 500);
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Поиск собственных значений матрицы, language=matlab]
+A = [-1 -3;
+-1 -4];
+lambda = eig(A)
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Поиск передаточной функции, language=matlab, label={lst:Wlambda2}]
+A = [-1 -3; -1 -4];
+b = [1; 0]; c = [0; 1];
+W = c.' * inv(A - lambda*eye(2)) * b;
+latex(W)
+\end{lstlisting}
+
+
 \end{document}
