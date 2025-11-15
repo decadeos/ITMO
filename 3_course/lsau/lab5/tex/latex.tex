@@ -689,7 +689,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{../images/task3/freq/fch3.png}
-		\caption{ФЧХ}ФЧХ
+		\caption{ФЧХ}
 	\end{figure}
 	
 	ЛФЧХ идеального интегрирующего звена совпадает с обычной фазо-частотной характеристикой,
@@ -864,54 +864,54 @@
 	\newpage
 	\section{Регулятор на операционном усилителе}
 	
-	\begin{figure}[h!]
-	\centering   
-	\begin{tikzpicture}
-		
-		\fill (canvas cs:x=0cm,y=3cm) circle (2pt);
-		\draw (0,3) -- (1,3);
-		
-		% резистор 1
-		\filldraw[fill=blue!20] (1,2.7) rectangle (3,3.3);
-		\node at (2,3.6) {$R_1$};
-		
-		\draw (3,3) -- (4,3) -- (4, 4.5);
-		\fill (canvas cs:x=4cm,y=3cm) circle (2pt);
-		\draw (4, 4.5) -- (5, 4.5);
-		
-		% конденсатор
-		\draw[line width=1.5pt]  (5, 4) -- (5, 5);   
-		\draw[line width=1.5pt]  (5.3, 4) -- (5.3, 5); 
-		\node at (5.15, 5.3) {$C$};
-		
-		\draw (5.3, 4.5) -- (6.3, 4.5);
-		
-		% резистор 2
-		\filldraw[fill=blue!20] (6.3, 4.2) rectangle (8.3, 4.8);
-		\node at (7.3, 5.1) {$R_2$};
-		
-		\draw (8.3, 4.5) -- (9.3, 4.5) -- (9.3, 2.5);
-		\draw (4, 3) -- (6.3, 3);
-		
-		% Gain
-		\filldraw[fill=blue!20] (6.3, 3.5) -- (6.3, 1.5) -- (8, 2.5) -- cycle;
-		\node[text=white, font=\Large\boldmath] at (6.6, 3.0) {$-$};
-		\node[text=white, font=\Large\boldmath] at (6.6, 2.0) {$+$};
-		\draw (8, 2.5) -- (10, 2.5);
-		\fill (canvas cs:x=10cm,y=2.5cm) circle (2pt);
-
-		\draw (6.3, 2) -- (5.3, 2) -- (5.3, 1);
-		\fill (canvas cs:x=5.3cm,y=1cm) circle (2pt);
-		\draw (0, 1) -- (10, 1);
-		\fill (canvas cs:x=0cm,y=1cm) circle (2pt);
-		\fill (canvas cs:x=10cm,y=1cm) circle (2pt);
-		
-		\node at (0.5, 2) {$U_\text{вх}$};
-		\node at (10, 1.8) {$U_\text{вых}$};
-	\end{tikzpicture}
-	\caption{Принципиальная схема регулятора на операционном усилителе}
+		\begin{figure}[h!]
+		\centering   
+		\begin{tikzpicture}
+			
+			\fill (canvas cs:x=0cm,y=3cm) circle (2pt);
+			\draw (0,3) -- (1,3);
+			
+			% резистор 1
+			\filldraw[fill=blue!20] (1,2.7) rectangle (3,3.3);
+			\node at (2,3.6) {$R_1$};
+			
+			\draw (3,3) -- (4,3) -- (4, 4.5);
+			\fill (canvas cs:x=4cm,y=3cm) circle (2pt);
+			\draw (4, 4.5) -- (5, 4.5);
+			
+			% конденсатор
+			\draw[line width=1.5pt]  (5, 4) -- (5, 5);   
+			\draw[line width=1.5pt]  (5.3, 4) -- (5.3, 5); 
+			\node at (5.15, 5.3) {$C$};
+			
+			\draw (5.3, 4.5) -- (6.3, 4.5);
+			
+			% резистор 2
+			\filldraw[fill=blue!20] (6.3, 4.2) rectangle (8.3, 4.8);
+			\node at (7.3, 5.1) {$R_2$};
+			
+			\draw (8.3, 4.5) -- (9.3, 4.5) -- (9.3, 2.5);
+			\draw (4, 3) -- (6.3, 3);
+			
+			% Gain
+			\filldraw[fill=blue!20] (6.3, 3.5) -- (6.3, 1.5) -- (8, 2.5) -- cycle;
+			\node[text=white, font=\Large\boldmath] at (6.6, 3.0) {$-$};
+			\node[text=white, font=\Large\boldmath] at (6.6, 2.0) {$+$};
+			\draw (8, 2.5) -- (10, 2.5);
+			\fill (canvas cs:x=10cm,y=2.5cm) circle (2pt);
+			
+			\draw (6.3, 2) -- (5.3, 2) -- (5.3, 1);
+			\fill (canvas cs:x=5.3cm,y=1cm) circle (2pt);
+			\draw (0, 1) -- (10, 1);
+			\fill (canvas cs:x=0cm,y=1cm) circle (2pt);
+			\fill (canvas cs:x=10cm,y=1cm) circle (2pt);
+			
+			\node at (0.5, 2) {$U_\text{вх}$};
+			\node at (10, 1.8) {$U_\text{вых}$};
+		\end{tikzpicture}
+		\caption{Принципиальная схема регулятора на операционном усилителе}
 	\end{figure}
-	
+
 	
 	Приступлю к поиску передаточной функции объекта. Для начала запишу ток через первый резистор:
 	
@@ -944,15 +944,31 @@
 	
 	\[k_p = \frac{R_2}{R_1} \qquad k_i = \frac{1}{R_2 C}\]
 	
+	Подставлю параметры из моего варианта:
+	
+	\[k_p = \frac{16853}{1296} \qquad k_i = \frac{1}{16853 \cdot 419} \quad \Longrightarrow \quad k_p \approx 13 \qquad k_i = \frac{1}{16853 \cdot 419 }\]
+	
 	\subsection{Временные характеристики}
 	
 	Запишу весовую функцию ПИ-регулятора:
 	
 	\[w(t) = k_p \cdot \delta(t) + k_i\]
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task5/time/w5.png}
+		\caption{Переходная функция}
+	\end{figure}
 	
+	Переходная функция равна:
 	
+	\[h(t) = k_p \cdot 1(t) + k_i \cdot t\]
 	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{../images/task5/time/y5.png}
+		\caption{Переходная функция}
+	\end{figure}
 	
 	
 	
