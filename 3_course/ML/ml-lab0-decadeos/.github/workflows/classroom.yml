@@ -1,0 +1,64 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Check goals.md presence
+      id: check-goals-md-presence
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Check goals.md presence
+        setup-command: ''
+        command: bash -c "if [[ ! -s goals.md ]]; then echo 'No goals.md file was
+          found '; exit 1; fi"
+        timeout: 5
+        max-score: 2
+    - name: Check info.md presence
+      id: check-info-md-presence
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Check info.md presence
+        setup-command: ''
+        command: bash -c "if [[ ! -s info.md ]]; then echo 'No info.md file was found';
+          exit 1; fi"
+        timeout: 5
+        max-score: 3
+    - name: Check report.pdf presence
+      id: check-report-pdf-presence
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Check report.pdf presence
+        setup-command: ''
+        command: bash -c "if [[ ! -s report.pdf ]]; then echo 'No report.pdf was found';
+          exit 1; fi"
+        timeout: 5
+        max-score: 3
+    - name: Check gitignore file presence
+      id: check-gitignore-file-presence
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Check gitignore file presence
+        setup-command: ''
+        command: bash -c "if [[ ! -s .gitignore ]]; then echo 'No gitignore file was
+          found'; exit 1; fi"
+        timeout: 5
+        max-score: 2
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CHECK-GOALS-MD-PRESENCE_RESULTS: "${{steps.check-goals-md-presence.outputs.result}}"
+        CHECK-INFO-MD-PRESENCE_RESULTS: "${{steps.check-info-md-presence.outputs.result}}"
+        CHECK-REPORT-PDF-PRESENCE_RESULTS: "${{steps.check-report-pdf-presence.outputs.result}}"
+        CHECK-GITIGNORE-FILE-PRESENCE_RESULTS: "${{steps.check-gitignore-file-presence.outputs.result}}"
+      with:
+        runners: check-goals-md-presence,check-info-md-presence,check-report-pdf-presence,check-gitignore-file-presence

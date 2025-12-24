@@ -1,0 +1,43 @@
+name: PyTest
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+    name: Test python scripts
+    runs-on: ${{ vars.USE_HOSTED == 'true' && 'ubuntu-latest' || 'self-hosted' }}
+    timeout-minutes: 5
+    steps:
+      # 1. Скачиваем код репозитория
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      # 2. Устанавливаем Python
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # # 3. Устанавливаем системные зависимости только на hosted runner
+      # - name: Install system dependencies (hosted only)
+      #   if: ${{ runner.environment != 'self-hosted' }}
+      #   run: |
+      #     sudo apt update
+      #     sudo apt install -y mupdf-tools poppler-utils
+
+      # 4. Создаём виртуальное окружение и ставим Python-пакеты
+      - name: Create virtual environment and install Python dependencies
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install --upgrade pip
+          pip install pytest pytest-cov pytest-github-actions-annotate-failures \
+                      jupyter numpy matplotlib pandas seaborn scikit-learn imbalanced-learn
+
+      # 5. Тесты
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          # Конвертим Jupyter notebook в python
+          jupyter nbconvert --to python --output exercises_dirty exercises.ipynb
+          grep -Pv '^\s*#|^\s*$|get_ipython\(\)|(^|\s|=)input\(' exercises_dirty.py > exercises.py
+          pytest -s jupyter_tests.py

@@ -1,0 +1,5 @@
+data/
+
+/latex/*
+!/latex/*.tex
+!/latex/*.pdf

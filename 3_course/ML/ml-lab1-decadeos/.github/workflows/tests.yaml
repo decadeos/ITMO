@@ -1,0 +1,25 @@
+name: PyTest
+on: [push, workflow_dispatch]
+
+jobs:
+  test:
+    name: Test python scripts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install Python dependencies
+        run: |
+          sudo apt install -y mupdf-tools poppler-utils
+          python3 -m pip install --upgrade pip
+          pip3 install pytest pytest-cov pytest-github-actions-annotate-failures jupyter numpy matplotlib pandas seaborn scikit-learn
+      - name: Test with pytest
+        run: |
+          jupyter nbconvert --to python --output exercises_dirty exercises.ipynb
+          grep -Pv '^\s*#|^\s*$|get_ipython\(\)|(^|\s|=)input\(' exercises_dirty.py > exercises.py
+          pytest -s jupyter_tests.py
