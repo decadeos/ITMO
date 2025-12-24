@@ -244,9 +244,9 @@
 		\Longrightarrow \quad 
 		\dot{x}(t) = 
 		\begin{cases}
-			1 & x(t - h) > 0	\\
+			-1 & x(t - h) > 0	\\
 			0 & x(t - h) = 0 \\
-			-1 & x(t - h) < 0 \\
+			1 & x(t - h) < 0 \\
 		\end{cases}
 		\quad \Longrightarrow \quad
 		\dot{x}(t) =  1 \quad t \in (2, 4]
@@ -358,17 +358,119 @@
 	\newpage
 	\section{Задание 3.}
 	
+	В этом задании мы рассмотрим систему с постоянной задержкой \(h\):
+	
+	\[\dot{x}(t) = A x(t) + A_1 x(t - h) \qquad x \in \mathbb{R}^2\]
+	
+	где:
+	
+	\[
+	A = 
+	\begin{bmatrix}
+		-4 & 1 \\
+		-2 & -4
+	\end{bmatrix}
+	\quad \Longrightarrow \quad 
+	A_1 = 
+	\begin{bmatrix}
+		1 & 2 \\
+		1 & -1
+	\end{bmatrix}
+	\quad \Longrightarrow \quad 
+	h = 3
+	\]
+	
 	Необходимо: 
 	\begin{itemize}
-		\item 
+		\item Промоделировать данную систему
+		\item С помощью функционала Ляпунова-Красовского доказать устойчивость системы
 	\end{itemize}
 	
 	\hrule
 	\[\]	
 	\textbf{Решение: } 
 	
+	Промоделируем нашу систему в \texttt{MATLAB}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task3/modeling.png}
+		\caption{Моделирование системы с задержкой \(h = 3\)}
+	\end{figure}
+	
+	Согласно методу Ляпунова--Красовского, система является асимптотически устойчивой, если разрешимо линейное матричное неравенство (LMI):
+	\[
+	\Psi =
+	\begin{bmatrix}
+		A^{\mathsf T}P + P A + Q & P A_1 \\
+		A_1^{\mathsf T} P & -Q
+	\end{bmatrix} < 0
+	\qquad
+	Q>0\; P>0
+	\]
+	
+	Подставим наши матрицы $A$ и $A_1$:
+	\[
+	\Psi =
+	\begin{bmatrix}
+		A^{\mathsf T}P + PA + Q &
+		P A_1 \\
+		A_1^{\mathsf T} P &
+		-\, Q
+	\end{bmatrix}
+	=
+	\begin{bmatrix}
+		-8P + Q + P A + A^{\mathsf T}P &
+		P
+		\begin{bmatrix}
+			1 & 2 \\ 1 & -1
+		\end{bmatrix}
+		\\[6pt]
+		\begin{bmatrix}
+			1 & 2 \\ 1 & -1
+		\end{bmatrix}^{\mathsf T} P &
+		-\,Q
+	\end{bmatrix}
+	< 0
+	\]
+	
+	Решим LMI в \texttt{MATLAB}:
+	\[
+	P =
+	\begin{bmatrix}
+		6.8308 & -0.3458\\
+		-0.3458 & 7.0762
+	\end{bmatrix}
+	\qquad
+	Q =
+	\begin{bmatrix}
+		27.8638 & 1.5184\\
+		1.5184 & 29.2099
+	\end{bmatrix}
+	\]
+	
+	Обе матрицы симметричны и положительно определены, а вычисленная матрица
+	\[
+	\Psi =
+	\begin{bmatrix}
+		A^{\mathsf T}P + PA + Q & PA_1\\
+		A_1^{\mathsf T}P & -Q
+	\end{bmatrix}
+	\]
+	является отрицательно определённой. Следовательно, линейное матричное
+	неравенство выполнено, и, согласно методу Ляпунова-Красовского,
+	данная система асимптотически устойчива.
+	
 	\newpage
 	\section{Вывод}
+	
+	В работе рассмотрены три системы с запаздыванием. 
+	
+	\begin{itemize}
+		\item В первом задании методом шагов получено аналитическое решение и построен его график.
+		\item  Во втором задании с помощью функции Ляпунова и критерия Разумихина доказана устойчивость скалярной системы с произвольной задержкой.
+		\item  В третьем задании проведено моделирование системы с постоянной задержкой и с использованием функционала Ляпунова–Красовского показана её асимптотическая устойчивость.
+	\end{itemize}
 	
 	\newpage
 	\section{Приложение}
@@ -393,6 +495,52 @@ set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
 exportgraphics(gcf, '../../images/task1/lines.png', 'Resolution', 500);
 \end{lstlisting}
 
+	\newpage
+	\subsection*{Задание 2}
 	
+\begin{lstlisting}[caption={Моделирование системы}]
+A  = [-4  1; -2 -4]; A1 = [ 1  2; 1 -1];
+h = 3; lags = h;
+function dx = ddefun(t, x, Z)
+	xlag = Z(:,1);
+	A  = [-4  1; -2 -4];
+	A1 = [ 1  2; 1 -1];
+	dx = A*x + A1*xlag;
+end
+
+function xhist = history(t)
+	xhist = [1; 0]; 
+end
+
+tspan = [0 20];
+sol = dde23(@ddefun, lags, @history, tspan);
+
+figure('Position', [100 100 900 400], 'Color','white');
+plot(sol.x, sol.y(1,:), 'Color', [0 0 0.7], 'LineStyle', '-', 'LineWidth', 2.5); hold on;
+plot(sol.x, sol.y(2,:), 'Color', [0.8 0.2 0.2], 'LineStyle', '--', 'LineWidth', 2.5);
+
+ax = gca; ax.LineWidth = 1.5; ax.FontSize = 13; 
+ax.XColor = [0.3 0.3 0.3]; ax.YColor = [0.3 0.3 0.3];
+ax.GridColor = [0.9 0.9 0.9]; ax.GridAlpha = 0.4;
+ax.MinorGridColor = [0.95 0.95 0.95]; ax.MinorGridAlpha = 0.2;
+grid on; grid minor; box on; 
+
+xlabel('t'); ylabel('x(t)');
+legend({'x_1' 'x_2'}, 'Location','northeast','FontSize',15);
+set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
+exportgraphics(gcf, '../../images/task3/modeling.png', 'Resolution', 500);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Решение LMI}]
+setlmis([]); [P_var,~,~] = lmivar(1,[2 1]); [Q_var,~,~] = lmivar(1,[2 1]);
+
+lmiterm([1 1 1 P_var],A',1,'s'); lmiterm([1 1 1 Q_var],1,1); 
+lmiterm([1 1 2 P_var],1,A1,'s'); lmiterm([1 2 2 Q_var],-1,1);
+lmiterm([2 1 1 P_var],-1,1); lmiterm([3 1 1 Q_var],-1,1);
+lmis = getlmis;
+
+[tmin, xfeas] = feasp(lmis);
+disp(P); disp(Q);
+\end{lstlisting}
 	
 \end{document}

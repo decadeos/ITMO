@@ -1,6 +1,6 @@
 kp = 16853/1296; ki = 1/(16853*419*10^-6);
 num = [kp ki]; den = [1 0]; sys = tf(num, den);
-w = logspace(-1, 3, 500);
+w = logspace(-5, 3, 500);
 
 A_theory = sqrt( kp^2 + (ki./w).^2 );
 A_dB = 20*log10(A_theory);
@@ -23,4 +23,4 @@ grid on; grid minor; box on; xlim([0, 10]);
 xlabel('\omega'); ylabel('L(\omega)');
 legend('L_{theor}', 'L_{sys}', 'Location','northeast','FontSize',15);
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
-exportgraphics(gcf, '../../../images/task5/freq/lach5.png', 'Resolution', 500);
+% exportgraphics(gcf, '../../../images/task5/freq/lach5.png', 'Resolution', 500);

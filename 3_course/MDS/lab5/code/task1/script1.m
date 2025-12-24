@@ -1,5 +1,5 @@
 figure('Position', [100 100 900 400], 'Color','white');
-fplot(@(x) 0.5,[-2 -1], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5) hold on
+fplot(@(x) 0.5,[-2 -1], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5); hold on
 fplot(@(x) -x-0.5,[-1 1.5], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5)
 fplot(@(x) x-3.5,[1.5 4], 'Color', [0.8 0.2 0.2], 'LineStyle', '-', 'LineWidth', 2.5)
 

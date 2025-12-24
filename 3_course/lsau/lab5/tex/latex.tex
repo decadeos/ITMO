@@ -26,6 +26,7 @@
 \usepackage{capt-of}
 \usepackage{multirow}
 \usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
 
 
 \lstset{
@@ -962,6 +963,8 @@
 	
 	\[k_p = \frac{16853}{1296} \qquad k_i = \frac{1}{16853 \cdot 419} \quad \Longrightarrow \quad k_p \approx 13 \qquad k_i = \frac{1}{16853 \cdot 419 }\]
 	
+	Тип звена ПИ-регулятора -- изодромное звено первого порядка.
+	
 	\subsection{Временные характеристики}
 	
 	Запишу весовую функцию ПИ-регулятора:
@@ -1021,7 +1024,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{../images/task5/freq/fch5.png}
-		\caption{ФЧХ}
+		\caption{ФЧХ\protect\footnotemark[1]}
 	\end{figure}
 	
 	ЛФЧХ представляет собой график зависимости фазовой характеристики 
@@ -1031,12 +1034,14 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{../images/task5/freq/lfch5.png}
-		\caption{ЛФЧХ}
+		\caption{ЛФЧХ\protect\footnotemark[1]}
 	\end{figure}
 	
-	\textbf{Итог:} Полученная передаточная функция соответствует ПИ-регулятору; 
+	\textbf{Итог:} Полученная передаточная функция соответствует изодромному звену первого порядка;
 	аналитические зависимости совпадают с результатами моделирования.
 
+	\footnotetext[1]{Для корректного отображения фазовой характеристики при 
+		\(\omega \rightarrow 0\) изменён диапазон параметров функции \texttt{logspace}.}
 	
 
 
@@ -1051,5 +1056,8 @@
 	
 
 	Материалы работы: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab5}{\texttt{github.com}}
+	
+	
+	
 
 \end{document}
