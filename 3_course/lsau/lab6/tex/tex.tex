@@ -1,0 +1,365 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+
+% Самые необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
+
+
+\lstset{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color{red},
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	numbersep=8pt,
+	backgroundcolor=\color{white},
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false,
+	captionpos=b,
+	escapeinside={\%*}{*)},
+}
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\begin{document}
+	
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		\vspace*{1cm}
+		
+		% Министерство
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\
+			«Национальный исследовательский университет ИТМО»\\
+		}
+		
+		\vspace{2cm}
+		
+		% Факультет
+		{\large
+			Факультет систем управления и робототехники\\
+		}
+		
+		\vspace{3cm}
+		
+		% Основной заголовок
+		{\Huge\bfseries
+			ОТЧЕТ\\
+		}
+		\vspace{0.5cm}
+		{\LARGE\bfseries
+			о лабораторной работе №6\\
+		}
+		
+		\vspace{1cm}
+		
+		% Дисциплина и тема
+		{\Large
+			По дисциплине: «Линейные системы автоматического управления»\\
+			\vspace{0.5cm}
+			Тема: «Критерий Найквиста и системы с запаздыванием»\\
+		}
+		
+		\vspace{3cm}
+		
+		% Информация о студенте и преподавателях
+		\begin{minipage}{0.4\textwidth}
+			\raggedright
+			{\large
+				Студент:\\
+			}
+			Охрименко Е. Д.\\
+			Поток: 1.1.3\\
+			Вариант: 17\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.4\textwidth}
+			\raggedleft
+			{\large
+				Преподаватель:\\
+			}
+			Пашенко А. В.\\
+		\end{minipage}
+		
+		\vfill
+		
+		% Город и год
+		{\large
+			Санкт-Петербург\\
+			2026\\
+		}
+		
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	
+	\newpage
+	\section{Годограф Найквиста}
+	
+	В соответствии с моим вариантом придумаю три объекта пятого порядка \(5\) полюсов передаточных функций которых вещественные, а \(0\) -- комплексно-сопряженные.
+	
+	\begin{itemize}
+		\item Передаточная функция 1 имеет \(3\) неустойчивых полюсов у разомкнутой системы и \(2\) неустойчивых полюсов у замкнутой:
+		
+		\[W_1(s) = \]
+		
+		\item Передаточная функция 2 имеет \(0\) неустойчивых полюсов у разомкнутой системы и \(2\) неустойчивых полюсов у замкнутой:
+		
+		\[W_2(s) = \]
+		
+		\item Передаточная функция 3 имеет \(3\) неустойчивых полюсов у разомкнутой системы и \(0\) неустойчивых полюсов у замкнутой:
+		
+		\[W_3(s) = \]
+		
+	\end{itemize}
+	
+	
+		Требуется:
+	
+	\begin{itemize}
+		\item Построить карты нулей и полюсов разомкнутой и замкнутой систем на комплексной плоскости.
+		
+		\item Выполнить моделирование и получить переходные характеристики разомкнутой и замкнутой систем.
+		
+		\item Построить годограф Найквиста (АФЧХ), определить число его обходов вокруг точки $(-1;0)$ и сравнить результаты по критерию Найквиста.
+		
+		\item Построить ЛАЧХ и ЛФЧХ разомкнутой системы, определить число переходов ЛФЧХ через критические отрезки при положительной ЛАЧХ и проанализировать устойчивость по логарифмическому критерию Найквиста.
+	\end{itemize}
+	
+	\hrule
+
+	\newpage
+	\subsection{Объект 1}
+	
+	\subsubsection{Нули и полюса разомкнутой и замкнутой систем}
+	\subsubsection{Переходные характеристики}
+	\subsubsection{Годограф Найквиста (АФЧХ)}
+	\subsubsection{ЛАЧХ и ЛФЧХ}
+	
+    \newpage
+	\subsection{Объект 2}
+	
+	\subsubsection{Нули и полюса разомкнутой и замкнутой систем}
+	\subsubsection{Переходные характеристики}
+	\subsubsection{Годограф Найквиста (АФЧХ)}
+	\subsubsection{ЛАЧХ и ЛФЧХ}
+	
+	
+	
+	
+	\newpage
+	\subsection{Объект 3}
+	
+	\subsubsection{Нули и полюса разомкнутой и замкнутой систем}
+	\subsubsection{Переходные характеристики}
+	\subsubsection{Годограф Найквиста (АФЧХ)}
+	\subsubsection{ЛАЧХ и ЛФЧХ}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Коэффициент усиления}
+	
+	В соответствии с вариантом возьму значение \(i = 3\) и соответствующие ПФ:
+	
+	\[W_1(s) = \dfrac{s-4}{s^2 +8s + 2}\]
+	
+	\[W_2(s) = \dfrac{10s^2 + 9s - 1}{10s^3 - 12s^2 - s + 4}\]
+	
+	Добавлю к каждой функции коэффициент усиления: \[k > 0\]
+		Требуется:
+	
+	\begin{itemize}
+		\item Построить годограф Найквиста \((k = 1)\).
+		
+		\item Оценить влияние \(k_i\) на кривую годографа \( (i >= 3)\).
+		
+		\item 
+		
+		\item Определить значение запаса устойчивости по амплитуде.
+		
+		\item Выполнить моделирование и привести переходные характеристики замкнутой системы.
+		
+	\end{itemize}
+	
+	
+	\hrule
+	
+	
+	
+	
+	\newpage
+	\subsection{Объект 1}
+	
+	\subsubsection{Математическая модель}
+	\subsubsection{Годографы Найквиста}
+	\subsubsection{3}
+	\subsubsection{4}
+	\subsubsection{5}
+	\subsubsection{Переходные характеристики}
+	
+	
+	\newpage
+	\subsection{Объект 2}
+	
+	
+	\subsubsection{Математическая модель}
+	\subsubsection{Годографы Найквиста}
+	\subsubsection{3}
+	\subsubsection{4}
+	\subsubsection{5}
+	\subsubsection{Переходные характеристики}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Запаздывание}
+	
+	
+	В соответствии с вариантом возьму значение \(j = 5\) и соответствующие ПФ:
+	
+	\[W_3(s) = \dfrac{9s + 2}{s^2 + 6s + 1}\]
+	
+	\[W_4(s) = \dfrac{8s^2 + 4s + 2.4}{102s^2 - 5s + 11}\]
+	
+	Добавлю к каждой функции звено чистого запаздывания: \[e^{-\tau s}\]
+	Требуется:
+	
+	\begin{itemize}
+		\item Построить годограф Найквиста \((\tau = 0, \tau = 0.5)\).
+		
+		\item Оценить влияние \(\tau_i\) на кривую годографа \( (i >= 3)\).
+		
+		\item Найти границы значений \(\tau\) относительно которых замкнутая система устойчива.
+		
+		\item Определить значение запаса устойчивости по фазе.
+		
+		\item Выполнить моделирование и привести переходные характеристики замкнутой системы.
+		
+	\end{itemize}
+	
+	
+	\newpage
+	\subsection{Объект 1}
+	
+	\subsubsection{Математическая модель}
+	\subsubsection{Годографы Найквиста}
+	\subsubsection{3}
+	\subsubsection{4}
+	\subsubsection{Переходные характеристики}
+	
+	
+	
+	\newpage
+	\subsection{Объект 2}
+	
+	\subsubsection{Математическая модель}
+	\subsubsection{Годографы Найквиста}
+	\subsubsection{3}
+	\subsubsection{4}
+	\subsubsection{Переходные характеристики}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	\newpage
+	\section{Вывод}
+	
+
+	Материалы работы: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab6}{\texttt{github.com}}
+	
+	
+	
+	
+\end{document}
