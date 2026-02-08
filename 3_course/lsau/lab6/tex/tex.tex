@@ -756,6 +756,7 @@
 			\caption{\(k_1 = \dfrac{1}{2}\)}
 		\end{minipage}
 		\hfill
+		\\[15pt]
 		\begin{minipage}{\w}
 			\centering
 			\includegraphics[width=\textwidth]{../images/task2/o1/GNA.pdf}
@@ -771,11 +772,11 @@
 		\caption*{Рисунки 21-24: Годографы Найквиста для различных \(k\)}
 	\end{figure}
 	
-	При \(k = \dfrac{1}{5}\) линия годографа не обходит точку \((-1; 0)\), что говорит об устойчивости замкнутой системы.\\[4pt] 
+	При \(k = \dfrac{1}{5}\) линия годографа не обходит точку \((-1; 0)\), что говорит о том что количество неустойчивых полюсов замкнутой и разомкнутой систем одинаково. Поскольку разомкнутая система устойчива, то и замкнутая система будет устойчивой.\\[4pt] 
 	
 	При \(k = \dfrac{1}{2}\) линия годографа проходит через точку \((-1; 0)\), что говорит о том, что замкнутая система находится на границе устойчивости.\\[4pt]
 	
-	При \(k = 1\) и \(k = \dfrac{3}{2}\) линия годографа обходит точку \((-1; 0)\), что говорит о неустойчивости замкнутой системы.\\[1.2pt] 
+	При \(k = 1\) и \(k = \dfrac{3}{2}\) линия годографа обходит точку \((-1; 0)\) по часовой стрелке, что говорит о неустойчивости замкнутой системы.\\[1.2pt] 
 	
 	Также при увеличении \(k\) годограф растягивается от начала координат.
 
@@ -799,6 +800,7 @@
 			\caption{\(k_1 = \dfrac{1}{2}\)}
 		\end{minipage}
 		\hfill
+		\\[15pt]
 		\begin{minipage}{\w}
 			\centering
 			\includegraphics[width=\textwidth]{../images/task2/o1/h-zamk.pdf}
@@ -844,6 +846,7 @@
 			\caption{\(k_1 = \dfrac{1}{2}\)}
 		\end{minipage}
 		\hfill
+		\\[15pt]
 		\begin{minipage}{\w}
 			\centering
 			\includegraphics[width=\textwidth]{../images/task2/o1/PZ-plot.pdf}
@@ -930,39 +933,263 @@
 	\newpage
 	\subsection{Объект 2}
 	
+	Второму объекту соответствует передаточная функция:
+	
+	\[W_2(s) = \dfrac{10s^2 + 9s - 1}{10s^3 - 12s^2 - s + 4}\]
 	
 	\subsubsection{Математическая модель}
-	\subsubsection{Годографы Найквиста}
-	\subsubsection{3}
-	\subsubsection{4}
-	\subsubsection{5}
-	\subsubsection{Переходные характеристики}	
+	
+	Посчитаю \(W_\text{замк2}(s)\). Представлю \(W_2(s)\) как отношение полиномов:
+	
+	\[W_2(s) = \frac{k \cdot R(s)}{Q(s)}\]
+	
+	Запишу замкнутую передаточную функцию:
+	
+	\[W_\text{замк2}(s) = \frac{W_2(s)}{1 + W_2(s)} = \frac{k \cdot R(s) / Q(s)}{1 + k \cdot R(s) / Q(s)} = \frac{k \cdot R(s)}{k \cdot R(s) + Q(s)}\]
+	
+	Тогда: 
+	
+	\[W_\text{замк2}(s) = \frac{k \cdot(10s^2 + 9s - 1)}{10s^3 + (10k - 12)s^2 + (9k -1)s + (-k + 4)}\]
+	
+	Теперь применю критерий Гурвица для анализа устойчивости системы. С помощью него найду пределы значений коэффициента усиления, относительно которых замкнутая система устойчива.
+	
+	Запишу полученные коэффициенты:
+	
+	\[a_3 = 10 \qquad a_2 = 10k - 12 \qquad a_1 = 9k -1 \qquad a_0 = 4-k \]	
+	
+	Критерий Гурвица для характеристического уравнения третьего порядка:
+	
+	\[
+	\begin{cases}
+		a_3 > 0 \\
+		a_2 > 0 \\
+		a_1 > 0 \\
+		a_0 > 0 \\
+		a_2 \cdot a_1 > a_3 \cdot a_0
+	\end{cases} 
+	\quad \Longrightarrow \quad
+	\begin{cases}
+		10 > 0 \\
+		10k - 12 > 0 \\
+		9k -1 > 0 \\
+		4-k > 0 \\
+		(10k - 12) \cdot (9k -1) > 10 \cdot (4-k)
+	\end{cases}	
+	\quad \Longrightarrow \quad
+	1.42 \lesssim k < 4
+	\] 
+	
+	Замкнутая система устойчива при: \[1.42 \lesssim k < 4\]
+	
+	Для анализа влияния коэффициента \(k\) на кривую годографа возьму 3 значения:
+	
+	\[
+	\begin{cases}
+		k_1 = 2 \\
+		k_2 = 4 \\
+		k_3 = 7
+	\end{cases}
+	\]
+	
+	При \(k = k_1\) замкнутая система устойчива, при \(k = k_2\) замкнутая система находится на границе устойчивости, при \(k = k_3\) замкнутая система неустойчива.
+
+	
+	\subsubsection{Влияние коэффициента усиления на кривую годографа}
+	
+	Построю годографы для ранее выбранных значений \(k\):
+	
+	\[
+	\begin{cases}
+		k_1 = 2 \\
+		k_2 = 4 \\
+		k_3 = 7
+	\end{cases}
+	\]
+	
+	А также построю годограф Найквиста при \(k = 1\).
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/GNA.pdf}
+			\caption{\(k_1 = 1\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/GNA2.pdf}
+			\caption{\(k_1 = 2\)}
+		\end{minipage}
+		\hfill
+		\\[15pt]
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/GNA3.pdf}
+			\caption{\(k_1 = 4\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/GNA4.pdf}
+			\caption{\(k_1 = 7\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 33-36: Годографы Найквиста для различных \(k\)}
+	\end{figure}
+	
+	Как и для предыдущего объекта, при увеличении коэффициента усиления кривая годографа растягивается от начала координат.
+	
+	При \(k = 2\) точка \((-1; 0)\) охватывается 2 раза, а замкнутая система устойчива, значит разомкнутая система будет неустойчивой и будет иметь 2 неустойчивых полюса..
+	
+	При $k = 4$ годограф проходит через критическую точку, что соответствует границе устойчивости.
+	
+	При \(k = 7\) точка \((-1; 0)\) охватывается, что указывает на появление неустойчивых полюсов.
+
+	\subsubsection{Переходные характеристики замкнутой системы}
+	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/h-zamk.pdf}
+			\caption{\(k_1 = 1\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/h-zamk2.pdf}
+			\caption{\(k_1 = 2\)}
+		\end{minipage}
+		\hfill
+		\\[15pt]
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/h-zamk3.pdf}
+			\caption{\(k_1 = 4\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/h-zamk4.pdf}
+			\caption{\(k_1 = 7\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 37-40: Step Response замкнутых систем для различных \(k\)}
+	\end{figure}
+	
+	Переходные характеристики подтверждают результаты анализа устойчивости.
+	
+	При \(k = 2\) наблюдается затухающий переходный процесс.
+	
+	При \(k = 4\) система находится на границе устойчивости.
+	
+	При \(k = 1\) и \(k = 7\) переходный процесс не ограничен, что свидетельствует о наличии неустойчивых полюсов.
+	
+	
+	\subsubsection{Зависимость количества неустойчивых полюсов от \(k\)}
+	
+	Чтобы определить зависимость количества неустойчивых полюсов замкнутой системы относительно значений коэффициента усиления построю карты нулей и полюсов, с соответственными \(k\).
+	
+	Можно вывести следующую зависимость числа неустойчивых полюсов от коэффициента усиления:
+	
+	При \(k = 1\) замкнутая система неустойчива, она имеет 2 неустойчивых полюса.
+	
+	При \(k = 2\) замкнутая система устойчива и не имеет неустойчивых полюсов.
+	
+	При \(k = 4\) замкнутая система находится на границе устойчивости, один из ее полюсов равен нулю.
+	
+	При \(k = 7\) замкнутая система не устойчива, у нее есть 3 неустойчивых полюса.
+	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.46\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/PZ-plot.pdf}
+			\caption{\(k_1 = 1\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/PZ-plot2.pdf}
+			\caption{\(k_1 = 2\)}
+		\end{minipage}
+		\hfill
+		\\[15pt]
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/PZ-plot3.pdf}
+			\caption{\(k_1 = 4\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/o2/PZ-plot4.pdf}
+			\caption{\(k_1 = 7\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 41-44: Карты нулей и полюсов замкнутых систем для различных \(k\)}
+	\end{figure}	
+	
+
 	
 	
 	
+	\subsubsection{Запас устойчивости по амплитуде}
+	
+	По критерию Гурвица я получила, что замкнутая система находится на границе
+	устойчивости при
+	
+	\[
+	k_{кр} \approx 1.42.
+	\]
+	
+	Рассматривая систему при \(k = 1\), запас устойчивости по амплитуде
+	определяется как отношение критического коэффициента усиления к текущему:
+	
+	\[
+	A_z = \frac{k_\text{кр}}{k} = \frac{1.42}{1} = 1.42.
+	\]
+	
+	Это означает, что коэффициент усиления можно увеличить примерно в 1.42 раза,
+	прежде чем система окажется на границе устойчивости.
+
+
+
+	\newpage
+	\subsection{Вывод по заданию}
+	
+	В ходе выполнения задания я исследовала влияние коэффициента усиления $k$ на устойчивость замкнутых систем для двух объектов.
+	
+	С помощью критерия Гурвица были получены диапазоны устойчивости:
+	\[
+	0 < k < 0.5 \quad \text{(объект 1)}
+	\]
+	\[
+	1.42 < k < 4 \quad \text{(объект 2)}
+	\]
+	
+	Полученные результаты подтверждаются годографами Найквиста, переходными характеристиками и картами полюсов.
 	
 	
+	Также я вычислила запасы устойчивости по амплитуде:
+	\[
+	A_{z1} = 2 \qquad
+	A_{z2} \approx 1.42
+	\]
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	Все полученные согласуются между собой.
 	
 	\newpage
 	\section{Запаздывание}
@@ -972,7 +1199,7 @@
 	
 	\[W_3(s) = \dfrac{9s + 2}{s^2 + 6s + 1}\]
 	
-	\[W_4(s) = \dfrac{8s^2 + 4s + 2.4}{102s^2 - 5s + 11}\]
+	\[W_4(s) = \dfrac{8s^2 + 4s + 2.4}{10s^2 - 5s + 11}\]
 	
 	Добавлю к каждой функции звено чистого запаздывания: \[e^{-\tau s}\]
 	Требуется:
@@ -994,35 +1221,316 @@
 	\newpage
 	\subsection{Объект 1}
 	
-	\subsubsection{Математическая модель}
+	Первому объекту соответствует передаточная функция: \[W_3(s) = \dfrac{9s + 2}{s^2 + 6s + 1}\]
+	
+	Добавлю к объекту звено чистого запаздывания. Получится:  
+	
+	\[W(s) = \dfrac{9s + 2}{s^2 + 6s + 1} \cdot e^{-\tau s}\]
+	
+	\subsubsection{Расчёт критического \(\tau\) и запаса по фазе}
+	
+	Посчитаю, критическое \(\tau\), при котором замкнутая система находится на границе устойчивости. Амплитуда и фаза объекта (при \(\tau = 0\)):
+	
+	\[W_3(s) = \dfrac{9s + 2}{s^2 + 6s + 1} \qquad W_3(j \omega) = \dfrac{2 + 9j \omega}{(j \omega)^2 + 6j \omega + 1} = \dfrac{2 + 9j \omega }{(1-\omega^2) + 6j \omega} \]
+	
+	\[A(\omega) = \dfrac{ \sqrt{2^2 + (9\omega)^2} }{ \sqrt{(1-\omega^2)^2 + (6\omega)^2} } = 
+	\dfrac{ \sqrt{4 + 81\omega^2} }{ \sqrt{(1-\omega^2)^2  + 36\omega^2} }\]
+	
+	\[\varphi(\omega) = \arctg \left(\dfrac{9\omega}{2} \right) - \arctg \left(\dfrac{6\omega}{1 - \omega^2} \right)\]
+	
+	Посчитаю значение частоты, при котором \(A(\omega) = 1\) и это будет \(\omega_{cp}\). Эта частота является частотой среза по усилению.
+	
+	\[\dfrac{ \sqrt{4 + 81\omega_{cp}^2} }{ \sqrt{(1-\omega_{cp}^2)^2  + 36\omega_{cp}^2} } = 1 \quad \Longrightarrow \quad \omega_{cp}^2=\frac{47+\sqrt{2221}}{2} \quad \Longrightarrow \quad \omega_{cp} \approx 6.86\]
+	
+	Теперь посчитаю запас устойчивости по фазе \(\varphi_z = \pi + \varphi(\omega_{cp})\):
+	
+	\[
+	\varphi_z
+	=
+	\pi
+	+
+	\arctg\!\left(
+	\frac{9}{2}
+	\sqrt{\dfrac{47+\sqrt{2221}}{2}}
+	\right)
+	-
+	\arctg\!\left(
+	\frac{
+		6\sqrt{\dfrac{47+\sqrt{2221}}{2}}
+	}{
+		1-\dfrac{47+\sqrt{2221}}{2}
+	}
+	\right)
+	\]
+	
+	А критическое \(\tau\) я найду по формуле: \[\tau_{kr} = \frac{\varphi_z}{\omega_{cp}}\]
+	
+	Посчитав все в уме (в матлабе), у меня получилось:
+	
+	\[\tau_{kr} \approx 0.3306 \qquad \varphi_z \approx 2.2677\]
+	
+
+	
+	\newpage
 	\subsubsection{Годографы Найквиста}
-	\subsubsection{3}
-	\subsubsection{4}
+	
+	Построю годографы Найквиста при отсутствии звена чистого запаздывания и при \(\tau = 0.5\).
+	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA0.pdf}
+			\caption{\(\tau = 0\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA05.pdf}
+			\caption{\(\tau = 0.5\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 45-46: Годографы Найквиста при \(\tau = 0\) и \(\tau = 0.5\)}
+	\end{figure}	
+
+	Также построю годографы при \(\tau = 0.2, \tau_{kr} = \dfrac{1}{3}, \tau = 0.7, \tau = 1.2\)
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA02.pdf}
+			\caption{\(\tau = 0.2\)}
+		\end{minipage}
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA13.pdf}
+			\caption{\(\tau = \dfrac{1}{3}\)}
+		\end{minipage}
+		
+	\end{figure}	
+
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA07.pdf}
+			\caption{\(\tau = 0.7\)}
+		\end{minipage}
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/GNA12.pdf}
+			\caption{\(\tau = 1.2\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 47-50: Годографы Найквиста при различных \(\tau\)}
+	\end{figure}	
+
+	Получается, что при увеличении коэффициента запаздывания увеличивается количество оборотов годографа вокруг критической точки. Это влияет на устойчивость замкнутой системы -- чем больше оборотов \textit{по часовой} стрелке, тем больше неустойчивых полюсов будет у замкнутой системы. Также видно, что при \(\tau_{kr}\) линия годографа проходит через точку \((-1; 0)\), это означает, что замкнутая система будет находится на границе устойчивости. 
+
 	\subsubsection{Переходные характеристики}
 	
+	Выберу значения коэффициента запаздывания для каждой из областей значений, соответствующих как устойчивой системе, так и неустойчивой:
 	
+	\[\tau_1 = \dfrac{1}{5} \qquad \tau_2 = \dfrac{1}{2} \qquad \]
+
+	При \(\tau = \tau_1\) замкнутая система устойчива.
 	
+	При \(\tau = \tau_2\) замкнутая система неустойчива.
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/h-zamk12.pdf}
+			\caption{\(\tau = \dfrac{1}{5}\)}
+		\end{minipage}
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/h-zamk15.pdf}
+			\caption{\(\tau = \dfrac{1}{2}\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 51-52: Step Response замкнутых систем для различных \(\tau\)}
+	\end{figure}	
+
+
+
 	\newpage
 	\subsection{Объект 2}
 	
-	\subsubsection{Математическая модель}
+	Второму объекту соответствует передаточная функция: \[W_4(s) = \dfrac{8s^2 + 4s + 2.4}{10s^2 - 5s + 11}\]
+	
+	Добавлю к объекту звено чистого запаздывания. Получится:  
+	
+	\[W(s) = \dfrac{8s^2 + 4s + 2.4}{10s^2 - 5s + 11} \cdot e^{-\tau s}\]
+	
+	\subsubsection{Расчёт критического \(\tau\) и запаса по фазе}
+	
+	Посчитаю, критическое \(\tau\), при котором замкнутая система находится на границе устойчивости. Амплитуда и фаза объекта (при \(\tau = 0\)):
+	
+	\[W_4(s) = \dfrac{8s^2 + 4s + 2.4}{10s^2 - 5s + 11} \qquad W_4(j \omega) = \dfrac{ 8(j \omega)^2 + 4j \omega + 2.4}{ 10(j \omega)^2 -5j \omega + 11 } 
+	= \dfrac{ (-8 \omega^2 + 2.4) +4j \omega}{ (-10 \omega^2 + 11) -5j \omega } \]
+	
+	\[A(\omega) = \dfrac{ \sqrt{(-8 \omega^2 + 2.4)^2 + (4 \omega)^2} }{ \sqrt{ (-10 \omega^2 + 11)^2 + (-5 \omega)^2 } } = 
+	\dfrac{ \sqrt{ (-8 \omega^2 + 2.4)^2 + 16\omega^2 } }{ \sqrt{ (-10 \omega^2 + 11)^2 + 25\omega^2 } }\]
+	
+	
+	\[\varphi(\omega) = \arctg \left(\dfrac{4\omega}{-8 \omega^2 + 2.4} \right) - \arctg \left(\dfrac{-5 \omega}{-10\omega^2 + 11} \right)\]
+	
+	Посчитаю значение частоты, при котором \(A(\omega) = 1\) и это будет \(\omega_{cp}\). Эта частота является частотой среза по усилению.
+	
+	\[	\dfrac{ \sqrt{ (-8 \omega_{cp}^2 + 2.4)^2 + 16\omega_{cp}^2 } }{ \sqrt{ (-10 \omega_{cp}^2 + 11)^2 + 25\omega_{cp}^2 } } = 1 
+	\Longrightarrow \quad
+	\omega_{cp}^2 =
+	\frac{172.6 + \sqrt{13196.2}}{72}
+	\Longrightarrow \quad
+	\omega_{cp} \approx 2.0
+	\]
+	
+	Теперь посчитаю в матлабе запас устойчивости по фазе и критическое \(\tau\) по формулам:. 
+	
+	\[\varphi_z = \pi + \varphi(\omega_{cp}) \qquad \tau_{kr} = \frac{\varphi_z}{\omega_{cp}}\]
+	
+	Полученные значения:
+	
+	\[\tau_{kr} \approx 1.2728 \qquad \varphi_z = 2.5456 \]
+	
+	
+	\newpage
 	\subsubsection{Годографы Найквиста}
-	\subsubsection{3}
-	\subsubsection{4}
+	
+	Построю годографы Найквиста при отсутствии звена чистого запаздывания и при \(\tau = 0.5\).
+	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/GNA0.pdf}
+			\caption{\(\tau = 0\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/GNA05.pdf}
+			\caption{\(\tau = 0.5\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 53-54: Годографы Найквиста при \(\tau = 0\) и \(\tau = 0.5\)}
+	\end{figure}	
+	
+	Также построю годографы при \(\tau = 0.1, \tau_{kr} = 1.2728, \tau = 5\)
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/GNA01.pdf}
+			\caption{\(\tau = 0.1\)}
+		\end{minipage}
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/GNA12.pdf}
+			\caption{\(\tau = 1.2728\)}
+		\end{minipage}
+		
+	\end{figure}	
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.5\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/GNA5.pdf}
+			\caption{\(\tau = 5\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 55-57: Годографы Найквиста при различных \(\tau\)}
+	\end{figure}	
+	
+	Из построенных годографов видно, что с увеличением \(\tau\) годограф 
+	сильнее закручивается. При \(\tau = \tau_{kr}\) он проходит через точку \((-1;0)\), что соответствует 
+	границе устойчивости. При \(\tau < \tau_{kr}\) точка не охватывается и система устойчива, 
+	а при \(\tau > \tau_{kr}\) происходит охват критической точки, значит замкнутая система будет неустойчивой.
+	
 	\subsubsection{Переходные характеристики}
 	
+	Выберу значения коэффициента запаздывания для каждой из областей значений, соответствующих как устойчивой системе, так и неустойчивой:
+	
+	\[\tau_1 = 1 \qquad \tau_2 = 2 \qquad \]
+	
+	При \(\tau = \tau_1\) замкнутая система устойчива.
+	
+	При \(\tau = \tau_2\) замкнутая система неустойчива.
+	
+	\begin{figure}[H]
+		\centering
+		
+		\newcommand{\w}{0.49\textwidth}
+		
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o2/h-zamk1.pdf}
+			\caption{\(\tau = 1\)}
+		\end{minipage}
+		\begin{minipage}{\w}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task3/o1/h-zamk15.pdf}
+			\caption{\(\tau = 2\)}
+		\end{minipage}
+		
+		\caption*{Рисунки 58-59: Step Response замкнутых систем для различных \(\tau\)}
+	\end{figure}	
 	
 	
+	\newpage
+	\subsection{Вывод по заданию}
 	
+	В задаче 3 я исследовала влияние звена чистого запаздывания на устойчивость замкнутых систем для двух объектов. 
 	
+	Для первого объекта:
+	\[
+	\omega_{cp} \approx 6.86 \quad \varphi_z \approx 2.27 \quad \tau_{cr} \approx 0.33
+	\]
 	
+	Для второго объекта:
+	\[
+	\omega_{cp} \approx 2.0 \quad \varphi_z \approx 2.55 \quad \tau_{cr} \approx 1.27
+	\]
 	
+	По годографам Найквиста видно, что при $\tau < \tau_{kr}$ системы остаются устойчивыми, при $\tau = \tau_{kr}$ находятся на границе устойчивости, а при дальнейшем увеличении запаздывания теряют устойчивость.
+
 	
 	
 	
 
 	\newpage
 	\section{Вывод}
+	
+	В лабораторной работе я исследовала устойчивость линейных систем с помощью критериев Найквиста, а также проанализировала влияние коэффициента усиления и звена чистого запаздывания. Полученные результаты показали согласованность всех методов и подтвердили, что увеличение коэффициента усиления и времени запаздывания уменьшает запас устойчивости и может привести к появлению неустойчивых полюсов замкнутой системы.
+	
 	
 
 	Материалы работы: \href{https://github.com/decadeos/ITMO/tree/master/3_course/lsau/lab6}{\texttt{github.com}}
