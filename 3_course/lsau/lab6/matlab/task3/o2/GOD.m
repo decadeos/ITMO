@@ -1,4 +1,4 @@
-t = 4;
+t = 2;
 num = [8 4 2.4]; den = [10 -5 11];
 W = tf(num, den, 'InputDelay',t); w = logspace(-2, 3, 5000);
 
@@ -25,5 +25,4 @@ set(get(ax(1),'YLabel'),'FontSize',12)
 set(get(ax(1),'Title'),'FontSize',14)
 
 set(findall(gcf, '-property', 'FontName'), 'FontName', 'DejaVu Math TeX Gyre');
-% exportgraphics(gcf,'../../../images/task3/o2/GNA5.png','Resolution',300)
-% exportgraphics(gcf,'../../../images/task3/o2/GNA5.pdf','ContentType','vector')
+exportgraphics(gcf,'../../../images/task3/o2/GNA5.pdf','ContentType','vector')
