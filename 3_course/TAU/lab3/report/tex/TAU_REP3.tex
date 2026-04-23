@@ -213,13 +213,13 @@
 		
 		\vfill
 		\vspace{0.4cm}
-		{\large Санкт-Петербург 2026}
+		{\large Санкт-Петербург, 2026}
 	\end{titlepage}
 	
 	\newpage
 	\tableofcontents
 	
-	\newpage \section{Синтез регулятора с заданной степенью устойчивости}
+	\newpage \section{Синтез регулятора с заданной степенью устойчивости}\label{sec:1}
 	
 	В соответствии с вариантом рассмотрю систему:
 	\[
@@ -432,7 +432,7 @@
 	
 	Собственные числа замкнутой системы (листинг~\ref{lst:lEig1}, аналогично):
 	\[
-	\sigma(A + BK_2) = \{-0.49 \pm 3.2\mathrm{j},\; -3\}
+	\sigma(A + BK_2) = \{-0.51 \pm 3.2\mathrm{j},\; -3\}
 	\]
 	
 	Построю графики вектора состояния \(x(t)\) при начальных условиях \(x(0) = \begin{bmatrix} 1 & 1 & 1 \\ \end{bmatrix}^T\) для степени устойчивости \(\alpha_1 = 0.5\) с ограничением на управление.
@@ -892,7 +892,11 @@
 	\caption{Структурная схема системы}
 \end{figure}
 	
-	\subsection{Синтез регулятора \(K_1\)}
+	\subsection{Набор 1: $\alpha_K = \alpha_L = 10$}
+	
+	Для этого набора наблюдатель и регулятор имеют сопоставимые значения \(\alpha\).
+	
+	\subsubsection{Синтез регулятора \(K_1\)}
 
 	Для обеспечения степени устойчивости $\alpha_K = 10$ решу уравнение Риккати с заменой:
 	\[
@@ -922,7 +926,7 @@
 	
 	Минимальная по модулю вещественная часть равна $12.68$, что превышает требуемую степень устойчивости $\alpha_K = 10$. Синтез выполнен корректно.
 	
-	\subsection{Синтез наблюдателя $L_1$}
+	\subsubsection{Синтез наблюдателя $L_1$}
 	
 	Для обеспечения заданной степени сходимости $\alpha_L = 10$ синтезирую наблюдатель на основе матричного неравенства Ляпунова для наблюдаемой части системы в жордановом базисе:
 	\[
@@ -979,8 +983,561 @@
 	
 	Вещественные части собственных чисел отрицательны, система устойчива.
 	
+	\subsubsection{Моделирование}
+	
+	Графики управления, сравнения состояний и ошибки наблюдения приведены ниже.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/U1.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
 	
 	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx11.pdf}
+			\caption{\(x_1(t)\) и \(\hat{x}_1(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx12.pdf}
+			\caption{\(x_2(t)\) и \(\hat{x}_2(t)\)}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx13.pdf}
+			\caption{\(x_3(t)\) и \(\hat{x}_3(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx14.pdf}
+			\caption{\(x_4(t)\) и \(\hat{x}_4(t)\)}
+		\end{minipage}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/e1.pdf}
+		\caption{Ошибка \(e(t)\)}
+	\end{figure}
+	
+	По графикам видно, что управление и ошибка наблюдения затухают за \(t \approx 0.6\) секунды. Оценки состояния \(\hat{x}(t)\) быстро сходятся к истинным значениям \(x(t)\). Это соответствует заданной степени устойчивости \(\alpha_K = \alpha_L  = 10\).
+	
+	\subsection{Набор 2: $\alpha_K = 12, \alpha_L = 4$}
+	
+	Для этого набора регулятор сильнее наблюдателя.
+	
+	\subsubsection{Синтез регулятора \(K_2\)}
+	
+	Для обеспечения степени устойчивости $\alpha_K = 4$ решу уравнение Риккати с заменой:
+	\[
+	\begin{cases}
+		\tilde{A}^\top P + P\tilde{A} + Q - \nu P B R^{-1} B^\top P = 0 \\
+		\tilde{A} = A + \alpha_K I \\
+		K_2 = -R^{-1}B^\top P
+	\end{cases}
+	\]
+	
+	Приму весовые матрицы такими же, как и для первого набора: $Q = I_{4\times4}$, $R = 1$, $\nu = 1$. Решую уравнение Риккати (листинг~\ref{lst:K21}, аналогично):
+		\[\begin{aligned}
+		P &= \begin{bmatrix}
+			5616.97 & -8782.54 & 4646.58 & 1438.16 \\
+			-8782.53 & 13820.8 & -7416.06 & -2305.75 \\
+			4646.58 & -7416.06 & 4104.68 & 1289.43 \\
+			1438.16 & -2305.71 & 1289.43 & 408.53
+		\end{bmatrix} \\[5pt]
+		K_2 &= \begin{bmatrix} 535.62 & -781.47 & 335.47 & 87.75 \end{bmatrix}
+	\end{aligned}
+	\]
+	
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_2) = \{-47.85,\; -28.63 \pm 5.98\,\mathrm{j} ,\; -13.71\}
+	\]
+	
+	Минимальная по модулю вещественная часть равна $13.71$, что превышает требуемую степень устойчивости $\alpha_K = 12$. Синтез выполнен корректно.
+	
+	\subsubsection{Синтез наблюдателя $L_2$}
+	
+	Для обеспечения заданной степени сходимости $\alpha_L = 12$ синтезирую наблюдатель на основе матричного неравенства Ляпунова для наблюдаемой части системы в жордановом базисе:
+	\[
+	\hat A_c =
+	\begin{bmatrix}
+		4 & 0 & 0 \\
+		0 & 8 & 0 \\
+		0 & 0 & 20
+	\end{bmatrix} \qquad
+	\hat C_c =
+	\begin{bmatrix}
+		0 & 8 & 0 \\
+		4 & 0 & 12
+	\end{bmatrix}
+	\]
+	
+	Решу матричное неравенство (листинг~\ref{lst:L21}, аналогично):
+	\[
+	\begin{cases}
+		\hat A_c Q + Q \hat A_c^\top + 2\alpha_L Q + Y \hat C_c + \hat C_c^\top Y^\top \preceq 0 \\
+		Q \succ 0
+	\end{cases}
+	\]
+	
+	И найду матрицу наблюдателя:
+	\[
+	\hat L_c = Q^{-1} Y
+	\]
+	
+	Полученную матрицу $\hat L_c$ расширяю до полной размерности, добавляя нулевую строку, соответствующую ненаблюдаемой моде, и выполняю переход в исходный базис:
+	\[
+	L_2 = P \hat L
+	\]
+	
+	Запишу матрицу наблюдателя \(L_2\) в исходном базисе:
+	\[
+	L_2 = \begin{bmatrix}
+		-1.55 & 6.85 \\
+		1.55 & -0.73 \\
+		-1.55 & -6.85 \\
+		-1.55 & -0.73
+	\end{bmatrix}	
+	\]
+	
+	Проверяю спектр матрицы замкнутой системы:
+	\[
+	\sigma(A + L_2 C) = \{-12,\; -4.62 \pm 11.02\,\mathrm{j},\; -4.4\}
+	\]
+	
+	Вещественные части собственных чисел отрицательны, система устойчива.
+	
+	
+	\subsubsection{Моделирование}
+	
+	Графики управления, сравнения состояний и ошибки наблюдения приведены ниже.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/U2.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx21.pdf}
+			\caption{\(x_1(t)\) и \(\hat{x}_1(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx22.pdf}
+			\caption{\(x_2(t)\) и \(\hat{x}_2(t)\)}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx23.pdf}
+			\caption{\(x_3(t)\) и \(\hat{x}_3(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx24.pdf}
+			\caption{\(x_4(t)\) и \(\hat{x}_4(t)\)}
+		\end{minipage}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/e2.pdf}
+		\caption{Ошибка \(e(t)\)}
+	\end{figure}
+	
+	По графикам видно, что управление затухает за \(t \approx 1\) секунду. Оценки состояния \(\hat{x}(t)\) быстро сходятся к истинным значениям \(x(t)\). Это соответствует заданной степени устойчивости \(\alpha_K = 12\), \(\alpha_L = 4\).
+	
+	По сравнению с первым набором, графики имеют ту же форму, но наблюдатель чуть дольше догоняет регулятор. Это связано с тем, что большое \(\alpha_K\) требует более сильного управления. Наблюдатель с \(\alpha_L = 4\) работает медленнее, но всё равно справляется.
+	
+	
+	\subsection{Набор 3: $\alpha_K = 4, \alpha_L = 12$}
+	
+	Для этого набора наблюдатель сильнее регулятора.
+	
+	\subsubsection{Синтез регулятора \(K_3\)}
+	
+	Для обеспечения степени устойчивости $\alpha_K = 12$ решу уравнение Риккати с заменой:
+	\[
+	\begin{cases}
+		\tilde{A}^\top P + P\tilde{A} + Q - \nu P B R^{-1} B^\top P = 0 \\
+		\tilde{A} = A + \alpha_K I \\
+		K_3 = -R^{-1}B^\top P
+	\end{cases}
+	\]
+	
+	Приму весовые матрицы такими же, как и для первого набора: $Q = I_{4\times4}$, $R = 1$, $\nu = 1$. Решую уравнение Риккати (листинг~\ref{lst:K21}, аналогично):
+	\[\begin{aligned}
+		P &= \begin{bmatrix}
+			621.17 & -871.94 & 338.83 & 88.03 \\
+			-871.94 & 1239.82 & -503.63 & -135.78 \\
+			338.83 & -503.63 & 236.62 & 71.73 \\
+			88.03 & -135.78 & 71.73 & 24.07
+		\end{bmatrix} \\[5pt]
+		K_3 &= \begin{bmatrix} 149.39 & -192.67 & 42.59 & -0.69 \end{bmatrix}
+	\end{aligned}
+	\]
+	
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_3) = \{-27.23,\; -17.86,\; -12.23,\; -12\}
+	\]
+	
+	Минимальная по модулю вещественная часть равна $12$, что значительно превышает требуемую степень устойчивости $\alpha_K = 4$. Синтез выполнен корректно.
+	
+	\subsubsection{Синтез наблюдателя $L_3$}
+	
+	Для обеспечения заданной степени сходимости $\alpha_L = 12$ синтезирую наблюдатель на основе матричного неравенства Ляпунова для наблюдаемой части системы в жордановом базисе:
+	\[
+	\hat A_c =
+	\begin{bmatrix}
+		4 & 0 & 0 \\
+		0 & 8 & 0 \\
+		0 & 0 & 20
+	\end{bmatrix} \qquad
+	\hat C_c =
+	\begin{bmatrix}
+		0 & 8 & 0 \\
+		4 & 0 & 12
+	\end{bmatrix}
+	\]
+	
+	Решу матричное неравенство (листинг~\ref{lst:L21}, аналогично):
+	\[
+	\begin{cases}
+		\hat A_c Q + Q \hat A_c^\top + 2\alpha_L Q + Y \hat C_c + \hat C_c^\top Y^\top \preceq 0 \\
+		Q \succ 0
+	\end{cases}
+	\]
+	
+	И найду матрицу наблюдателя:
+	\[
+	\hat L_c = Q^{-1} Y
+	\]
+	
+	Полученную матрицу $\hat L_c$ расширяю до полной размерности, добавляя нулевую строку, соответствующую ненаблюдаемой моде, и выполняю переход в исходный базис:
+	\[
+	L_3 = P \hat L
+	\]
+	
+	Запишу матрицу наблюдателя \(L_3\) в исходном базисе:
+	\[
+	L_3 = \begin{bmatrix}
+		-2.55 & 17.25 \\
+		2.55 & 2.43 \\
+		-2.55 & -17.25 \\
+		-2.55 & 2.43
+	\end{bmatrix}	
+	\]
+	
+	Проверяю спектр матрицы замкнутой системы:
+	\[
+	\sigma(A + L_3 C) = \{-12,\; -12.78 \pm 18.66\,\mathrm{j},\; -12.4\}
+	\]
+	
+	Вещественные части собственных чисел отрицательны, система устойчива.
+	
+	
+	\subsubsection{Моделирование}
+	
+	Графики управления, сравнения состояний и ошибки наблюдения приведены ниже.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/U3.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx31.pdf}
+			\caption{\(x_1(t)\) и \(\hat{x}_1(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx32.pdf}
+			\caption{\(x_2(t)\) и \(\hat{x}_2(t)\)}
+		\end{minipage}
+		
+		\vspace{0.5cm}
+		
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx33.pdf}
+			\caption{\(x_3(t)\) и \(\hat{x}_3(t)\)}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.48\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../images/task2/xx34.pdf}
+			\caption{\(x_4(t)\) и \(\hat{x}_4(t)\)}
+		\end{minipage}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task2/e3.pdf}
+		\caption{Ошибка \(e(t)\)}
+	\end{figure}
+	
+	По графикам видно, что управление затухает за \(t \approx 0.7\) секунды. Оценки состояния \(\hat{x}(t)\) быстрее, чем во 2 наборе сходятся к истинным значениям \(x(t)\). Это соответствует заданной степени устойчивости \(\alpha_K = 4\), \(\alpha_L = 12\).
+	
+	По сравнению с первым набором, графики схожую форму, но вытянуты по оси ординат. Наблюдатель с \(\alpha_L = 12\) работает быстрее, ошибки невязки пропадают за \(t \approx 0.4\) секунды.
+	
+	 \subsection{Вывод по заданию}
+	
+	В задании я рассмотрела три случая: $\alpha_K = \alpha_L$, $\alpha_K > \alpha_L$ и $\alpha_K < \alpha_L$. При $\alpha_K > \alpha_L$ управление получается более сильным, но наблюдатель восстанавливает состояние медленнее. При $\alpha_K < \alpha_L$ наблюдатель быстро сходится, однако переходный процесс по выходу затягивается из‑за более слабого регулятора. Наиболее равномерное поведение даёт случай $\alpha_K = \alpha_L$, когда скорости затухания управления и ошибки наблюдения близки. 
+	
+	\newpage \section{Регулятор с качественной экспоненциальной устойчивостью}
+	
+	В соответствии с вариантом рассмотрю систему:
+	\[
+	\dot{x} = Ax + Bu,\qquad 
+	A = \begin{bmatrix}
+		8 & 1 & 11 \\
+		4 & 0 & 4 \\
+		-4 & -3 & -7
+	\end{bmatrix} \qquad 
+	B = \begin{bmatrix}
+		-1 \\ -3 \\ 3
+	\end{bmatrix}
+	\]
+	Требуется:
+	
+	\begin{enumerate}
+		\item Найти собственные числа $A$ и определить управляемость.
+		
+		\item Выбрать параметры $\beta < 0$ и $r > 0$ так, чтобы $\beta + r < 0$, $r = |\beta|/k$ при $1.5 \leq k \leq 4$, а неуправляемые собственные числа попали в круг с центром $(\beta, 0)$ и радиусом $r$.
+		
+		\item Для четырёх наборов $(Q, R)$: $(I, 1)$, $(I, 0)$, $(0, 1)$, $(0, 0)$ решить уравнение Риккати:
+		\[
+		\begin{cases}
+			(A - BK - \beta I)^\top P (A - BK - \beta I) - r^2 P = -Q \\[8pt]
+			K = -(R + B^\top P B)^{-1} B^\top P (A - \beta I)
+		\end{cases}
+		\]
+		
+		\item Для каждого набора:
+		\begin{enumerate}
+			\item[a)] найти $K$;
+			\item[б)] проверить, что собственные числа $A+BK$ лежат внутри круга;
+			\item[в)] построить графики $u(t)$ и $x(t)$ при $x(0) = [1,1,1]^\top$.
+		\end{enumerate}
+		
+		\item Сравнить результаты и сделать выводы.
+	\end{enumerate}
+	
+	\hrule \newpage
+	
+	\subsection{Анализ матрицы системы}
+	
+	Матрица в этом задании такая же, как и в Задании~\ref{sec:1}. Запишу собственные числа матрицы \(A\):	
+	\[
+	\sigma(A) = \{-3,\; 2 \pm 2\mathrm{j}\}
+	\]
+	
+	Собственное число \(\lambda_1 = -3\) не управляемо, то так как оно отрицательно, система стабилизируема.
+	
+	\subsection{Выбор параметров $\beta$ и $r$}
+	
+	Возьму параметры $\beta = -2.5$ и $r = 1.5$. Проверю выполнение наложенных условий:
+	
+	\[
+	\begin{cases}
+		\beta + r < 0 \\
+		1.5 \leq \dfrac{|\beta|}{r} \leq 4 \\
+		|\lambda_{1} - \beta| < r
+	\end{cases}
+	\qquad\Longrightarrow\qquad
+	\begin{cases}
+		-2.5 + 1.5 = -1 < 0 \\[5pt]
+		\dfrac{2.5}{1.5} \approx 1.67 \in [1.5;\,4] \\[5pt]
+		|(-3) - (-2.5)| = 0.5 < 1.5
+	\end{cases}
+	\]
+	
+	Выбранные параметры удовлетворяют всем требованиям.
+
+
+
+	\subsection{Набор 1. \(Q = I ,\; R = 1\)}
+	
+	Синтезирую регулятор, решая уравнение Риккати. Получаю (листинг~\ref{lst:K3}):	
+	\[
+	K_1 = \begin{bmatrix} -2.78 & 0.97 & -2.78 \end{bmatrix}
+	\]
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_1) = \{-2.23 \pm 0.51\,\mathrm{j},\; -3\}
+	\]
+	
+	Все собственные числа находятся внутри круга с центром \((-2.5, 0)\) и радиусом \(r = 1.5\). Покажу это графически:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{../images/task3/eig1.pdf}
+		\caption{Расположение собственных чисел замкнутой системы}
+	\end{figure}
+	
+	Далее выполню моделирование замкнутой системы при начальных условиях \(x(0) = [1, 1, 1]^\top\). 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/U1.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/X1.pdf}
+		\caption{Вектор состояния \(x(t)\)}
+	\end{figure}
+	
+По графикам видно, что переходные процессы затухают. Все собственные числа находятся внутри круга, что подтверждает выполнение условия качественной экспоненциальной устойчивости.
+	
+	\subsection{Набор 2. \(Q = I ,\; R = 0\)}
+	
+	Синтезирую регулятор \(K_2\) (листинг~\ref{lst:K3}, аналогично):	
+	\[
+	K_2 = \begin{bmatrix} -2.82 & 0.98 & -2.82 \end{bmatrix}
+	\]
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_2) = \{-2.09,\; -2.50 \; -3\}
+	\]
+	
+	Собственные числа на координатной плоскости не выходят на границу круга:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{../images/task3/eig2.pdf}
+		\caption{Расположение собственных чисел замкнутой системы}
+	\end{figure}
+	
+	Далее выполню моделирование замкнутой системы при начальных условиях \(x(0) = [1, 1, 1]^\top\). 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/U2.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/X2.pdf}
+		\caption{Вектор состояния \(x(t)\)}
+	\end{figure}
+	
+	
+По графикам видно, что переходные процессы затухают. Все собственные числа находятся внутри круга, что подтверждает выполнение условия качественной экспоненциальной устойчивости.
+	
+	\subsection{Набор 3. \(Q = 0 ,\; R = 1\)}
+	
+	Синтезирую регулятор, решая уравнение Риккати (листинг~\ref{lst:K3}, аналогично):	
+	\[
+	K_3 = \begin{bmatrix} -1.73 & 0.86 & -1.73 \end{bmatrix}
+	\]
+	
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_3) = \{- 1.02 \pm 0.25\,\mathrm{j},\; -3\}
+	\]
+	
+	Все собственные числа находятся внутри круга с центром \((-2.5, 0)\) и радиусом \(r = 1.5\). Покажу это графически:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{../images/task3/eig3.pdf}
+		\caption{Расположение собственных чисел замкнутой системы}
+	\end{figure}
+	
+	Далее выполню моделирование замкнутой системы при начальных условиях \(x(0) = [1, 1, 1]^\top\). 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/U3.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/X3.pdf}
+		\caption{Вектор состояния \(x(t)\)}
+	\end{figure}
+	
+		
+По графикам видно, что переходные процессы затухают. Все собственные числа находятся внутри круга, что подтверждает выполнение условия качественной экспоненциальной устойчивости.
+	
+	
+	\subsection{Набор 4. \(Q = 0 ,\; R = 0\)}
+	
+	Синтезирую регулятор, решая уравнение Риккати. Для учёта параметра \(\beta\) делаю замену \(\tilde{A} = A - \beta I\). Получаю:	
+	\[
+	K_4 = \begin{bmatrix} -2.99 & 0.99 & -2.98 \end{bmatrix}
+	\]
+	
+	Спектр замкнутой системы:
+	\[
+	\sigma(A + BK_4) = \{-3,\; -2.44,\; -2.5\}
+	\]
+	
+	Собственное число \(\lambda_3 = -3\) находится внутри круга, остальные попали на его границу:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{../images/task3/eig4.pdf}
+		\caption{Расположение собственных чисел замкнутой системы}
+	\end{figure}
+	
+	Далее выполняю моделирование замкнутой системы при начальных условиях \(x(0) = [1, 1, 1]^\top\). 
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/U4.pdf}
+		\caption{Управление \(u(t)\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task3/X4.pdf}
+		\caption{Вектор состояния \(x(t)\)}
+	\end{figure}
+	
+	По графикам видно, что переходные процессы затухают. Все собственные числа находятся внутри круга, что подтверждает выполнение условия качественной экспоненциальной устойчивости.
+	
+	\subsection{Вывод по заданию}
+	
+	В задании я синтезировала регуляторы для четырёх наборов весовых матриц $Q$ и $R$ при $\beta = -2.5$, $r = 1.5$. Во всех случаях собственные числа замкнутой системы лежат внутри заданного круга, то есть качественная экспоненциальная устойчивость обеспечена. Во всех наборах полученные матрицы регуляторов симметричны (первый и третий коэффициенты равны). Самое медленное затухание наблюдается в наборе 3 ($Q = 0$, $R = 1$). Остальные три набора дают примерно одинаковые и более быстрые переходные процессы.
+	
+	
+	\newpage \section{Вывод}
+	
+	В ходе работы я синтезировала регуляторы с заданной степенью устойчивости с помощью матричных неравенств Ляпунова и уравнений Риккати, а также построила управление по выходу с наблюдателем полной размерности. Я показала, что изменение весовых матриц $Q$, $R$ и соотношения $\alpha_K$ и $\alpha_L$ меняет интенсивность управления и скорость затухания переходных процессов.
 	
 	
 	
@@ -1142,6 +1699,60 @@ L1 = Round[N[P.Lj1], 0.01];
 
 AclaK1 = A + L1.c;
 Eigenvalues[N[AclaK1]]
+\end{lstlisting}
+
+\newpage \subsection*{Задание 3}
+
+\begin{lstlisting}[caption={Инициализация}]
+A =   
+	{{8, 1, 11},
+	{4, 0, 4}, 
+	{-4, -3, -7}};
+
+B = {{-1}, {-3}, {3}};
+x0 = {1, 1, 1};
+
+beta = -2.5;
+r = 1.5;
+nu = 1;
+
+A1 = A - beta*IdentityMatrix[3];
+
+Q = IdentityMatrix[3];
+R = {{1}};
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Синтез регулятора \(K\)}. Матрица перехода была найдена в листинге~\ref{lst:jordan1}, label={lst:K3}, language=Matlab]
+clear; clc;
+
+A = [8, 1, 11; 4, 0, 4; -4, -3, -7];
+B = [-1; -3; 3];
+
+P = [-1, -3, -1; 0, -2, 0; 1, 2, 0];
+Aj1 = [2, 2; -2, 2];
+Bj1 = [3/2; -7/2];
+
+% Q = eye(2); R = 0;
+Q = [0, 0; 0, 0]; R = 0;
+b = -2.5; r = 1.5;
+
+syms P_ [2 2]
+K_ = -(inv(R + Bj1' * P_ * Bj1) * Bj1' * P_ * (Aj1 - b*eye(2)));
+eqs = (Aj1 + Bj1*K_ - b*eye(2))' * P_ * (Aj1 + Bj1*K_ - b*eye(2)) - r^2 * P_ == -Q;
+s = vpasolve(eqs, [P_], Random=true);
+P_ = [s.P_1_1, s.P_1_2; s.P_2_1, s.P_2_2];
+
+K = round([0, -(inv(R + Bj1' * P_ * Bj1) * Bj1' * P_ * (Aj1 - b*eye(2)))] * P^-1, 4);
+e = round(eig(A + B*K), 4);
+dists = abs(e - b);
+
+if all(real(e) < 0) && all(dists < r)
+	disp('K ='); disp(K);
+	disp('e ='); disp(e);
+else
+	disp('no');
+end
 \end{lstlisting}
 	
 \end{document}
