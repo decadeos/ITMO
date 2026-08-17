@@ -1,0 +1,781 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, matrix}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
+\usepackage{tcolorbox}
+\usepackage{nicematrix}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+
+% --- hyperref ОДИН РАЗ ---
+\usepackage{hyperref}
+\hypersetup{linktoc=page}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+	filecolor=red,
+}
+
+% --- Содержание ---
+\usepackage{tocloft}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+}
+
+% Патчим \tableofcontents: текст строк — без ссылок и чёрный
+% Это делается через замену \contentsline внутри TOC
+\preto\tableofcontents{%
+	\begingroup
+	% Переопределяем contentsline так, чтобы текст был чёрным без ссылки,
+	% а номер страницы — красной ссылкой
+	\renewcommand{\contentsline}[4]{%
+		\ifnum\pdfstrcmp{##1}{section}=0
+		\vskip 4pt{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else\ifnum\pdfstrcmp{##1}{subsection}=0
+		\vskip 2pt\hspace{1.5em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else
+		\vskip 1pt\hspace{3em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\fi\fi
+	}%
+}
+\appto\tableofcontents{\endgroup}
+
+% tocloft — только для отступов, без переопределения шрифтов
+\usepackage{tocloft}
+
+% --- Листинги ---
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{250,250,252}
+\definecolor{linenumcolor}{RGB}{150,150,170}
+\definecolor{mathblue}{RGB}{30,100,200}
+\definecolor{mathorange}{RGB}{200,100,20}
+\definecolor{matlabblue}{RGB}{0,0,200}
+\definecolor{matlabgreen}{RGB}{30,130,30}
+\definecolor{matlaborange}{RGB}{200,80,0}
+
+\lstdefinelanguage{Mathematica}{
+	keywords={Plot, Eigenvalues, MatrixExp, RiccatiSolve, IdentityMatrix,
+		Inverse, Transpose, Simplify, Eigensystem, StateSpaceModel,
+		ControllabilityMatrix, MatrixRank, Export, FileNameJoin,
+		NotebookDirectory, ConstantArray, ZeroMatrix, NDSolve,
+		Evaluate, LineLegend, Placed, Directive, Opacity, Filling,
+		FillingStyle, PlotStyle, PlotLegends, PlotRange, Frame,
+		Axes, FrameLabel, GridLines, GridLinesStyle, AspectRatio,
+		Style, FontFamily, FontSize, Thick, Dashed, Dotted,
+		DotDashed, RGBColor, GrayLevel, LegendLayout, LabelStyle,
+		Subscript, Table, Do, Module, Block, If, True, False, Automatic},
+	sensitive=true,
+	morecomment=[s]{(*}{*)},
+	morestring=[b]",
+}
+
+\lstdefinestyle{mma}{
+	language=Mathematica,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{mathblue}\bfseries,
+	commentstyle=\color{linenumcolor}\itshape,
+	stringstyle=\color{mathorange},
+	numberstyle=\tiny\color{linenumcolor},
+	numbers=left,
+	numbersep=10pt,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	frameround=tttt,
+	framesep=4pt,
+	rulecolor=\color{mathblue!40},
+	breaklines=true,
+	tabsize=4,
+	showstringspaces=false,
+	captionpos=b,
+	xleftmargin=15pt,
+	xrightmargin=5pt,
+}
+
+\lstdefinestyle{matlab}{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{matlabblue}\bfseries,
+	commentstyle=\color{matlabgreen}\itshape,
+	stringstyle=\color{matlaborange},
+	numberstyle=\tiny\color{linenumcolor},
+	numbers=left,
+	numbersep=10pt,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	frameround=tttt,
+	framesep=4pt,
+	rulecolor=\color{matlabblue!30},
+	breaklines=true,
+	tabsize=4,
+	showstringspaces=false,
+	captionpos=b,
+	xleftmargin=15pt,
+	xrightmargin=5pt,
+	escapeinside={\%*}{*)},
+	morekeywords={cvx_begin,cvx_end,sdp,variable,minimize,maximize},
+}
+
+\lstset{style=mma}
+
+\renewcommand{\lstlistingname}{Листинг}
+\DeclareCaptionFormat{redlisting}{#1\textcolor{red}{#2}#3}
+\captionsetup[lstlisting]{format=redlisting}
+
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\captionsetup{labelsep=endash}
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		\vspace*{0.5cm}
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\[2pt]
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\[2pt]
+			\textbf{«Национальный исследовательский университет ИТМО»}\\
+		}
+		
+		\vspace{0.8cm}
+		\hrule height 0.8pt
+		\vspace{0.3cm}
+		
+		{\large Факультет систем управления и робототехники}
+		
+		\vspace{0.3cm}
+		\hrule height 0.4pt
+		\vspace{2.5cm}
+		
+		{\Huge\bfseries ОТЧЁТ}\\[0.4cm]
+		{\LARGE\bfseries о лабораторной работе}\\[0.8cm]
+		
+		\begin{tcolorbox}[
+			colback=gray!4,
+			colframe=gray!10,
+			boxrule=0.8pt,
+			arc=4pt,
+			left=12pt, right=12pt, top=8pt, bottom=8pt
+			]
+			\centering
+			{\large По дисциплине:\\[4pt]}
+			{\large\bfseries «Теория автоматического управления»}\\[10pt]
+			{\large Тема:\\[4pt]}
+			{\large\bfseries «Слежение и компенсация. Франкис, Дэвисон и наблюдатели.»} \\[10pt]
+			{\large Поток: 1.1.3 \( \) Вариант: 25}
+		\end{tcolorbox}
+		
+		\vspace{3cm}
+		
+		\begin{minipage}{0.45\textwidth}
+			\raggedright
+			{\large\bfseries Студент:}\\[4pt]
+			Охрименко Е.\,Д.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.45\textwidth}
+			\raggedleft
+			{\large\bfseries Преподаватель:}\\[4pt]
+			Пашенко А.\,В.\\
+		\end{minipage}
+		
+		\vfill
+		\vspace{0.4cm}
+		{\large Санкт-Петербург, 2026}
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage \section{Синтез регуляторов при помощи матричных уравнений Франкиса-Дэвисона}\label{sec:1}
+		
+	В соответствии с вариантом рассмотрю систему:
+	
+	\[
+	\begin{cases}
+		\dot{x} = Ax + Bu + B_f f, \\
+		y = Cx + Du + D_f f,
+	\end{cases}
+	\qquad
+	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T,
+	\]
+	
+	где
+	
+	\[
+	A = \begin{bmatrix} 
+		8 & 1 & 11 \\ 
+		4 & 0 & 4 \\ 
+		-4 & -3 & -7 
+	\end{bmatrix}, \quad
+	B = \begin{bmatrix} -1 \\ -3 \\ 3 \end{bmatrix}, \quad
+	B_f = \begin{bmatrix} 
+		1 & -1 \\ 
+		0 & 0 \\ 
+		-1 & 0
+	\end{bmatrix},
+	\]
+	
+	\[
+	C = \begin{bmatrix} -2 & 0 & -3 \end{bmatrix}, \quad
+	D = 15, \quad
+	D_f = \begin{bmatrix} 0 & 3 \end{bmatrix}.
+	\]
+	
+	Генератор внешнего возмущения:
+	
+	\[
+	\begin{cases}
+		\dot{w}_f = \Gamma_f w_f, \\
+		f = Y_f w_f,
+	\end{cases}
+	\qquad
+	w_f(0) = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}^T,
+	\]
+	
+	где
+	
+	\[
+	\Gamma_f = \begin{bmatrix}
+		35 & 10 & -28 & 17 \\
+		-22 & -7 & 18 & -12 \\
+		56 & 17 & -45 & 27 \\
+		34 & 12 & -28 & 17
+	\end{bmatrix}, \quad
+	Y_f = \begin{bmatrix}
+		-6 & -2 & 4 & -3 \\
+		12 & 4 & -10 & 6
+	\end{bmatrix}.
+	\]
+	
+	Генератор задающего воздействия:
+	
+	\[
+	\begin{cases}
+		\dot{w}_g = \Gamma_g w_g, \\
+		g = Y_g w_g,
+	\end{cases}
+	\qquad
+	w_g(0),
+	\]
+	
+	где
+	
+	\[
+	g(t) = 21\sin(2t) - 12.
+	\]
+		
+	Требуется:
+	\begin{enumerate}
+		\item Найти собственные числа матрицы $\Gamma_f$, определить моды внешнего возмущения и их характер.
+		
+		\item Определить матрицы $\Gamma_g$, $Y_g$ и начальное условие $w_g(0)$, при которых генератор порождает $g(t)$. Найти $\sigma(\Gamma_g)$.
+		
+		\item Построить схему моделирования системы, замкнутой регулятором $u = Kx + K_g w_g + K_f w_f$, обеспечивающим $\lim\limits_{t\to\infty} |g(t) - y(t)| = 0$.
+		
+		\item Синтезировать ``feedback''-компоненту $K$ любым пройденным способом. Привести выкладки и матрицу $K$.
+		
+		\item Составить и проверить разрешимость матричных уравнений Франкиса–Дэвисона для $K_g$. Синтезировать $K_g$.
+		
+		\item Составить и проверить разрешимость уравнений Франкиса–Дэвисона для $K_f$. Синтезировать $K_f$.
+		
+		\item Выполнить компьютерное моделирование для 5 режимов ($u=0$, $u=Kx$, $u=Kx+K_f w_f$, $u=Kx+K_g w_g$, полный регулятор) и построить графики $f(t), g(t), u(t), x(t), y(t), e(t)$.
+		
+		\item Проанализировать полученные результаты и сделать выводы.
+	\end{enumerate}
+	
+	\hrule \newpage
+	
+	\subsection{Анализ матрицы \(\Gamma_f\)}
+	
+	Для начала найду собственные числа матрицы \(\Gamma_f\), (листинг~\ref{lst:eig1}):
+	
+	\[
+	\sigma(\Gamma_f) = \{\pm 3\mathrm{j},\; \pm \mathrm{j}\}
+	\]
+	
+	
+	Собственные числа матрицы \(\Gamma_f\) являются чисто мнимыми и попарно сопряженными. Внешнее возмущение \(f(t)\) --- линейная комбинация гармонических колебаний с частотами 3 и 1.
+	
+	\subsection{Синтез генератора задающего воздействия}
+	
+	Задающее воздействие имеет вид:
+	\[
+	g(t) = 21\sin(2t) - 12
+	\]
+	Сигнал состоит из постоянной составляющей (частота $\omega_2 = 0$) и гармонической составляющей с частотой $\omega_1 = 2$.
+	Для порождения такого сигнала выберу матрицу динамики генератора $\Gamma_g$ размером $3\times3$:
+	\[
+	\Gamma_g = \begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 2 \\
+		0 & -2 & 0 \\
+	\end{bmatrix}
+	\]
+	
+	\(Y_g\) возьму равной \(\begin{bmatrix}
+		1&1&0
+	\end{bmatrix}\), где первая единица отвечает за постоянную составляющую, вторая --- за гармонику, а ноль обнуляет косинус-компоненту.
+	
+	Начальные условия выберу так, чтобы на выходе получить требуемый сигнал:
+	\[
+	w_g(0) = \begin{bmatrix} -12 \\ 0 \\ 21 \end{bmatrix}.
+	\]
+	
+	Собственные числа матрицы \(\Gamma_g\):
+	\[
+	\sigma(\Gamma_g) = \{0, \pm 2i\}.
+	\]
+	
+	
+	
+	\subsection{Синтез feedback-компоненты K}
+	
+	Для начала найду собственные числа матрицы $A$, решив характеристическое уравнение $\det(\lambda I - A) = 0$:
+	
+	\[
+	\det(\lambda I - A) =
+	\det\begin{bmatrix}
+		\lambda - 8 & -1 & -11 \\
+		-4 & \lambda & -4 \\
+		4 & 3 & \lambda + 7
+	\end{bmatrix} = 0
+	\]
+	
+	Получаю характеристическое уравнение и следующие собственные числа:
+	\[
+	\lambda^3 - \lambda^2 - 4\lambda + 24 = 0
+	\qquad \Longrightarrow \qquad
+	\lambda_1 = -3, \quad \lambda_{2,3} = 2 \pm 2i
+	\]
+	
+	Для оценки управляемости каждого собственного числа, построю Жорданову вещественную форму (листинг~\ref{lst:jordan1}). Тогда система в Жордановом базисе будет иметь вид:
+	
+	\[
+	\dot{\hat{x}} = 
+	\begin{bNiceMatrix}[create-medium-nodes, left-margin=4pt, right-margin=4pt]
+		-3 & 0 & 0 \\
+		0 & 2 & -2 \\
+		0 & 2 & 2 \\
+		\CodeAfter
+		\tikz \draw[red!80!black, rounded corners=2pt, line width=0.7pt, opacity=0.4] 
+		([xshift=-2pt, yshift=2pt]1-1-medium.north west) rectangle 
+		([xshift=2pt, yshift=-2pt]1-1-medium.south east);
+		\tikz \draw[green!40!black, rounded corners=4pt, line width=0.7pt, opacity=0.4] 
+		([xshift=-2pt, yshift=2pt]2-2-medium.north west) rectangle 
+		([xshift=2pt, yshift=-2pt]3-3-medium.south east);
+	\end{bNiceMatrix}
+	\hat{x}  + 
+	\begin{bNiceMatrix}[create-medium-nodes, left-margin=4pt, right-margin=4pt]
+		0 \\ 2.12 \\ 4.95 \\
+		\CodeAfter
+		\tikz \draw[red!80!black, rounded corners=2pt, line width=0.7pt, opacity=0.4]
+		([xshift=-2pt, yshift=2pt]1-1-medium.north west) rectangle 
+		([xshift=2pt, yshift=-2pt]1-1-medium.south east);
+		\tikz \draw[green!40!black, rounded corners=4pt, line width=0.7pt, opacity=0.4]
+		([xshift=-2pt, yshift=2pt]2-1-medium.north west) rectangle 
+		([xshift=2pt, yshift=-2pt]3-1-medium.south east);
+	\end{bNiceMatrix}
+	u
+	\]
+	
+	Собственное число \(\lambda_1 = -3\) неуправляемо, так как ему соответствует элемент \(0\) в матрице \(\hat{B}\). Собственные числа $\lambda_{2,3} = 2 \pm 2i$ управляемы, так как 
+	последняя строка соответствующего блока в матрице $\hat{B}$ ненулевая.
+	
+	Получается, что система в целом не является полностью управляемой.
+	
+	Неуправляемое собственное число \(\lambda_1 = -3\) лежит в левой комплексной полуплоскости, а значит система стабилизируема.
+	
+	Синтезирую регулятор с использованием матричного уравнения Сильвестра:
+	\[
+	\begin{cases}
+		AP - P\Gamma = BY \\
+		K = -YP^{-1}
+	\end{cases}
+	\]
+	где $\Gamma$ --- матрица с желаемым спектром, $Y$ --- вспомогательная матрица, пара $(Y,\ \Gamma)$ наблюдаема, $P$ --- решение уравнения.
+	
+	Главное условие существования единственного решения $P$:
+	\[
+	\sigma(A) \cap \sigma(\Gamma) = \varnothing
+	\]
+	Условие не выполняется, так как спектр $\Gamma$ обязан содержать неуправляемое собственное число $\lambda_1 = -3$, чтобы желаемый спектр был достижим. Поэтому перейду в жорданов базис и отброшу строку и столбец, соответствующие $\lambda_1 = -3$:
+	
+	\[
+	\begin{array}{c}
+		\begin{array}{cc}
+			\hat{A} =
+			\begin{bNiceMatrix}[create-medium-nodes,left-margin=4pt,right-margin=4pt]
+				-3 & 0 & 0 \\
+				0 & 2 & -2 \\
+				0 & 2 & 2 \\
+				\CodeAfter
+				\tikz \draw[red!80!black,line width=0.7pt,opacity=0.4]
+				([xshift=-2pt]1-1-medium.west) -- ([xshift=2pt]1-3-medium.east);
+				\tikz \draw[red!80!black,line width=0.7pt,opacity=0.4]
+				([yshift=2pt]1-1-medium.north) -- ([yshift=-2pt]3-1-medium.south);
+			\end{bNiceMatrix}
+			&
+			\hat{B} =
+			\begin{bNiceMatrix}[create-medium-nodes,left-margin=4pt,right-margin=4pt]
+				0 \\
+				2.12 \\
+				4.95 \\
+				\CodeAfter
+				\tikz \draw[red!80!black,line width=0.7pt,opacity=0.4]
+				([xshift=2pt]1-1-medium.west) -- ([xshift=-2pt]1-1-medium.east);
+			\end{bNiceMatrix}
+		\end{array}
+		\qquad \Longrightarrow \qquad
+		\begin{array}{cc}
+			\hat{A}_c =
+			\begin{bmatrix}
+				2 & -2 \\
+				2 & 2
+			\end{bmatrix}
+			&
+			\hat{B}_c =
+			\begin{bmatrix}
+				2.12 \\
+				4.95
+			\end{bmatrix}
+		\end{array}
+	\end{array}
+	\]
+	
+	Тогда уравнение Сильвестра для управляемой подсистемы:
+	\[
+	\begin{cases}
+		\hat{A}_c P - P\Gamma = \hat{B}_c Y \\
+		\hat K_c = -YP^{-1}
+	\end{cases}
+	\]
+	где $\hat{A}_c$, $\hat{B}_c$ --- усечённые матрицы в жордановом базисе.
+	
+	Теперь выберу матрицы $\Gamma$ и $Y$. Поскольку желаемый спектр содержит кратное собственное число $-3$, матрицу $\Gamma$ удобно задать в виде жордановой клетки. Для обеспечения наблюдаемости пары $(Y,\Gamma)$ выберу матрицу $Y$ так, чтобы её первый элемент был ненулевым. Тогда:
+	
+	\[
+	\Gamma =
+	\begin{bmatrix}
+		-3 & 1 \\
+		0 & -3
+	\end{bmatrix}
+	\qquad
+	Y =
+	\begin{bmatrix}
+		1 & 2
+	\end{bmatrix}
+	\]
+	
+	Запишу итоговое уравнение Сильвестра для управляемой подсистемы:
+	
+	\[
+	\begin{cases}
+		\begin{bmatrix}
+			2 & -2 \\
+			2 & 2
+		\end{bmatrix}
+		P
+		-
+		P
+		\begin{bmatrix}
+			-3 & 1 \\
+			0 & -3
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			2.12 \\
+			4.95
+		\end{bmatrix}
+		\begin{bmatrix}
+			1 & 2
+		\end{bmatrix} \\[12pt]
+		\hat K_c = -\,Y P^{-1}
+	\end{cases}
+	\]
+	
+	
+	Решу уравнение и найду матрицы \(P\) и \(\hat K_c\) (листинг~\ref{lst:silv1}). Получаю: 
+	
+	\[
+	\begin{aligned}
+		P &= \begin{bmatrix}
+			0.70 & 1.58 \\
+			0.70 & 1.49 \\
+		\end{bmatrix} 
+		\\[10pt]
+		\hat K_c &= \begin{bmatrix}
+			1.06 & -2.47
+		\end{bmatrix}
+	\end{aligned}
+	\]
+	
+	
+	Приступлю к проверке корректности расчётов. Мне необходимо найти собственные числа матрицы замкнутой системы:
+	
+	\[
+	\sigma(A + B K) \text{ --- ?}
+	\]
+	
+	В это уравнение я не могу сразу подставить матрицу \(\hat K_c\), так как она имеет размерность \(1 \times 2\) и находится в жордановом базисе. Для того, чтобы размерности и базисы были одинаковы дополню ее нулем, соответствующим неуправляемому собственному числу и перейду из жорданового базиса в исходный (листинг~\ref{lst:origK11}):
+	
+	\[
+	\hat K =
+	\begin{bmatrix}
+		0 & 1.06 & -2.47
+	\end{bmatrix}
+	\qquad \Longrightarrow \qquad	
+	K =
+	\begin{bmatrix}
+		-3.5 & 1 & -3.5
+	\end{bmatrix}
+	\]
+	
+	В результате подстановки матрицы обратной связи получаю матрицу замкнутой системы:
+	
+	\[
+	A + BK =
+	\begin{bmatrix}
+		11.5 & 0 & 14.5 \\
+		14.5 & -3 & 14.5 \\
+		-14.5 & 0 & -17.5
+	\end{bmatrix}
+	\]
+	
+	Собственные числа матрицы (листинг~\ref{lst:eigA}):
+	
+	\[
+	\sigma(A + BK) = \{-3, -3, -3\}
+	\]
+	
+	Спектр совпадает с желаемым, значит все расчеты верны, матрица регулятора \(K\) синтезирована корректно. 
+
+	\subsection{Синтез следящей компоненты \(K_g\)}
+	
+	
+	Система уравнений для синтеза следящей компоненты \(K_g\) имеет вид матричных уравнений Франкиса-Дэвисона:
+	
+	\[
+	\begin{cases}
+		P_g \Gamma_g - (A + BK)P_g = B K_g, \\
+		(C + DK)P_g + D K_g = Y_g,
+	\end{cases}
+	\]
+	
+	где \(P_g\) — вспомогательная матрица размером \(3 \times 3\),
+	\(K_g\) — искомая матрица размером \(1 \times 3\).
+	
+	Спектр матрицы \(\Gamma_g\):
+	
+	\[
+	\sigma(\Gamma_g) = \{0, \pm 2i\}.
+	\]
+	
+	Для каждого \(\lambda \in \sigma(\Gamma_g)\) проверим условие разрешимости:
+	
+	\[
+	\operatorname{rank}
+	\begin{bmatrix}
+		A + BK - \lambda I & B \\
+		C + DK & D
+	\end{bmatrix}
+	= 4.
+	\]
+	
+	Расчёты в MATLAB (листинг~\ref{lst:checkkg}) дали:
+	
+	\[
+	\operatorname{rank}
+	\begin{bmatrix}
+		A + BK - \lambda I & B \\
+		C + DK & D
+	\end{bmatrix}
+	= 4 \quad \forall \lambda \in \sigma(\Gamma_g).
+	\]
+	
+	Условие выполнено, система разрешима.
+	
+	Решая систему уравнений (листинг~\ref{lst:solvekg}), получаем:
+	
+	\[
+	K_g = \begin{bmatrix}
+		-0.7552 & -0.1012 & 1.4675
+	\end{bmatrix}.
+	\]
+	
+	\subsection{Синтез компенсирующей компоненты \(K_f\)}
+	
+	Для компенсации внешнего возмущения \(f(t)\) система матричных уравнений Франкиса-Дэвисона имеет вид:
+	
+	\[
+	\begin{cases}
+		P_f \Gamma_f - (A + BK)P_f - B_f Y_f = B K_f, \\
+		(C + DK)P_f + D K_f = -D_f Y_f,
+	\end{cases}
+	\]
+	
+	где \(P_f\) — вспомогательная матрица размером \(3 \times 4\),
+	\(K_f\) — искомая матрица размером \(1 \times 4\).
+	
+	Спектр матрицы \(\Gamma_f\):
+	
+	\[
+	\sigma(\Gamma_f) = \{\pm i, \pm 3i\}.
+	\]
+	
+	Для каждого \(\lambda \in \sigma(\Gamma_f)\) проверим условие разрешимости:
+	
+	\[
+	\operatorname{rank}
+	\begin{bmatrix}
+		A + BK - \lambda I & B \\
+		C + DK & D
+	\end{bmatrix}
+	= 4.
+	\]
+	
+	Расчёты в MATLAB (листинг~\ref{lst:checkkf}) показали, что для всех 
+	\(\lambda \in \sigma(\Gamma_f)\) ранг равен \(4\). Условие выполнено, система разрешима.
+	
+	Решая систему уравнений (листинг~\ref{lst:solvekf}), получаем:
+	
+	\[
+	K_f = \begin{bmatrix}
+		-2.6629 & -0.9070 & 2.2585 & -1.3262
+	\end{bmatrix}.
+	\]
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	\section{Приложение}
+	
+	\subsection*{Задание 1}
+	
+\begin{lstlisting}[caption={Инициализация}]
+Gf = {
+	{35, 10, -28, 17}, 
+	{-22, -7, 18, -12}, 
+	{56, 17, -45, 27}, 
+	{34, 12, -28, 17} };
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Спектр \(\Gamma_f\)}, label={lst:eig1}]
+ Eigenvalues[Gf]
+\end{lstlisting}
+	
+	
+\begin{lstlisting}[caption={Поиск вещественной Жордановой формы}, label={lst:jordan1}]
+[P, J] = jordan(sym(A)); P = double(P); J = double(J);
+[P_real, J_real] = cdf2rdf(P, J)
+B_tilde = inv(P_real) * B
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Решение уравнения Сильвестра}, label={lst:silv1}]
+A2 = J_real(2:3, 2:3);
+B2 = B_tilde(2:3);
+G = [-3 1; 0 -3];
+Y = [1 2];
+
+P = lyap(A2, -G, -B2*Y)
+K2 = -Y * P^-1
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Перевод \(\hat K_c\) в исходный базис}, label={lst:origK11}]
+K = [0 K2] * P_real^-1
+\end{lstlisting}
+	
+\begin{lstlisting}[caption={Собственные числа матрицы замкнутой системы}, label={lst:eigA}]
+z = A + B*K
+eig(z)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Проверка разрешимости}, label={lst:checkkg}]
+Gamma_g = [0 0 0 0; 0 0 2 0; 0 -2 0 0; 0 0 0 0];
+for lam = [0, 2i, -2i]
+	M = [A - lam*eye(3), B; C, D];
+	disp(['rank(M) = ' num2str(rank(M))]);
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Синтез \(K_g\)}, label={lst:solvekg}]
+syms kg1 kg2 kg3 kg4 real
+Kg = [kg1, kg2, kg3, kg4];
+Pi = sym('pi', [3, 4]);
+
+eq1 = (A + B*K)*Pi + B*Kg - Pi*Gamma_g;
+eq2 = C*Pi + D*Kg - Y_g;
+
+eqns = [eq1(:) == 0; eq2(:) == 0];
+vars = [reshape(Pi, 1, 12), kg1, kg2, kg3, kg4];
+sol = solve(eqns, vars);
+K_g = double([sol.kg1, sol.kg2, sol.kg3, sol.kg4]);
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Проверка разрешимости}, label={lst:checkkf}]
+lambda_f = eig(Gamma_f);
+for lam = lambda_f'
+	M1 = [A - lam*eye(3), B; C, D];
+	M2 = [A - lam*eye(3), B, -B_f*Y_f; C, D, -D_f*Y_f];
+	if rank(M1) == rank(M2)
+		disp([num2str(lam)]);
+	end
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Синтез \(K_f\)}, label={lst:solvekf}]
+syms kf1 kf2 kf3 kf4 real
+Kf = [kf1, kf2, kf3, kf4];
+Pi_f = sym('pi_f', [3, 4]);
+A_cl = A + B*K;
+B_fY_f = B_f * Y_f;
+D_fY_f = D_f * Y_f;
+
+eq1 = Pi_f * Gamma_f - A_cl * Pi_f - B_fY_f - B * Kf;
+eq2 = C * Pi_f + D_fY_f + D * Kf;
+
+eqns = [eq1(:) == 0; eq2(:) == 0];
+vars = [reshape(Pi_f, 1, 12), kf1, kf2, kf3, kf4];
+sol = solve(eqns, vars);
+K_f = double([sol.kf1, sol.kf2, sol.kf3, sol.kf4]);
+\end{lstlisting}
+	
+	
+\end{document}

@@ -1,0 +1,367 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+
+% Самые необходимые пакеты
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{caption}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
+\usepackage{tcolorbox}
+\usetikzlibrary{arrows.meta, patterns}
+
+\usepackage[x11names, svgnames]{xcolor}
+\definecolor{Lavender}{RGB}{160,110,230}
+\definecolor{Peach}{RGB}{255,120,60}
+\definecolor{Apricot}{RGB}{255,100,30}
+\definecolor{Salmon}{RGB}{255,60,40}
+\definecolor{CornflowerBlue}{RGB}{30,80,255}
+\definecolor{SlateGray}{RGB}{80,90,110}
+
+
+\lstset{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue}\bfseries,
+	commentstyle=\color{gray}\itshape,
+	stringstyle=\color{red},
+	numberstyle=\tiny\color{gray},
+	numbers=left,
+	stepnumber=1,
+	numbersep=8pt,
+	backgroundcolor=\color{white},
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false,
+	captionpos=b,
+	escapeinside={\%*}{*)},
+}
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+
+\begin{document}
+	
+	% Титульный лист
+	\begin{titlepage}
+		\centering
+		
+		% Министерство
+		\vspace*{0.5cm}
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\[2pt]
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\[2pt]
+			\textbf{«Национальный исследовательский университет ИТМО»}\\
+		}
+		
+		\vspace{0.8cm}
+		\hrule height 0.8pt
+		\vspace{0.3cm}
+		
+		{\large Факультет систем управления и робототехники}
+		
+		\vspace{0.3cm}
+		\hrule height 0.4pt
+		
+		\vspace{2.5cm}
+		
+		% Основной заголовок
+		{\Huge\bfseries ОТЧЁТ}\\[0.4cm]
+		{\LARGE\bfseries о курсовой работе}\\[0.8cm]
+		
+		% Декоративная рамка вокруг темы
+		\begin{tcolorbox}[
+			colback=gray!4,
+			colframe=gray!10,
+			boxrule=0.8pt,
+			arc=4pt,
+			left=12pt, right=12pt, top=8pt, bottom=8pt
+			]
+			\centering
+			{\large По дисциплине:\\[4pt]}
+			{\large\bfseries «Теория автоматического управления»}\\[10pt]
+			{\large Тема:\\[4pt]}
+			{\large\bfseries «Управление нелинейным объектом методами линейных систем»} \\[10pt]
+			{\large Поток: 1.1.3}
+		\end{tcolorbox}
+		
+		\vspace{3cm}
+		
+		% Студент / Преподаватель
+		\begin{minipage}{0.45\textwidth}
+			\raggedright
+			{\large\bfseries Студент:}\\[4pt]
+			Охрименко Е.\,Д.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.45\textwidth}
+			\raggedleft
+			{\large\bfseries Преподаватель:}\\[4pt]
+			Пашенко А.\,В.\\
+		\end{minipage}
+		
+		\vfill
+		
+		
+		\vspace{0.4cm}
+		
+		{\large Санкт-Петербург, 2026}
+		
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	
+	\newpage
+	\section{Построение математической модели объекта}
+	
+	\subsection{Вывод уравнения}
+
+
+\begin{figure}[h]
+\begin{center}
+	\begin{tikzpicture}[
+		scale=1.5,
+		>={Stealth[scale=1.5]}
+		]
+		
+		% Пол
+		\draw[->, thick] (-3,-0.2) -- (4,-0.2);
+		
+		% Тележка
+		\draw[thick, fill=Lavender!40] (-1.2,0) rectangle (1.2,0.6);
+		
+		% Колеса
+		\filldraw[SlateGray!80] (-0.7,-0.035) circle (0.15);
+		\filldraw[SlateGray!80] (0.7,-0.035) circle (0.15);
+
+		
+		% Маятник
+		\draw[thick] (0,0.6) -- (-1.5,2.5);
+		\filldraw[SlateGray!80] (-1.5,2.5) circle (0.06);
+		
+		% Ось
+		\draw[dashed, very thick] (0,2.7) -- (0,-0.6);
+		\draw[thick] (-2,-0.1) -- (-2,-0.3);
+		
+				
+		% Шарнир
+		\filldraw[SlateGray!80] (0,0.6) circle (0.06);
+		
+		% Углы
+		\draw[->, thick, Salmon, -{Stealth[length=1.5mm, width=1.2mm]}] (0.,1.22) arc (50:145:0.3);
+		\draw[->, thick, Salmon, -{Stealth[length=1.5mm, width=1.2mm]}] (-1.2,2.11) arc (120:160:0.5);
+		
+		% Сила
+		\draw[->, Salmon, thick] (1.215,0.3) -- (2.5,0.3);
+		
+		% Подписи
+		\node at (4,-0.5) {$x$};
+		\node[Salmon] at (1.8,0.5) {$u$};
+		\node[Salmon] at (-0.2,1.5) {$\varphi$};
+		\node[Salmon] at (-1.48,2.1) {$f$};
+		\node at (-1.1,1.4) {$L, m_1$};
+		\node at (-1.97,2.6) {$m_2$};
+		\node at (0.3,-0.5) {$\alpha$};
+		\node at (-1.8,-0.5) {$0$};
+		\node at (-0.4,0.3) {$M$};
+		
+		
+	\end{tikzpicture}
+\end{center}
+\caption{Перевернутый маятник на тележке}
+\end{figure}
+		
+	Запишем уравнения движения системы, применяя уравнения Лагранжа второго рода
+	для обобщённых координат $q_1 = a$, $q_2 = \varphi$.
+	Обозначим $m = m_1 + m_2$, $\beta = \left(\tfrac{m_1}{2} + m_2\right)l$,
+	$J = \tfrac{1}{3}m_1 l^2 + m_2 l^2$.
+	
+	\begin{equation}
+		\begin{cases}
+			\dot{x}_1 = x_2,\\[4pt]
+			\dot{x}_2 = \dfrac{J\bigl(u + \beta x_4^2 \sin x_3\bigr)
+				- \beta\cos x_3\bigl(f + \beta\tfrac{g}{l}\sin x_3\bigr)}
+			{(M+m)J - \beta^2\cos^2 x_3},\\[10pt]
+			\dot{x}_3 = x_4,\\[4pt]
+			\dot{x}_4 = \dfrac{(M+m)\bigl(f + \beta\tfrac{g}{l}\sin x_3\bigr)
+				- \beta\cos x_3\bigl(u + \beta x_4^2 \sin x_3\bigr)}
+			{(M+m)J - \beta^2\cos^2 x_3},\\[10pt]
+			y_1 = x_1, \quad y_2 = x_3.
+		\end{cases}
+	\end{equation}
+	
+	где $x_1 = a,\ x_2 = \dot{a},\ x_3 = \varphi,\ x_4 = \dot{\varphi}$ —
+	вектор состояния, $u$ — управляющая сила, $f$ — возмущающий момент.	
+		
+	\subsection{Точки равновесия}
+	
+	При $u = 0$, $f = 0$, $\dot{x}_i = 0$ из уравнений движения следует:
+	\[
+	\sin\varphi = 0 \implies \varphi \in \{0,\ \pi\}.
+	\]
+	Координата тележки $a$ произвольна. Получаем два семейства равновесий:
+	$P_1$ ($\varphi = 0$, маятник вверх) — \textbf{неустойчивое},
+	$P_2$ ($\varphi = \pi$, маятник вниз) — \textbf{устойчивое}.
+	Задача проекта — стабилизация в точке $P_1$.
+	
+	\subsection{Линеаризация}
+	
+	Линеаризуем систему около $P_1$. При малых отклонениях:
+	$\sin\varphi \approx \varphi$, $\cos\varphi \approx 1$, $\dot{\varphi}^2 \approx 0$.
+	Получаем модель:
+	\[
+	\dot{x} = Ax + Bu + Df, \quad y = Cx,
+	\]
+	где $x = (a,\ \dot{a},\ \varphi,\ \dot{\varphi})^\top$, и
+	
+	\[
+	A = \begin{pmatrix}
+		0 & 1 & 0 & 0 \\
+		0 & 0 & -\dfrac{\beta g}{M J} & 0 \\[6pt]
+		0 & 0 & 0 & 1 \\
+		0 & 0 & \dfrac{(M+m)g\beta}{MJ} & 0
+	\end{pmatrix}, \quad
+	B = \begin{pmatrix} 0 \\ \dfrac{J}{MJ} \\[6pt] 0 \\ -\dfrac{\beta}{MJ} \end{pmatrix},
+	\]
+	
+	\[
+	D = \begin{pmatrix} 0 \\ -\dfrac{\beta}{MJ} \\[6pt] 0 \\ \dfrac{M+m}{MJ} \end{pmatrix}, \quad
+	C = \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{pmatrix},
+	\]
+	где $M_\text{eff} = (M+m)J - \beta^2$ вместо $MJ$ в знаменателях.	
+		
+	\subsection{Выбор параметров}
+	
+	По результатам генерации получены следующие параметры системы:
+	\[
+	M = 658.36 \text{ кг}, \quad
+	m_1 = 15.66 \text{ кг}, \quad
+	m_2 = 14.80 \text{ кг}, \quad
+	l = 1.77 \text{ м}, \quad
+	g = 9.81 \text{ м/с}^2.
+	\]
+	Вспомогательные параметры:
+	\[
+	m = m_1 + m_2 = 30.46 \text{ кг}, \quad
+	\beta = \left(\tfrac{m_1}{2} + m_2\right)l = 39.94, \quad
+	J = \tfrac{1}{3}m_1 l^2 + m_2 l^2 = 62.47.
+	\]
+	Матрицы линеаризованной модели:
+	\[
+	A = \begin{pmatrix}
+		0 & 1 & 0 & 0 \\
+		0 & 0 & -0.0095 & 0 \\
+		0 & 0 & 0 & 1 \\
+		0 & 0 & 6.5197 & 0
+	\end{pmatrix}, \quad
+	B = \begin{pmatrix} 0 \\ 0.0015 \\ 0 \\ -0.0010 \end{pmatrix},
+	\]
+	\[
+	D = \begin{pmatrix} 0 \\ -0.0010 \\ 0 \\ 0.0166 \end{pmatrix}, \quad
+	C = \begin{pmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{pmatrix}.
+	\]	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	\end{document}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}

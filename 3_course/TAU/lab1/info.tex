@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning, arrows.meta, bending}
+
+\begin{document}
+	
+	\begin{figure}[h]
+		\centering
+		\small
+		\begin{tikzpicture}[
+			>=Stealth,
+			font=\sffamily,
+			every node/.style={align=center, text=black},
+			block/.style={rectangle, draw=black, thick, fill=white, minimum width=1.2cm, minimum height=0.8cm, text centered, font=\small},
+			line/.style={->, thick, >=Stealth},
+			label/.style={font=\tiny\sffamily, text=black, midway, fill=white, inner sep=1pt}
+			]
+			
+			\matrix (m) [
+			matrix of nodes,
+			nodes in empty cells,
+			column sep=1.2cm,
+			row sep=0.8cm,
+			row 1/.style={nodes={block}},
+			row 2/.style={nodes={block}},
+			row 3/.style={nodes={block}},
+			row 4/.style={nodes={block}},
+			row 5/.style={nodes={block}},
+			row 6/.style={nodes={block}},
+			row 7/.style={nodes={block}},
+			] {
+				Клиент / Подрядчик & Диспетчер (КЭП) & 1С (API) & Оператор ЭДО & Водитель (ПЭП прил.) & ГИС ЭПД \\
+				& & & & & \\
+				& & & & & \\
+				& & & & & \\
+				& & & & & \\
+				& & & & & \\
+				& & & & & \\
+			};
+			
+			% Дополнительные метки над колонками (можно убрать, если не нужно)
+			\node[above=0.2cm of m-1-1] (col1) {Заказчик};
+			\node[above=0.2cm of m-1-2] (col2) {Диспетчер};
+			\node[above=0.2cm of m-1-3] (col3) {1С};
+			\node[above=0.2cm of m-1-4] (col4) {Оператор ЭДО};
+			\node[above=0.2cm of m-1-5] (col5) {Водитель};
+			\node[above=0.2cm of m-1-6] (col6) {ГИС ЭПД};
+			
+			% Строка 1: создание ЭТрН (этап 1)
+			\draw[line] (m-1-2.east) -- (m-1-3.west) node[label, above] {1 -- создание ЭТрН (2-3 мин)};
+			\draw[line] (m-1-2.west) -- (m-1-1.east) node[label, above] {};
+			
+			% Строка 2: отправка из 1С оператору (этап 2)
+			\draw[line] (m-1-3.east) -- (m-1-4.west) node[label, above] {2 -- отправка (авто)};
+			
+			% Строка 3: оператор -> водитель (QR-код) (этап 3)
+			\draw[line] (m-1-4.east) -- (m-1-5.west) node[label, above] {3 -- QR-код водителю (1 мин)};
+			
+			% Погрузка (от водителя к заводу? но завода нет на схеме — добавим от водителя вниз и обратно)
+			\coordinate (temp1) at ($(m-1-5.south)+(0,-0.5)$);
+			\draw[line] (m-1-5.south) -- (temp1) node[label, right] {погрузка (10 мин)} -- (temp1 -| m-1-5.south);
+			% лучше показать стрелку от водителя к ГИС ЭПД? Нет, погрузка — это действие. Оставим как есть.
+			
+			% Строка 4: водитель подписывает ПЭП (этап 4)
+			\draw[line] (m-1-5.east) -- (m-1-6.west) node[label, above] {4 -- подпись ПЭП (СМС) (1 мин)};
+			
+			% Доставка (от водителя к получателю) — стрелка влево
+			\draw[line] (m-1-5.west) -- ++(-1,0) node[label, above] {доставка (1-5 ч)} -- (m-1-1.east);
+			
+			% Этап 5: отправка ЭТрН на подпись клиенту
+			\draw[line] (m-1-1.south) -- ++(0,-1.2) -| (m-1-6.south) node[label, near start, right] {5 -- ЭТрН на подпись (1 мин)};
+			
+			% Этап 6: закрытие ЭТрН оператором и импорт в 1С
+			\draw[line] (m-1-4.south) -- ++(0,-2.2) -| (m-1-3.south) node[label, near start, left] {6 -- закрытие ЭТрН (авто)};
+			\draw[line] (m-1-4.south) -- ++(0,-2.2) -- ++(0,-0.3) -| (m-1-2.south) node[label, near start, left] {импорт в 1С (авто)};
+			
+			% УПД готов
+			\draw[line] (m-1-2.south) -- ++(0,-3.5) -| (m-1-1.south) node[label, near start, above] {УПД готов (авто)};
+			
+			% Заголовок сверху
+			\node[above=0.7cm of col1, font=\bfseries\sffamily] {ЦЕЛЕВОЙ ЭЛЕКТРОННЫЙ ДОКУМЕНТООБОРОТ};
+			\node[above=0.2cm of col1, font=\small\sffamily] {(средняя длительность — 1,5 часа)};
+			
+		\end{tikzpicture}
+		\caption{Целевой электронный документооборот после внедрения ЭТрН}
+	\end{figure}
+	
+\end{document}
