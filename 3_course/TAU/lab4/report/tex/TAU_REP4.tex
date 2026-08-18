@@ -359,7 +359,36 @@
 	\sigma(\Gamma_g) = \{0, \pm 2i\}.
 	\]
 	
+	\subsection{Структурная схема системы}
 	
+	Построю схему моделирования системы
+	
+	\[
+	\begin{cases}
+		\dot{x} = Ax + Bu + B_f f, \\
+		y = Cx + Du + D_f f,
+	\end{cases}
+	\qquad
+	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T,
+	\]
+	
+	замкнутой регулятором
+	
+	\[
+	u = Kx + K_g w_g + K_f w_f,
+	\]
+	
+	обеспечивающим выполнение целевого условия
+	
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0.
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task1/model1.png}
+		\caption{Схема моделирования системы, замкнутой регулятором \(u = K x + K_g w_g + K_f w_f\)}
+	\end{figure}
 	
 	\subsection{Синтез feedback-компоненты K}
 	
