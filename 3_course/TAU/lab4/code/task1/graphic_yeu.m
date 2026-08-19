@@ -11,14 +11,14 @@ plot(t, y_uKf, 'Color', colors(3,:), 'LineWidth', L); hold on;
 plot(t, y_uKfg, 'Color', colors(4,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-xlim([-0.02; 10.02]); ylim([limYDown*1.1; limYUp*1.3]);
+% xlim([-0.02; 10.02]); ylim([limYDown*1.1; limYUp*1.3]);
 
 legend('$y_1(t)$', '$y_2(t)$', '$y_3(t)$', '$y_4(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$y(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_y, '../../report/images/task1/y.pdf', 'ContentType', 'vector');
-close(fig_y);
+% close(fig_y);
 
 %%%%%%%%%%%%%%%   e на одном рисунке для замкнутых           %%%%%%%%%%%%%%
 
@@ -32,14 +32,14 @@ plot(t, e_uKf, 'Color', colors(3,:), 'LineWidth', L); hold on;
 plot(t, e_uKfg, 'Color', colors(4,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-xlim([-0.02, 10.02]); ylim([limEDown*1.1, limEUp*1.3]);
+% xlim([-0.02, 10.02]); ylim([limEDown*1.1, limEUp*1.3]);
 
 legend('$e_1(t)$', '$e_2(t)$', '$e_3(t)$', '$e_4(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$e(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_e, '../../report/images/task1/e.pdf', 'ContentType', 'vector');
-close(fig_e);
+% close(fig_e);
 
 
 %%%%%%%%%%%%%%%   e на одном рисунке для замкнутых           %%%%%%%%%%%%%%
@@ -54,7 +54,7 @@ plot(t, u_uKf, 'Color', colors(3,:), 'LineWidth', L); hold on;
 plot(t, u_uKfg, 'Color', colors(4,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-xlim([-0.02, 10.02]); ylim([limUDown*1.1, limUUp*1.3]);
+% xlim([-0.02, 10.02]); ylim([limUDown*1.1, limUUp*1.3]);
 
 legend('$u_1(t)$', '$u_2(t)$', '$u_3(t)$', '$u_4(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
