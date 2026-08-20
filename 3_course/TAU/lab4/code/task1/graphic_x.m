@@ -1,4 +1,6 @@
 
+clc; % Строятся отдельные графики x для замкнутых систем
+
 %%%%%%%%%%%%%%%           x_uK plot                          %%%%%%%%%%%%%%
 
 limXDown = min(min(x_uK)); limXUp = max(max(x_uK));
@@ -9,14 +11,14 @@ plot(t, x_uK(:,2), 'Color', colors(2,:), 'LineWidth', L); hold on;
 plot(t, x_uK(:,3), 'Color', colors(3,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-% xlim([-0.02; 10.02]); ylim([limXDown*1.1; limXUp*1.3]);
+xlim([-0.02; 20.02]); ylim([limXDown*1.1; limXUp*1.5]);
 
 legend('$x_1(t)$', '$x_2(t)$', '$x_3(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_x_uK, '../../report/images/task1/x_uK.pdf', 'ContentType', 'vector');
-% close(fig_x_uK);
+close(fig_x_uK);
 
 %%%%%%%%%%%%%%%           x_uKf plot                          %%%%%%%%%%%%%
 
@@ -28,14 +30,14 @@ plot(t, x_uKf(:,2), 'Color', colors(2,:), 'LineWidth', L); hold on;
 plot(t, x_uKf(:,3), 'Color', colors(3,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-% xlim([-0.02; 10.02]); ylim([limXDown*1.1; limXUp*1.3]);
+xlim([-0.02; 20.02]); ylim([limXDown*1.1; limXUp*1.5]);
 
 legend('$x_1(t)$', '$x_2(t)$', '$x_3(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_x_uKf, '../../report/images/task1/x_uKf.pdf', 'ContentType', 'vector');
-% close(fig_x_uKf);
+close(fig_x_uKf);
 
 %%%%%%%%%%%%%%%           x_uKg plot                          %%%%%%%%%%%%%
 
@@ -47,14 +49,14 @@ plot(t, x_uKg(:,2), 'Color', colors(2,:), 'LineWidth', L); hold on;
 plot(t, x_uKg(:,3), 'Color', colors(3,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-% xlim([-0.02; 10.02]); ylim([limXDown*1.1; limXUp*1.3]);
+xlim([-0.02; 20.02]); ylim([limXDown*1.1; limXUp*1.5]);
 
 legend('$x_1(t)$', '$x_2(t)$', '$x_3(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_x_uKg, '../../report/images/task1/x_uKg.pdf', 'ContentType', 'vector');
-% close(fig_x_uKg);
+close(fig_x_uKg);
 
 
 %%%%%%%%%%%%%%%           x_uKfg plot                          %%%%%%%%%%%%%
@@ -67,19 +69,14 @@ plot(t, x_uKfg(:,2), 'Color', colors(2,:), 'LineWidth', L); hold on;
 plot(t, x_uKfg(:,3), 'Color', colors(3,:), 'LineWidth', L); hold on;
 
 setPlotStyle(gca, 'FontSize', F, 'LineWidth', L);
-% xlim([-0.02; 10.02]); ylim([limXDown*1.1; limXUp*1.3]);
+xlim([-0.02; 20.02]); ylim([limXDown*1.1; limXUp*1.5]);
 
 legend('$x_1(t)$', '$x_2(t)$', '$x_3(t)$', 'Interpreter', 'latex', 'FontSize', F+2, 'NumColumns', 3);
 xlabel('$t$', 'Interpreter', 'latex', 'FontSize', F+2); 
 ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', F+2); 
 
 exportgraphics(fig_x_uKfg, '../../report/images/task1/x_uKfg.pdf', 'ContentType', 'vector');
-% close(fig_x_uKfg);
-
-
-
-
-
+close(fig_x_uKfg);
 
 
 %%%%%%%%%%%%%%%      очистка                                %%%%%%%%%%%%%%%

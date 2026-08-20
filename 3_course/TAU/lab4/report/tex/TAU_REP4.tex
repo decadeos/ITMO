@@ -82,43 +82,6 @@
 \definecolor{matlabgreen}{RGB}{30,130,30}
 \definecolor{matlaborange}{RGB}{200,80,0}
 
-\lstdefinelanguage{Mathematica}{
-	keywords={Plot, Eigenvalues, MatrixExp, RiccatiSolve, IdentityMatrix,
-		Inverse, Transpose, Simplify, Eigensystem, StateSpaceModel,
-		ControllabilityMatrix, MatrixRank, Export, FileNameJoin,
-		NotebookDirectory, ConstantArray, ZeroMatrix, NDSolve,
-		Evaluate, LineLegend, Placed, Directive, Opacity, Filling,
-		FillingStyle, PlotStyle, PlotLegends, PlotRange, Frame,
-		Axes, FrameLabel, GridLines, GridLinesStyle, AspectRatio,
-		Style, FontFamily, FontSize, Thick, Dashed, Dotted,
-		DotDashed, RGBColor, GrayLevel, LegendLayout, LabelStyle,
-		Subscript, Table, Do, Module, Block, If, True, False, Automatic},
-	sensitive=true,
-	morecomment=[s]{(*}{*)},
-	morestring=[b]",
-}
-
-\lstdefinestyle{mma}{
-	language=Mathematica,
-	basicstyle=\ttfamily\small,
-	keywordstyle=\color{mathblue}\bfseries,
-	commentstyle=\color{linenumcolor}\itshape,
-	stringstyle=\color{mathorange},
-	numberstyle=\tiny\color{linenumcolor},
-	numbers=left,
-	numbersep=10pt,
-	backgroundcolor=\color{codebg},
-	frame=single,
-	frameround=tttt,
-	framesep=4pt,
-	rulecolor=\color{mathblue!40},
-	breaklines=true,
-	tabsize=4,
-	showstringspaces=false,
-	captionpos=b,
-	xleftmargin=15pt,
-	xrightmargin=5pt,
-}
 
 \lstdefinestyle{matlab}{
 	language=Matlab,
@@ -144,7 +107,7 @@
 	morekeywords={cvx_begin,cvx_end,sdp,variable,minimize,maximize},
 }
 
-\lstset{style=mma}
+\lstset{style=matlab}
 
 \renewcommand{\lstlistingname}{Листинг}
 \DeclareCaptionFormat{redlisting}{#1\textcolor{red}{#2}#3}
@@ -225,47 +188,47 @@
 	
 	\[
 	\begin{cases}
-		\dot{x} = Ax + Bu + B_f f, \\
-		y = Cx + Du + D_f f,
+		\dot{x} = Ax + Bu + B_f f \\
+		y = Cx + Du + D_f f
 	\end{cases}
 	\qquad
-	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T,
+	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T
 	\]
 	
-	где
+	где:
 	
 	\[
 	A = \begin{bmatrix} 
 		8 & 1 & 11 \\ 
 		4 & 0 & 4 \\ 
 		-4 & -3 & -7 
-	\end{bmatrix}, \quad
-	B = \begin{bmatrix} -1 \\ -3 \\ 3 \end{bmatrix}, \quad
+	\end{bmatrix} \quad
+	B = \begin{bmatrix} -1 \\ -3 \\ 3 \end{bmatrix} \quad
 	B_f = \begin{bmatrix} 
 		1 & -1 \\ 
 		0 & 0 \\ 
 		-1 & 0
-	\end{bmatrix},
+	\end{bmatrix}
 	\]
 	
 	\[
-	C = \begin{bmatrix} -2 & 0 & -3 \end{bmatrix}, \quad
-	D = 15, \quad
-	D_f = \begin{bmatrix} 0 & 3 \end{bmatrix}.
+	C = \begin{bmatrix} -2 & 0 & -3 \end{bmatrix} \quad
+	D = 15 \quad
+	D_f = \begin{bmatrix} 0 & 3 \end{bmatrix}
 	\]
 	
 	Генератор внешнего возмущения:
 	
 	\[
 	\begin{cases}
-		\dot{w}_f = \Gamma_f w_f, \\
-		f = Y_f w_f,
+		\dot{w}_f = \Gamma_f w_f \\
+		f = Y_f w_f
 	\end{cases}
 	\qquad
-	w_f(0) = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}^T,
+	w_f(0) = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}^T
 	\]
 	
-	где
+	где:
 	
 	\[
 	\Gamma_f = \begin{bmatrix}
@@ -273,29 +236,31 @@
 		-22 & -7 & 18 & -12 \\
 		56 & 17 & -45 & 27 \\
 		34 & 12 & -28 & 17
-	\end{bmatrix}, \quad
+	\end{bmatrix} \quad
 	Y_f = \begin{bmatrix}
 		-6 & -2 & 4 & -3 \\
 		12 & 4 & -10 & 6
-	\end{bmatrix}.
+	\end{bmatrix}
 	\]
 	
 	Генератор задающего воздействия:
 	
-	\[
+	\begin{equation}
 	\begin{cases}
-		\dot{w}_g = \Gamma_g w_g, \\
-		g = Y_g w_g,
+		\dot{w}_g = \Gamma_g w_g \\
+		g = Y_g w_g
 	\end{cases}
 	\qquad
-	w_g(0),
-	\]
+	w_g(0)
+	\label{gen}
+	\end{equation}
 	
-	где
+	где:
 	
-	\[
-	g(t) = 21\sin(2t) - 12.
-	\]
+	\begin{equation}
+	g(t) = 21\sin(2t) - 12
+		\label{g}
+	\end{equation}
 		
 	Требуется:
 	\begin{enumerate}
@@ -327,61 +292,116 @@
 	\]
 	
 	
-	Собственные числа матрицы \(\Gamma_f\) являются чисто мнимыми и попарно сопряженными. Внешнее возмущение \(f(t)\) --- линейная комбинация гармонических колебаний с частотами 3 и 1.
+	Собственные числа матрицы \(\Gamma_f\) являются чисто мнимыми и попарно сопряженными. Внешнее возмущение \(f(t)\) --- сумма гармонических колебаний с частотами 3 и 1.
 	
 	\subsection{Синтез генератора задающего воздействия}
 	
-	Задающее воздействие имеет вид:
+	Для генерации сигнала \eqref{g} использую систему \eqref{gen}. 
+	Её решение:
 	\[
-	g(t) = 21\sin(2t) - 12
+	w_g(t) = e^{\Gamma_g t} w_g(0), \quad
+	g(t) = Y_g w_g(t) = Y_g e^{\Gamma_g t} w_g(0)
 	\]
-	Сигнал состоит из постоянной составляющей (частота $\omega_2 = 0$) и гармонической составляющей с частотой $\omega_1 = 2$.
-	Для порождения такого сигнала выберу матрицу динамики генератора $\Gamma_g$ размером $3\times3$:
+	
+	Сигнал \(g(t) = 21\sin(2t) - 12\) содержит постоянную составляющую (\(-12\)) и гармонику с частотой \(\omega = 2\) и амплитудой \(21\). Для его генерации необходимы моды:
 	\[
-	\Gamma_g = \begin{bmatrix}
+	\lambda_1 = 0 \quad \lambda_{2,3} = \pm 2i
+	\]
+	
+	Выбираю матрицу динамики:
+	\[
+	\Gamma_g =
+	\begin{bmatrix}
 		0 & 0 & 0 \\
 		0 & 0 & 2 \\
-		0 & -2 & 0 \\
+		0 & -2 & 0
+	\end{bmatrix} \quad
+	e^{\Gamma_g t} =
+	\begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & \cos(2t) & \sin(2t) \\
+		0 & -\sin(2t) & \cos(2t)
 	\end{bmatrix}
 	\]
 	
-	\(Y_g\) возьму равной \(\begin{bmatrix}
-		1&1&0
-	\end{bmatrix}\), где первая единица отвечает за постоянную составляющую, вторая --- за гармонику, а ноль обнуляет косинус-компоненту.
-	
-	Начальные условия выберу так, чтобы на выходе получить требуемый сигнал:
+	Ввожу состояние генератора:
 	\[
-	w_g(0) = \begin{bmatrix} -12 \\ 0 \\ 21 \end{bmatrix}.
+	w_g(t) =
+	\begin{bmatrix}
+		w_1(t) \\ w_2(t) \\ w_3(t)
+	\end{bmatrix} \quad
+	w_g(0) =
+	\begin{bmatrix}
+		w_1(0) \\ w_2(0) \\ w_3(0)
+	\end{bmatrix}
 	\]
 	
-	Собственные числа матрицы \(\Gamma_g\):
+	Тогда:
 	\[
-	\sigma(\Gamma_g) = \{0, \pm 2i\}.
+	w_g(t) = e^{\Gamma_g t} w_g(0) =
+	\begin{bmatrix}
+		w_1(0) \\
+		w_2(0)\cos(2t) + w_3(0)\sin(2t) \\
+		-w_2(0)\sin(2t) + w_3(0)\cos(2t)
+	\end{bmatrix}
 	\]
+	
+	Пусть \(Y_g = \begin{bmatrix} \alpha & \beta & \gamma \end{bmatrix}\). Тогда:
+	\begin{align*}
+		g(t) &= Y_g w_g(t) \\
+		&= \alpha w_1(0) + (\beta w_2(0) + \gamma w_3(0))\cos(2t) + (\beta w_3(0) - \gamma w_2(0))\sin(2t)
+	\end{align*}
+	
+	Сравнивая с \(g(t) = -12 + 0 \cdot \cos(2t) + 21 \cdot \sin(2t)\), получаю:
+	\[
+	\begin{cases}
+		\alpha w_1(0) = -12 \\
+		\beta w_2(0) + \gamma w_3(0) = 0 \\
+		\beta w_3(0) - \gamma w_2(0) = 21
+	\end{cases}
+	\]
+	
+	Выбираю \(\alpha = 1\), \(\beta = 1\), \(\gamma = 0\). Тогда:
+	\[
+	w_1(0) = -12 \quad w_2(0) = 0 \quad w_3(0) = 21
+	\]
+	
+	Итоговые матрицы генератора:
+	\[
+	\Gamma_g =
+	\begin{bmatrix}
+		0 & 0 & 0 \\
+		0 & 0 & 2 \\
+		0 & -2 & 0
+	\end{bmatrix} \quad
+	Y_g = \begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \quad
+	w_g(0) = \begin{bmatrix} -12 \\ 0 \\ 21 \end{bmatrix}
+	\]
+
 	
 	\subsection{Структурная схема системы}
 	
-	Построюер с схему моделирования системы
+	Построю схему моделирования системы:
 	
 	\[
 	\begin{cases}
-		\dot{x} = Ax + Bu + B_f f, \\
-		y = Cx + Du + D_f f,
+		\dot{x} = Ax + Bu + B_f f \\
+		y = Cx + Du + D_f f
 	\end{cases}
 	\qquad
-	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T,
+	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T
 	\]
 	
-	замкнутой регулятором
+	замкнутой регулятором:
 	
 	\[
-	u = Kx + K_g w_g + K_f w_f,
+	u = Kx + K_g w_g + K_f w_f
 	\]
 	
-	обеспечивающим выполнение целевого условия
+	обеспечивающим выполнение целевого условия:
 	
 	\[
-	\lim_{t \to \infty} |g(t) - y(t)| = 0.
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
 	\]
 	
 	\begin{figure}[H]
@@ -706,6 +726,131 @@
 	\end{bmatrix}.
 	\]
 	
+	\subsection{Моделирование}
+	
+   	\subsubsection{Разомкнутая система}
+   	
+   	Проведу моделирование системы при отсутствии управления и построю графики внешнего возмущения \(f(t)\), задающего воздействия \(g(t)\), вектора состояния объекта управления \(x(t)\) и выхода \(y(t)\).
+   	
+	\begin{figure}[H]
+   		\centering
+   		\includegraphics[width=0.7\textwidth]{../images/task1/f_u0.pdf}
+   		\caption{Внешнее возмущение \(f(t)\)}
+   	\end{figure}
+   	
+ 	\begin{figure}[H]
+   		\centering
+   		\includegraphics[width=0.7\textwidth]{../images/task1/g_u0.pdf}
+   		\caption{Задающее воздействие \(g(t)\)}
+   	\end{figure}
+   	
+   	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/x_u0.pdf}
+		\caption{Вектор состояния \(x(t)\)}
+	\end{figure}
+
+   	   	
+   	\begin{figure}[H]
+   		\centering
+   		\includegraphics[width=0.7\textwidth]{../images/task1/y_u0.pdf}
+   		\caption{Выход \(y(t)\)}
+   	\end{figure}
+   	
+   	
+   	
+   	\subsubsection{Графики компонент \(x(t)\) для замкнутых систем}
+  	
+   	Проведу моделирование системы при ее замыкании регуляторами: 
+   	
+   	\begin{itemize}
+   		\item \(u = K x\)
+   		\item \(u = K x + K_f w_f\)
+   		\item \(u = K x + K_g w_g\)
+   		\item \(u = K x + K_f w_f + K_g w_g\)
+   	\end{itemize}
+   	
+   	Построю графики вектора состояния \(x(t)\).
+   	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/x_uK.pdf}
+		\caption{Вектор состояния \(x(t)\) при \(u = K x\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKf.pdf}
+		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_f w_f\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKg.pdf}
+		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_g w_g\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKfg.pdf}
+		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_f w_f + K_g w_g\)}
+	\end{figure}
+	
+   	\subsubsection{Графики \(u(t), y(t), e(t) \) для замкнутых систем}
+	
+	
+   	Проведу моделирование системы при ее замыкании регуляторами: 
+	
+	\begin{itemize}
+		\item \(u = K x\)
+		\item \(u = K x + K_f w_f\)
+		\item \(u = K x + K_g w_g\)
+		\item \(u = K x + K_f w_f + K_g w_g\)
+	\end{itemize}
+	
+	Построю графики \(u(t)\) и \(y(t)\) на одних рисунках.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/u.pdf}
+		\caption{Управления \(u(t)\)}
+	\end{figure}
+	
+		
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/y.pdf}
+		\caption{Выходы \(y(t)\)}
+	\end{figure}
+	
+   	Проведу моделирование системы при ее замыкании регуляторами: 
+	
+	\begin{itemize}
+		\item \(u = K x + K_f w_f\)
+		\item \(u = K x + K_g w_g\)
+		\item \(u = K x + K_f w_f + K_g w_g\)
+	\end{itemize}
+	
+	Построю график ошибки слежения \(e(t) = g(t) - y(t)\) на одном рисунке.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../images/task1/e.pdf}
+		\caption{Ошибки \(e(t)\)}
+	\end{figure}
+	
+	
+	\subsection{Вывод}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -718,16 +863,25 @@
 	
 	\subsection*{Задание 1}
 	
-\begin{lstlisting}[caption={Инициализация}]
-Gf = {
-	{35, 10, -28, 17}, 
-	{-22, -7, 18, -12}, 
-	{56, 17, -45, 27}, 
-	{34, 12, -28, 17} };
+\begin{lstlisting}[caption={Инициализация}, language=matlab]
+A = [8 1 11; 4 0 4; -4 -3 -7];
+B = [-1; -3; 3];
+C = [-2 0 -3];
+D = 15;
+B_f = [1, -1; 0, 0; -1, 0];
+D_f = [0 3];
+wf0 = [1; 1; 1; 1];
+G_f = [35 10 -28 17; -22 -7 18 -12; 56 17 -45 27; 34 12 -28 17];
+Y_f = [12 -6; 4 -2; -10 4; 6 -3].';
+G_g = [0 0 0; 0 0 2; 0 -2 0];
+Y_g = [1, 1, 0];
+wg0 = [-12; 0; 21];
+x0 = [0; 0; 0];
+K = [-3.5 1 -3.5];
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Спектр \(\Gamma_f\)}, label={lst:eig1}]
- Eigenvalues[Gf]
+\begin{lstlisting}[caption={Спектр \(\Gamma_f\)}, label={lst:eig1}, language=matlab]
+eig(G_f)
 \end{lstlisting}
 	
 	

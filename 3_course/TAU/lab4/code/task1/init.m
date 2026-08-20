@@ -38,17 +38,44 @@ wg0 = [-12; 0; 21];
 x0 = [0; 0; 0];
 
 K = [-3.5 1 -3.5];
-K_g = [0.0703124999999999       -0.0561558901682905        0.0658104517271922];
 
-K_f = [4.67331092826515         0.939042762776683         -2.71036315323295         -1.34100974313552];
+% Поиск регулятора K_g
 
+n = size(A,1); m = size(B,2);
 
-% Олеся
-% K = [-6.191 0.420 -6.191];
-% K_g = [0.2429 0.2213 0.1346];
-% 
-% K_f = [-3.81490665 -0.65211419  3.55149267 -1.74197164];
-% Kf = [1.8884, 1.1542, -1.4318, -2.4429]
+fprintf('\n=== Kg ===\n');
+for lam = eig(G_g)'
+    M = [A+B*K-lam*eye(n), B; C+D*K, D];
+    fprintf('rank = %d (need %d) for λ = %.2f%+.2fi\n', rank(M), n+m, real(lam), imag(lam));
+end
+
+r = size(G_g,1);
+I = @(x) eye(x);
+M11 = kron(G_g', I(n)) - kron(I(r), A);
+M12 = -kron(I(r), B);
+M21 = kron(I(r), C);
+M22 = D * I(r);
+sol = [M11, M12; M21, M22] \ [zeros(n*r,1); Y_g'];
+X_g = reshape(sol(1:n*r), n, r);
+U_g = sol(n*r+1:end)';
+K_g = U_g - K*X_g;
+
+% Поиск регулятора K_f
+fprintf('\n=== Kf ===\n');
+for lam = eig(G_f)'
+    M = [A+B*K-lam*eye(n), B; C+D*K, D];
+    fprintf('rank = %d (need %d) for λ = %.2f%+.2fi\n', rank(M), n+m, real(lam), imag(lam));
+end
+
+p = size(G_f,1);
+M11 = kron(G_f', I(n)) - kron(I(p), A);
+M12 = -kron(I(p), B);
+M21 = kron(I(p), C);
+M22 = D * I(p);
+sol = [M11, M12; M21, M22] \ [reshape(B_f*Y_f, [], 1); (-D_f*Y_f)'];
+X_f = reshape(sol(1:n*p), n, p);
+U_f = sol(n*p+1:end)';
+K_f = U_f - K*X_f;
 
 
 % h = get_param(gcs, 'Handle');
@@ -130,12 +157,13 @@ y_uKfg = out.y.signals.values;
 e_uKfg = g_uKfg - y_uKfg;
 u_uKfg = out.u.signals.values;
 
-%%%%%%%%%%%%%%%      очистка                                %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%      очистка всего кроме отрисовки          %%%%%%%%%%%%%%%
 
-% clear A B B_f bool_K bool_K_f bool_K_g C D D_f G_f G_g K K_f;
-% clear K_g L wf_0 wg0 Y_f Y_g out wf0 x0;
+clear A B B_f bool_K bool_K_f bool_K_g C D D_f G_f G_g K K_f;
+clear K_g L wf_0 wg0 Y_f Y_g out wf0 x0;
+clear I lam m M M11 M12 M21 M22 n p r sol U_f U_g X_f X_g;
 
-%%%%%%%%%%%%%%%      цвета в ините                          %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%      для графиков эстетика                  %%%%%%%%%%%%%%%
 
 colors = [0, 0.5, 0.4; 
         0, 0, 0.7; 
@@ -143,4 +171,5 @@ colors = [0, 0.5, 0.4;
         0.85, 0.65, 0.0]; 
 L = 2.5; F = 15;
 
+addpath('/home/eva/Documents/ITMO/3_course/TAU/lab4/code/config');
 
