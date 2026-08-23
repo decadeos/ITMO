@@ -58,7 +58,7 @@ M22 = D * I(r);
 sol = [M11, M12; M21, M22] \ [zeros(n*r,1); Y_g'];
 X_g = reshape(sol(1:n*r), n, r);
 U_g = sol(n*r+1:end)';
-K_g = U_g - K*X_g;
+K_g = U_g - K*X_g
 
 % Поиск регулятора K_f
 fprintf('\n=== Kf ===\n');
@@ -75,7 +75,7 @@ M22 = D * I(p);
 sol = [M11, M12; M21, M22] \ [reshape(B_f*Y_f, [], 1); (-D_f*Y_f)'];
 X_f = reshape(sol(1:n*p), n, p);
 U_f = sol(n*p+1:end)';
-K_f = U_f - K*X_f;
+K_f = U_f - K*X_f
 
 
 % h = get_param(gcs, 'Handle');

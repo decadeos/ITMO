@@ -118,6 +118,7 @@
 \captionsetup[table]{name=Таблица}
 \captionsetup{labelsep=endash}
 
+\newcommand{\figwidth}{0.65\textwidth}
 
 \begin{document}
 	
@@ -183,17 +184,18 @@
 	\tableofcontents
 	
 	\newpage \section{Синтез регуляторов при помощи матричных уравнений Франкиса-Дэвисона}\label{sec:1}
-		
+	
 	В соответствии с вариантом рассмотрю систему:
 	
-	\[
+\begin{equation}
 	\begin{cases}
 		\dot{x} = Ax + Bu + B_f f \\
 		y = Cx + Du + D_f f
 	\end{cases}
 	\qquad
 	x(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T
-	\]
+		\label{sys}
+\end{equation}
 	
 	где:
 	
@@ -219,14 +221,15 @@
 	
 	Генератор внешнего возмущения:
 	
-	\[
+\begin{equation}
 	\begin{cases}
 		\dot{w}_f = \Gamma_f w_f \\
 		f = Y_f w_f
 	\end{cases}
 	\qquad
 	w_f(0) = \begin{bmatrix} 1 & 1 & 1 & 1 \end{bmatrix}^T
-	\]
+		\label{genF}
+\end{equation}
 	
 	где:
 	
@@ -246,22 +249,22 @@
 	Генератор задающего воздействия:
 	
 	\begin{equation}
-	\begin{cases}
-		\dot{w}_g = \Gamma_g w_g \\
-		g = Y_g w_g
-	\end{cases}
-	\qquad
-	w_g(0)
-	\label{gen}
+		\begin{cases}
+			\dot{w}_g = \Gamma_g w_g \\
+			g = Y_g w_g
+		\end{cases}
+		\qquad
+		w_g(0)
+		\label{gen}
 	\end{equation}
 	
 	где:
 	
 	\begin{equation}
-	g(t) = 21\sin(2t) - 12
+		g(t) = 21\sin(2t) - 12
 		\label{g}
 	\end{equation}
-		
+	
 	Требуется:
 	\begin{enumerate}
 		\item Найти собственные числа матрицы $\Gamma_f$, определить моды внешнего возмущения и их характер.
@@ -377,7 +380,7 @@
 	Y_g = \begin{bmatrix} 1 & 1 & 0 \end{bmatrix} \quad
 	w_g(0) = \begin{bmatrix} -12 \\ 0 \\ 21 \end{bmatrix}
 	\]
-
+	
 	
 	\subsection{Структурная схема системы}
 	
@@ -404,11 +407,7 @@
 	\lim_{t \to \infty} |g(t) - y(t)| = 0
 	\]
 	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=1\textwidth]{../images/task1/model1.png}
-		\caption{Схема моделирования системы, замкнутой регулятором \(u = K x + K_g w_g + K_f w_f\)}
-	\end{figure}
+
 	
 	\subsection{Синтез feedback-компоненты K}
 	
@@ -533,7 +532,7 @@
 	\]
 	где $\hat{A}_c$, $\hat{B}_c$ --- усечённые матрицы в жордановом базисе.
 	
-	Теперь выберу матрицы $\Gamma$ и $Y$. Поскольку желаемый спектр содержит кратное собственное число $-3$, матрицу $\Gamma$ удобно задать в виде жордановой клетки. Для обеспечения наблюдаемости пары $(Y,\Gamma)$ выберу матрицу $Y$ так, чтобы её первый элемент был ненулевым. Тогда:
+	Теперь выберу матрицы $\Gamma$ и $Y$. Пусть желаемый спектр содержит кратные собственные числа \(-3\). Матрицу $\Gamma$ задам в виде жордановой клетки. Для обеспечения наблюдаемости пары $(Y,\Gamma)$ выберу матрицу $Y$ так, чтобы её первый элемент был ненулевым. Тогда:
 	
 	\[
 	\Gamma =
@@ -630,221 +629,554 @@
 	\]
 	
 	Спектр совпадает с желаемым, значит все расчеты верны, матрица регулятора \(K\) синтезирована корректно. 
+	
+\subsection{Синтез компенсирующей компоненты \(K_f\)}
 
-	\subsection{Синтез следящей компоненты \(K_g\)}
+Для компенсации внешнего возмущения \(f(t)\) система матричных уравнений Франкиса-Дэвисона имеет вид:
+
+\[
+\begin{cases}
+	P_f \Gamma_f - A P_f - B_f Y_f = B U_f \\
+	C P_f + D U_f = -D_f Y_f
+\end{cases}
+\]
+
+где \(P_f\) — вспомогательная матрица размером \(3 \times 4\),
+\(U_f\) — вспомогательная матрица размером \(1 \times 4\).
+Искомая матрица \(K_f\) вычисляется как:
+
+\[
+K_f = U_f - K P_f
+\]
+
+Спектр матрицы \(\Gamma_f\):
+
+\[
+\sigma(\Gamma_f) = \{\pm i, \pm 3i\}
+\]
+
+Для каждого \(\lambda \in \sigma(\Gamma_f)\) проверю условие разрешимости:
+
+\[
+\operatorname{rank}
+\begin{bmatrix}
+	A - \lambda I & B \\
+	C & D
+\end{bmatrix}
+= 4
+\]
+
+Расчёты в MATLAB (листинг~\ref{lst:checkkf}) показали, что для всех 
+\(\lambda \in \sigma(\Gamma_f)\) ранг равен \(4\). Условие выполнено, система разрешима.
+
+Решая систему уравнений (листинг~\ref{lst:solvekf}), получаю матрицу регулятора:
+
+\[
+K_f = \begin{bmatrix}
+	-9.2262 & -2.9556 & 6.9958 & -4.9150
+\end{bmatrix}
+\]
 	
-	
-	Система уравнений для синтеза следящей компоненты \(K_g\) имеет вид матричных уравнений Франкиса-Дэвисона:
-	
-	\[
-	\begin{cases}
-		P_g \Gamma_g - (A + BK)P_g = B K_g, \\
-		(C + DK)P_g + D K_g = Y_g,
-	\end{cases}
-	\]
-	
-	где \(P_g\) — вспомогательная матрица размером \(3 \times 3\),
-	\(K_g\) — искомая матрица размером \(1 \times 3\).
-	
-	Спектр матрицы \(\Gamma_g\):
-	
-	\[
-	\sigma(\Gamma_g) = \{0, \pm 2i\}.
-	\]
-	
-	Для каждого \(\lambda \in \sigma(\Gamma_g)\) проверим условие разрешимости:
-	
-	\[
-	\operatorname{rank}
-	\begin{bmatrix}
-		A + BK - \lambda I & B \\
-		C + DK & D
-	\end{bmatrix}
-	= 4.
-	\]
-	
-	Расчёты в MATLAB (листинг~\ref{lst:checkkg}) дали:
-	
-	\[
-	\operatorname{rank}
-	\begin{bmatrix}
-		A + BK - \lambda I & B \\
-		C + DK & D
-	\end{bmatrix}
-	= 4 \quad \forall \lambda \in \sigma(\Gamma_g).
-	\]
-	
-	Условие выполнено, система разрешима.
-	
-	Решая систему уравнений (листинг~\ref{lst:solvekg}), получаем:
-	
-	\[
-	K_g = \begin{bmatrix}
-		-0.7552 & -0.1012 & 1.4675
-	\end{bmatrix}.
-	\]
-	
-	\subsection{Синтез компенсирующей компоненты \(K_f\)}
-	
-	Для компенсации внешнего возмущения \(f(t)\) система матричных уравнений Франкиса-Дэвисона имеет вид:
-	
-	\[
-	\begin{cases}
-		P_f \Gamma_f - (A + BK)P_f - B_f Y_f = B K_f, \\
-		(C + DK)P_f + D K_f = -D_f Y_f,
-	\end{cases}
-	\]
-	
-	где \(P_f\) — вспомогательная матрица размером \(3 \times 4\),
-	\(K_f\) — искомая матрица размером \(1 \times 4\).
-	
-	Спектр матрицы \(\Gamma_f\):
-	
-	\[
-	\sigma(\Gamma_f) = \{\pm i, \pm 3i\}.
-	\]
-	
-	Для каждого \(\lambda \in \sigma(\Gamma_f)\) проверим условие разрешимости:
-	
-	\[
-	\operatorname{rank}
-	\begin{bmatrix}
-		A + BK - \lambda I & B \\
-		C + DK & D
-	\end{bmatrix}
-	= 4.
-	\]
-	
-	Расчёты в MATLAB (листинг~\ref{lst:checkkf}) показали, что для всех 
-	\(\lambda \in \sigma(\Gamma_f)\) ранг равен \(4\). Условие выполнено, система разрешима.
-	
-	Решая систему уравнений (листинг~\ref{lst:solvekf}), получаем:
-	
-	\[
-	K_f = \begin{bmatrix}
-		-2.6629 & -0.9070 & 2.2585 & -1.3262
-	\end{bmatrix}.
-	\]
+\subsection{Синтез следящей компоненты \(K_g\)}
+
+Система уравнений для синтеза следящей компоненты \(K_g\) имеет вид:
+
+\[
+\begin{cases}
+	P_g \Gamma_g - A P_g = B U_g \\
+	C P_g + D U_g = Y_g
+\end{cases}
+\]
+
+где \(P_g\) — вспомогательная матрица, \(U_g\) — вспомогательная матрица.
+Искомая матрица \(K_g\) вычисляется как:
+
+\[
+K_g = U_g - K P_g
+\]
+
+Спектр матрицы \(\Gamma_g\):
+
+\[
+\sigma(\Gamma_g) = \{0, \pm 2i\}
+\]
+
+Условие разрешимости выполняется для всех \(\lambda \in \sigma(\Gamma_g)\):
+
+\[
+\operatorname{rank}
+\begin{bmatrix}
+	A - \lambda I & B \\
+	C & D
+\end{bmatrix}
+= 4
+\]
+
+Решая систему уравнений (листинг~\ref{lst:solvekg}) получаю матрицу регулятора:
+
+\[
+K_g = \begin{bmatrix}
+	0.0703 & -0.0562 & 0.0658
+\end{bmatrix}
+\]
 	
 	\subsection{Моделирование}
 	
-   	\subsubsection{Разомкнутая система}
-   	
-   	Проведу моделирование системы при отсутствии управления и построю графики внешнего возмущения \(f(t)\), задающего воздействия \(g(t)\), вектора состояния объекта управления \(x(t)\) и выхода \(y(t)\).
-   	
-	\begin{figure}[H]
-   		\centering
-   		\includegraphics[width=0.7\textwidth]{../images/task1/f_u0.pdf}
-   		\caption{Внешнее возмущение \(f(t)\)}
-   	\end{figure}
-   	
- 	\begin{figure}[H]
-   		\centering
-   		\includegraphics[width=0.7\textwidth]{../images/task1/g_u0.pdf}
-   		\caption{Задающее воздействие \(g(t)\)}
-   	\end{figure}
-   	
-   	
+	\subsubsection{Разомкнутая система}
+	
+	Проведу моделирование системы при отсутствии управления и построю графики внешнего возмущения \(f(t)\), задающего воздействия \(g(t)\), вектора состояния объекта управления \(x(t)\) и выхода \(y(t)\).
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/x_u0.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/f_u0.pdf}
+		\caption{Внешнее возмущение \(f(t)\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task1/g_u0.pdf}
+		\caption{Задающее воздействие \(g(t)\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task1/x_u0.pdf}
 		\caption{Вектор состояния \(x(t)\)}
 	\end{figure}
-
-   	   	
-   	\begin{figure}[H]
-   		\centering
-   		\includegraphics[width=0.7\textwidth]{../images/task1/y_u0.pdf}
-   		\caption{Выход \(y(t)\)}
-   	\end{figure}
-   	
-   	
-   	
-   	\subsubsection{Графики компонент \(x(t)\) для замкнутых систем}
-  	
-   	Проведу моделирование системы при ее замыкании регуляторами: 
-   	
-   	\begin{itemize}
-   		\item \(u = K x\)
-   		\item \(u = K x + K_f w_f\)
-   		\item \(u = K x + K_g w_g\)
-   		\item \(u = K x + K_f w_f + K_g w_g\)
-   	\end{itemize}
-   	
-   	Построю графики вектора состояния \(x(t)\).
-   	
+	
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/x_uK.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/y_u0.pdf}
+		\caption{Выход \(y(t)\)}
+	\end{figure}
+	
+	
+	
+	\subsubsection{Графики компонент \(x(t)\) для замкнутых систем}
+	
+	Проведу моделирование системы при ее замыкании регуляторами: 
+	
+	\[
+	u = K x \qquad
+	u = K x + K_f w_f \qquad
+	u = K x + K_g w_g \qquad
+	u = K x + K_f w_f + K_g w_g \qquad
+	\]
+	
+	Построю графики вектора состояния \(x(t)\).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task1/x_uK.pdf}
 		\caption{Вектор состояния \(x(t)\) при \(u = K x\)}
 	\end{figure}
 	
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKf.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/x_uKf.pdf}
 		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_f w_f\)}
 	\end{figure}
 	
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKg.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/x_uKg.pdf}
 		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_g w_g\)}
 	\end{figure}
 	
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/x_uKfg.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/x_uKfg.pdf}
 		\caption{Вектор состояния \(x(t)\) при \(u = K x + K_f w_f + K_g w_g\)}
 	\end{figure}
 	
-   	\subsubsection{Графики \(u(t), y(t), e(t) \) для замкнутых систем}
+	\subsubsection{Графики \(u(t), y(t), e(t) \) для замкнутых систем}
 	
 	
-   	Проведу моделирование системы при ее замыкании регуляторами: 
+	Проведу моделирование системы при ее замыкании регуляторами: 
 	
-	\begin{itemize}
-		\item \(u = K x\)
-		\item \(u = K x + K_f w_f\)
-		\item \(u = K x + K_g w_g\)
-		\item \(u = K x + K_f w_f + K_g w_g\)
-	\end{itemize}
+	\[
+	u = K x \qquad
+	u = K x + K_f w_f \qquad
+	u = K x + K_g w_g \qquad
+	u = K x + K_f w_f + K_g w_g \qquad
+	\]
 	
 	Построю графики \(u(t)\) и \(y(t)\) на одних рисунках.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/u.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/u.pdf}
 		\caption{Управления \(u(t)\)}
 	\end{figure}
 	
-		
+	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/y.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/y.pdf}
 		\caption{Выходы \(y(t)\)}
 	\end{figure}
 	
-   	Проведу моделирование системы при ее замыкании регуляторами: 
+	Проведу моделирование системы при ее замыкании регуляторами: 
 	
-	\begin{itemize}
-		\item \(u = K x + K_f w_f\)
-		\item \(u = K x + K_g w_g\)
-		\item \(u = K x + K_f w_f + K_g w_g\)
-	\end{itemize}
+	\[
+	u = K x + K_f w_f \qquad
+	u = K x + K_g w_g \qquad
+	u = K x + K_f w_f + K_g w_g \qquad
+	\]
 	
 	Построю график ошибки слежения \(e(t) = g(t) - y(t)\) на одном рисунке.
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\textwidth]{../images/task1/e.pdf}
+		\includegraphics[width=\figwidth]{../images/task1/e.pdf}
 		\caption{Ошибки \(e(t)\)}
 	\end{figure}
 	
 	
+	\newpage
 	\subsection{Вывод}
+	
+	Объект управления оказался неустойчивым, но стабилизируемым: неуправляемая мода с \(\lambda = -3\) является устойчивой. Обратную связь была подобрана так, чтобы замкнутая система имела три кратных полюса в \(-3\):
+	
+	\[
+	K = \begin{bmatrix}
+		-3.5 & 1 & -3.5
+	\end{bmatrix} \qquad
+	\sigma(A + BK) = \{-3, -3, -3\}
+	\]
+	
+	Затем я решила матричные уравнения Франкиса-Дэвисона и получила следящую и компенсирующую компоненты:
+	
+	\[
+	K_g = \begin{bmatrix}
+		0.0703 & -0.0562 & 0.0658
+	\end{bmatrix} \qquad
+	K_f = \begin{bmatrix}
+		-9.2262 & -2.9556 & 6.9958 & -4.9150
+	\end{bmatrix}
+	\]
+	
+	Результаты моделирования показали, что ни обратная связь по отдельности, ни пара \(K + K_f\), ни пара \(K + K_g\) не дают слежения с нулевой ошибкой. Только полный регулятор:
+	
+	\[
+	u = Kx + K_g w_g + K_f w_f
+	\]
+	
+	обеспечивает выполнение условия:
+	
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
+	\]
+	
+	Таким образом, для решения задачи слежения с компенсацией возмущений регулятор должен содержать внутреннюю модель как задающего сигнала, так и внешнего возмущения.
+	
+	
+	\newpage \section{Слежение и компенсация по выходу}
+
+
+Используя данные Задания~\ref{sec:1}, рассмотрю систему~\ref{sys}, генератор внешнего возмущения ~\ref{genF} и генератор задающего воздействия~\ref{gen}. Используя матрицы регулятора \(K\), \(K_g\) и \(K_f\), полученные в Задании 1, выполню следующие шаги:
+
+\begin{enumerate}
+	\item Построить схему моделирования системы, замкнутой регулятором:
+	
+	\[
+	u = K \hat x + K_g \hat w_g + K_f \hat w_f
+	\]
+	
+	обеспечивающим выполнение целевого условия:
+	
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
+	\]
+	
+	\item Синтезировать наблюдатель задающего воздействия. Привести выкладки и матрицу \(Q\).
+	
+	\item Сформировать расширенную систему и синтезировать наблюдатель расширенной размерности. Привести матрицы расширенной системы и матрицу \(L\).
+	
+	\item Выполнить компьютерное моделирование с нулевыми начальными условиями наблюдателей. Построить графики \(u(t)\), сравнительные графики:
+	
+	\[
+	\begin{bmatrix} w_f(t) \\ x(t) \end{bmatrix}
+	\quad \text{и} \quad
+	\begin{bmatrix} \hat{w}_f(t) \\ \hat{x}(t) \end{bmatrix}
+	\]
+	
+	график ошибки:
+	
+	\[
+	e_f(t) = 
+	\begin{bmatrix} w_f(t) \\ x(t) \end{bmatrix}
+	-
+	\begin{bmatrix} \hat{w}_f(t) \\ \hat{x}(t) \end{bmatrix}
+	\]
+	
+	сравнительные графики \(w_g(t)\) и \(\hat{w}_g(t)\), график ошибки:
+	
+	\[
+	e_g(t) = w_g(t) - \hat{w}_g(t)
+	\]
+	
+	график выхода \(y(t)\) и график ошибки управления:
+	
+	\[
+	e(t) = g(t) - y(t)
+	\]
+	
+	\item Проанализировать полученные результаты в сравнении с Заданием~\ref{sec:1} и сделать выводы.
+\end{enumerate}
+	
+	\hrule \newpage
+	
+	\subsection{Структурная схема системы}
+	
+	Построю схему моделирования системы, замкнутой регулятором, состоящим из
+	наблюдателя задающего воздействия, наблюдателя расширенной размерности и закона управления:
+	
+	\[u = K \hat x + K_g \hat w_g + K_f \hat w_f\]
+	
+	обеспечивающим выполнение целевого условия:
+	
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
+	\]
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task2/model2.png}
+		\caption{Схема моделирования системы, замкнутой регулятором \(u = K \hat x + K_g \hat w_g + K_f \hat w_f\)}
+	\end{figure}
+	\subsection{Синтез наблюдателя задающего воздействия}
+	
+	Для генератора задающего воздействия \eqref{gen} введу преобразование базиса:
+	
+	\[
+	\bar{w}_g=Q_g\hat{w}_g
+	\]
+	И в новом базисе построю  наблюдатель в форме:
+	
+	\[
+	\dot{\bar{w}}_g=\Gamma \bar{w}_g+Yg
+	\]
+	
+	Пусть желаемая динамика наблюдателя будет иметь вид (учитывая, что пара \(\Gamma, Y\) наблюдаема):
+	
+	\[
+	\Gamma=
+	\begin{bmatrix}
+		-5&0&0\\
+		0&-6&0\\
+		0&0&-7
+	\end{bmatrix}
+	\qquad
+	Y=
+	\begin{bmatrix}
+		1\\7\\8
+	\end{bmatrix}
+	\]
+	
+	Матрицу \(Q\) найду из уравнения Сильвестра:
+	
+	\[
+	Q \Gamma_g-\Gamma Q=YY_g
+	\]
+	
+	Полученная матрица \(Q\) (листинг~\ref{lst:Q}):
+	
+	\[
+	Q=
+	\begin{bmatrix}
+    0.2000  &  0.1724  & -0.0690 \\
+	1.1667   & 1.0500   &-0.3500 \\
+	1.1429  &  1.0566  & -0.3019 \\
+
+	\end{bmatrix}
+	\]
+	
+	\subsection{Синтез наблюдателя расширенной размерности}
+	
+	
+	Рассмотрю объект управления и генератор возмущения в одной расширенной системе:
+	
+	\begin{align*}
+		&\begin{cases}
+			\dot w_f = \Gamma_f w_f \\
+			\dot x = A x + B u + B_f Y_f w_f \\
+			y = C x + D u + D_f Y_f w_f
+		\end{cases} \\
+		&\begin{cases}
+			x_f = \begin{bmatrix}
+				w_f \\ x \\
+			\end{bmatrix} \\
+			\dot x_f = \bar{A} x_f + \bar B u \\
+			y = \bar C x_f + D u
+		\end{cases}
+	\end{align*}
+	
+	Матрицы \(\bar A, \bar B, \bar C\):
+	
+	\[
+	\bar{A}=
+	\begin{bmatrix}
+		\Gamma_f&0\\
+		B_fY_f&A
+	\end{bmatrix} \qquad
+	\bar B = \begin{bmatrix}
+		0 \\ B
+	\end{bmatrix} 
+	\qquad
+		\bar C = \begin{bmatrix}
+		D_f Y_f & C
+	\end{bmatrix}
+	\]
+	
+	Наблюдатель расширенной размерности имеет вид:
+	\[
+	\begin{cases}
+		\dot{\hat{x}}_f=\bar{A}\hat{x}_f+(\bar{B}+LD)u+L(\hat{y}-y)\\
+		\hat{y}=\bar{C}\hat{x}_f
+	\end{cases}
+	\]
+	
+	Синтезирую матрицу наблюдателя \(L\). Пусть:
+	
+	\[
+	\sigma(\bar A + L \bar C) = \{-3\pm0.5\mathrm{j},\; -3.2\pm1\mathrm{j},\; -3.5\pm1.5\mathrm{j},\; -5\}
+	\]
+	
+	Тогда матрица наблюдателя имеет вид (листинг~\ref{lst:L}):
+	
+	\[
+	L = \begin{bmatrix}
+		   13.1597 \\
+		7.3996 \\
+		28.5143 \\
+		13.9307 \\
+		-366.5229 \\
+		-229.7677 \\
+		231.3229 \\
+	\end{bmatrix}
+	\]
+	
+	Проверка собственных чисел \(\bar A + L \bar C\) показала корректность расчета.
+	
+	
+	\subsection{Моделирование}
+	
+	Проведу моделирование системы, выставив нулевые начальные условия наблюдателей. Построю графики управления, выхода и ошибки слежения:
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task2/u.pdf}
+		\caption{Управление \(u(t) = K\hat{x} + K_g \hat{w}_g + K_f \hat{w}_f\)}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task2/y.pdf}
+		\caption{Выход \(y(t)\)}
+	\end{figure}
+	
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../images/task2/e.pdf}
+		\caption{Ошибка \(e(t) = g(t) - y(t)\)}
+	\end{figure}
+	
+Сравню реальные и оценённые состояния
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/wf.pdf}
+	\caption{Сравнение \(w_f(t)\) и \(\hat{w}_f(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/wg.pdf}
+	\caption{Сравнение \(w_g(t)\) и \(\hat{w}_g(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/x.pdf}
+	\caption{Сравнение \(x(t)\) и \(\hat{x}(t)\)}
+\end{figure}
+
+Построю графики ошибок наблюдения:
+
+\[
+e_{wf}(t) = w_f(t) - \hat{w}_f(t)
+\]
+
+\[
+e_x(t) = x(t) - \hat{x}(t)
+\]
+
+\[
+e_g(t) = w_g(t) - \hat{w}_g(t)
+\]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/ef.pdf}
+	\caption{Ошибка восстановления \(w_f(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/ex.pdf}
+	\caption{Ошибка восстановления \(x(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task2/eg.pdf}
+	\caption{Ошибка наблюдателя задающего воздействия \(e_g(t) = w_g(t) - \hat{w}_g(t)\)}
+\end{figure}
+	
+	
+	\newpage
+	
+	\subsection{Вывод}
+	
+	Во втором задании я синтезировала наблюдатель задающего воздействия и наблюдатель расширенной размерности. Полученные матрицы:
+	
+	\[
+	Q =
+	\begin{bmatrix}
+		0.2000 & 0.1724 & -0.0690 \\
+		1.1667 & 1.0500 & -0.3500 \\
+		1.1429 & 1.0566 & -0.3019
+	\end{bmatrix} \qquad
+	L =
+	\begin{bmatrix}
+		13.1597 \\
+		7.3996 \\
+		28.5143 \\
+		13.9307 \\
+		-366.5229 \\
+		-229.7677 \\
+		231.3229
+	\end{bmatrix}
+	\]
+	
+	Моделирование показало, что ошибки наблюдения сходятся к нулю, выход отслеживает задающий сигнал.
+	
+	По сравнению с предыдущим заданием, где все переменные состояния были доступны, переходный процесс здесь получился более длительным. Это объясняется наличием начальных ошибок наблюдателей: оценки сходятся к истинным значениям не мгновенно, что влияет на качество управления на начальном участке.
+	
+	Тем не менее, в установившемся режиме регулятор с наблюдателями обеспечивает слежение
+	
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
+	\]
+	
+Предложенная структура позволяет решить задачу даже при недоступности переменных состояния для измерения.
 	
 	
 	
@@ -861,8 +1193,8 @@
 	\newpage
 	\section{Приложение}
 	
-	\subsection*{Задание 1}
-	
+\subsection*{Задание 1}
+
 \begin{lstlisting}[caption={Инициализация}, language=matlab]
 A = [8 1 11; 4 0 4; -4 -3 -7];
 B = [-1; -3; 3];
@@ -883,8 +1215,8 @@ K = [-3.5 1 -3.5];
 \begin{lstlisting}[caption={Спектр \(\Gamma_f\)}, label={lst:eig1}, language=matlab]
 eig(G_f)
 \end{lstlisting}
-	
-	
+
+
 \begin{lstlisting}[caption={Поиск вещественной Жордановой формы}, label={lst:jordan1}]
 [P, J] = jordan(sym(A)); P = double(P); J = double(J);
 [P_real, J_real] = cdf2rdf(P, J)
@@ -904,61 +1236,84 @@ K2 = -Y * P^-1
 \begin{lstlisting}[caption={Перевод \(\hat K_c\) в исходный базис}, label={lst:origK11}]
 K = [0 K2] * P_real^-1
 \end{lstlisting}
-	
+
 \begin{lstlisting}[caption={Собственные числа матрицы замкнутой системы}, label={lst:eigA}]
 z = A + B*K
 eig(z)
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Проверка разрешимости}, label={lst:checkkg}]
-Gamma_g = [0 0 0 0; 0 0 2 0; 0 -2 0 0; 0 0 0 0];
-for lam = [0, 2i, -2i]
-	M = [A - lam*eye(3), B; C, D];
-	disp(['rank(M) = ' num2str(rank(M))]);
+for lam = eig(G_g)'
+M = [A+B*K-lam*eye(n), B; C+D*K, D];
+fprintf('rank = %d (need %d) for lam = %.2f%+.2fi\n', rank(M), n+m, real(lam), imag(lam));
 end
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Синтез \(K_g\)}, label={lst:solvekg}]
-syms kg1 kg2 kg3 kg4 real
-Kg = [kg1, kg2, kg3, kg4];
-Pi = sym('pi', [3, 4]);
-
-eq1 = (A + B*K)*Pi + B*Kg - Pi*Gamma_g;
-eq2 = C*Pi + D*Kg - Y_g;
-
-eqns = [eq1(:) == 0; eq2(:) == 0];
-vars = [reshape(Pi, 1, 12), kg1, kg2, kg3, kg4];
-sol = solve(eqns, vars);
-K_g = double([sol.kg1, sol.kg2, sol.kg3, sol.kg4]);
+r = size(G_g,1);
+I = @(x) eye(x);
+M11 = kron(G_g', I(n)) - kron(I(r), A);
+M12 = -kron(I(r), B);
+M21 = kron(I(r), C);
+M22 = D * I(r);
+sol = [M11, M12; M21, M22] \ [zeros(n*r,1); Y_g'];
+X_g = reshape(sol(1:n*r), n, r);
+U_g = sol(n*r+1:end)';
+K_g = U_g - K*X_g;
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Проверка разрешимости}, label={lst:checkkf}]
-lambda_f = eig(Gamma_f);
-for lam = lambda_f'
-	M1 = [A - lam*eye(3), B; C, D];
-	M2 = [A - lam*eye(3), B, -B_f*Y_f; C, D, -D_f*Y_f];
-	if rank(M1) == rank(M2)
-		disp([num2str(lam)]);
-	end
+for lam = eig(G_f)'
+M = [A+B*K-lam*eye(n), B; C+D*K, D];
+fprintf('rank = %d (need %d) for lam = %.2f%+.2fi\n', rank(M), n+m, real(lam), imag(lam));
 end
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Синтез \(K_f\)}, label={lst:solvekf}]
-syms kf1 kf2 kf3 kf4 real
-Kf = [kf1, kf2, kf3, kf4];
-Pi_f = sym('pi_f', [3, 4]);
-A_cl = A + B*K;
-B_fY_f = B_f * Y_f;
-D_fY_f = D_f * Y_f;
+p = size(G_f,1);
+M11 = kron(G_f', I(n)) - kron(I(p), A);
+M12 = -kron(I(p), B);
+M21 = kron(I(p), C);
+M22 = D * I(p);
+sol = [M11, M12; M21, M22] \ [reshape(B_f*Y_f, [], 1); (-D_f*Y_f)'];
+X_f = reshape(sol(1:n*p), n, p);
+U_f = sol(n*p+1:end)';
+K_f = U_f - K*X_f;
 
-eq1 = Pi_f * Gamma_f - A_cl * Pi_f - B_fY_f - B * Kf;
-eq2 = C * Pi_f + D_fY_f + D * Kf;
+\end{lstlisting}
 
-eqns = [eq1(:) == 0; eq2(:) == 0];
-vars = [reshape(Pi_f, 1, 12), kf1, kf2, kf3, kf4];
-sol = solve(eqns, vars);
-K_f = double([sol.kf1, sol.kf2, sol.kf3, sol.kf4]);
+\newpage
+\subsection*{Задание 2}
+
+\begin{lstlisting}[caption={Инициализация}, language=matlab]
+A = [8 1 11; 4 0 4; -4 -3 -7];
+B = [-1; -3; 3];
+C = [-2 0 -3];
+D = 15;
+B_f = [1, -1; 0, 0; -1, 0];
+D_f = [0 3];
+wf0 = [1; 1; 1; 1];
+G_f = [35 10 -28 17; -22 -7 18 -12; 56 17 -45 27; 34 12 -28 17];
+Y_f = [12 -6; 4 -2; -10 4; 6 -3].';
+G_g = [0 0 0; 0 0 2; 0 -2 0];
+Y_g = [1, 1, 0];
+wg0 = [-12; 0; 21];
+x0 = [0; 0; 0];
+K = [-3.5 1 -3.5];
+K_f = [-9.2262 -2.9556  6.9958 -4.9150]; 
+K_g = [0.0703 -0.0562  0.0658]; 
+G = [-5 0 0; 0 -6 0; 0 0 -7];
+Y = [1; 7; 8];
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Поиск \(Q\) и \(Q_{inv}\)}, label={lst:Q}, language=matlab]
+Q = lyap(G_g', -G, -(Y*Y_g)')';
+Q_inv = inv(Q);
 \end{lstlisting}
 	
+\begin{lstlisting}[caption={Поиск \(L\)}, label={lst:L}, language=matlab]
+poles = [-3.0+0.5i, -3.0-0.5i, -3.2+1.0i, -3.2-1.0i, -3.5+1.5i, -3.5-1.5i, -5];
+L = place(A_bar', -C_bar', poles)';
+\end{lstlisting}
 	
 \end{document}
