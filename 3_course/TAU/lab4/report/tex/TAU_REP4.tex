@@ -118,7 +118,7 @@
 \captionsetup[table]{name=Таблица}
 \captionsetup{labelsep=endash}
 
-\newcommand{\figwidth}{0.65\textwidth}
+\newcommand{\figwidth}{0.6\textwidth}
 
 \begin{document}
 	
@@ -406,6 +406,12 @@
 	\[
 	\lim_{t \to \infty} |g(t) - y(t)| = 0
 	\]
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../images/task1/model1.png}
+		\caption{Схема моделирования системы, замкнутой регулятором \(u = K x + K_g w_g + K_f  w_f\)}
+	\end{figure}
 	
 
 	
@@ -1178,17 +1184,313 @@ e_g(t) = w_g(t) - \hat{w}_g(t)
 	
 Предложенная структура позволяет решить задачу даже при недоступности переменных состояния для измерения.
 	
+\newpage \section{Наблюдатели возмущения}
+
+Используя данные Задания~\ref{sec:1}, рассмотрю систему~\ref{sys}, генератор внешнего возмущения~\ref{genF} и генератор задающего воздействия~\ref{gen}. Используя матрицы регулятора $K$, $K_g$ и $K_f$, полученные в Задании 1, и матрицу наблюдателя задающего воздействия $Q$, полученную в Задании 2, выполню следующие шаги:
+
+\begin{enumerate}
+	\item Считая вектор состояния системы $x(t)$ доступным к измерению, рассмотреть два варианта наблюдателей возмущения:
+	\begin{enumerate}
+		\item наблюдатель возмущения по состоянию;
+		\item наблюдатель возмущения по выходу.
+	\end{enumerate}
+	
+	Для каждого из рассмотренных вариантов наблюдателя возмущения:
+	\begin{enumerate}
+		\item Построить схему моделирования системы, замкнутой регулятором, состоящим из наблюдателя задающего воздействия, рассматриваемого наблюдателя возмущения и закона управления
+		\[
+		u = Kx + K_g \hat{w}_g + K_f \hat{w}_f,
+		\]
+		обеспечивающим выполнение целевого условия:
+		\[
+		\lim_{t \to \infty} |g(t) - y(t)| = 0.
+		\]
+		
+		\item Синтезировать наблюдатель возмущения. Привести выкладки процедуры синтеза и полученную матрицу наблюдателя.
+		
+		\item Выполнить компьютерное моделирование замкнутой системы с нулевыми начальными условиями наблюдателей. Построить график формируемого регулятором управления $u(t)$, состояния системы $x(t)$, сравнительные графики $w_f(t)$ и $\hat{w}_f(t)$, график ошибки наблюдателя возмущения $e_f(t) = w_f(t) - \hat{w}_f(t)$, график выхода $y(t)$ и график ошибки управления $e(t) = g(t) - y(t)$.
+	\end{enumerate}
+	
+	\item Проанализировать полученные результаты, полученные для различных наблюдателей, между собой и в сравнении с результатами Задания 2 и сделать выводы.
+\end{enumerate}
+
+\hrule \newpage
+	
+	\subsection{Наблюдатель возмущения по состоянию}
+	
+	Построию схему моделирования системы, замкнутой регулятором, состоящим из наблюдателя задающего воздействия, рассматриваемого наблюдателя возмущения и закона управления
+	\[
+	u = Kx + K_g \hat{w}_g + K_f \hat{w}_f
+	\]
+	обеспечивающего выполнение целевого условия:
+	\[
+	\lim_{t \to \infty} |g(t) - y(t)| = 0
+	\]
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task3/model31.png}
+	\caption{Схема моделирования системы, замкнутой регулятором \(u = K \hat x + K_g \hat w_g + K_f \hat w_f\)}
+\end{figure}
 	
 	
+	Построю наблюдатель редуцированной размерности:
 	
+	\[
+	\begin{cases}
+		\hat{w}_f = \hat{z} + L_{st} \bar{C}_{st} x \\
+		\dot{\hat{z}} = F \hat{z} + (F L_{st} \bar{C}_{st} - L_{st} \bar{C}_{st} A)x - L_{st} \bar{C}_{st} B u
+	\end{cases}
+	\]
 	
+	Для синтеза выберу матрицу \(\bar{C}_{st}\), удовлетворяющую условию \(\bar{C}_{st} B_f = 1\):
 	
+	\[
+	\bar{C}_{st} = \begin{bmatrix}
+		0 & 0 & -1 \\
+		-1 & 0 & -1
+	\end{bmatrix}
+	\]
 	
+	Также выберу матрицы, задающие желаемую динамику наблюдателя:
 	
+	\[
+	\Gamma_{st} = \begin{bmatrix}
+		-1 & 0 & 0 & 0 \\
+		0 & -2 & 0 & 0 \\
+		0 & 0 & -3 & 0 \\
+		0 & 0 & 0 & -4
+	\end{bmatrix}, \qquad
+	Y_{st} = Y_f
+	\]
 	
+	Далее решу уравнение типа Сильвестра (листинг~\ref{lst:LF}):
 	
+	\[
+	Q_{st} \Gamma_{st} - \Gamma_f^T Q_{st} = Y_f^T Y_{st}
+	\]
+	\[
+	L_{st}^T = -Y_{st} Q_{st}^{-1} \qquad
+	F = \Gamma_f - L_{st} Y_f
+	\]
 	
+	Полученные матрицы:
 	
+\[
+\begin{aligned}
+	Q_{st} &=
+	\begin{bmatrix}
+		-42.6000 & -31.0154 & -24.4667 & -20.3294 \\
+		-11.0000 & -8.2462  & -6.7333  & -5.7412  \\
+		34.8000  & 26.1538  & 21.0667  & 17.7882  \\
+		-18.8000 & -14.3077 & -11.5333 & -9.6941
+	\end{bmatrix}\\[1.2em]
+	L_{st} &=
+	\begin{bmatrix}
+		-3.2569  & -4.7142  \\
+		-2.1074  & -1.5798  \\
+		-10.8951 & -13.9981 \\
+		-11.5013 & -14.0389
+	\end{bmatrix}\\[1.2em]
+	F &=
+	\begin{bmatrix}
+		45.7977  & 13.5992  & -41.7123 & 22.3989  \\
+		-6.1897  & -1.7299  & 3.2450   & -4.0948  \\
+		102.7525 & 32.5842  & -97.9585 & 50.3763  \\
+		87.7814  & 29.9271  & -86.8568 & 43.8907
+	\end{bmatrix}
+\end{aligned}
+\]
+
+
+Проведу моделирование с нулевыми начальными условиями наблюдателей:
+\[
+\hat{w}_f(0) = \begin{bmatrix} 0 & 0 & 0 & 0 \end{bmatrix}^T \qquad
+\hat{w}_g(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T
+\]
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/y_st.pdf}
+	\caption{Выход \(y(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/e_st.pdf}
+	\caption{Ошибка управления \(e(t)=g(t)-y(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/x_st.pdf}
+	\caption{Состояния системы \(x(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/u_st.pdf}
+	\caption{Управление \(u(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/wf_st.pdf}
+	\caption{Сравнение \(w_f(t)\) и \(\hat{w}_f(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/ef_st.pdf}
+	\caption{Ошибка наблюдателя \(e_f(t)=w_f(t)-\hat{w}_f(t)\)}
+\end{figure}
+
+
+\subsection{Наблюдатель возмущения по выходу}
+
+Построю схему моделирования системы, замкнутой регулятором, состоящим из наблюдателя задающего воздействия, рассматриваемого наблюдателя возмущения и закона управления
+\[
+u = Kx + K_g \hat{w}_g + K_f \hat{w}_f
+\]
+обеспечивающего выполнение целевого условия
+\[
+\lim_{t \to \infty} |g(t) - y(t)| = 0
+\]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{../images/task3/model32.png}
+	\caption{Схема моделирования системы, замкнутой регулятором \(u = Kx + K_g \hat{w}_g + K_f \hat{w}_f\)}
+\end{figure}
+
+Для наблюдателя по выходу используется сигнал
+\[
+\hat{f} = y - Cx - Du = D_f f = D_f Y_f w_f
+\]
+
+Задам желаемую динамику наблюдателя
+\[
+\Gamma_{out} =
+\begin{bmatrix}
+	-1 & 0 & 0 & 0 \\
+	0 & -2 & 0 & 0 \\
+	0 & 0 & -3 & 0 \\
+	0 & 0 & 0 & -4
+\end{bmatrix} \qquad
+Y_{out} =
+\begin{bmatrix}
+	1 \\ 1 \\ 1 \\ 1
+\end{bmatrix}
+\]
+
+Матрица \(Q_{out}\) найдена из уравнения Сильвестра (листинг~\ref{lst:Q3}):
+\[
+Q_{out} \Gamma_f - \Gamma_{out} Q_{out} = Y_{out} D_f Y_f
+\]
+
+Полученные матрицы:
+\[
+\begin{aligned}
+	Q_{out} &=
+	\begin{bmatrix}
+		23.4000 & 6.0000  & -19.2000 & 10.2000 \\
+		11.8154 & 3.0462  & -10.1538 & 5.3077  \\
+		6.2000  & 1.6000  & -5.6000  & 2.8000  \\
+		3.3035  & 0.8329  & -3.1906  & 1.4753
+	\end{bmatrix}\\[1.2em]
+	Q_{out}^{-1} &=
+	\begin{bmatrix}
+		0.0200 & -0.0200 & 0.0800 & -0.1000 \\
+		0.0154 & -0.0154 & 0.0615 & -0.0769 \\
+		0.0060 & -0.0060 & 0.0240 & -0.0300 \\
+		0.0030 & -0.0030 & 0.0120 & -0.0150
+	\end{bmatrix}
+\end{aligned}
+\]
+
+Наблюдатель имеет вид:
+\[
+\dot{\bar{w}}_f = \Gamma_{out} \bar{w}_f + Y_{out} \hat{f} \qquad
+\hat{w}_f = Q_{out}^{-1} \bar{w}_f
+\]
+
+Наблюдатель возмущения по выходу имеет вид:
+\[
+\begin{cases}
+	\dot{\bar{w}}_f = \Gamma_{out} \bar{w}_f + Y_{out} \hat{f} \\
+	\hat{f} = y - Cx - Du \\
+	\hat{w}_f = Q_{out}^{-1} \bar{w}_f
+\end{cases}
+\]
+
+Проведу моделирование с нулевыми начальными условиями наблюдателей:
+\[
+\hat{w}_f(0) = \begin{bmatrix} 0 & 0 & 0 & 0 \end{bmatrix}^T \qquad
+\hat{w}_g(0) = \begin{bmatrix} 0 & 0 & 0 \end{bmatrix}^T
+\]
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/y_ex.pdf}
+	\caption{Выход \(y(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/e_ex.pdf}
+	\caption{Ошибка управления \(e(t)=g(t)-y(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/x_ex.pdf}
+	\caption{Состояния системы \(x(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/u_ex.pdf}
+	\caption{Управление \(u(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/wf_ex.pdf}
+	\caption{Сравнение \(w_f(t)\) и \(\hat{w}_f(t)\)}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../images/task3/ef_ex.pdf}
+	\caption{Ошибка наблюдателя \(e_f(t)=w_f(t)-\hat{w}_f(t)\)}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	\newpage
 	\section{Приложение}
@@ -1314,6 +1616,54 @@ Q_inv = inv(Q);
 \begin{lstlisting}[caption={Поиск \(L\)}, label={lst:L}, language=matlab]
 poles = [-3.0+0.5i, -3.0-0.5i, -3.2+1.0i, -3.2-1.0i, -3.5+1.5i, -3.5-1.5i, -5];
 L = place(A_bar', -C_bar', poles)';
+\end{lstlisting}
+
+\newpage
+\subsection*{Задание 3}
+
+\begin{lstlisting}[caption={Инициализация}, language=matlab]
+A = [8 1 11; 4 0 4; -4 -3 -7];
+B = [-1; -3; 3];
+C = [-2 0 -3];
+D = 15;
+B_f = [1, -1; 0, 0; -1, 0];
+D_f = [0 3];
+wf0 = [1; 1; 1; 1];
+G_f = [35 10 -28 17; -22 -7 18 -12; 56 17 -45 27; 34 12 -28 17];
+Y_f = [12 -6; 4 -2; -10 4; 6 -3].';
+G_g = [0 0 0; 0 0 2; 0 -2 0];
+Y_g = [1, 1, 0];
+wg0 = [-12; 0; 21];
+x0 = [0; 0; 0];
+K = [-3.5 1 -3.5];
+K_f = [-9.2262 -2.9556  6.9958 -4.9150]; 
+K_g = [0.0703 -0.0562  0.0658]; 
+G = [-5 0 0; 0 -6 0; 0 0 -7];
+Y = [1; 7; 8];
+Q = [0.2000    0.1724   -0.0690; 1.1667    1.0500   -0.3500; 1.1429    1.0566   -0.3019;];
+Q_inv = inv(Q);
+C_st = [0  0 -1; -1  0 -1];
+G_st = diag([-1, -2, -3, -4]);
+Y_st = [1 2 3 4; 5 6 7 8];
+G_ex = diag([-1, -2, -3, -4]);
+Y_ex = [1; 1; 1; 1];
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Поиск \(L_{st}\) и \(F\)}, label={lst:LF}, language=matlab]
+Q_st = lyap(-G_f', G_st, -(Y_f' * Y_st))
+Q_st_inv = inv(Q_st)
+
+L_st = -(Y_st * inv(Q_st))'
+F = G_f - L_st * Y_f
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Поиск \(Q_{st}\) и \(Q^-1_{st}\)}, label={lst:Q3}, language=matlab]
+Q_st = lyap(-G_f', G_st, -(Y_f' * Y_st))
+Q_st_inv = inv(Q_st)
+
+L_st = -(Y_st * inv(Q_st))'
+F = G_f - L_st * Y_f
 \end{lstlisting}
 	
 \end{document}
