@@ -27,18 +27,10 @@ C = [1, 0, 0, 0;
 K = [-46.28, -233.21, -10984.45, -3688.10];
 
 lam_obs = [-3, -4, -5+1i, -5-1i];  % быстрее регулятора
-L = place(A', C', lam_obs)';
+L = place(A', C', lam_obs)'
 
 x0 = [0.1; 0.2; 0.03; 0.12];   % реальное состояние
-x_hat0 = [0; 0; 0; 0];          % оценка (можно нулевая)
-
-z0 = [x0; x_hat0];
-
-[t, z] = ode45(@(t, z) nonlinear_with_observer(t, z, K, L, M, m, beta, J, l, g), [0 15], z0);
-
-x = z(:, 1:4);        % реальное состояние
-x_hat = z(:, 5:8);    % оценка
-e = x - x_hat;        % ошибка наблюдения
+f=0;
 
 % Красота
 colors = [0, 0.5, 0.4;    
@@ -59,6 +51,12 @@ addpath('../../../config');
 % % Ошибки
 % figure('Position', [100, 100, 900, 350]);
 % ax = gca; hold on;
+% 
+% simOut = sim('nonlinear_closed_observer.slx');
+% t = simOut.x.time;
+% x = simOut.x.signals.values;
+% x_hat = simOut.x_hat.signals.values;
+% e = x-x_hat;
 % 
 % err_names = {'$e_a(t)$', '$e_{\dot{a}}(t)$', '$e_{\varphi}(t)$', '$e_{\dot{\varphi}}(t)$'};
 % 
@@ -102,13 +100,12 @@ addpath('../../../config');
 
 
 % Синтез пониженого
-
 lam_obs = [-5, -6];
 Gamma = diag(lam_obs)
+z0 = [-0; -0];
 
 a23 = -beta^2 * g / Meff  
 a43 = (M+m) * beta * g / Meff 
-
 
 syms q11 q13 q21 q23 real
 Q_sym = [q11, 1, q13, 0;
@@ -130,28 +127,15 @@ Q = [q11, 1, q13, 0;
      q21, 0, q23, 1]
 
 T = [C; Q]
-
+T_inv = inv(T)
 Y = (Gamma * Q - Q * A) * pinv(C)
 
-T_inv = inv(T)
-M1 = T_inv(:, 1:2)
-M2 = T_inv(:, 3:4)
 
-z_hat0 = [0; 0];
-z0 = [x0; z_hat0]
-
-[t, z] = ode45(@(t, z) nonlinear_with_reduced_observer(t, z, K, M, m, beta, J, l, g, Gamma, Q, M1, M2, Y), [0 15], z0);
-
-x = z(:, 1:4);
-z_hat = z(:, 5:6);
-
-x_hat = zeros(size(x));
-for i = 1:length(t)
-    y = C * x(i,:)';
-    x_hat(i,:) = (M1 * y + M2 * z_hat(i,:)')';
-end
-
-e = x - x_hat; 
+simOut = sim('nonlinear_closed_observer_redused.slx');
+t = simOut.x.time;
+x = simOut.x.signals.values;
+x_hat = simOut.x_hat.signals.values;
+e = x-x_hat;
 
 
 % Ошибки

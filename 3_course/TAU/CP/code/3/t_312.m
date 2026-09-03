@@ -24,16 +24,15 @@ C = [1, 0, 0, 0;
      0, 0, 1, 0];
 
 lamJe_list = {
-    [-0.5, -0.7, -1+0.5i, -1-0.5i], % 2. Слабый регулятор
-    [-1.5, -2, -3+1i, -3-1i], % 3. Средний регулятор
-    [-15, -10, -8+2i, -8-2i]}; % 4. Сильный 
+    [-0.5, -0.7, -1+0.5i, -1-0.5i], % 1. Слабый регулятор
+    [-1.5, -2, -3+1i, -3-1i], % 2. Средний регулятор
+    [-6 -7 -15+5i -15-5i]}; % 3. Сильный 
 
 
 % Отрисовка
 
 x0 = [0.1; 0.2; 0.03; 0.12];
-
-t = [0, 15];
+f = 0;
 
 colors = [0, 0.5, 0.4;    
           0, 0, 0.7;        
@@ -51,14 +50,12 @@ for i = 1:3
     lamJe = lamJe_list{i};
     K = acker(A, B, lamJe)
 
-    if i == 3
-        f = 0;
-        simOut = sim('nonlinear_closed');
-        t = simOut.x.time;
-        x = simOut.x.signals.values;
-    else
-        [t, x] = ode45(@(t, x) nonlinear_model_closed(t, x, K, M, m, beta, J, l, g), t, x0);
-    end
+        
+    if i ~= 3, stTime = '15'; else, stTime = '0.3'; end
+    simOut = sim('nonlinear_closed', 'StopTime', stTime);
+
+    t = simOut.x.time;
+    x = simOut.x.signals.values;
 
     figure('Position', [100, 100, 900, 350]);
     ax = gca; hold on;
@@ -73,10 +70,11 @@ for i = 1:3
 
    % Добавляю ОФСЕТИК в процентиках на OY
     y_lim = ylim;
-    
+
     if i == 3
         % Только вверх, без нижнего отступа
-        ylim([y_lim(1), y_lim(2) + 0.2*(y_lim(2)-y_lim(1))]);
+        y_offset = 0.5 * (y_lim(2) - y_lim(1));
+        ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
     else
         % Симметричный отступ 5%
         y_offset = 0.05 * (y_lim(2) - y_lim(1));

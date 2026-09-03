@@ -40,8 +40,7 @@ x0_list = {
 };
 
 
-t = [0, 15]
-
+f = 0;
 colors = [0, 0.5, 0.4;    
           0, 0, 0.7;        
           0.8, 0.2, 0.2;    
@@ -55,7 +54,9 @@ addpath('../../../config');
 for i = 1:length(x0_list)
     x0 = x0_list{i};
     
-    [t, x] = ode45(@(t, x) nonlinear_model_closed(t, x, K, M, m, beta, J, l, g), t, x0);
+    simOut = sim('nonlinear_closed');
+    t = simOut.x.time;
+    x = simOut.x.signals.values;
 
     figure('Position', [100, 100, 900, 350]);
     ax = gca; hold on;
