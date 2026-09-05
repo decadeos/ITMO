@@ -48,7 +48,7 @@ font_size_legend = 17;
 
 addpath('../../../config');
 
-% % Ошибки
+% Ошибки
 % figure('Position', [100, 100, 900, 350]);
 % ax = gca; hold on;
 % 

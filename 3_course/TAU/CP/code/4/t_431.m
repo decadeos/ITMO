@@ -26,8 +26,6 @@ C = [1, 0, 0, 0;
 x0 = [0.1; 0.2; 0.03; 0.12];  
 f = 0;
 
-K = 1.0e+05 *[-0.7358   -0.5165   -2.4382   -0.9334];
-b_list = [0.5,1,3];
 
 % Красота
 colors = [0, 0.5, 0.4;    
@@ -44,11 +42,31 @@ font_size_label = 15;
 font_size_legend = 17;
 
 addpath('../../../config');
-folder = '../../report/images/task4/4_21';
+
+AB_array = {
+    1, 1;   % 1. Равны по силе
+    3, 0.5; % 2. Рег > Набл
+    0.5, 3; % 3. Рег < Набл
+    5, 5; % равны, не справились
+};
 
 
-for i = 1:3
-    b=b_list(i);
+for i = 1:4
+    a = AB_array{i, 1};
+    b = AB_array{i, 2};
+
+    % K
+    cvx_begin sdp quiet
+      variable P(4,4) symmetric
+      variable Y(1,4)
+    
+      P >= 0.0001*eye(4);
+      P*A' + A*P + 2*a*P + Y'*B' + B*Y <= 0;
+    cvx_end
+    
+    K = -Y * inv(P)
+
+    % L
     cvx_begin sdp quiet
         variable P(4, 4) symmetric
         variable Y(4, 2)
@@ -58,24 +76,23 @@ for i = 1:3
         
         A'*P + P*A + 2*b*P - C'*Y' - Y*C <= 0;
     cvx_end
-
+    
     L = inv(P)*Y
-
-    eig(A-L*C)
-
-
-    % моделирование
-    simOut = sim('nonlinear_closed_observer.slx', 'StopTime', '5');
+    
+    if i==4
+        simOut = sim('nonlinear_closed_out.slx', 'StopTime', '0.2');
+    else
+        simOut = sim('nonlinear_closed_out.slx', 'StopTime', '7');
+    end
     t = simOut.x.time;
     x = simOut.x.signals.values;
     x_hat = simOut.x_hat.signals.values;
-    e = x-x_hat;
-
-    % Ошибки
-    figure('Position', [100, 100, 900, 350]);
-    ax = gca; hold on;
+    e = x - x_hat;
 
     err_names = {'$e_a(t)$', '$e_{\dot{a}}(t)$', '$e_{\varphi}(t)$', '$e_{\dot{\varphi}}(t)$'};
+
+    fig_err = figure('Position', [100, 100, 900, 350]);
+    ax = gca; hold on;
 
     for j = 1:4
         plot(t, e(:,j), 'Color', colors(j,:), 'LineWidth', line_width, 'DisplayName', err_names{j});
@@ -83,39 +100,52 @@ for i = 1:3
 
     xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
     ylabel('$e(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-    legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend, 'NumColumns', 2);
+    if i ~= 4    
+        legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend);
+    else
+        legend('Interpreter', 'latex', 'Location', 'southwest', 'FontSize', font_size_legend);
+    end
     setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
 
     y_lim = ylim;
-    y_offset = 0.2 * (y_lim(2) - y_lim(1));
-    ylim([y_lim(1) - y_offset*0.1, y_lim(2) + y_offset]);
+    y_offset = 0.05 * (y_lim(2) - y_lim(1));
+    ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
 
-    saveas(gcf, fullfile(folder, sprintf('full_errors_%d.png', i)));
+    saveas(gcf, fullfile('../../report/images/task4/4_31', sprintf('errors_%d.png', i)));
 
-    % Компоненты
-    figure('Position', [100, 100, 900, 350]);
+
+
+    % Оценки состояния
+    fig_state = figure('Position', [100, 100, 900, 350]);
     ax = gca; hold on;
-
+    
     var_names = {'$a(t)$', '$\dot{a}(t)$', '$\varphi(t)$', '$\dot{\varphi}(t)$' ...
         '$\hat{a}(t)$', '$\hat{\dot{a}}(t)$', '$\hat{\varphi}(t)$', '$\hat{\dot{\varphi}}(t)$'};
-
+    
     for j = 1:4
         plot(t, x(:,j), 'Color', colors(j,:), 'LineWidth', line_width, ...
              'DisplayName', [var_names{j}]);
+        hold on;
         plot(t, x_hat(:,j), 'Color', colors(j+4,:), 'LineWidth', line_width, ...
              'LineStyle', '--', 'DisplayName', [var_names{j+4}]);
     end
-
+    
     xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
     ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-    legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend, 'NumColumns', 4);
+    if i ~= 4    
+        legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend, NumColumns=4);
+    else
+        legend('Interpreter', 'latex', 'Location', 'southwest', 'FontSize', font_size_legend, NumColumns=4);
+    end
     setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
 
     y_lim = ylim;
-    y_offset = 0.2 * (y_lim(2) - y_lim(1));
-    ylim([y_lim(1) - y_offset*0.1, y_lim(2) + y_offset]);
+    y_offset = 0.03 * (y_lim(2) - y_lim(1));
+    ylim([y_lim(1) - y_offset, y_lim(2) + y_offset*12]);
 
-    saveas(gcf, fullfile(folder, sprintf('full_comparison_%d.png', i)));
+    saveas(gcf, fullfile('../../report/images/task4/4_31', sprintf('comparison_%d.png', i)));
+
+
 
 
 end

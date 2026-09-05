@@ -27,22 +27,10 @@ x0 = [0.1; 0.2; 0.03; 0.12];
 f = 0;
 
 K = 1.0e+05 *[-0.7358   -0.5165   -2.4382   -0.9334];
-
-b = 2;
-cvx_begin sdp quiet
-    variable P(4, 4) symmetric
-    variable Y(4, 2)
-    
-    % minimize(norm(Y));
-    P >= 1e-4 * eye(4);
-    
-    A'*P + P*A + 2*b*P - C'*Y' - Y*C <= 0;
-cvx_end
-
-L = inv(P)*Y
-
-eig(A - L*C)
-
+L = [11.3127   -0.4097;
+   39.1565   -1.7601;
+    0.4097   11.3127;
+    1.3818   45.6631];
 
 % Красота
 colors = [0, 0.5, 0.4;    
@@ -60,8 +48,9 @@ font_size_legend = 17;
 
 addpath('../../../config');
 
+
 % моделирование
-simOut = sim('nonlinear_closed_observer.slx', 'StopTime', '5');
+simOut = sim('nonlinear_closed_out.slx', 'StopTime', '5');
 t = simOut.x.time;
 x = simOut.x.signals.values;
 x_hat = simOut.x_hat.signals.values;
@@ -86,7 +75,7 @@ y_lim = ylim;
 y_offset = 0.03 * (y_lim(2) - y_lim(1));
 ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
 
-saveas(gcf, fullfile('../../report/images/task4/4_2', 'errors.png'));
+saveas(gcf, fullfile('../../report/images/task4/4_3', 'errors.png'));
 
 % Оценки состояния
 figure('Position', [100, 100, 900, 350]);
@@ -112,4 +101,4 @@ y_lim = ylim;
 y_offset = 0.03 * (y_lim(2) - y_lim(1));
 ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
 
-saveas(gcf, fullfile('../../report/images/task4/4_2', 'comparison.png'));
+saveas(gcf, fullfile('../../report/images/task4/4_3', 'comparison.png'));

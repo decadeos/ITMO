@@ -2083,20 +2083,273 @@ L =
 Графики ошибок наблюдения демонстрируют экспоненциальное затухание переходной составляющей с темпом не хуже заданного. Оценки состояния сходятся к истинным значениям, что подтверждает работоспособность синтезированного наблюдателя. Небольшие колебания на графиках обусловлены внешним гармоническим воздействием, поданным на вход системы для наглядности работы наблюдателя.	
 	
 	
+\subsubsection{Синтез и исследование наблюдателя}
+
+Для синтеза наблюдателя, обеспечивающего заданную степень сходимости ошибки наблюдения, воспользуемся методом линейных матричных неравенств (LMI). 
+
+Условие существования наблюдателя имеет вид:
+\[
+A^T P + PA + 2\beta P - C^T Y^T - YC \preceq 0, \quad P \succ 0, \quad L = P^{-1}Y,
+\]
+где \(\beta\) — желаемая степень сходимости наблюдателя.
+
+Рассмотрены три значения степени сходимости: \(\beta = 0.5\), \(\beta = 1\) и \(\beta = 3\). Решая LMI в среде CVX, получены следующие матрицы коэффициентов наблюдателей:
+
+\[
+\begin{array}{c|c|c}
+	\beta & L & \sigma(A - LC) \\ \hline
+	0.5 & 
+	\begin{bmatrix}
+		2.1560 & -0.2721 \\
+		2.7758 & -0.6025 \\
+		0.2721 & 2.1560 \\
+		0.2241 & 9.2824
+	\end{bmatrix} &
+	\{-1.1051 \pm 1.4139i,\ -1.0509 \pm 1.1418i\} \\[30pt]
+	1 & 
+	\begin{bmatrix}
+		4.9781 & -0.4014 \\
+		9.2625 & -1.0445 \\
+		0.4014 & 4.9781 \\
+		0.6662 & 15.7691
+	\end{bmatrix} &
+	\{-2.5833 \pm 1.9660i,\ -2.3948 \pm 1.5646i\} \\[30pt]
+	3 & 
+	\begin{bmatrix}
+		15.7377 & -0.2892 \\
+		78.0491 & -1.7941 \\
+		0.2892 & 15.7377 \\
+		1.4157 & 84.5557
+	\end{bmatrix} &
+	\{-7.9758 \pm 4.1649i,\ -7.7619 \pm 3.8757i\}
+\end{array}
+\]
+
+Во всех случаях все собственные числа имеют действительную часть меньше \(-\beta\), что подтверждает выполнение заданной степени сходимости ошибки наблюдения.
+
+Для проверки работоспособности наблюдателя используется регулятор с заданной степенью устойчивости из п. 4.1.2:
+\[
+K = \begin{bmatrix}
+	-73580 & -51650 & -243820 & -93340
+\end{bmatrix}.
+\]
+
+Моделирование проведено для начальных условий \(x(0) = [0.1,\ 0.2,\ 0.03,\ 0.12]^T\), оценка состояния принята нулевой.
+
+Результаты моделирования для каждого значения \(\beta\) представлены на рисунках \ref{fig:421_errors_1}--\ref{fig:421_errors_3} для ошибок наблюдения и \ref{fig:421_comp_1}--\ref{fig:421_comp_3} для сравнения состояний.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_errors_1.png}
+	\caption{Ошибки наблюдения, \(\beta = 0.5\)}
+	\label{fig:421_errors_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_comparison_1.png}
+	\caption{Сравнение состояния и оценки, \(\beta = 0.5\)}
+	\label{fig:421_comp_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_errors_2.png}
+	\caption{Ошибки наблюдения, \(\beta = 1\)}
+	\label{fig:421_errors_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_comparison_2.png}
+	\caption{Сравнение состояния и оценки, \(\beta = 1\)}
+	\label{fig:421_comp_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_errors_3.png}
+	\caption{Ошибки наблюдения, \(\beta = 3\)}
+	\label{fig:421_errors_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_21/full_comparison_3.png}
+	\caption{Сравнение состояния и оценки, \(\beta = 3\)}
+	\label{fig:421_comp_3}
+\end{figure}
+
+Из представленных графиков видно, что с увеличением \(\beta\) ошибки наблюдения сходятся быстрее. При \(\beta = 0.5\) время затухания ошибок составляет около 4 секунд, при \(\beta = 1\) — около 2 секунд, при \(\beta = 3\) -- менее 1 секунды. Однако увеличение \(\beta\) приводит к росту коэффициентов наблюдателя \(L\), что делает его более чувствительным к шумам измерений и начальным ошибкам. Наиболее рациональным является выбор \(\beta = 1\).
 	
 	
 	
+\subsection{Синтез и исследование регулятора по выходу}
+
+Для синтеза регулятора по выходу используется наблюдатель полного порядка, синтезированный в п. 4.2. Закон управления имеет вид:
+\[
+u = -K\hat{x},
+\]
+где \(K\) — матрица коэффициентов регулятора с заданной степенью устойчивости из п. 4.1.2:
+\[
+K = \begin{bmatrix}
+	-73580 & -51650 & -243820 & -93340
+\end{bmatrix},
+\]
+а \(L\) — матрица коэффициентов наблюдателя, обеспечивающего степень сходимости \(\beta = 1\):
+\[
+L = \begin{bmatrix}
+	11.3127 & -0.4097 \\
+	39.1565 & -1.7601 \\
+	0.4097 & 11.3127 \\
+	1.3818 & 45.6631
+\end{bmatrix}.
+\]
+
+Моделирование проведено для начальных условий \(x(0) = [0.1,\ 0.2,\ 0.03,\ 0.12]^T\), оценка состояния принята нулевой: \(\hat{x}(0) = [0,\ 0,\ 0,\ 0]^T\).
+
+Результаты моделирования представлены на рисунках \ref{fig:43_errors} и \ref{fig:43_comparison}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_3/errors.png}
+	\caption{Ошибки наблюдения при использовании регулятора по выходу}
+	\label{fig:43_errors}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_3/comparison.png}
+	\caption{Сравнение реального состояния и его оценки}
+	\label{fig:43_comparison}
+\end{figure}
+
+Из представленных графиков видно, что регулятор по выходу успешно стабилизирует нелинейную систему. 
+
+
 	
+\subsubsection{Исследование взаимного влияния желаемых степеней}
+
+Для исследования взаимного влияния выбора степени устойчивости регулятора \(\alpha\) и степени сходимости наблюдателя \(\beta\) на работоспособность системы рассмотрены четыре комбинации: равные по силе, сильный регулятор с медленным наблюдателем, слабый регулятор с быстрым наблюдателем и равные по силе (сверхсильные).
+
+\[
+\begin{array}{c|c|c|c}
+	\text{Набор} & \alpha & \beta & \text{Тип} \\ \hline
+	1 & 1 & 1 & \text{равные по силе} \\
+	2 & 3 & 0.5 & \text{рег} > \text{набл} \\
+	3 & 0.5 & 3 & \text{рег} < \text{набл} \\
+	4 & 5 & 5 & \text{равные по силе (сверхсильные)}
+\end{array}
+\]
+
+Соответствующие матрицы коэффициентов регулятора и наблюдателя:
+
+\[
+\begin{array}{c|c|c}
+	\text{Набор} & K & L \\ \hline
+	1 & 
+	\begin{bmatrix}
+		-5272 & -7794 & -50597 & -20167
+	\end{bmatrix} &
+	\begin{bmatrix}
+		4.9781 & -0.4014 \\
+		9.2625 & -1.0445 \\
+		0.4014 & 4.9781 \\
+		0.6662 & 15.7691
+	\end{bmatrix} \\[10pt]
+	2 & 
+	\begin{bmatrix}
+		-94280 & -65520 & -301840 & -116540
+	\end{bmatrix} &
+	\begin{bmatrix}
+		2.1560 & -0.2721 \\
+		2.7758 & -0.6025 \\
+		0.2721 & 2.1560 \\
+		0.2241 & 9.2824
+	\end{bmatrix} \\[25pt]
+	3 & 
+	\begin{bmatrix}
+		-3340 & -7497 & -50390 & -20116
+	\end{bmatrix} &
+	\begin{bmatrix}
+		15.7377 & -0.2892 \\
+		78.0491 & -1.7941 \\
+		0.2892 & 15.7377 \\
+		1.4157 & 84.5557
+	\end{bmatrix} \\[25pt]
+	4 & 
+	\begin{bmatrix}
+		-1235100 & -475100 & -2534600 & -773400
+	\end{bmatrix} &
+	\begin{bmatrix}
+		23.3808 & -0.1645 \\
+		184.0273 & -1.6663 \\
+		0.1645 & 23.3808 \\
+		1.2880 & 190.5339
+	\end{bmatrix}
+\end{array}
+\]
+
+Результаты моделирования для каждой комбинации представлены на рисунках \ref{fig:431_errors_1}--\ref{fig:431_errors_4} для ошибок наблюдения и \ref{fig:431_comp_1}--\ref{fig:431_comp_4} для сравнения состояний.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/errors_1.png}
+	\caption{Ошибки наблюдения, \(\alpha = 1\), \(\beta = 1\) — равные по силе}
+	\label{fig:431_errors_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/comparison_1.png}
+	\caption{Сравнение состояний, \(\alpha = 1\), \(\beta = 1\)}
+	\label{fig:431_comp_1}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/errors_2.png}
+	\caption{Ошибки наблюдения, \(\alpha = 3\), \(\beta = 0.5\) — сильный регулятор + медленный наблюдатель}
+	\label{fig:431_errors_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/comparison_2.png}
+	\caption{Сравнение состояний, \(\alpha = 3\), \(\beta = 0.5\)}
+	\label{fig:431_comp_2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/errors_3.png}
+	\caption{Ошибки наблюдения, \(\alpha = 0.5\), \(\beta = 3\) — слабый регулятор + быстрый наблюдатель}
+	\label{fig:431_errors_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/comparison_3.png}
+	\caption{Сравнение состояний, \(\alpha = 0.5\), \(\beta = 3\)}
+	\label{fig:431_comp_3}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/errors_4.png}
+	\caption{Ошибки наблюдения, \(\alpha = 5\), \(\beta = 5\) — сверхсильные (неуспешный)}
+	\label{fig:431_errors_4}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\figwidth]{../../report/images/task4/4_31/comparison_4.png}
+	\caption{Сравнение состояний, \(\alpha = 5\), \(\beta = 5\)}
+	\label{fig:431_comp_4}
+\end{figure}
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+Наилучшее качество управления достигается при согласованном выборе степеней устойчивости регулятора и сходимости наблюдателя \((\alpha = \beta = 1)\). При сильном регуляторе и медленном наблюдателе (набор 2) наблюдаются колебания, при слабом регуляторе и быстром наблюдателе (набор 3) переходные процессы затягиваются, а при сверхсильных значениях \((\alpha = \beta = 5)\) система теряет устойчивость.	
 	
 	
 	

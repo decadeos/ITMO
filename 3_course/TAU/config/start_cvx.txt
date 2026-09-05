@@ -1,0 +1,2 @@
+cd ~/cvx
+cvx_setup
