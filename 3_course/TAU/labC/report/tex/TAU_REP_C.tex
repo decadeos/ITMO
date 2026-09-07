@@ -1,0 +1,532 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, matrix}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
+\usepackage{tcolorbox}
+\usepackage{nicematrix}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+
+% --- hyperref ОДИН РАЗ ---
+\usepackage{hyperref}
+\hypersetup{linktoc=page}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+	filecolor=red,
+}
+
+% --- Содержание ---
+\usepackage{tocloft}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+}
+
+% Патчим \tableofcontents: текст строк — без ссылок и чёрный
+% Это делается через замену \contentsline внутри TOC
+\preto\tableofcontents{%
+	\begingroup
+	% Переопределяем contentsline так, чтобы текст был чёрным без ссылки,
+	% а номер страницы — красной ссылкой
+	\renewcommand{\contentsline}[4]{%
+		\ifnum\pdfstrcmp{##1}{section}=0
+		\vskip 4pt{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else\ifnum\pdfstrcmp{##1}{subsection}=0
+		\vskip 2pt\hspace{1.5em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else
+		\vskip 1pt\hspace{3em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\fi\fi
+	}%
+}
+\appto\tableofcontents{\endgroup}
+
+% tocloft — только для отступов, без переопределения шрифтов
+\usepackage{tocloft}
+
+% --- Листинги ---
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{250,250,252}
+\definecolor{linenumcolor}{RGB}{150,150,170}
+\definecolor{mathblue}{RGB}{30,100,200}
+\definecolor{mathorange}{RGB}{200,100,20}
+\definecolor{matlabblue}{RGB}{0,0,200}
+\definecolor{matlabgreen}{RGB}{30,130,30}
+\definecolor{matlaborange}{RGB}{200,80,0}
+
+
+\lstdefinestyle{matlab}{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{matlabblue}\bfseries,
+	commentstyle=\color{matlabgreen}\itshape,
+	stringstyle=\color{matlaborange},
+	numberstyle=\tiny\color{linenumcolor},
+	numbers=left,
+	numbersep=10pt,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	frameround=tttt,
+	framesep=4pt,
+	rulecolor=\color{matlabblue!30},
+	breaklines=true,
+	tabsize=4,
+	showstringspaces=false,
+	captionpos=b,
+	xleftmargin=15pt,
+	xrightmargin=5pt,
+	escapeinside={\%*}{*)},
+	morekeywords={cvx_begin,cvx_end,sdp,variable,minimize,maximize},
+}
+
+\lstset{style=matlab}
+
+\renewcommand{\lstlistingname}{Листинг}
+\DeclareCaptionFormat{redlisting}{#1\textcolor{red}{#2}#3}
+\captionsetup[lstlisting]{format=redlisting}
+
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\captionsetup{labelsep=endash}
+
+\newcommand{\figwidth}{0.6\textwidth}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		\vspace*{0.5cm}
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\[2pt]
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\[2pt]
+			\textbf{«Национальный исследовательский университет ИТМО»}\\
+		}
+		
+		\vspace{0.8cm}
+		\hrule height 0.8pt
+		\vspace{0.3cm}
+		
+		{\large Факультет систем управления и робототехники}
+		
+		\vspace{0.3cm}
+		\hrule height 0.4pt
+		\vspace{2.5cm}
+		
+		{\Huge\bfseries ОТЧЁТ}\\[0.4cm]
+		{\LARGE\bfseries о лабораторной работе}\\[0.8cm]
+		
+		\begin{tcolorbox}[
+			colback=gray!4,
+			colframe=gray!10,
+			boxrule=0.8pt,
+			arc=4pt,
+			left=12pt, right=12pt, top=8pt, bottom=8pt
+			]
+			\centering
+			{\large По дисциплине:\\[4pt]}
+			{\large\bfseries «Теория автоматического управления»}\\[10pt]
+			{\large Тема:\\[4pt]}
+			{\large\bfseries «Управление многоканальной системой»} \\[10pt]
+			{\large Поток: 1.1.3 \( \) Вариант: 25}
+		\end{tcolorbox}
+		
+		\vspace{3cm}
+		
+		\begin{minipage}{0.45\textwidth}
+			\raggedright
+			{\large\bfseries Студент:}\\[4pt]
+			Охрименко Е.\,Д.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.45\textwidth}
+			\raggedleft
+			{\large\bfseries Преподаватель:}\\[4pt]
+			Пашенко А.\,В.\\
+		\end{minipage}
+		
+		\vfill
+		\vspace{0.4cm}
+		{\large Санкт-Петербург, 2026}
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage \section{Исследование свойств многоканальной системы}\label{sec:1}
+	
+	В соответствии с вариантом рассмотрю систему:
+	
+		\begin{equation}
+		\begin{cases}
+			\dot{x} = Ax + Bu \\
+			y = C x
+		\end{cases}
+		\label{sys}
+	\end{equation}
+	
+	где:
+	
+	\[
+	A = \begin{bmatrix} 
+		0 & 1  \\ 
+		-3 & 4 
+	\end{bmatrix} \qquad
+	B = \begin{bmatrix} 
+		3 & -5  \\ 
+		2 & 0 
+	\end{bmatrix}\qquad
+	C = \begin{bmatrix} 
+		4 & 1  \\ 
+		-2 & 0 
+	\end{bmatrix}
+	\]
+
+	
+	Требуется:
+	\begin{enumerate}
+		\item Найти собственные числа матрицы $A$.
+		
+		\item Определить передаточную матрицу $W(s) = C(sI - A)^{-1}B$, найти полюса и нули системы, сравнить с собственными числами $A$.
+		
+		\item Исследовать систему на:
+		\begin{itemize}
+			\item управляемость по состоянию и стабилизируемость;
+			\item наблюдаемость и обнаруживаемость;
+			\item управляемость по выходу.
+		\end{itemize}
+		
+		\item Вывести аналитические выражения для весовой $g(t)$ и переходной $h(t)$ характеристик, построить их графики.
+		
+		\item Вывести аналитические выражения для АЧХ, ФЧХ, ЛАЧХ и ЛФЧХ, построить их графики.
+		
+		\item Сделать выводы.
+	\end{enumerate}
+	
+	\hrule \newpage \subsection{Анализ собственных чисел матрицы системы}
+	
+	Используя характеристическое уравнение:
+	
+	\[
+	\det(\lambda I - A) = \det\begin{bmatrix}
+		\lambda & -1 \\
+		3 & \lambda - 4
+	\end{bmatrix} = \lambda(\lambda - 4) + 3 = \lambda^2 - 4\lambda + 3 = 0
+	\]
+	
+	Найду корни матрицы системы:
+	\[
+	\lambda_{1,2} = \frac{4 \pm \sqrt{16 - 12}}{2} = \{1, 3\}
+	\]
+	
+	\subsection{Передаточная матрица многоканальной системы}
+	
+	Найду предаточную матрицу системы (листинг~\ref{lst:W1}):
+	
+	\[
+	W(s) = C(sI - A)^{-1}B = 
+	\frac{1}{s^2 - 4s + 3}
+	\begin{bmatrix}
+		14s - 49 & -20s + 95 \\
+		-6s + 20 & 10s - 40
+	\end{bmatrix}
+	\]
+	
+	Знаменатель:
+	
+	\[
+	s^2 - 4s + 3 = (s - 1)(s - 3)
+	\]
+	
+	Полюса системы: $s_1 = 1$, $s_2 = 3$, совпадают с собственными числами матрицы $A$.
+	
+	
+	Определитель передаточной матрицы (листинг~\ref{lst:detW1}):
+	
+	\[
+	\det W(s) = \frac{20}{s^2 - 4s + 3} = \frac{20}{(s - 1)(s - 3)}
+	\]
+	
+	Числитель определителя не обращается в ноль ни при каких $s$, следовательно, передаточная матрица не имеет нулей.
+	
+	\subsection{Управляемость и наблюдаемость системы}
+	
+	Исследую систему по пройденным на курсе критериям.
+	
+	
+	\begin{enumerate}
+		\item Построю матрицу управляемости (листинг~\ref{lst:Co1}):
+		
+		\[
+		\mathcal{C} = \begin{bmatrix} B & AB \end{bmatrix} = 
+		\begin{bmatrix}
+			3 & -5 & 2 & 0 \\
+			2 & 0 & -1 & 15
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{C}) = \text{rank}(A) = 2
+		\]
+		
+		Следовательно, система полностью управляема по состоянию, а значит  стабилизируема.
+		
+		
+		\item Матрица наблюдаемости (листинг~\ref{lst:Ob1}):
+		
+		\[
+		\mathcal{O} = \begin{bmatrix} C \\ CA \end{bmatrix} = 
+		\begin{bmatrix}
+			4 & 1 \\
+			-2 & 0 \\
+			-3 & 8 \\
+			0 & -2
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{O}) = \text{rank}(A) = 2
+		\]
+		
+		Следовательно, система полностью наблюдаема, а значит, и обнаруживаема.
+		
+		\item Матрица управляемости по выходу (листинг~\ref{lst:Co_out1}):
+		
+		\[
+		\mathcal{C}_y = \begin{bmatrix} CB & CAB \end{bmatrix} = 
+		\begin{bmatrix}
+			14 & -20 & 7 & 15 \\
+			-6 & 10 & -4 & 0
+		\end{bmatrix}.
+		\]
+		
+		\[
+		\text{rank}(\mathcal{C}_y) = \text{rank}(A) = 2
+		\]
+		
+		Следовательно, система управляема по выходу.
+		
+	\end{enumerate}
+	
+	\subsection{Временные характеристики}
+	
+	
+	Весовая характеристика системы (листинг~\ref{lst:g1}):
+	
+	\[
+	g(t) = \mathcal{L}^{-1}\{W(s)\} =
+	\begin{bmatrix}
+		\dfrac{11}{2}e^{3t} - \dfrac{7}{2}e^{t} & \dfrac{35}{2}e^{3t} - \dfrac{75}{2}e^{t} \\[10pt]
+		e^{3t} - 7e^{t} & -5e^{3t} + 15e^{t}
+	\end{bmatrix}
+	\]
+	
+	Переходная характеристика системы (листинг~\ref{lst:h1}):
+	
+	\[
+	h(t) = \mathcal{L}^{-1}\left\{\dfrac{W(s)}{s}\right\} =
+	\begin{bmatrix}
+		\dfrac{35}{2}e^{t} - \dfrac{7}{6}e^{3t} - \dfrac{49}{3} & \dfrac{35}{6}e^{3t} - \dfrac{75}{2}e^{t} + \dfrac{95}{3} \\[10pt]
+		\dfrac{1}{3}e^{3t} - 7e^{t} + \dfrac{20}{3} & 15e^{t} - \dfrac{5}{3}e^{3t} - \dfrac{40}{3}
+	\end{bmatrix}
+	\]
+	
+	
+	Построю графики весовой и переходной характеристик системы.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/g.png}
+		\caption{Весовая характеристика $g(t)$}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/h.png}
+		\caption{Переходная характеристика $h(t)$}
+	\end{figure}
+	
+	
+	\subsection{Частотные характеристики системы}
+	
+	Для построения частотных характеристик выполним подстановку $s = j\omega$ в передаточную матрицу:
+	
+	\[
+	W(j\omega) = \frac{1}{(j\omega)^2 - 4j\omega + 3}
+	\begin{bmatrix}
+		14j\omega - 49 & -20j\omega + 95 \\
+		-6j\omega + 20 & 10j\omega - 40
+	\end{bmatrix}
+	\]
+	
+Амплитудно-частотные характеристики (АЧХ) (листинг~\ref{lst:ach1}):
+
+\[
+A(\omega) = |W(j\omega)| =
+\begin{bmatrix}
+	\dfrac{7|7 - 2j\omega|}{|\omega^2 + 4j\omega - 3|} & \dfrac{5|19 - 4j\omega|}{|\omega^2 + 4j\omega - 3|} \\[10pt]
+	\dfrac{2|10 - 3j\omega|}{|\omega^2 + 4j\omega - 3|} & \dfrac{10|4 - j\omega|}{|\omega^2 + 4j\omega - 3|}
+\end{bmatrix}
+\]
+
+Фазочастотные характеристики (ФЧХ) (листинг~\ref{lst:fch1}):
+
+\[
+\varphi(\omega) = \arg W(j\omega) =
+\begin{bmatrix}
+	\arg\left(-\dfrac{-7 + 2j\omega}{\omega^2 + 4j\omega - 3}\right) & \arg\left(\dfrac{-19 + 4j\omega}{\omega^2 + 4j\omega - 3}\right) \\[10pt]
+	\arg\left(\dfrac{-10 + 3j\omega}{\omega^2 + 4j\omega - 3}\right) & \arg\left(-\dfrac{-4 + j\omega}{\omega^2 + 4j\omega - 3}\right)
+\end{bmatrix}.
+\]
+	
+	
+	Построю графики АЧХ, ЛАЧХ, ФЧХ, ЛФЧХ.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/ach.png}
+		\caption{АЧХ}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/lach.png}
+		\caption{ЛАЧХ}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/fch.png}
+		\caption{ФЧХ}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task1/lfch.png}
+		\caption{ЛФЧХ}
+	\end{figure}
+	
+	\subsection{Выводы}
+	
+	Система является неустойчивой. Её передаточная матрица имеет полюса, совпадающие с собственными числами матрицы $A$, при этом нули передачи отсутствуют. Система полностью управляема, наблюдаема и управляема по выходу. Временные характеристики экспоненциально возрастают, что подтверждает неустойчивость системы.
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+\section{Приложение}
+
+\subsection*{Задание 1}
+
+\begin{lstlisting}[caption={Инициализация}]
+A = [0  1;
+	-3  4];
+
+B = [3  -5;
+	2   0];
+
+C = [4  1;
+	-2  0];
+
+D = [2  0;
+	0  -3];
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Собственные числа матрицы \(A\)}, label={lst:A1}]
+eig(A)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Передаточная матрица системы}, label={lst:W1}]
+syms s
+W = simplify(C * inv(s*eye(2) - A) * B)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Определитель передаточной матрицы}, label={lst:detW1}]
+detW = simplify(det(W))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Исследование управляемости}, label={lst:Co1}]
+Co = ctrb(A, B)
+rank(Co) == rank(A)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Исследование наблюдаемости}, label={lst:Ob1}]
+Ob = obsv(A, C)
+rank(Ob)== rank(A)
+\end{lstlisting}
+	
+	
+\begin{lstlisting}[caption={Исследование управляемости по выходу}, label={lst:Co_out1}]
+Co_out = [C*B, C*A*B]
+\end{lstlisting}	
+	
+	
+\begin{lstlisting}[caption={Весовая характеристика}, label={lst:g1}]
+g = simplify(ilaplace(W, s, t))
+\end{lstlisting}
+	
+\begin{lstlisting}[caption={Переходная характеристика}, label={lst:h1}]
+h = simplify(ilaplace(W / s, s, t))
+\end{lstlisting}	
+
+\begin{lstlisting}[caption={АЧХ}, label={lst:ach1}]
+A_ach = simplify(abs(W_jw))
+\end{lstlisting}
+
+\begin{lstlisting}[caption={ФЧХ}, label={lst:fch1}]
+phi_fch = simplify(angle(W_jw))
+\end{lstlisting}
+
+
+	
+	
+	
+\end{document}
