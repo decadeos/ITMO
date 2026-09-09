@@ -52,8 +52,8 @@ Co_out_z = [Cz*B, Cz*A*B, Dz];
 rank(Co_out_z) == 2;
 
 % 2.2
-W_yu = simplify(C * inv(s*eye(2) - A) * B + D);
-W_zu = simplify(Cz * inv(s*eye(2) - A) * B + Dz);
+W_yu = simplify(C * inv(s*eye(2) - A) * B + D)
+W_zu = simplify(Cz * inv(s*eye(2) - A) * B + Dz)
 
 
 
@@ -63,7 +63,7 @@ Gamma = [-4  0; 0 -5];
 Y = [1 1; 1 1];
 P = sylvester(A, -Gamma, B*Y);
 K = -Y * inv(P);
-eig(A+B*K)
+eig(A+B*K);
 
 
 
@@ -76,18 +76,18 @@ B_eq = Bf*Y1 + B * Dz_inv * Yg;
 P = sylvester(A_eq, G, B_eq);
 Kw = Dz_inv * (Yg - F*P);
 
-Acl = A + B*K;
-F = Cz + Dz*K;
-for lambda = eig(G).'
-    M = [Acl - lambda*eye(n), B; F, Dz];
-    fprintf('lambda = %g%+gi, rank = %d\n', ...
-    real(lambda), imag(lambda), rank(M));
-end
-
-res1 = norm(P*G - Acl*P - Bf*Y1 - B*Kw);
-res2 = norm(F*P + Dz*Kw - Yg);
-fprintf('Невязка 1: %e\n', res1);
-fprintf('Невязка 2: %e\n', res2);
+% Acl = A + B*K;
+% F = Cz + Dz*K;
+% for lambda = eig(G).'
+%     M = [Acl - lambda*eye(n), B; F, Dz];
+%     fprintf('lambda = %g%+gi, rank = %d\n', ...
+%     real(lambda), imag(lambda), rank(M));
+% end
+% 
+% res1 = norm(P*G - Acl*P - Bf*Y1 - B*Kw);
+% res2 = norm(F*P + Dz*Kw - Yg);
+% fprintf('Невязка 1: %e\n', res1);
+% fprintf('Невязка 2: %e\n', res2);
 
 
 
@@ -125,6 +125,6 @@ L = place(Ab', Ct', lambda_obs)';
 
 
 
-
-% load_system('closed_observer');
+% 
+% load_system('test');
 % print('closed_observer', '-dpng', '-r300', '-sclosed_observer');

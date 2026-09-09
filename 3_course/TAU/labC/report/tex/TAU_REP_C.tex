@@ -118,7 +118,7 @@
 \captionsetup[table]{name=Таблица}
 \captionsetup{labelsep=endash}
 
-\newcommand{\figwidth}{0.6\textwidth}
+\newcommand{\figwidth}{0.7\textwidth}
 
 \begin{document}
 	
@@ -445,7 +445,7 @@ A(\omega) = |W(j\omega)| =
 	\newpage
 	\section{ Синтез следящего управления в условиях внешних возмущений для многоканальной системы}
 	
-	В соответствии с вариантом необходимо рассмотреть многоканальную систему
+	В соответствии с вариантом необходимо рассмотреть многоканальную систему:
 	
 	\[
 	\begin{cases}
@@ -457,7 +457,7 @@ A(\omega) = |W(j\omega)| =
 	x(0) = \begin{bmatrix} 1 & 1 \end{bmatrix}^T
 	\]
 	
-	Матрицы системы
+	Матрицы системы:
 	
 	\[
 	A = \begin{bmatrix}
@@ -503,7 +503,7 @@ A(\omega) = |W(j\omega)| =
 	\end{bmatrix}
 	\]
 	
-	Внешние воздействия
+	Внешние воздействия:
 	
 	\[
 	g(t) = \begin{bmatrix}
@@ -521,7 +521,11 @@ A(\omega) = |W(j\omega)| =
 	\end{bmatrix}
 	\]
 	
-	Доступны к измерению только $y(t)$ и $g(t)$.\\
+	Доступны к измерению только $y(t)$ и $g(t)$. Желаемые параметры замкнутой системы:
+	
+	\[
+	3 < |Re(\lambda_i^*)| < 7 \qquad 0 \leq |Im(\lambda_i^*)| < 6
+	\]
 	
 	Требуется:
 	
@@ -626,20 +630,20 @@ A(\omega) = |W(j\omega)| =
 		\item Передаточная матрица от управления $u(t)$ к выходу $y(t)$ (листинг~\ref{lst:W_yu}):
 		\[
 		W_{u \rightarrow y}(s) = C(sI - A)^{-1}B + D =
-		\frac{1}{s^2 - 4s + 3}
+		\frac{1}{s^2-4s+3}
 		\begin{bmatrix}
-			2s^2 + 6s - 43 & -20s + 95 \\
-			-6s + 20 & -3s^2 + 14s - 1
+			2s^2+6s-43 & -20s+95\\
+			-6s+20 & -3s^2+22s-49
 		\end{bmatrix}
 		\]
 		
 		\item Передаточная матрица от управления \(u(t)\) к виртуальному выходу \(z(t)\) (листинг~\ref{lst:W_zu}):
 		\[
 		W_{u \rightarrow z}(s) = C_z(sI - A)^{-1}B + D_z =
-		\frac{1}{s^2 - 4s + 3}
+		\frac{1}{s^2-4s+3}
 		\begin{bmatrix}
-			-2s^2 + 19s - 45 & -15s + 75 \\
-			6s - 20 & s^2 - 4s - 7
+			-2s^2+19s-45 & -15s+75\\
+			6s-20 & s^2-14s+43
 		\end{bmatrix}
 		\]
 		
@@ -886,7 +890,7 @@ L = \begin{bmatrix}
 	Наблюдатель расширенной размерности описывается уравнением:
 	
 	\[
-	\dot{\hat{x}}_{ext}  = (\bar{A} - L\tilde{C})\hat{x}_f + (\bar{B} - L\tilde{D})u + L\tilde{y}
+	\dot{\hat{x}}_{ext}  = (\bar{A} - L\tilde{C})\hat{x}_{ext} + (\bar{B} - L\tilde{D})u + L\tilde{y}
 	\]
 	
 	где: 
@@ -899,12 +903,143 @@ L = \begin{bmatrix}
 	
 	\subsection{Моделирование}
 	
+	При моделировании приму начальные условия наблюдателя нулевыми.
+	
+	На рисунках \ref{fig:f1}, \ref{fig:f2} и \ref{fig:g} приведены графики внешних воздействий $f_1(t)$, $f_2(t)$ и $g(t)$.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/f1.png}
+		\caption{$f_1(t)$}
+		\label{fig:f1}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/f2.png}
+		\caption{$f_2(t)$}
+		\label{fig:f2}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/g.png}
+		\caption{$g(t)$}
+		\label{fig:g}
+	\end{figure}
+	
+	На рисунках \ref{fig:u}, \ref{fig:y} и \ref{fig:z} представлены графики управления $u(t)$, измеряемого выхода $y(t)$ и виртуального выхода $z(t)$.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/u.png}
+		\caption{Управление $u(t)$}
+		\label{fig:u}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/y.png}
+		\caption{Измеряемый выход $y(t)$}
+		\label{fig:y}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/z.png}
+		\caption{Виртуальный выход $z(t)$}
+		\label{fig:z}
+	\end{figure}
+	
+	Сравнительные графики истинного состояния $x(t)$ и его оценки $\hat{x}(t)$ приведены на рисунках \ref{fig:x1}--\ref{fig:x2}. Ошибка $e_x(t) = x(t) - \hat{x}(t)$ показана на рисунке \ref{fig:ex}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/x1.png}
+		\caption{Сравнение $x_1(t)$ и $\hat{x}_1(t)$}
+		\label{fig:x1}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/x2.png}
+		\caption{Сравнение $x_2(t)$ и $\hat{x}_2(t)$}
+		\label{fig:x2}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/ex.png}
+		\caption{Ошибка $e_x(t) = x(t) - \hat{x}(t)$}
+		\label{fig:ex}
+	\end{figure}
+	
+	Сравнительные графики состояния генератора $w(t)$ и его оценки $\hat{w}(t)$ приведены на рисунках \ref{fig:w1}--\ref{fig:w6}. Ошибка $e_w(t) = w(t) - \hat{w}(t)$ показана на рисунке \ref{fig:ew}.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w1.png}
+		\caption{Сравнение $w_1(t)$ и $\hat{w}_1(t)$}
+		\label{fig:w1}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w2.png}
+		\caption{Сравнение $w_2(t)$ и $\hat{w}_2(t)$}
+		\label{fig:w2}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w3.png}
+		\caption{Сравнение $w_3(t)$ и $\hat{w}_3(t)$}
+		\label{fig:w3}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w4.png}
+		\caption{Сравнение $w_4(t)$ и $\hat{w}_4(t)$}
+		\label{fig:w4}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w5.png}
+		\caption{Сравнение $w_5(t)$ и $\hat{w}_5(t)$}
+		\label{fig:w5}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/w6.png}
+		\caption{Сравнение $w_6(t)$ и $\hat{w}_6(t)$}
+		\label{fig:w6}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=\figwidth]{../../report/images/task2/ew.png}
+		\caption{Ошибка $e_w(t) = w(t) - \hat{w}(t)$}
+		\label{fig:ew}
+	\end{figure}
+	
+	\subsection{Выводы}
+	
+	В ходе выполнения второго задания синтезирован регулятор по выходу для многоканальной системы в условиях внешних возмущений.
+	
+	Система полностью управляема, наблюдаема и управляема по выходу. Передаточные матрицы $W_{u \to y}(s)$ и $W_{u \to z}(s)$ невырождены.
+	
+	Построен генератор внешних воздействий с частотами 2, 4 и 9 рад/с. Синтезированы матрицы $K$ и $K_w$ с использованием уравнений Сильвестра и Франкиса–Дэвисона, а также наблюдатель расширенной размерности $L$ методом размещения полюсов.
+	
+	Результаты моделирования подтверждают работоспособность синтезированного регулятора: ошибка слежения $z(t)$ стремится к нулю, оценки $\hat{x}(t)$ и $\hat{w}(t)$ сходятся к истинным значениям $x(t)$ и $w(t)$, управление $u(t)$ остаётся ограниченным.
 	
 	
-	
-	
-	
-	
+	\newpage
+	\section{Вывод}
+
+В первом задании проведён анализ многоканальной системы: она неустойчива, но полностью управляема и наблюдаема. Во втором задании синтезирован регулятор по выходу с наблюдателем расширенной размерности, обеспечивающий выполнение целевого условия $\lim z(t) = 0$. Результаты моделирования подтверждают работоспособность синтезированного управления.
 	
 	
 	
@@ -979,6 +1114,17 @@ Df = [-1 0; 0 1];
 Cz = [3 1; 2 0];
 Dz = [-2 0; 0 1];
 x0 = [1; 1];
+
+n = size(A, 1);
+G = [0 2 0 0 0 0; -2 0 0 0 0 0; 0 0 0 4 0 0; 0 0 -4 0 0 0; 0 0 0 0 0 9; 0 0 0 0 -9 0];
+Y1 = [0 -5 0 0 0 0; 0 0 5 0 0 0];
+Y2 = [0 0 3 0 0 0; 0 -1 0 0 0 0];
+Yg = [0 0 0 0 4 0; 0 0 0 0 0 -3];
+
+Ab = [G, zeros(6, n); Bf*Y1, A];
+Bb = [zeros(6, 2); B];
+Cb = [Df*Y2, C];
+Ct = [Cb; Yg, zeros(2, n)];
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Исследование управляемости по выходу}, label={lst:Co_out_y2}]
@@ -995,7 +1141,7 @@ W_yu = simplify(C * inv(s*eye(2) - A) * B + D)
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Передаточная матрица к виртуальному выходу}, label={lst:W_zu}]
-W_zu = simplify(C * inv(s*eye(2) - A) * B + Dz)
+W_zu = simplify(Cz * inv(s*eye(2) - A) * B + Dz)
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Матрица регулятора \(K\)}, label={lst:sylv2}]
