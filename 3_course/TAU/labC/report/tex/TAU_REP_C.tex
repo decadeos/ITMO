@@ -296,7 +296,7 @@
 		\]
 		
 		\[
-		\text{rank}(\mathcal{C}) = \text{rank}(A) = 2
+		\text{rank}(\mathcal{C}) = 2
 		\]
 		
 		Следовательно, система полностью управляема по состоянию, а значит  стабилизируема.
@@ -315,7 +315,7 @@
 		\]
 		
 		\[
-		\text{rank}(\mathcal{O}) = \text{rank}(A) = 2
+		\text{rank}(\mathcal{O}) = 2
 		\]
 		
 		Следовательно, система полностью наблюдаема, а значит, и обнаруживаема.
@@ -331,7 +331,7 @@
 		\]
 		
 		\[
-		\text{rank}(\mathcal{C}_y) = \text{rank}(A) = 2
+		\text{rank}(\mathcal{C}_y) = 2
 		\]
 		
 		Следовательно, система управляема по выходу.
@@ -442,14 +442,462 @@ A(\omega) = |W(j\omega)| =
 	
 	
 	
+	\newpage
+	\section{ Синтез следящего управления в условиях внешних возмущений для многоканальной системы}
+	
+	В соответствии с вариантом необходимо рассмотреть многоканальную систему
+	
+	\[
+	\begin{cases}
+		\dot{x} = Ax + Bu + B_f f_1 \\
+		z = C_z x + D_z u - g \\
+		y = Cx + Du + D_f f_2
+	\end{cases}
+	\qquad
+	x(0) = \begin{bmatrix} 1 & 1 \end{bmatrix}^T
+	\]
+	
+	Матрицы системы
+	
+	\[
+	A = \begin{bmatrix}
+		0 & 1 \\
+		-3 & 4
+	\end{bmatrix}
+	\quad
+	B = \begin{bmatrix}
+		3 & -5 \\
+		2 & 0
+	\end{bmatrix}
+	\quad
+	C = \begin{bmatrix}
+		4 & 1 \\
+		-2 & 0
+	\end{bmatrix}
+	\quad
+	D = \begin{bmatrix}
+		2 & 0 \\
+		0 & -3
+	\end{bmatrix}
+	\]
+	
+	\[
+	B_f = \begin{bmatrix}
+		3 & 1 \\
+		2 & 0
+	\end{bmatrix}
+	\quad
+	D_f = \begin{bmatrix}
+		-1 & 0 \\
+		0 & 1
+	\end{bmatrix}
+	\quad
+	C_z = \begin{bmatrix}
+		3 & 1 \\
+		2 & 0
+	\end{bmatrix}
+	\quad
+	D_z = \begin{bmatrix}
+		-2 & 0 \\
+		0 & 1
+	\end{bmatrix}
+	\]
+	
+	Внешние воздействия
+	
+	\[
+	g(t) = \begin{bmatrix}
+		4\cos(9t) \\
+		3\sin(9t)
+	\end{bmatrix}\quad
+	f_1(t) = \begin{bmatrix}
+		5\sin(2t) \\
+		5\cos(4t)
+	\end{bmatrix}
+	\quad
+	f_2(t) = \begin{bmatrix}
+		3\cos(4t) \\
+		\sin(2t)
+	\end{bmatrix}
+	\]
+	
+	Доступны к измерению только $y(t)$ и $g(t)$.\\
+	
+	Требуется:
+	
+	\begin{enumerate}
+		\item Исследовать систему на управляемость, наблюдаемость, стабилизируемость, обнаруживаемость и управляемость по выходу.
+		
+		\item Составить передаточные матрицы $W_{yu}(s)$ и $W_{zu}(s)$, проверить их на вырожденность.
+		
+		\item Построить генератор внешних воздействий, найти $\Gamma_w$, $w(0)$, $Y_g$, $Y_1$, $Y_2$.
+		
+		\item Построить схему моделирования замкнутой системы с регулятором $u = K\hat{x} + K_w\hat{w}$.
+		
+		\item Синтезировать матрицы $K$ и $K_w$, проверив условия существования решений.
+		
+		\item Выполнить моделирование, построить графики $u(t)$, $f_1(t)$, $f_2(t)$, $g(t)$, $y(t)$, $z(t)$, $x(t)$, $w(t)$ и ошибок оценивания.
+		
+		\item Сделать выводы.
+	\end{enumerate}
+	
+	\hrule \newpage
+	
+	\subsection{Анализ системы}
+	
+	Исследую систему по пройденным на курсе критериям.
+	
+	
+	\begin{enumerate}
+		\item Построю матрицу управляемости (листинг~\ref{lst:Co1}):
+		
+		\[
+		\mathcal{C} = \begin{bmatrix} B & AB \end{bmatrix} = 
+		\begin{bmatrix}
+			3 & -5 & 2 & 0 \\
+			2 & 0 & -1 & 15
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{C}) = 2
+		\]
+		
+		Следовательно, система полностью управляема по состоянию, а значит  стабилизируема.
+		
+		
+		\item Матрица наблюдаемости (листинг~\ref{lst:Ob1}):
+		
+		\[
+		\mathcal{O} = \begin{bmatrix} C \\ CA \end{bmatrix} = 
+		\begin{bmatrix}
+			4 & 1 \\
+			-2 & 0 \\
+			-3 & 8 \\
+			0 & -2
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{O}) = 2
+		\]
+		
+		Следовательно, система полностью наблюдаема, а значит, и обнаруживаема.
+		
+		\item Матрица управляемости по выходу $y(t)$ (листинг~\ref{lst:Co_out_y2}):
+		
+		\[
+		\mathcal{C}_{y} = \begin{bmatrix} CB & CAB & D \end{bmatrix} = 
+		\begin{bmatrix}
+			14 & -20 & 7 & 15 & 2 & 0 \\
+			-6 & 10 & -4 & 0 & 0 & -3
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{C}_{y}) = 2
+		\]
+		
+		Следовательно, система управляема по выходу $y(t)$.
+		
+		\item Матрица управляемости по виртуальному выходу $z(t)$ (листинг~\ref{lst:Co_out_z2}):
+		
+		\[
+		\mathcal{C}_{z} = \begin{bmatrix} CB & CAB & D_z \end{bmatrix} = 
+		\begin{bmatrix}
+			11  & -15   &  5   & 15   & -2   &  0\\
+			6   &-10    & 4   &  0  &   0   &  1\\
+		\end{bmatrix}
+		\]
+		
+		\[
+		\text{rank}(\mathcal{C}_{z}) = 2
+		\]
+		
+		Следовательно, система управляема по выходу $z(t)$.
+		
+
+	\end{enumerate}
+	
+	\subsection{Передаточные матрицы}
+	
+	\begin{enumerate}
+		
+		\item Передаточная матрица от управления $u(t)$ к выходу $y(t)$ (листинг~\ref{lst:W_yu}):
+		\[
+		W_{u \rightarrow y}(s) = C(sI - A)^{-1}B + D =
+		\frac{1}{s^2 - 4s + 3}
+		\begin{bmatrix}
+			2s^2 + 6s - 43 & -20s + 95 \\
+			-6s + 20 & -3s^2 + 14s - 1
+		\end{bmatrix}
+		\]
+		
+		\item Передаточная матрица от управления \(u(t)\) к виртуальному выходу \(z(t)\) (листинг~\ref{lst:W_zu}):
+		\[
+		W_{u \rightarrow z}(s) = C_z(sI - A)^{-1}B + D_z =
+		\frac{1}{s^2 - 4s + 3}
+		\begin{bmatrix}
+			-2s^2 + 19s - 45 & -15s + 75 \\
+			6s - 20 & s^2 - 4s - 7
+		\end{bmatrix}
+		\]
+		
+	\end{enumerate}
+	
+	\(\text{rank}\,W_{u \to y}(s) = \text{rank}\,W_{u \to z}(s) = 2 = n\), где \(n\) --- порядок системы, следовательно, передаточные матрицы невырождены.
+	
+	
+	\subsection{Генератор внешних воздействий}
+	
+	Для сигналов $f_1(t)$, $f_2(t)$ и $g(t)$ выберу генератор с частотами $\omega_1 = 2$, $\omega_2 = 4$, $\omega_3 = 9$.
+	
+	Матрица генератора:
+	
+	\[
+	\Gamma_w =
+	\begin{bmatrix}
+		0 & 2 & 0 & 0 & 0 & 0 \\
+		-2 & 0 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 4 & 0 & 0 \\
+		0 & 0 & -4 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 0 & 9 \\
+		0 & 0 & 0 & 0 & -9 & 0
+	\end{bmatrix} \qquad
+	w(0) = 
+	\begin{bmatrix}
+		1 \\ 0 \\ 1 \\ 0 \\ 1 \\ 0
+	\end{bmatrix}
+	\]
+	
+	Для $g(t)$:
+	
+	\[
+	g(t) = 
+	\begin{bmatrix}
+		4\cos 9t \\
+		3\sin 9t
+	\end{bmatrix}
+	\qquad \Longrightarrow \qquad Y_g = 
+	\begin{bmatrix}
+		0 & 0 & 0 & 0 & 4 & 0 \\
+		0 & 0 & 0 & 0 & 0 & -3
+	\end{bmatrix}
+	\]
+	
+	Для $f_1(t)$:
+	
+	\[
+	f_1(t) = 
+	\begin{bmatrix}
+		5\sin 2t \\
+		5\cos 4t
+	\end{bmatrix}
+	\qquad \Longrightarrow \qquad
+	Y_1 = 
+	\begin{bmatrix}
+		0 & -5 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 5 & 0 & 0 & 0
+	\end{bmatrix}
+	\]
+	
+	Для $f_2(t)$:
+	
+	\[
+	f_2(t) = 
+	\begin{bmatrix}
+		3\cos 4t \\
+		\sin 2t
+	\end{bmatrix}
+	\qquad \Longrightarrow \qquad
+	Y_2 = 
+	\begin{bmatrix}
+		0 & 0 & 3 & 0 & 0 & 0 \\
+		0 & -1 & 0 & 0 & 0 & 0
+	\end{bmatrix}
+	\]
+	
+	\subsection{Синтез матрицы \(K\)}
+	
+
+Выберу желаемые полюса замкнутой системы $\lambda_i^*$ и запишу матрицу желаемой динамики:
+\[
+\lambda_1^* = -4 \quad \lambda_2^* = -5 \qquad
+\Gamma = \begin{bmatrix} -4 & 0 \\ 0 & -5 \end{bmatrix}
+\]
+
+Для синтеза матрицы $K$ необходимо решить матричное уравнение Сильвестра:
+\[
+AP - P\Gamma = BY
+\]
+Предварительно проверю условия существования единственного невырожденного решения:
+
+\begin{enumerate}
+	\item Непересечение спектров:
+	\[
+	\sigma(A) = \{1, 3\} \cap \sigma(\Gamma) = \{-4, -5\} = \varnothing
+	\]
+	
+	\item Управляемость пары $(A, B)$:
+	\[
+	\mathcal{C} = \begin{bmatrix} B & AB \end{bmatrix} = 
+	\begin{bmatrix}
+		3 & -5 & 2 & 0 \\
+		2 & 0 & -1 & 15
+	\end{bmatrix}\qquad \operatorname{rank}\mathcal{C} = 2
+	\]
+	
+	\item Наблюдаемость пары $(Y, \Gamma)$:
+	Выберу вспомогательную матрицу $Y = \begin{bmatrix} 1 & 1 \\ 1 & 1 \end{bmatrix}$. Матрица наблюдаемости:
+	\[
+	\mathcal{O}_{Y,\Gamma} = \begin{bmatrix} Y \\ Y\Gamma \end{bmatrix} = 
+	\begin{bmatrix}
+		1 & 1 \\ 1 & 1 \\ -4 & -5 \\ -4 & -5
+	\end{bmatrix} \qquad \operatorname{rank}\mathcal{O}_{Y,\Gamma} = 2
+	\]
+\end{enumerate}
+
+Все необходимые условия выполнены. Решая уравнение Сильвестра (листинг~\ref{lst:sylv2}), получаю матрицу $P$:
+\[
+P = \begin{bmatrix} -0.5143 & -0.4167 \\ 0.0571 & 0.0833 \end{bmatrix}
+\]
+
+Матрица регулятора:
+\[
+K = -YP^{-1} = \begin{bmatrix} 1.3750 & -5.1250 \\ 1.3750 & -5.1250 \end{bmatrix}
+\]
+
+\subsection{Синтез матрицы \(K_w\)}
+
+Для синтеза компенсирующей компоненты регулятора составлю систему матричных уравнений Франкиса--Дэвисона:
+\[
+\begin{cases}
+	P \Gamma_w - (A + BK)P - B_f Y_1 = B K_w \\
+	(C_z + D_z K)P + D_z K_w = Y_g
+\end{cases}
+\]
+
+Условием существования решения данной системы является выполнение условия полного ранга для каждого собственного числа $\lambda \in \sigma(\Gamma_w)$:
+\[
+\operatorname{rank}
+\begin{bmatrix}
+	A + BK - \lambda I & B \\
+	C_z + D_z K & D_z
+\end{bmatrix}
+= 4
+\]
+
+Условие выполняется для всех собственных чисел $\Gamma_w$ (листинг~\ref{lst:check_fd}). Решение существует.\\
+
+
+
+Найду матрицу $P$, решив соответствующее уравнение Сильвестра, а затем вычислю матрицу $K_w$ (листинг~\ref{lst:kw_synthesis}):
+
+\[
+\begin{aligned}
+	P &= \begin{bmatrix}
+		0.0169 & 0.7395 & -0.3204 & -0.0884 & 0.7650 & -0.6182 \\
+		-0.6897 & 1.7241 & 0 & 0 & 0.1887 & 0.3396
+	\end{bmatrix} \\[5pt]
+	K_w &= \begin{bmatrix}
+		-3.8772 & 9.7907 & -0.0401 & -0.0110 & -0.8431 & 1.8331 \\
+		-3.5915 & 6.3402 & 1.0815 & 0.2983 & -1.6148 & 0.8271
+	\end{bmatrix}
+\end{aligned}
+\]
+
+	
+
+	
+	
+\subsection{Синтез наблюдателей}
+
+Для построения наблюдателя сформирую расширенную систему, объединив векторы состояния объекта и генератора возмущений:
+
+\[
+x_f = \begin{bmatrix} w \\ x \end{bmatrix}
+\]
+
+Матрицы расширенной системы определяются выражениями:
+
+\[
+\bar{A} = \begin{bmatrix} \Gamma_w & 0 \\ B_f Y_1 & A \end{bmatrix} \qquad
+\bar{B} = \begin{bmatrix} 0 \\ B \end{bmatrix}
+\]
+
+Измеряемый вектор включает выход системы и сигнал генератора:
+
+\[
+\tilde{y} = \begin{bmatrix} y \\ g \end{bmatrix}
+\]
+
+Матрица выхода расширенной системы имеет вид:
+
+\[
+\tilde{C} = \begin{bmatrix} D_f Y_2 & C \\ Y_g & 0 \end{bmatrix} \qquad
+\tilde{D} = \begin{bmatrix} D \\ 0 \end{bmatrix}
+\]
+
+Уравнение наблюдателя полной размерности:
+
+\[
+\dot{\hat{x}}_{ext}  = (\bar{A} - L\tilde{C})\hat{x}_{ext}  + (\bar{B} - L\tilde{D})u + L\tilde{y}
+\]
+
+Выберу желаемые полюса наблюдателя:
+
+\[
+\lambda_{obs} = [-10, -11, -12, -13, -14, -15, -16, -17]^T
+\]
+
+Синтезирую матрицу наблюдателя \(L\) методом размещения полюсов для транспонированной пары $(\bar{A}^T, \tilde{C}^T)$ (листинг~\ref{lst:L2}):
+
+\[
+L = \begin{bmatrix}
+	-8.3364 & -43.8889 & 0 & 0 \\
+	24.6276 & 68.6823 & 0 & 0 \\
+	35.1074 & 66.2140 & 0 & 0 \\
+	-9.5505 & -28.3425 & 0 & 0 \\
+	0 & 0 & 4.2500 & -3.0000 \\
+	0 & 0 & -2.2500 & -4.0000 \\
+	-11.8260 & -53.1320 & 0 & 0 \\
+	198.0446 & 422.6576 & 0 & 0
+\end{bmatrix}
+\]
+
+	
+	\subsection{Структурная схема системы}
+	
+	Структурная схема замкнутой системы представлена на рисунке \ref{fig:scheme}. Регулятор формирует управление $u(t)$ на основе оценок $\hat{x}(t)$ и $\hat{w}(t)$, поступающих от наблюдателя расширенной размерности.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{../../report/images/task2/closed_observer.png}
+		\caption{Структурная схема замкнутой системы}
+		\label{fig:scheme}
+	\end{figure}
+	
+	Закон управления имеет вид:
+	
+	\[
+	u = K\hat{x} + K_w\hat{w}
+	\]
+	
+	Наблюдатель расширенной размерности описывается уравнением:
+	
+	\[
+	\dot{\hat{x}}_{ext}  = (\bar{A} - L\tilde{C})\hat{x}_f + (\bar{B} - L\tilde{D})u + L\tilde{y}
+	\]
+	
+	где: 
+	\[
+	\hat{x}_{ext} = \begin{bmatrix} \hat{w} \\ \hat{x} \end{bmatrix} \qquad
+	\tilde{y} = \begin{bmatrix} y \\ g \end{bmatrix}
+	\]
 	
 	
 	
-	
-	
-	
-	
-	
+	\subsection{Моделирование}
 	
 	
 	
@@ -467,17 +915,9 @@ A(\omega) = |W(j\omega)| =
 \subsection*{Задание 1}
 
 \begin{lstlisting}[caption={Инициализация}]
-A = [0  1;
-	-3  4];
-
-B = [3  -5;
-	2   0];
-
-C = [4  1;
-	-2  0];
-
-D = [2  0;
-	0  -3];
+A = [0 1; -3 4];
+B = [3 -5; 2 0];
+C = [4 1; -2 0];
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Собственные числа матрицы \(A\)}, label={lst:A1}]
@@ -495,12 +935,12 @@ detW = simplify(det(W))
 
 \begin{lstlisting}[caption={Исследование управляемости}, label={lst:Co1}]
 Co = ctrb(A, B)
-rank(Co) == rank(A)
+rank(Co) == 2
 \end{lstlisting}
 
 \begin{lstlisting}[caption={Исследование наблюдаемости}, label={lst:Ob1}]
 Ob = obsv(A, C)
-rank(Ob)== rank(A)
+rank(Ob)== 2
 \end{lstlisting}
 	
 	
@@ -525,8 +965,72 @@ A_ach = simplify(abs(W_jw))
 phi_fch = simplify(angle(W_jw))
 \end{lstlisting}
 
+\newpage
+
+\subsection*{Задание 2}
+
+\begin{lstlisting}[caption={Инициализация}]
+A = [0 1; -3 4];
+B = [3 -5; 2 0];
+C = [4 1; -2 0];
+D = [2 0; 0 -3];
+Bf = [3 1; 2 0];
+Df = [-1 0; 0 1];
+Cz = [3 1; 2 0];
+Dz = [-2 0; 0 1];
+x0 = [1; 1];
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Исследование управляемости по выходу}, label={lst:Co_out_y2}]
+Co_out_y = [C*B, C*A*B, D];
+\end{lstlisting}	
 
 	
+\begin{lstlisting}[caption={Исследование управляемости по виртуальному выходу}, label={lst:Co_out_z2}]
+Co_out_z = [Cz*B, Cz*A*B, Dz]
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Передаточная матрица к выходу}, label={lst:W_yu}]
+W_yu = simplify(C * inv(s*eye(2) - A) * B + D)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Передаточная матрица к виртуальному выходу}, label={lst:W_zu}]
+W_zu = simplify(C * inv(s*eye(2) - A) * B + Dz)
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Матрица регулятора \(K\)}, label={lst:sylv2}]
+Gamma = [-4  0; 0 -5]
+Y = [1 1; 1 1]
+P = sylvester(A, -Gamma, B*Y)
+K = -Y * inv(P)
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption={Проверка условий существования решения уравнений Франкиса--Дэвисона}, label={lst:check_fd}]
+Acl = A + B*K;
+F = Cz + Dz*K;
+for lambda = eig(G).'
+	M = [Acl - lambda*eye(n), B; F, Dz];
+	fprintf('lambda = %g%+gi, rank = %d\n', ...
+	real(lambda), imag(lambda), rank(M));
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Синтез матрицы \(K_w\)}, label={lst:kw_synthesis}]
+Dz_inv = inv(Dz); 
+A_eq = -Acl + B * Dz_inv * F;
+B_eq = Bf*Y1 + B * Dz_inv * Yg;
+P = sylvester(A_eq, G, B_eq);
+Kw = Dz_inv * (Yg - F*P);
+\end{lstlisting}
 	
+\begin{lstlisting}[caption={Синтез матрицы \(L\)}, label={lst:L2}]
+lambda_obs = [-10; -11; -12; -13; -14; -15; -16; -17]
+L = place(Ab', Ct', lambda_obs)'
+\end{lstlisting}
+	
+	
+	
+
 	
 \end{document}
