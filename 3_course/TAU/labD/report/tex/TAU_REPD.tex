@@ -118,7 +118,7 @@
 \captionsetup[table]{name=Таблица}
 \captionsetup{labelsep=endash}
 
-\newcommand{\figwidth}{0.6\textwidth}
+\newcommand{\figwidth}{0.7\textwidth}
 
 \begin{document}
 	
@@ -443,6 +443,25 @@
 		\caption{Функционалы качества}
 	\end{figure}
 	
+	Сравню вычисленное экспериментально и теоретически значения функционалов качеств. Результаты сведены в таблицу \ref{tab:j_results}:
+	
+	\begin{table}[H]
+		\centering
+		\caption{Значения функционалов для различных регуляторов}
+		\renewcommand{\arraystretch}{1.3}
+		\label{tab:j_results}
+		\begin{tabular}{@{}lcc@{}}
+			\toprule
+			\textbf{Набор} & \textbf{\(J_{exp}\)} & \textbf{\(J_{min}\)} \\
+			\midrule
+			\((Q_0, R_0)\) & \(\cdots\) & \(15.4517\) \\
+			\((\alpha Q_0, R_0)\) & \(\cdots\) & \(40.3691\) \\
+			\((Q_0, \alpha R_0)\) & \(\cdots\) & \(37.9133\) \\
+			\((\alpha Q_0, \alpha R_0)\) & \(\cdots\) & \(77.2586\) \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
 	Построю графики управления для 4-x наборов на одном рисунке.
 	
 	\begin{figure}[H]
@@ -592,7 +611,7 @@ C^T = \begin{bmatrix} -3 \\ 2 \\ -2 \\ 1 \\  \end{bmatrix}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../report/images/task2/closed_observer.png}
+	\includegraphics[width=0.9\textwidth]{../../report/images/task2/closed_observer.png}
 	\caption{Схема моделирования системы с наблюдателем состояния}
 \end{figure}
 
@@ -699,10 +718,10 @@ AP + PA^T + Q - \nu PC^T R^{-1} C P = 0 \qquad L = PC^T R^{-1}.
 	\end{bmatrix} &
 	P_{(\alpha Q_0,R_0)} &= 
 	\begin{bmatrix}
-		1348.70 & 2117.70 & 942.90 & 1678.00 \\
-		2117.70 & 3333.40 & 1488.30 & 2638.40 \\
-		942.90 & 1488.30 & 668.60 & 1177.60 \\
-		1678.00 & 2638.40 & 1177.60 & 2093.50
+		1348.7 & 2117.7 & 942.9 & 1678 \\
+		2117.7 & 3333.4 & 1488.3 & 2638.4 \\
+		942.9 & 1488.3 & 668.6 & 1177.6 \\
+		1678 & 2638.4 & 1177.6 & 2093.5
 	\end{bmatrix} \\[1.5cm]
 	P_{(Q_0,\alpha R_0)} &= 
 	\begin{bmatrix}
@@ -713,10 +732,10 @@ AP + PA^T + Q - \nu PC^T R^{-1} C P = 0 \qquad L = PC^T R^{-1}.
 	\end{bmatrix} &
 	P_{(\alpha Q_0,\alpha R_0)} &= 
 	\begin{bmatrix}
-		1477.10 & 2318.20 & 1030.60 & 1827.90 \\
-		2318.20 & 3649.30 & 1625.60 & 2873.70 \\
-		1030.60 & 1625.60 & 729.00 & 1280.30 \\
-		1827.90 & 2873.70 & 1280.30 & 2270.00
+		1477.1 & 2318.2 & 1030.6 & 1827.9 \\
+		2318.2 & 3649.3 & 1625.6 & 2873.7 \\
+		1030.6 & 1625.6 & 729 & 1280.3 \\
+		1827.9 & 2873.7 & 1280.3 & 2270
 	\end{bmatrix}
 \end{aligned}
 \]
@@ -1237,7 +1256,7 @@ end
 \end{lstlisting}
 
 \newpage
-\subsection*{Задание 1}
+\subsection*{Задание 3}
 
 \begin{lstlisting}[caption={Инициализация}]
 A = [5 -9 -7 1;
