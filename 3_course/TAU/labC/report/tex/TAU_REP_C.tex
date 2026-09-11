@@ -759,7 +759,59 @@ AP - P\Gamma = BY
 		1 & 1 \\ 1 & 1 \\ -4 & -5 \\ -4 & -5
 	\end{bmatrix} \qquad \operatorname{rank}\mathcal{O}_{Y,\Gamma} = 2
 	\]
+	
+	\item Ранг матрицы \(B Y\) -- единичный:
+	
+	\[B Y = \begin{bmatrix}
+			3&-5 \\ 2&0 \\
+		\end{bmatrix} \cdot \begin{bmatrix}
+		1&1 \\ 1&1 \\
+		\end{bmatrix} = 
+		\begin{bmatrix}
+			-2&-2 \\ 2&2 \\
+		\end{bmatrix}\]
+		
+	Столбцы матрицы \(BY\) линейно зависимы, следовательно:
+	\[
+	\operatorname{rank}(BY) = 1
+	\]
+	
+	\item Произведение матриц \(BY\) декомпозируемо на произведение векторов \(BY= bh\), для которых выполняется условие полной управляемости \((A,b)\) и полной наблюдаемости \((h,\Gamma)\):
+	
+	\[BY=\begin{bmatrix}
+		-2\\2
+	\end{bmatrix} \cdot
+	\begin{bmatrix}
+		1&1
+	\end{bmatrix}\]
+	
+	Приму:
+	
+	\[b=\begin{bmatrix}
+		-2\\2
+	\end{bmatrix} \qquad
+	h=\begin{bmatrix}
+		1&1
+	\end{bmatrix}\]
+	
+ 	Соответствующие матрицы управляемости и наблюдаемости:
+ 	
+ 	\[
+ 	\mathcal{C} = \begin{bmatrix}
+ 		-2&2\\2&14
+ 	\end{bmatrix} \qquad 
+ 	\mathcal{O} =\begin{bmatrix}
+ 	1&1\\4&-5
+ 	\end{bmatrix}
+ 	\]
+	
+	\(\operatorname{rank}(\mathcal{C}) = 2\), значит пара \((A,b)\) управляема. \\
+	\(\operatorname{rank}(\mathcal{O}) = 2\), значит пара \((h,\Gamma)\) наблюдаема. 
+	
+
 \end{enumerate}
+
+
 
 Все необходимые условия выполнены. Решая уравнение Сильвестра (листинг~\ref{lst:sylv2}), получаю матрицу $P$:
 \[
