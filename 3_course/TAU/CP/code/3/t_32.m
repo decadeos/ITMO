@@ -131,62 +131,62 @@ T_inv = inv(T)
 Y = (Gamma * Q - Q * A) * pinv(C)
 
 
-simOut = sim('nonlinear_closed_observer_redused.slx');
-t = simOut.x.time;
-x = simOut.x.signals.values;
-x_hat = simOut.x_hat.signals.values;
-e = x-x_hat;
-
-
-% Ошибки
-figure('Position', [100, 100, 900, 350]);
-ax = gca; hold on;
-
-err_names = {'$e_a(t)$', '$e_{\dot{a}}(t)$', '$e_{\varphi}(t)$', '$e_{\dot{\varphi}}(t)$'};
-
-for j = 1:4
-    if j==3
-        plot(t, e(:,j), 'Color', colors(j,:), 'LineWidth', line_width, 'DisplayName', err_names{j}, LineStyle='--');
-    else
-        plot(t, e(:,j), 'Color', colors(j,:), 'LineWidth', line_width, 'DisplayName', err_names{j}, LineStyle='-');
-    end
-end
-
-y_lim = ylim;
-y_offset = 0.1 * (y_lim(2) - y_lim(1));
-ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
-
-xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-ylabel('$e(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-legend('Interpreter', 'latex', 'Location', 'southeast', 'FontSize', font_size_legend);
-setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
-xlim([0,1.5])
-
-saveas(gcf, fullfile('../../report/images/task3/3_2', 'errors_red.png'));
-
-
-% Оценки состояния
-figure('Position', [100, 100, 900, 350]);
-ax = gca; hold on;
-
-var_names = {'$a(t)$', '$\dot{a}(t)$', '$\varphi(t)$', '$\dot{\varphi}(t)$' ...
-    '$\hat{a}(t)$', '$\hat{\dot{a}}(t)$', '$\hat{\varphi}(t)$', '$\hat{\dot{\varphi}}(t)$'};
-
-for j = 1:4
-    plot(t, x(:,j), 'Color', colors(j,:), 'LineWidth', line_width, ...
-         'DisplayName', [var_names{j}]);
-    hold on;
-    plot(t, x_hat(:,j), 'Color', colors(j+4,:), 'LineWidth', line_width, ...
-         'LineStyle', '--', 'DisplayName', [var_names{j+4}]);
-end
-
-xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
-legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend, 'NumColumns', 4);
-setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
-
-y_lim = ylim;
-y_offset = 0.03 * (y_lim(2) - y_lim(1));
-ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
-
-saveas(gcf, fullfile('../../report/images/task3/3_2', 'comparison_red.png'));
+% simOut = sim('nonlinear_closed_observer_redused.slx');
+% t = simOut.x.time;
+% x = simOut.x.signals.values;
+% x_hat = simOut.x_hat.signals.values;
+% e = x-x_hat;
+% 
+% 
+% % Ошибки
+% figure('Position', [100, 100, 900, 350]);
+% ax = gca; hold on;
+% 
+% err_names = {'$e_a(t)$', '$e_{\dot{a}}(t)$', '$e_{\varphi}(t)$', '$e_{\dot{\varphi}}(t)$'};
+% 
+% for j = 1:4
+%     if j==3
+%         plot(t, e(:,j), 'Color', colors(j,:), 'LineWidth', line_width, 'DisplayName', err_names{j}, LineStyle='--');
+%     else
+%         plot(t, e(:,j), 'Color', colors(j,:), 'LineWidth', line_width, 'DisplayName', err_names{j}, LineStyle='-');
+%     end
+% end
+% 
+% y_lim = ylim;
+% y_offset = 0.1 * (y_lim(2) - y_lim(1));
+% ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
+% 
+% xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
+% ylabel('$e(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
+% legend('Interpreter', 'latex', 'Location', 'southeast', 'FontSize', font_size_legend);
+% setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
+% xlim([0,1.5])
+% 
+% saveas(gcf, fullfile('../../report/images/task3/3_2', 'errors_red.png'));
+% 
+% 
+% % Оценки состояния
+% figure('Position', [100, 100, 900, 350]);
+% ax = gca; hold on;
+% 
+% var_names = {'$a(t)$', '$\dot{a}(t)$', '$\varphi(t)$', '$\dot{\varphi}(t)$' ...
+%     '$\hat{a}(t)$', '$\hat{\dot{a}}(t)$', '$\hat{\varphi}(t)$', '$\hat{\dot{\varphi}}(t)$'};
+% 
+% for j = 1:4
+%     plot(t, x(:,j), 'Color', colors(j,:), 'LineWidth', line_width, ...
+%          'DisplayName', [var_names{j}]);
+%     hold on;
+%     plot(t, x_hat(:,j), 'Color', colors(j+4,:), 'LineWidth', line_width, ...
+%          'LineStyle', '--', 'DisplayName', [var_names{j+4}]);
+% end
+% 
+% xlabel('$t$', 'Interpreter', 'latex', 'FontSize', font_size_label);
+% ylabel('$x(t)$', 'Interpreter', 'latex', 'FontSize', font_size_label);
+% legend('Interpreter', 'latex', 'Location', 'northeast', 'FontSize', font_size_legend, 'NumColumns', 4);
+% setPlotStyle(ax, 'FontSize', font_size_label, 'LineWidth', line_width);
+% 
+% y_lim = ylim;
+% y_offset = 0.03 * (y_lim(2) - y_lim(1));
+% ylim([y_lim(1) - y_offset, y_lim(2) + y_offset]);
+% 
+% saveas(gcf, fullfile('../../report/images/task3/3_2', 'comparison_red.png'));
