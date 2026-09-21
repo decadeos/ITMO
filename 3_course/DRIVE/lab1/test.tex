@@ -1,0 +1,446 @@
+\documentclass[a4paper, 14pt]{extarticle}
+
+% Текст
+% \usepackage[utf8]{inputenc} % UTF-8 кодировка
+% \usepackage[T2A]{fontenc}
+% \usepackage[russian]{babel} % Русский язык (гойда)
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\newfontfamily\cyrillicfont{Times New Roman}
+\setmainfont{Times New Roman}
+\usepackage{indentfirst} % отступ для первой строки абзаца
+\usepackage{listings}   
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}                               % Подгружаем нужный пакет
+\hypersetup{
+	colorlinks=true,                                % Все ссылки и гиперссылки цветные
+	linktoc=all,                                    % В оглавлении ссылки подключатся для всех отображаемых уровней
+	linktocpage=true,                               % Ссылка - только номер страницы, а не весь заголовок (так выглядит аккуратнее)
+	linkcolor=blue,                               % Цвет ссылок - красный
+	filecolor=magenta,                               % Цвет файловых ссылок
+	citecolor=red,                                   % Цвет цитировний - красный
+	urlcolor=cyan                                    % Цвет гиперссылок - красный
+}
+%\newfontfamily
+\usepackage{xltxtra}
+
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\setkeys{russian}{babelshorthands=true}
+
+\setmainfont{Times New Roman}
+\setromanfont{Times New Roman} 
+\setsansfont{Arial} 
+\setmonofont{Courier New} 
+
+\newfontfamily{\cyrillicfont}{Times New Roman} 
+\newfontfamily{\cyrillicfontrm}{Times New Roman}
+\newfontfamily{\cyrillicfonttt}{Courier New}
+\newfontfamily{\cyrillicfontsf}{Arial}
+
+\addto\captionsrussian{%
+	\renewcommand{\figurename}{Рис.}%
+	\renewcommand{\tablename}{Табл.}%
+}
+% Настраиваем супер красивые листинги с попомщью пакетов listings и xcolor
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codestyle}{
+	backgroundcolor=\color{backcolour},
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	keepspaces=true,
+	numbers=left,
+	numbersep=5pt,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2
+}
+
+\lstset{style=codestyle}
+\lstset{extendedchars=\true}
+
+
+% Отображение страниц
+\usepackage{geometry} % размеры листа и отступов
+\geometry{
+	left=12mm,
+	top=25mm,
+	right=15mm,
+	bottom=17mm,
+	marginparsep=0mm,
+	marginparwidth=0mm,
+	headheight=10mm,
+	headsep=7mm,
+	nofoot}
+\usepackage{afterpage,fancyhdr} % настройка колонтитулов
+\usepackage{graphicx}
+\usepackage{subcaption}
+\pagestyle{fancy}
+\fancypagestyle{style}{ % создание нового стиля style
+	\fancyhf{} % очистка колонтитулов
+	\fancyhead[LO, RE]{Лабораторная работа № 1} % название документа наверху
+	\fancyhead[RO, LE]{Механика электропривода} % название section наверху
+	\fancyfoot[RO, LE]{\thepage} % номер страницы справа внизу на нечетных и слева внизу на четных
+	\renewcommand{\headrulewidth}{0.25pt} % толщина линии сверху
+	\renewcommand{\footrulewidth}{0pt} % толцина линии снизу
+}
+\fancypagestyle{plain}{ % создание нового стиля plain -- полностью пустого
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+}
+\fancypagestyle{title}{ % создание нового стиля title -- для титульной страницы
+	\fancyhf{}
+	\fancyhead[C]{{\footnotesize
+			Министерство образования и науки Российской Федерации\\
+			Федеральное государственное автономное образовательное учреждение высшего образования
+	}}
+	\fancyfoot[C]{{\large 
+			Санкт-Петербург, 2026
+	}}
+	\renewcommand{\headrulewidth}{0pt}
+}
+
+% Математика
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % Набор пакетов для математических текстов
+\usepackage{nicefrac}
+%\usepackage{dmvnbase} % мехматовский пакет latex-сокращений
+% \usepackage{cancel} % зачеркивание для сокращений
+% Рисунки и фигуры
+% \usepackage[pdftex]{graphicx} % вставка рисунков
+% \usepackage{wrapfig, subcaption} % вставка фигур, обтекая текст
+% \usepackage{caption} % для настройки подписей
+% \captionsetup{figurewithin=none,labelsep=period, font={small,it}} % настройка подписей к рисункам
+% Рисование
+% \usepackage{tikz} % рисование
+% \usepackage{circuitikz}
+% \usepackage{pgfplots} % графики
+% Таблицы
+% \usepackage{multirow} % объединение строк
+% \usepackage{multicol} % объединение столбцов
+% Остальное
+% \usepackage[unicode, pdftex]{hyperref} % гиперссылки
+% \usepackage{enumitem} % нормальное оформление списков
+% \setlist{itemsep=0.15cm,topsep=0.15cm,parsep=1pt} % настройки списков
+% \usepackage[unicode, pdftex]{hyperref}
+\usepackage{csquotes}
+% \hypersetup{
+	%     colorlinks=true,
+	%     linkcolor = blue,
+	%     filecolor=magenta,      
+	%     urlcolor= cyan,
+	%     pdftitle={1.04},
+	%     pdfpagemode=FullScreen,
+	%     }
+% Свои команды
+\newcommand{\comb}[1]{\left[\hspace{-4pt}\begin{array}{l}#1\end{array}\right.\hspace{-5pt} } % совокупность уравнений
+
+\newcommand{\NS}[1]{\text{Nullspace}(#1)}
+\newcommand{\CS}[1]{\textbf{Columnspace}(#1)}
+\newcommand{\Span}[1]{\text{Span}\left( #1 \right)}
+\newcommand{\Range}[1]{\text{Range}\left( #1 \right)}
+\newcommand{\VecTD}[2]{
+	\begin{bmatrix}#1\\#2\end{bmatrix}
+}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\VecXY}{\VecTD{x}{y}}
+\newcommand{\VecOO}{\VecTD{0}{0}}
+
+
+\setlength{\headheight}{33.15424pt}
+\addtolength{\topmargin}{-4.70149pt}
+\setlength{\footskip}{17.0pt}
+
+\begin{document}
+	
+	\input{1_title}                                     % Титульник
+	
+	\pagestyle{style}
+	\newpage
+	\tableofcontents
+	\newpage 
+	\section{Часть 1. Выполнение силового расчета}
+	Рассмотрим винтовой домкрат и проведем силовой расчет.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\textwidth]{images/scheme.png}
+		\caption{Кинематическая схема винтового домкрата с электропривода}
+	\end{figure}
+	Данная система состоит из двигателя, упругих муфт, шкивов, клиноременной передачи
+	с двухступенчатым редуктором, на выходном валу которого установлена пара косозубых
+	шестерней с винтовой передачей и нагрузкой, нагрузка которой распределяется через цепную
+	передачу.
+	
+	Сила тяжести груза:
+	\begin{equation}
+		F = \frac{m}{2}g,
+		\label{eq1}
+	\end{equation}
+	
+	где $m$ — масса груза, кг;  
+	$g$ — ускорение свободного падения, м/с$^2$.
+	\[
+	F = \frac{ 4400}{2}9.81 = 21582\text{ Н·м}.
+	\]
+	
+	
+	Момент на одном винте:
+	
+	\begin{equation}
+		M_{51} = M_{52}=\frac{F s z}{2\pi},
+		\label{eq3}
+	\end{equation}
+	
+	где $s$ — шаг винтовой передачи, м.
+	
+	Подставляя значения:
+	
+	\[
+	M_{51}=M_{52}=
+	\frac{21582 \cdot 0.01\cdot 1}{2\pi }
+	= 34.35 \text{ Н·м}.
+	\]
+	
+	Суммарный момент двух винтов:
+	
+	\begin{equation}
+		M_5 = M_{51}+M_{52}\cdot \frac{1}{\eta_{ch}},
+		\label{eq4}
+	\end{equation}
+	
+	где $M_5$ — момент на выходном валу редуктора, Н·м.
+	
+	\[
+	M_5 = 34.35+34.35\cdot \frac{1}{0.97} = 69.76 \text{ Н·м}.
+	\]
+	
+	Передаточное число ременной передачи:
+	
+	\begin{equation}
+		j= \frac{d_2}{d_1},
+		\label{eq5}
+	\end{equation}
+	
+	где $d_1$, $d_2$ — диаметры ведущего и ведомого шкивов.
+	
+	\[
+	j = \frac{200}{150} = 1.33.
+	\]
+	
+	Передаточные числа зубчатых пар:
+	
+	\begin{equation}
+		j_1 = \frac{z_2}{z_1}, \quad
+		j_2 = \frac{z_4}{z_3}, \quad
+		j_3 = \frac{z_6}{z_5},
+		\label{eq6}
+	\end{equation}
+	
+	где $z_i$ — число зубьев соответствующих колес.
+	
+	\[
+	j_1 = 1.82, \quad
+	j_2 = 2.45, \quad
+	j_3 = 3.45.
+	\]
+	
+	Общее передаточное число механизма:
+	
+	\begin{equation}
+		j_{\text{общ}} = j j_1 j_2 j_3 j_{c},
+		\label{eq7}
+	\end{equation}
+	
+	где $j_{c}$ — передаточное число цепной передачи.
+	
+	\[
+	j_{\text{общ}} = 1.33 \cdot 1.82 \cdot 2.45 \cdot 3.45\cdot 1
+	\approx 20,62.
+	\]
+	
+	
+	Общий КПД механизма определяется произведением КПД всех передач:
+	
+	\begin{equation}
+		\eta_{\text{общ}} =
+		\eta_b \eta_g^3 \eta_s,
+		\label{eq8}
+	\end{equation}
+	
+	где $\eta_b$ — КПД ременной передачи;  
+	$\eta_g$ — КПД одной зубчатой пары;  
+	$\eta_s$ — КПД винтовой передачи.
+	
+	\[
+	\eta_{\text{общ}}
+	=
+	0.95 \cdot 0.9^3 \cdot 0.6 
+	\approx 0.41553.
+	\]
+	
+	
+	Момент двигателя определяется приведением момента нагрузки к валу двигателя:
+	
+	\begin{equation}
+		M_m =
+		\frac{M_5}{j_{\text{общ}} \eta_{\text{общ}}},
+		\label{eq9}
+	\end{equation}
+	
+	где $M_m$ — момент на валу двигателя, Н·м.
+	
+	\[
+	M_m =
+	\frac{69.76}{20.62 \cdot 0.41553}
+	= 8.14 \text{ Н·м}.
+	\]
+	
+	Угловая скорость вращения винта:
+	
+	\begin{equation}
+		\omega_s = 2\pi \frac{v}{zs},
+		\label{eq11}
+	\end{equation}
+	где $v$ — линейная скорость подъёма груза, м/с.
+	
+	\[
+	\omega_s =2\pi \frac{0.016}{1\cdot 0.01}\approx 10.05 \text{ рад/с}.
+	\]
+	
+	Угловая скорость двигателя:
+	
+	\begin{equation}
+		\omega_m = \omega_s j_{\text{общ}},
+		\label{eq12}
+	\end{equation}
+	
+	где $\omega_m$ — угловая скорость двигателя, рад/с.
+	
+	\[
+	\omega_m =10.05 \cdot 20.62 \approx 207.29\text{ рад/с}.
+	\]
+	
+	Мощность двигателя определяется как
+	
+	\begin{equation}
+		P_m = M_m \omega_m,
+		\label{eq13}
+	\end{equation}
+	
+	где $P_m$ — мощность двигателя, Вт.
+	
+	\[
+	P_m = 8.14 \cdot 207.29
+	\approx 1687.34 \text{ Вт}.
+	\]
+	
+	\par Теперь необходимо выбрать подходящий двигатель из серии 5А. Рассмотрим ближайший превосходящий $P_m$ по номинальной мощности двигатель 5A80MB2 с характеристиками,  приведенными в табл.\ref{tab:motor}.
+	\begin{table}[h]
+		\centering
+		\caption{Технические характеристики двигателя 5А80МВ2}
+		\label{tab:motor}
+		\begin{tabular}{|l|c|c|}
+			\hline
+			\textbf{Параметр} & \textbf{Значение} & \textbf{Единица измерения} \\ \hline
+			Тип двигателя & 5А80МВ2 & — \\
+			Номинальная мощность \(P_n\) & 2,2 & кВт \\
+			Номинальная частота вращения \(n_n\) & 2850 & об/мин \\
+			Синхронная частота вращения \(n_0\) & 3000 & об/мин \\
+			КПД \(\eta\) & 81,0 & \% \\
+			Коэффициент мощности & 0,85 & —  \\
+			Номинальный ток \(I_n\) & 4,9 & А \\
+			Номинальный момент \(M_n\) & 7,4 & Н·м \\
+			Отношение пускового момента к $M_n$ & 2,7 &  —  \\
+			Отношение пускового тока к $I_n$& 6,5 &  —  \\
+			Отношение максимального момента \(M_{max}\) к \(M_n\) & 2,8 & —  \\
+			Момент инерции ротора \(J_{дв}\) & 0,0021 & кг·м² \\
+			Масса двигателя & 15,5 & кг \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	\par Найдем номинальную частоту вращения и синхронную частоту вращения в рад/с:
+	$$\omega_n=\dfrac{2\pi\cdot2850}{60} \approx 298.45 \text{ рад/с}.$$
+	$$\omega_0=\dfrac{2\pi\cdot3000}{60} \approx 314.16 \text{ рад/с}.$$
+	
+	\par Это значительно больше необходимого $\omega_m$, следовательно, необходимо провести коррекцию ременной передачи и изменить диаметр $d_1$ шкива двигателя. Так как скорость $\omega_n$ больше, то $d_1$ придется уменьшить. Это значит, что уменьшиться и момент $M_m$, который пока что немного превышает номинальный момент $M_n$.
+	\par Найдем жесткость характеристики $h$:
+	$$h=\dfrac{M_n}{(\omega_0-\omega_n)} = \dfrac{7.4}{314.16-298.45} = 0.471 \text{ Н·м·с/рад}.$$
+	\par Воспользуемся выражением для механической характеристики двигателя, приведенной ко второму валу передачи, записанным относительно $j=d_2/d_1$ с учетом известных $M_2,\omega_2$:
+	\begin{equation}
+		j^2-\dfrac{\omega_0}{\omega_2}j+\dfrac{M_2}{\omega_2 h \eta_b}=0 \Rightarrow j_{1,2}=\dfrac{\omega_0}{2\omega_2}\bigg(1\pm \sqrt{1-\dfrac{4M_2\omega_2}{\omega_0^2 h \eta_b}}\bigg).
+	\end{equation}
+	
+	
+	\par Найдём $\omega_2$ и $M_2$:
+	\begin{equation}
+		\omega_2 = \omega_m\cdot \dfrac{d_1}{d_2} = \dfrac{\omega_m}{j}
+	\end{equation}
+	
+	$$\omega_2  =  \dfrac{207.29}{1.33} \approx 155.47 \text{ рад/с},$$
+	
+	Так как 
+	\begin{equation}
+		M_2\omega_2\dfrac{1}{\eta_b} = M_m\omega_m
+	\end{equation}
+	
+	Можем выразить $M_2$:
+	\begin{equation}
+		M_2=M_m\dfrac{\omega_m}{\omega_2}\eta_b = M_mj\eta_b
+	\end{equation}
+	
+	$$ M_2= 8.14\cdot1.33\cdot0.95 =  10.28\text{ Н·м}.$$
+	
+	
+	\par Вычислим значение $j_1,j_2$:
+	$$
+	j_{1,2}=\dfrac{314.16}{2\cdot155.47}\bigg(1\pm \sqrt{1-\dfrac{4\cdot 10.28\cdot155.47}{314.16^2\cdot 0.471 \cdot 0.95}}\bigg) = 1.01\pm0.934 \Rightarrow\begin{cases}
+		j_1=1.944,\\j_2=0.076.
+	\end{cases}
+	$$
+	\par Заметим, что $j<1$ значит, что надо увеличить диаметр $d_1$ шкива двигателя, а нашей задачей было его уменьшить, значит подходит $j_1$. Тогда новый диаметр шкива двигаеля будет 
+	\begin{equation}
+		\tilde{d_1} = \dfrac{d_2}{j_1},
+	\end{equation}
+	$$
+	\tilde{d_1}  = \dfrac{200}{1.944} = 102.9 \text{ мм}.
+	$$
+	\par Проверим, что нам хватает номинального момента $M_n$. Мы изменили только передаточное число ременной передачи, тогда общее передаточное число механизма станет
+	\[
+	j_{\text{общ}} = 1.944 \cdot 1.82 \cdot 2.45 \cdot 3.45\cdot 1
+	\approx 29.90.
+	\]
+	\par Тогда по формуле \ref{eq9} можем вычислить новый $M_m$:
+	\[
+	M_m =
+	\frac{69.76}{29.90 \cdot 0.41553}
+	= 5.61 \text{ Н·м}.
+	\]
+	\par Новый момент мотора $M_m$ меньше номинального $M_n=7.4\text{ Н·м}$, а значит выбранный нами мотор после замены шкива двигателя будет работать отлично.
+	
+	\newpage
+
+	
+	\newpage 
+	\section{Выводы}
+	
+	В ходе выполнения лабораторной работы был проведён полный анализ механики электропривода винтового домкрата: выполнен силовой расчёт, выбран и проверен асинхронный двигатель с коррекцией ременной передачи, определены приведённые параметры многомассовых расчётных схем, вычислены резонансные частоты.
+	
+	С помощью имитационного моделирования в Simscape исследованы переходные процессы в трёхмассовой и двухмассовой системах при различных условиях демпфирования и сухого трения.
+	
+	Удалось выяснить, что наличие упругих связей вызывает колебания скоростей и моментов, демпфирование приводит к их затуханию, а сухое трение к стабилизации системы.
+	
+\end{document}

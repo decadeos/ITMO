@@ -1,0 +1,659 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage{geometry}
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{multicol}
+
+\geometry{left=2cm, right=2cm, top=2.2cm, bottom=2cm}
+
+% ---- Цвета ----
+\definecolor{navy}{RGB}{26,58,92}
+\definecolor{teal}{RGB}{15,118,110}
+\definecolor{amber}{RGB}{180,83,9}
+\definecolor{red}{RGB}{185,28,28}
+\definecolor{blue}{RGB}{37,99,235}
+\definecolor{lblue}{RGB}{219,234,254}
+\definecolor{lteal}{RGB}{204,251,241}
+\definecolor{lambr}{RGB}{254,243,199}
+\definecolor{lred}{RGB}{254,226,226}
+\definecolor{lgray}{RGB}{243,244,246}
+\definecolor{mgray}{RGB}{229,231,235}
+\definecolor{dgray}{RGB}{55,65,81}
+
+% ---- Заголовки разделов ----
+\titleformat{\section}{\large\bfseries\color{navy}}{}{0em}{}[\vspace{-4pt}\textcolor{blue}{\hrule height 1.5pt}\vspace{4pt}]
+\titleformat{\subsection}{\normalsize\bfseries\color{teal}}{}{0em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{dgray}}{}{0em}{}
+
+\titlespacing{\section}{0pt}{14pt}{6pt}
+\titlespacing{\subsection}{0pt}{8pt}{4pt}
+
+% ---- Колонтитул ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\small\color{gray}ТАУ~·~ИТМО~·~Управляемость и наблюдаемость~·~стр.~\thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+% ---- Окружения для блоков ----
+\newmdenv[backgroundcolor=lgray, linecolor=teal, linewidth=1.5pt,
+leftline=true, rightline=false, topline=false, bottomline=false,
+innerleftmargin=10pt, innerrightmargin=8pt, innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=4pt]{formulabox}
+
+\newmdenv[backgroundcolor=lblue, linecolor=navy, linewidth=0pt,
+innerleftmargin=10pt, innerrightmargin=10pt, innertopmargin=8pt, innerbottommargin=8pt,
+skipabove=6pt, skipbelow=4pt, roundcorner=4pt]{infobox}
+
+\newmdenv[backgroundcolor=lambr, linecolor=amber, linewidth=0pt,
+innerleftmargin=10pt, innerrightmargin=10pt, innertopmargin=8pt, innerbottommargin=8pt,
+skipabove=6pt, skipbelow=4pt, roundcorner=4pt]{warnbox}
+
+\newmdenv[backgroundcolor=lred, linecolor=red, linewidth=0pt,
+innerleftmargin=10pt, innerrightmargin=10pt, innertopmargin=8pt, innerbottommargin=8pt,
+skipabove=6pt, skipbelow=4pt, roundcorner=4pt]{dangerbox}
+
+\newmdenv[backgroundcolor=lteal, linecolor=teal, linewidth=0pt,
+innerleftmargin=10pt, innerrightmargin=10pt, innertopmargin=8pt, innerbottommargin=8pt,
+skipabove=6pt, skipbelow=4pt, roundcorner=4pt]{okbox}
+
+% ---- Окружение для вопросов ----
+\newmdenv[backgroundcolor=lgray, linecolor=teal, linewidth=3pt,
+leftline=true, rightline=false, topline=false, bottomline=false,
+innerleftmargin=12pt, innerrightmargin=10pt, innertopmargin=8pt, innerbottommargin=8pt,
+skipabove=8pt, skipbelow=8pt]{qblock}
+
+% ---- Нумерованные шаги ----
+\newlist{steps}{enumerate}{1}
+\setlist[steps]{label=\textcolor{white}{\textbf{\arabic*.}},
+	leftmargin=28pt, labelsep=6pt,
+	before=\setlength\itemsep{3pt}}
+
+% Метки шагов с подложкой — через tikz не нужно, сделаем просто bold
+\newlist{algo}{enumerate}{1}
+\setlist[algo]{label={\textbf{\textcolor{teal}{\arabic*.}}}, leftmargin=22pt, labelsep=6pt, itemsep=3pt}
+
+\hypersetup{colorlinks=true, linkcolor=navy, urlcolor=blue, pdftitle={TAU LR1 Pamyatka}}
+
+% ============================================================
+\begin{document}
+	
+	% ---- Титул ----
+	\begin{center}
+		{\LARGE\bfseries\color{navy} ПАМЯТКА К ЗАЩИТЕ}\\[6pt]
+		{\large\color{dgray} Лабораторная работа №1 · Теория автоматического управления}\\[4pt]
+		{\normalsize\color{dgray} Тема: Управляемость и наблюдаемость · ИТМО · 2026}
+	\end{center}
+	\textcolor{blue}{\hrule height 2pt}
+	\vspace{8pt}
+	
+	% ============================================================
+	\section{I.~Ответы на вопросы к защите}
+	
+	% ---- Вопрос 1 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 1}\\
+		{\bfseries Что такое управляемое подпространство?}
+		
+		\medskip
+		\textbf{Управляемое подпространство} $\mathcal{X}_c$ --- это множество всех состояний $x_1$,
+		в которые систему $\dot{x} = Ax + Bu$ можно перевести из нулевого начального состояния
+		$x(0)=0$ за конечное время $T>0$ с помощью некоторого управления $u(t) \in L_2[0,T]$.
+		
+		\medskip
+		\textbf{Формально:}
+		\[
+		\mathcal{X}_c = \mathrm{Im}(\mathcal{W}) = \mathrm{Im}\!\bigl[B \mid AB \mid A^2B \mid \cdots \mid A^{n-1}B\bigr],
+		\]
+		то есть это образ (column space) матрицы управляемости Калмана.
+		
+		\medskip
+		\textbf{Ключевые свойства:}
+		\begin{itemize}[leftmargin=20pt, itemsep=2pt]
+			\item $\mathcal{X}_c$ --- линейное подпространство;
+			\item оно $A$-инвариантно: $A\,\mathcal{X}_c \subseteq \mathcal{X}_c$;
+			\item является \emph{наименьшим} $A$-инвариантным подпространством, содержащим $\mathrm{Im}(B)$;
+			\item из нулевого начального состояния система может попасть \textbf{только} в точки $\mathcal{X}_c$;
+			\item $\dim \mathcal{X}_c = \mathrm{rank}(\mathcal{W})$;
+			\item $\mathcal{X}_c$ не зависит от горизонта $T$ --- определяется только $A$ и $B$.
+		\end{itemize}
+	\end{qblock}
+	
+	% ---- Вопрос 2 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 2}\\
+		{\bfseries Что такое «полностью управляемая система»? Какие критерии управляемости вам известны?}
+		
+		\medskip
+		Система $\dot{x}=Ax+Bu$ называется \textbf{полностью управляемой}, если $\mathcal{X}_c = \mathbb{R}^n$:
+		из любого $x_0$ в любое $x_1$ можно перейти за конечное время.
+		
+		\medskip\noindent
+		\textbf{Три равносильных критерия:}
+		
+		\medskip\noindent
+		\textbf{1. Критерий Калмана (матрица управляемости):}
+		\[
+		\mathcal{W} = \bigl[B \mid AB \mid A^2B \mid \cdots \mid A^{n-1}B\bigr] \in \mathbb{R}^{n \times nm}
+		\]
+		Система полностью управляема $\Longleftrightarrow$ $\mathrm{rank}(\mathcal{W}) = n$.\\
+		Практично: строим $\mathcal{W}$, вычисляем ранг. Если $< n$ --- не управляема.
+		
+		\medskip\noindent
+		\textbf{2. Критерий Хаутуса (PBH-тест):}\\
+		Для каждого собственного числа $\lambda_i$ матрицы $A$ строим матрицу
+		\[
+		H(\lambda_i) = \bigl[A - \lambda_i I \;\mid\; B\bigr] \in \mathbb{R}^{n \times (n+m)}.
+		\]
+		Система полностью управляема $\Longleftrightarrow$ $\mathrm{rank}(H(\lambda_i)) = n$ для всех $\lambda_i$.\\
+		Если хотя бы для одного $\lambda_i$ ранг $< n$ --- это собственное число \emph{неуправляемо}.
+		
+		\medskip\noindent
+		\textbf{3. Критерий через вещественную Жорданову форму:}\\
+		Приводим систему: $J = P^{-1}AP$, $\tilde{B} = P^{-1}B$. Каждый жорданов блок управляем
+		$\Longleftrightarrow$ строка $\tilde{B}$, соответствующая \emph{первому} базисному вектору блока, ненулевая.
+		
+		\medskip\noindent
+		\textbf{4. Грамиан управляемости (дополнительно):}
+		\[
+		W_c(t_1) = \int_0^{t_1} e^{At}\,BB^T\,e^{A^T t}\,dt.
+		\]
+		Система управляема $\Longleftrightarrow$ $W_c(t_1) > 0$ (положительно определена) $\Longleftrightarrow$
+		все $\lambda(W_c) > 0$.
+	\end{qblock}
+	
+	% ---- Вопрос 3 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 3}\\
+		{\bfseries Как можно интерпретировать управляемость собственных чисел?}
+		
+		\medskip
+		Каждое собственное число $\lambda_i$ матрицы $A$ отвечает за определённую
+		\emph{моду} (составляющую свободного движения) системы.
+		
+		\medskip
+		\textbf{Управляемое $\lambda_i$:} мода $e^{\lambda_i t}$ может быть возбуждена или подавлена
+		управлением $u(t)$. Можно изменить её вклад в траекторию.
+		
+		\medskip
+		\textbf{Неуправляемое $\lambda_i$:} мода $e^{\lambda_i t}$ не «чувствует» управления --- она ведёт
+		себя так, как задала матрица $A$. Это \textbf{опасно}, если $\mathrm{Re}(\lambda_i) > 0$:
+		система расходится независимо от $u(t)$, стабилизировать её невозможно!
+		
+		\medskip
+		\textbf{Интерпретация через тест Хаутуса:}
+		$\mathrm{rank}[A-\lambda_i I \mid B] < n$ означает, что существует ненулевой левый собственный
+		вектор $w^T$ такой, что $w^T(A-\lambda_i I)=0$ и $w^T B=0$.
+		Вектор $w$ «перпендикулярен» входу $B$ --- управление не действует вдоль $w$.
+		
+		\medskip
+		\textbf{Интерпретация через ЖФ:}
+		Нулевая строка $\tilde{B}$, соответствующая блоку с $\lambda_i$, означает, что сигнал управления
+		не попадает в данное инвариантное подпространство.
+	\end{qblock}
+	
+	% ---- Вопрос 4 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 4}\\
+		{\bfseries В чём заключается идея программного управления?}
+		
+		\medskip
+		\textbf{Программное управление} (open-loop control) --- заранее вычисленная функция $u^*(t)$
+		на $[0,t_1]$, которая переводит систему из $x(0)=x_0$ в $x(t_1)=x_1$,
+		\textbf{не используя} обратной связи по текущему состоянию.
+		
+		\medskip
+		\textbf{Формула перехода из $x(0)=0$ в $x(t_1)=x_1$:}
+		\[
+		u^*(t) = B^T\,e^{A^T(t_1 - t)}\,W_c^{-1}(t_1)\,x_1.
+		\]
+		
+		\textbf{Формула перехода из $x(0)=x_0$ в $x(t_1)=x_1$:}
+		\[
+		u^*(t) = B^T\,e^{A^T(t_1 - t)}\,W_c^{-1}(t_1)\,\bigl(x_1 - e^{At_1}x_0\bigr).
+		\]
+		
+		\textbf{Преимущества:} простота реализации --- вычисляется один раз; не требует датчиков во время движения.
+		
+		\textbf{Недостатки:} неустойчиво к возмущениям и ошибкам модели --- отклонения накапливаются без коррекции.
+		
+		\textbf{Существование $u^*(t)$:} программное управление существует тогда и только тогда,
+		когда $x_1 \in \mathcal{X}_c$ (или система полностью управляема).
+		Это прямое следствие обратимости $W_c(t_1)$.
+	\end{qblock}
+	
+	% ---- Вопрос 5 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 5}\\
+		{\bfseries Что такое ненаблюдаемое подпространство?}
+		
+		\medskip
+		\textbf{Ненаблюдаемое подпространство} $\mathcal{X}_{\bar{n}}$ --- множество всех начальных
+		состояний $x_0$, при которых выход системы $\dot{x}=Ax$, $y=Cx$ при $u=0$
+		тождественно равен нулю: $y(t) = C\,e^{At}\,x_0 \equiv 0$ для всех $t \in [0,T]$.
+		
+		\medskip
+		\textbf{Формально:} $\mathcal{X}_{\bar{n}} = \ker(\mathcal{O})$ --- ядро матрицы наблюдаемости:
+		\[
+		\mathcal{O} = \begin{pmatrix} C \\ CA \\ CA^2 \\ \vdots \\ CA^{n-1} \end{pmatrix} \in \mathbb{R}^{np \times n},
+		\qquad
+		\mathcal{X}_{\bar{n}} = \{x_0 : \mathcal{O}\,x_0 = 0\}.
+		\]
+		
+		\textbf{Смысл:} начальные условия из $\mathcal{X}_{\bar{n}}$ «невидимы» через выход $y(t)$ ---
+		измерения не позволяют отличить их от нулевого состояния.
+		
+		\textbf{Свойства:} $\mathcal{X}_{\bar{n}}$ $A$-инвариантно;
+		$\dim \mathcal{X}_{\bar{n}} = n - \mathrm{rank}(\mathcal{O})$.
+		Если $\mathcal{X}_{\bar{n}} = \{0\}$, система полностью наблюдаема.
+		
+		По \textbf{принципу двойственности}: ненаблюдаемое подпространство системы $(A,C)$
+		совпадает с неуправляемым подпространством двойственной системы $(A^T,C^T)$.
+	\end{qblock}
+	
+	% ---- Вопрос 6 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 6}\\
+		{\bfseries Что такое «полностью наблюдаемая система»? Какие критерии наблюдаемости вам известны?}
+		
+		\medskip
+		Система $\dot{x}=Ax$, $y=Cx$ называется \textbf{полностью наблюдаемой}, если по измерению
+		$y(t)$ на конечном интервале $[0,T]$ можно однозначно восстановить $x(0)$ при
+		\emph{любом} $x(0) \in \mathbb{R}^n$.
+		
+		\medskip\noindent
+		\textbf{Три равносильных критерия (двойственны управляемости):}
+		
+		\medskip\noindent
+		\textbf{1. Критерий Калмана:}
+		\[
+		\mathcal{O} = \bigl[C^T \mid A^T C^T \mid (A^T)^2 C^T \mid \cdots \mid (A^T)^{n-1} C^T\bigr]^T
+		\in \mathbb{R}^{np \times n}.
+		\]
+		Система полностью наблюдаема $\Longleftrightarrow$ $\mathrm{rank}(\mathcal{O}) = n$.
+		
+		\medskip\noindent
+		\textbf{2. Критерий Хаутуса:}
+		\[
+		H_o(\lambda_i) = \begin{pmatrix} A - \lambda_i I \\ C \end{pmatrix} \in \mathbb{R}^{(n+p) \times n}.
+		\]
+		Система полностью наблюдаема $\Longleftrightarrow$ $\mathrm{rank}(H_o(\lambda_i)) = n$ для всех $\lambda_i$.
+		
+		\medskip\noindent
+		\textbf{3. Критерий через ЖФ:} $\tilde{C} = CP$. Блок с $\lambda_i$ наблюдаем
+		$\Longleftrightarrow$ соответствующий столбец $\tilde{C}$ ненулевой
+		(первый столбец блока для нижнетреугольных блоков).
+		
+		\medskip\noindent
+		\textbf{Грамиан наблюдаемости:}
+		\[
+		W_o(t_1) = \int_0^{t_1} e^{A^T t}\,C^T C\,e^{At}\,dt.
+		\]
+		Система наблюдаема $\Longleftrightarrow$ $W_o(t_1) > 0$.\\
+		\textbf{Восстановление начальных условий:}
+		\[
+		x_0 = W_o^{-1}(t_1)\,\int_0^{t_1} e^{A^T t}\,C^T\,y(t)\,dt.
+		\]
+	\end{qblock}
+	
+	% ---- Вопрос 7 ----
+	\begin{qblock}
+		\noindent{\small\bfseries\color{teal} ВОПРОС 7}\\
+		{\bfseries Как определить, полностью ли управляема система по выходу? Равносильны ли управляемость и управляемость по выходу?}
+		
+		\medskip
+		Система $\dot{x}=Ax+Bu$, $y=Cx+Du$ называется \textbf{полностью управляемой по выходу},
+		если для любых $y_0, y_1 \in \mathbb{R}^p$ существует управление $u(t)$,
+		переводящее выход из $y_0$ в $y_1$ за конечное время.
+		
+		\medskip
+		\textbf{Матрица управляемости по выходу:}
+		\[
+		\mathcal{W}_y = \bigl[CB \mid CAB \mid CA^2B \mid \cdots \mid CA^{n-1}B \mid D\bigr] \in \mathbb{R}^{p \times (n+1)m}.
+		\]
+		При $D=0$: $\mathcal{W}_y = \bigl[CB \mid CAB \mid \cdots \mid CA^{n-1}B\bigr]$.\\
+		Система управляема по выходу $\Longleftrightarrow$ $\mathrm{rank}(\mathcal{W}_y) = p$.
+		
+		\medskip
+		\textbf{Равносильны ли управляемость и управляемость по выходу? --- НЕТ!}
+		\begin{itemize}[leftmargin=20pt, itemsep=2pt]
+			\item Управляемая система \textbf{может быть не управляема по выходу}, если $C$
+			обнуляет весь образ управляемого подпространства.
+			\item Система, \textbf{не управляемая по состоянию, может быть управляема по выходу},
+			если $C \cdot \mathcal{X}_c = \mathbb{R}^p$.
+			\item Матрица $D$ может компенсировать недостаток управляемости по выходу при $D=0$.
+		\end{itemize}
+	\end{qblock}
+	
+	% ============================================================
+	\newpage
+	\section{II.~Управляемость --- теория и формулы}
+	
+	Рассматривается система $\dot{x} = Ax + Bu$, $x \in \mathbb{R}^n$, $u \in \mathbb{R}^m$.
+	
+	\subsection{1.~Матрица управляемости Калмана}
+	\begin{formulabox}
+		\[
+		\mathcal{W} = \bigl[B \mid AB \mid A^2B \mid \cdots \mid A^{n-1}B\bigr] \in \mathbb{R}^{n \times nm}.
+		\]
+	\end{formulabox}
+	$\mathrm{rank}(\mathcal{W}) = \dim(\mathcal{X}_c)$ = размерность управляемого подпространства.
+	Система полностью управляема $\Leftrightarrow$ $\mathrm{rank}(\mathcal{W}) = n$.
+	По теореме Гамильтона--Кэли достаточно взять $n$ столбцов.
+	
+	\subsection{2.~Тест Хаутуса (PBH) для управляемости}
+	\begin{formulabox}
+		\[
+		H(\lambda_i) = \bigl[A - \lambda_i I \;\mid\; B\bigr] \in \mathbb{R}^{n \times (n+m)}.
+		\]
+	\end{formulabox}
+	Проверяем для каждого \emph{различного} $\lambda_i$.
+	Собственное число $\lambda_i$ управляемо $\Leftrightarrow$ $\mathrm{rank}(H(\lambda_i)) = n$.
+	
+	\subsection{3.~Вещественная Жорданова форма}
+	\begin{formulabox}
+		\[
+		J = P^{-1}AP, \quad \tilde{B} = P^{-1}B, \quad \dot{z} = Jz + \tilde{B}u, \; x = Pz.
+		\]
+	\end{formulabox}
+	Блок размера $k\!\times\!k$ с $\lambda_i$ управляем $\Leftrightarrow$ строка $\tilde{B}$,
+	соответствующая первому базисному вектору блока, ненулевая.
+	
+	\subsection{4.~Грамиан управляемости}
+	\begin{formulabox}
+		\[
+		W_c(t_1) = \int_0^{t_1} e^{At}\,BB^T\,e^{A^Tt}\,dt.
+		\]
+		Уравнение Ляпунова: $\dot{W}_c = AW_c + W_cA^T + BB^T$, $W_c(0)=0$.
+	\end{formulabox}
+	Система управляема $\Leftrightarrow$ $W_c(t_1) > 0$ $\Leftrightarrow$ все $\lambda(W_c) > 0$.
+	Малые собственные числа $W_c$ --- направления «с трудом управляемые»
+	(требуют большой энергии управления).
+	
+	\subsection{5.~Программное управление}
+	\begin{formulabox}
+		Переход из $x(0)=0$ в $x(t_1)=x_1$:
+		\[
+		u^*(t) = B^T e^{A^T(t_1-t)}\,W_c^{-1}(t_1)\,x_1.
+		\]
+		Переход из $x(0)=x_0$ в $x(t_1)=x_1$:
+		\[
+		u^*(t) = B^T e^{A^T(t_1-t)}\,W_c^{-1}(t_1)\,\bigl(x_1 - e^{At_1}x_0\bigr).
+		\]
+	\end{formulabox}
+	
+	\subsection{6.~Принадлежность точки управляемому подпространству}
+	$x_1 \in \mathcal{X}_c \Longleftrightarrow \mathrm{rank}[\mathcal{W} \mid x_1] = \mathrm{rank}(\mathcal{W})$.\\
+	Иначе: решаем $\mathcal{W}\alpha = x_1$ --- если совместно, то $x_1 \in \mathcal{X}_c$.
+	
+	% ============================================================
+	\section{III.~Наблюдаемость --- теория и формулы}
+	
+	Рассматривается система $\dot{x} = Ax$, $y = Cx$, $x \in \mathbb{R}^n$, $y \in \mathbb{R}^p$.
+	
+	\subsection{1.~Матрица наблюдаемости Калмана}
+	\begin{formulabox}
+		\[
+		\mathcal{O} = \begin{pmatrix} C \\ CA \\ CA^2 \\ \vdots \\ CA^{n-1} \end{pmatrix} \in \mathbb{R}^{np \times n}.
+		\]
+	\end{formulabox}
+	Система наблюдаема $\Leftrightarrow$ $\mathrm{rank}(\mathcal{O}) = n$. Ненаблюдаемое подпространство $\mathcal{X}_{\bar{n}} = \ker(\mathcal{O})$.
+	
+	\subsection{2.~Тест Хаутуса для наблюдаемости}
+	\begin{formulabox}
+		\[
+		H_o(\lambda_i) = \begin{pmatrix} A - \lambda_i I \\ C \end{pmatrix} \in \mathbb{R}^{(n+p) \times n}.
+		\]
+	\end{formulabox}
+	Собственное число $\lambda_i$ наблюдаемо $\Leftrightarrow$ $\mathrm{rank}(H_o(\lambda_i)) = n$.
+	
+	\subsection{3.~Жорданова форма для наблюдаемости}
+	\begin{formulabox}
+		\[
+		\tilde{C} = CP.
+		\quad\text{Блок с } \lambda_i \text{ наблюдаем}
+		\Leftrightarrow
+		\text{соответствующий столбец } \tilde{C} \neq 0.
+		\]
+	\end{formulabox}
+	
+	\subsection{4.~Грамиан наблюдаемости}
+	\begin{formulabox}
+		\[
+		W_o(t_1) = \int_0^{t_1} e^{A^Tt}\,C^TC\,e^{At}\,dt.
+		\]
+		Уравнение Ляпунова: $\dot{W}_o = A^TW_o + W_oA + C^TC$, $W_o(0)=0$.
+	\end{formulabox}
+	Система наблюдаема $\Leftrightarrow$ $W_o(t_1) > 0$.
+	
+	\textbf{Восстановление начальных условий:}
+	\[
+	x_0 = W_o^{-1}(t_1)\,\int_0^{t_1} e^{A^Tt}\,C^T\,y(t)\,dt.
+	\]
+	
+	\subsection{5.~Альтернативные начальные условия (Задание 4)}
+	Если $\mathrm{rank}(\mathcal{O}) < n$, то $\ker(\mathcal{O}) \neq \{0\}$ ---
+	существуют различные начальные условия, порождающие одинаковый выход.
+	Пусть $x_0^*$ --- найденное решение, $w \in \ker(\mathcal{O})$ --- любой ненулевой вектор.
+	Тогда $x_0^* + \alpha w$ при любом $\alpha \neq 0$ даёт тот же $y(t)$.
+	
+	% ============================================================
+	\newpage
+	\section{IV.~Вещественная Жорданова форма --- алгоритм}
+	
+	\begin{infobox}
+		Вещественная ЖФ использует вещественные матрицы $P$, $J$ даже при комплексных
+		собственных числах. Для пары $\lambda = \alpha \pm \beta i$ вместо комплексного блока
+		используется вещественный $2\times2$ блок:
+		\[
+		\begin{pmatrix} \alpha & \beta \\ -\beta & \alpha \end{pmatrix}.
+		\]
+	\end{infobox}
+	
+	\begin{algo}
+		\item Найти собственные числа: $\det(A - \lambda I) = 0$.
+		\item Для каждого вещественного $\lambda_i$ (кратности $k$): построить жорданову цепочку:
+		$(A-\lambda_i I)v_1=0$;\; $(A-\lambda_i I)v_2=v_1$;\; \ldots
+		\item Для пары $\alpha \pm \beta i$: найти комплексный собственный вектор $v+iw$,
+		взять вещественные столбцы $v$ и $w$.
+		\item Собрать $P = [v_1 \; w_1 \; v_2 \; w_2 \; \ldots]$ в порядке блоков.
+		\item Вычислить $J = P^{-1}AP$ (проверка!), $\tilde{B} = P^{-1}B$, $\tilde{C} = CP$.
+		\item Анализ: для управляемости смотреть на $\tilde{B}$, для наблюдаемости --- на $\tilde{C}$.
+	\end{algo}
+	
+	\begin{warnbox}
+		\textbf{Проверка управляемости по ЖФ:} в матрице $\tilde{B} = P^{-1}B$ для каждого
+		вещественного жорданова блока $(\lambda_i,\, k)$ первая строка блока должна быть ненулевой.
+		Для вещественного $2\times2$ блока пары $\alpha\pm\beta i$ --- первые две строки должны
+		содержать хотя бы один ненулевой элемент.
+	\end{warnbox}
+	
+	\begin{okbox}
+		\textbf{Проверка наблюдаемости по ЖФ:} в матрице $\tilde{C} = CP$ для каждого блока
+		$(\lambda_i,\, k)$ последний столбец блока (соответствующий «нижнему» базисному вектору)
+		должен быть ненулевым.
+	\end{okbox}
+	
+	% ============================================================
+	\section{V.~Управляемость по выходу}
+	
+	Система: $\dot{x}=Ax+Bu$, $y=Cx+Du$.
+	
+	\begin{formulabox}
+		\textbf{Матрица управляемости по выходу:}
+		\[
+		\mathcal{W}_y = \bigl[CB \mid CAB \mid CA^2B \mid \cdots \mid CA^{n-1}B \mid D\bigr]
+		\in \mathbb{R}^{p \times (n+1)m}.
+		\]
+		При $D=0$:\; $\mathcal{W}_y = \bigl[CB \mid CAB \mid \cdots \mid CA^{n-1}B\bigr]$.
+	\end{formulabox}
+	
+	Система управляема по выходу $\Leftrightarrow$ $\mathrm{rank}(\mathcal{W}_y) = p$.
+	
+	\medskip
+	\textbf{Подбор $D$ для обеспечения управляемости по выходу:}
+	Если при $D=0$ ранг $< p$, добавляем $D \in \mathbb{R}^{p \times m}$.
+	Столбцы $D$ должны «добить» ранг до $p$.
+	Достаточное условие: $\mathrm{rank}(D) = p$ (при $m \geq p$).
+	
+	\begin{dangerbox}
+		\textbf{Важно:} управляемость по состоянию $\neq$ управляемость по выходу.
+		Ключевое условие: $C(\mathcal{X}_c) = \mathbb{R}^p$, то есть образ $C$ на
+		управляемом подпространстве должен покрывать весь выходной пространство.
+	\end{dangerbox}
+	
+	% ============================================================
+	\section{VI.~Принцип двойственности (Калман)}
+	
+	\begin{center}
+		\begin{tabular}{p{7cm} p{7cm}}
+			\toprule
+			\textbf{\color{navy} Управляемость $(A,B)$} & \textbf{\color{teal} Наблюдаемость $(A,C)$} \\
+			\midrule
+			$\mathcal{W} = [B \mid AB \mid \cdots \mid A^{n-1}B]$ & $\mathcal{O} = [C;\; CA;\; \cdots;\; CA^{n-1}]$ \\[4pt]
+			$\mathrm{rank}(\mathcal{W}) = n$ & $\mathrm{rank}(\mathcal{O}) = n$ \\[4pt]
+			$H(\lambda) = [A-\lambda I \mid B]$ & $H_o(\lambda) = [A-\lambda I;\; C]$ \\[4pt]
+			$W_c(t_1) > 0$ & $W_o(t_1) > 0$ \\[4pt]
+			Программное управление $u^*(t)$ из $W_c$ & Восстановление $x_0$ из $W_o$ \\[4pt]
+			$(A,B)$ управляема $\Leftrightarrow$ $(A^T,B^T)$ наблюдаема & $(A,C)$ наблюдаема $\Leftrightarrow$ $(A^T,C^T)$ управляема \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	% ============================================================
+	\newpage
+	\section{VII.~Алгоритмы выполнения заданий}
+	
+	\subsection{Задание 1: Исследование управляемости}
+	\begin{algo}
+		\item Взять матрицы $A$, $B$ и точку $x_1$ по варианту (Таблица~1 $\to$ Таблица~2).
+		\item Построить $\mathcal{W}=[B \mid AB \mid A^2B]$, вычислить $\mathrm{rank}(\mathcal{W})$. Вывод.
+		\item Найти $\lambda_i = \mathrm{eig}(A)$. Для каждого $\lambda_i$ построить $H(\lambda_i)=[A-\lambda_i I \mid B]$, вычислить ранг.
+		\item Найти $P$, $J$ (вещественная ЖФ). Записать $\tilde{B}=P^{-1}B$. Проверить строки по блокам.
+		\item Вычислить $W_c(t_1\!=\!3)$ --- через интеграл или решение уравнения Ляпунова. Найти $\lambda(W_c)$.
+		\item Вычислить $u^*(t) = B^Te^{A^T(t_1-t)}W_c^{-1}x_1$. Промоделировать систему.
+		\item Построить графики: $u(t)$ и $x(t)$. Проверить $x(t_1) = x_1$.
+	\end{algo}
+	
+	\subsection{Задание 2: Ещё одно исследование управляемости}
+	\begin{algo}
+		\item Взять новую матрицу $B$ и точки $x_1'$, $x_1''$ из Таблицы~3.
+		\item Проверить $x_1' \in \mathrm{Im}(\mathcal{W})$: $\mathrm{rank}[\mathcal{W} \mid x_1'] = \mathrm{rank}(\mathcal{W})$? Аналогично для $x_1''$.
+		\item Принять $x_1$ ту точку, которая принадлежит $\mathrm{Im}(\mathcal{W})$. Выполнить Задание~1.
+	\end{algo}
+	
+	\subsection{Задание 3: Исследование наблюдаемости}
+	\begin{algo}
+		\item Взять $A$, $C$ и $f(t)$ по варианту (Таблица~4).
+		\item Построить $\mathcal{O}=[C;\; CA;\; CA^2]$, вычислить $\mathrm{rank}(\mathcal{O})$. Вывод.
+		\item Для каждого $\lambda_i$ построить $H_o(\lambda_i)=[A-\lambda_i I;\; C]$, вычислить ранг.
+		\item Найти $P$, $J$ (ЖФ), $\tilde{C}=CP$. Проверить столбцы по блокам.
+		\item Вычислить $W_o(t_1\!=\!3)$. Найти $\lambda(W_o)$. Вывод.
+		\item Вычислить $x_0 = W_o^{-1} \int_0^{t_1} e^{A^Tt}C^T f(t)\,dt$.
+		\item Промоделировать: $y(t)=Ce^{At}x_0$. Построить $y(t)$ vs $f(t)$ и ошибку $e(t)=y(t)-f(t)$.
+	\end{algo}
+	
+	\subsection{Задание 4: Ещё одно исследование наблюдаемости}
+	\begin{algo}
+		\item Взять другую матрицу $C$ из Таблицы~5 (та же $A$ и $f(t)$). Выполнить все шаги Задания~3.
+		\item Найти $\ker(\mathcal{O})$: если $\mathrm{rank}(\mathcal{O}) < n$ --- есть альтернативные решения.
+		\item Взять $w_1,w_2,w_3 \in \ker(\mathcal{O})$: $x_{0,i} = x_0^* + \alpha_i w_i$.
+		\item Промоделировать 4 системы ($x_0^*, x_{0,1}, x_{0,2}, x_{0,3}$): выходы $y(t)$ совпадают, $x(t)$ --- нет.
+	\end{algo}
+	
+	\subsection{Задание 5: Управляемость по выходу}
+	\begin{algo}
+		\item Взять $A$ из Таблицы~2 и $B$, $C$ из Таблицы~6.
+		\item Записать $J$, $\tilde{B}$, $\tilde{C}$ (можно использовать ЖФ из предыдущих заданий).
+		\item Определить управляемость и наблюдаемость каждого $\lambda_i$.
+		\item Построить $\mathcal{W}_y=[CB \mid CAB \mid CA^2B]$ при $D=0$. Вычислить $\mathrm{rank}(\mathcal{W}_y)$. Вывод.
+		\item Проанализировать: влияет ли (не)управляемость/(не)наблюдаемость $\lambda_i$ на управляемость по выходу?
+		\item Если $\mathrm{rank}(\mathcal{W}_y)<p$: предложить $D\neq0$, чтобы $\mathrm{rank}([\mathcal{W}_y \mid D])=p$.
+	\end{algo}
+	
+	% ============================================================
+	\section{VIII.~Частые ошибки}
+	
+	\begin{dangerbox}
+		\textbf{ЖФ: вещественная, не комплексная!}
+		Для пар $\lambda=\alpha\pm\beta i$ используется вещественный $2\times2$ блок.
+		Матрица $P$ должна быть вещественной!
+	\end{dangerbox}
+	
+	\begin{dangerbox}
+		\textbf{Хаутус: проверять только различные $\lambda_i$.}
+		Если $\lambda$ кратного $k$, всё равно строим $H(\lambda)$ один раз.
+	\end{dangerbox}
+	
+	\begin{dangerbox}
+		\textbf{Грамиан: $t_1=3$, не $t_1=\infty$.}
+		Решаем уравнение Ляпунова на $[0,3]$ с начальным условием $W_c(0)=0$.
+	\end{dangerbox}
+	
+	\begin{dangerbox}
+		\textbf{Программное управление: не забыть $e^{A(t_1-t)}$!}
+		В $u^*(t)$ стоит $e^{A^T(t_1-t)}$, а не $e^{A^Tt}$.
+	\end{dangerbox}
+	
+	\begin{dangerbox}
+		\textbf{Наблюдаемость по ЖФ: столбцы, не строки!}
+		Для управляемости --- строки $\tilde{B}$.
+		Для наблюдаемости --- столбцы $\tilde{C}$.
+	\end{dangerbox}
+	
+	\begin{dangerbox}
+		\textbf{Единственность $x_0$ в Задании~3.}
+		Если система не полностью наблюдаема, $x_0$ не единственное ---
+		обнаружить это и найти альтернативные н.у. в Задании~4.
+	\end{dangerbox}
+	
+	% ============================================================
+	\newpage
+	\section{IX.~Итоговая шпаргалка --- все формулы на одной странице}
+	
+	\begin{center}
+		\renewcommand{\arraystretch}{1.4}
+		\begin{tabular}{>{\bfseries}p{3.8cm} p{6.5cm} >{\color{teal}\bfseries}p{3.8cm}}
+			\toprule
+			\textbf{Объект} & \textbf{Формула / Определение} & \textbf{Критерий} \\
+			\midrule
+			Матрица упр-ти & $\mathcal{W}=[B\mid AB\mid\cdots\mid A^{n-1}B]$ & $\mathrm{rank}(\mathcal{W})=n$ \\
+			Матрица набл-ти & $\mathcal{O}=[C;\; CA;\;\cdots;\; CA^{n-1}]$ & $\mathrm{rank}(\mathcal{O})=n$ \\
+			Хаутус (упр.) & $H(\lambda)=[A-\lambda I\mid B]$ & $\mathrm{rank}(H(\lambda_i))=n\;\forall\lambda_i$ \\
+			Хаутус (набл.) & $H_o(\lambda)=[A-\lambda I;\; C]$ & $\mathrm{rank}(H_o(\lambda_i))=n\;\forall\lambda_i$ \\
+			Грамиан упр. & $W_c=\int_0^{t_1}e^{At}BB^Te^{A^Tt}dt$ & $W_c(t_1)>0$ \\
+			Грамиан набл. & $W_o=\int_0^{t_1}e^{A^Tt}C^TCe^{At}dt$ & $W_o(t_1)>0$ \\
+			Прогр. упр. & $u^*(t)=B^Te^{A^T(t_1-t)}W_c^{-1}x_1$ & $x(0)=0\to x(t_1)=x_1$ \\
+			Восст. н.у. & $x_0=W_o^{-1}\int e^{A^Tt}C^Ty(t)dt$ & $y(t)=f(t)\to x_0$ \\
+			Упр. по выходу & $\mathcal{W}_y=[CB\mid CAB\mid\cdots\mid CA^{n-1}B\mid D]$ & $\mathrm{rank}(\mathcal{W}_y)=p$ \\
+			ЖФ упр-ть & $\tilde{B}=P^{-1}B$: строки по блокам & Первая строка блока $\neq 0$ \\
+			ЖФ набл-ть & $\tilde{C}=CP$: столбцы по блокам & Последний столбец блока $\neq 0$ \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	
+	\bigskip
+	\begin{infobox}
+		\textbf{Принцип двойственности:}
+		$(A,B)$ управляема $\Longleftrightarrow$ $(A^T,B^T)$ наблюдаема.
+		$(A,C)$ наблюдаема $\Longleftrightarrow$ $(A^T,C^T)$ управляема.
+		Все критерии управляемости применимы к наблюдаемости через замену $A\to A^T$, $B\to C^T$.
+	\end{infobox}
+	
+	\vfill
+	\begin{center}
+		\textcolor{teal}{\textbf{Удачи на защите! Знай формулы, понимай смысл ---}}\\
+		\textcolor{teal}{управляемость как «достижимость», наблюдаемость как «различимость».}
+	\end{center}
+	
+\end{document}
