@@ -1,0 +1,368 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{cancel}
+\usepackage{float} 
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, matrix}
+\usepackage{capt-of}
+\usepackage{multirow}
+\usepackage[siunitx]{circuitikz}
+\usepackage[bottom]{footmisc}
+\usepackage{tcolorbox}
+\usepackage{nicematrix}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta}
+
+% --- hyperref ОДИН РАЗ ---
+\usepackage{hyperref}
+\hypersetup{linktoc=page}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+	filecolor=red,
+}
+
+% --- Содержание ---
+\usepackage{tocloft}
+\usepackage{etoolbox}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	citecolor=red,
+	urlcolor=red,
+}
+
+% Патчим \tableofcontents: текст строк — без ссылок и чёрный
+% Это делается через замену \contentsline внутри TOC
+\preto\tableofcontents{%
+	\begingroup
+	% Переопределяем contentsline так, чтобы текст был чёрным без ссылки,
+	% а номер страницы — красной ссылкой
+	\renewcommand{\contentsline}[4]{%
+		\ifnum\pdfstrcmp{##1}{section}=0
+		\vskip 4pt{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else\ifnum\pdfstrcmp{##1}{subsection}=0
+		\vskip 2pt\hspace{1.5em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\else
+		\vskip 1pt\hspace{3em}{\normalfont\color{black}##2}\nobreak\hfill
+		{\normalfont\color{red}\hyperlink{##4}{##3}}\par
+		\fi\fi
+	}%
+}
+\appto\tableofcontents{\endgroup}
+
+% tocloft — только для отступов, без переопределения шрифтов
+\usepackage{tocloft}
+
+% --- Листинги ---
+\usepackage{listings}
+
+\definecolor{codebg}{RGB}{250,250,252}
+\definecolor{linenumcolor}{RGB}{150,150,170}
+\definecolor{mathblue}{RGB}{30,100,200}
+\definecolor{mathorange}{RGB}{200,100,20}
+\definecolor{matlabblue}{RGB}{0,0,200}
+\definecolor{matlabgreen}{RGB}{30,130,30}
+\definecolor{matlaborange}{RGB}{200,80,0}
+
+\lstdefinelanguage{Mathematica}{
+	keywords={Plot, Eigenvalues, MatrixExp, RiccatiSolve, IdentityMatrix,
+		Inverse, Transpose, Simplify, Eigensystem, StateSpaceModel,
+		ControllabilityMatrix, MatrixRank, Export, FileNameJoin,
+		NotebookDirectory, ConstantArray, ZeroMatrix, NDSolve,
+		Evaluate, LineLegend, Placed, Directive, Opacity, Filling,
+		FillingStyle, PlotStyle, PlotLegends, PlotRange, Frame,
+		Axes, FrameLabel, GridLines, GridLinesStyle, AspectRatio,
+		Style, FontFamily, FontSize, Thick, Dashed, Dotted,
+		DotDashed, RGBColor, GrayLevel, LegendLayout, LabelStyle,
+		Subscript, Table, Do, Module, Block, If, True, False, Automatic},
+	sensitive=true,
+	morecomment=[s]{(*}{*)},
+	morestring=[b]",
+}
+
+\lstdefinestyle{mma}{
+	language=Mathematica,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{mathblue}\bfseries,
+	commentstyle=\color{linenumcolor}\itshape,
+	stringstyle=\color{mathorange},
+	numberstyle=\tiny\color{linenumcolor},
+	numbers=left,
+	numbersep=10pt,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	frameround=tttt,
+	framesep=4pt,
+	rulecolor=\color{mathblue!40},
+	breaklines=true,
+	tabsize=4,
+	showstringspaces=false,
+	captionpos=b,
+	xleftmargin=15pt,
+	xrightmargin=5pt,
+}
+
+\lstdefinestyle{matlab}{
+	language=Matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{matlabblue}\bfseries,
+	commentstyle=\color{matlabgreen}\itshape,
+	stringstyle=\color{matlaborange},
+	numberstyle=\tiny\color{linenumcolor},
+	numbers=left,
+	numbersep=10pt,
+	backgroundcolor=\color{codebg},
+	frame=single,
+	frameround=tttt,
+	framesep=4pt,
+	rulecolor=\color{matlabblue!30},
+	breaklines=true,
+	tabsize=4,
+	showstringspaces=false,
+	captionpos=b,
+	xleftmargin=15pt,
+	xrightmargin=5pt,
+	escapeinside={\%*}{*)},
+	morekeywords={cvx_begin,cvx_end,sdp,variable,minimize,maximize},
+}
+
+\lstset{style=mma}
+
+\renewcommand{\lstlistingname}{Листинг}
+\DeclareCaptionFormat{redlisting}{#1\textcolor{red}{#2}#3}
+\captionsetup[lstlisting]{format=redlisting}
+
+\geometry{left=1.5cm, right=2cm, bottom=2cm, top=2cm}
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
+\captionsetup{labelsep=endash}
+
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		\vspace*{0.5cm}
+		{\small
+			Министерство науки и высшего образования Российской Федерации\\[2pt]
+			Федеральное государственное автономное образовательное учреждение\\
+			высшего образования\\[2pt]
+			\textbf{«Национальный исследовательский университет ИТМО»}\\
+		}
+		
+		\vspace{0.8cm}
+		\hrule height 0.8pt
+		\vspace{0.3cm}
+		
+		{\large Факультет систем управления и робототехники}
+		
+		\vspace{0.3cm}
+		\hrule height 0.4pt
+		\vspace{2.5cm}
+		
+		{\Huge\bfseries ОТЧЁТ}\\[0.4cm]
+		{\LARGE\bfseries о лабораторной работе}\\[0.8cm]
+		
+		\begin{tcolorbox}[
+			colback=gray!4,
+			colframe=gray!10,
+			boxrule=0.8pt,
+			arc=4pt,
+			left=12pt, right=12pt, top=8pt, bottom=8pt
+			]
+			\centering
+			{\large По дисциплине:\\[4pt]}
+			{\large\bfseries «Теория опимального управления»}\\[10pt]
+			{\large Тема:\\[4pt]}
+			{\large\bfseries «Поиск минимума с помощью методов статической оптимизации»} \\[10pt]
+			{\large Поток: 1.3 \( \) Вариант: 18}
+		\end{tcolorbox}
+		
+		\vspace{3cm}
+		
+		\begin{minipage}{0.45\textwidth}
+			\raggedright
+			{\large\bfseries Студент:}\\[4pt]
+			Охрименко Е.\,Д.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.45\textwidth}
+			\raggedleft
+			{\large\bfseries Преподаватели:}\\[4pt]
+			Герасимов Д.Н.\\
+			Паромонов А. В.
+		\end{minipage}
+		
+		\vfill
+		\vspace{0.4cm}
+		{\large Санкт-Петербург, 2026}
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	
+	\newpage \section{Общее условие}\label{sec:0}
+	
+	Найдем минимум критерия качества:
+	
+\begin{equation}
+	J(x,u) = 6x^2 + u^2 + 4xu + 3x + 4u - 9
+	\label{eq:J}
+\end{equation}
+
+Для стаической задачи оптимизации.
+	
+	
+\newpage \section{Поиск глобального минимума \(J(x,u)\) на основе необходимого и достаточного условий}\label{sec:1}
+	
+	
+\subsection{Без ограничений}	
+
+\begin{equation}
+	J(x,u) = 6x^2 + u^2 + 4xu + 3x + 4u - 9
+\end{equation}
+
+Проверим необходимое условие минимума. Градиент функционала качества:
+
+\[\begin{aligned}
+	\operatorname{grad} J(x,u) = \nabla J(x,u) &= 
+	\begin{bmatrix}
+		\dfrac{\partial J(x,u)}{\partial x} \\[10pt]
+		\dfrac{\partial J(x,u)}{\partial u}
+	\end{bmatrix}
+	= \begin{bmatrix}
+		12x + 4u + 3 \\[10pt]
+		2u + 4x + 4
+	\end{bmatrix}
+    \end{aligned}
+\]
+
+
+Так как:
+
+\[\operatorname{grad} J(x,u) = 0 \qquad \Longrightarrow \qquad
+\begin{cases}
+	12x + 4u + 3 = 0  \\
+	2u + 4x + 4 = 0
+\end{cases} \qquad \Longrightarrow \qquad
+\begin{cases}
+	x^* = \dfrac{5}{4}  \\[10pt]
+	u^* = -\dfrac{9}{2}
+\end{cases} 
+\]
+
+Найдем функционал качества в этой точке:
+
+\[
+J^* = J(x^*,u^*) = - 	\dfrac{129}{8}
+\]
+
+Проверим достаточное условие минимума. Гессиан функционала качества:	
+	
+\[
+H = \nabla^2 J(x,u) = 
+\begin{bmatrix}
+	\dfrac{\partial^2 J}{\partial x^2} & \dfrac{\partial^2 J}{\partial x \partial u} \\[8pt]
+	\dfrac{\partial^2 J}{\partial u \partial x} & \dfrac{\partial^2 J}{\partial u^2}
+\end{bmatrix}
+= 
+\begin{bmatrix}
+	12 & 4 \\
+	4 & 2
+\end{bmatrix}
+\]	
+	
+Вычислим главные миноры матрицы $H$:
+\[
+\Delta_1 = 12 > 0, \qquad 
+\Delta_2 = \det(H) = 12 \cdot 2 - 4 \cdot 4 = 8 > 0
+\]	
+	
+Так как все главные миноры положительны, матрица $H$ положительно определена. 
+Следовательно, точка $(x^*, u^*)$ является точкой глобального минимума.	
+	
+	
+\subsection{С ограничением в виде равенства \(c(x,u) = 0\)}	
+	
+	Рассмотрим функцию:
+	
+	\[c(x,u) = 3x + 4u^2 + 7\]
+	
+	Построим лагранжиан:
+	
+	\[\begin{aligned}
+		L( x, u, \lambda) 
+		&= J(x, u) + \lambda c(x,u) = 6x^2 + u^2 + 4xu + 3x + 4u - 9 + \lambda (3x + 4u^2 + 7) \\
+		&= 6x^2 + (4+\lambda)u^2 +
+	\end{aligned}\]
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+\newpage
+\section{Приложение}
+
+\subsection*{Задание 1}
+
+\begin{lstlisting}[caption={Инициализация}]
+
+\end{lstlisting}
+
+	
+\end{document}
