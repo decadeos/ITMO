@@ -17,7 +17,7 @@ k3 = 0.003554884;
 k3_inv = 1 / k3;
 
 Q = eye(2);
-P = lyap(AM', Q);
+P = lyap(AM', Q)
 
 % решение 1
 gamma = 500;
@@ -27,3 +27,5 @@ B_T = B';
 sigma = 0.005;
 
 teta = [-281.5531 -12.1097]; 
+
+theta_0 = 1.5*norm(teta);
